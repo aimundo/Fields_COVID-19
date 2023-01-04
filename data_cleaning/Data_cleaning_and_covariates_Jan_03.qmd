@@ -645,7 +645,7 @@ There are 756 observations that did not get a geographical region, and they corr
 ```{r,write-file}
 #| echo: false
 
-write.csv(test,here("data","missing_municipalities.csv"),row.names = FALSE)
+#write.csv(test,here("data","missing_municipalities.csv"),row.names = FALSE)
 
 ```
 
@@ -660,7 +660,35 @@ Also one occurence of "Sydenham", which can be a ward in Kingston or a community
 After manually assigning the geographical regions to the municipalities that were missing (which can be found in `missing_municipalities.csv` in the `data` directory), these will be merged as the dataset `geographic_areas.csv` (also in `data`), which contains the titles for each region (e.g., "County", "Region").
 
 ```{r,merge-datasets-2}
+#load missing municipalities dataset
+
+missing_municipalities<-read.csv(here("data","missing_municipalities_updated.csv"))
 
 
+#combining geographical regions
 
+clean_data<-clean_data %>%
+  left_join(missing_municipalities, by = c("city")) %>%
+  mutate(Geographic.area = coalesce(Geographic.area.x,Geographic.area.y)) %>%
+  select(-c(Geographic.area.x,Geographic.area.y))
+
+clean_data$Geographic.area<-as.factor(clean_data$Geographic.area)
+
+# load the the titles for each region
+
+geographic_areas<-read.csv(here("data","geographic_areas.csv"))
+
+geographic_areas$Geographic.area<-as.factor(geographic_areas$Geographic.area)
+
+geographic_areas$Geographic.area.title <-as.factor(geographic_areas$Geographic.area.title)
+
+#merge the datasets
+
+clean_data <-left_join(clean_data,geographic_areas,by="Geographic.area")
+   
+   
 ```
+
+
+
+
