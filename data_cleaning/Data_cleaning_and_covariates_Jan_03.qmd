@@ -690,5 +690,8 @@ clean_data <-left_join(clean_data,geographic_areas,by="Geographic.area")
 ```
 
 
+# Raking
+
+The next step is to adjust the variables according to the Census data (raking). I will follow the steps provided by https://sdaza.com/blog/2012/raking/
 
 
