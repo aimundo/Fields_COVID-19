@@ -1,0 +1,71 @@
+---
+title: "Municipalities dataset cleaning"
+format: pdf
+editor: visual
+---
+
+This document is about how the municipality data was obtained and the steps used to clean it.
+
+The dataset was obtained from the website of the province of Ontario (https://www.ontario.ca/page/list-ontario-municipalities#section-3).
+
+The file obtained is a CSV but it needed to be cleaned to remove the innecesary information found in the name of each city so it can be combined with the survey dataset.
+
+```{r,loading}
+#| echo: false
+#| warning: false
+
+library(tidyverse)
+library(here)
+
+municipalities<-read.csv(here("data","municipalities_list.csv"))
+
+
+
+municipalities_clean <- municipalities %>%
+#get only the city part (see https://stackoverflow.com/questions/66212344/extract-word-in-quotes-from-string)
+  
+  mutate(city=str_extract(Municipality,'(?<=(?<!\\()")[^"]+(?=(?!\\))")'))%>%
+#keep only the name of the city
+mutate(city=word(city,sep=",")) %>%
+  #remove the first column as it is no longer needed
+  subset(select=-c(Municipality))
+
+```
+
+One additional step is to remove from the dataset duplicate entries. In the dataset there are some instances that appear as upper tier division (counties, regions) that have the same name of a municipality, thus causing duplicates. The ones to remove are identified below.
+
+```{r}
+
+municipalities_clean[duplicated(municipalities_clean$city),]
+
+```
+
+R detected the "duplicate" entries because the names of the cities we are interested in sometimes appear after the entry we want to remove. After examining the original municipalities dataset (`municipalities_list.csv`), and comparing it with the list provided above, the duplicate entries in the dataset that need to be removed correspond to:
+
+-   County of Essex
+-   Township of Hamilton (it is an aggregation according to https://en.wikipedia.org/wiki/Hamilton_Township,\_Ontario)
+-   County of Perth
+-   County of Peterborough
+-   County of Renfrew
+-   Regional Municipality of Waterloo
+
+These entries need to be removed as we are interested in municipalities within larger geographical areas, and these are aggregations that do not fit that criteria. The final step is to remove the duplicates. Because the word that identifies them as aggregations (i.e., "County", "Township") is lost in the process of getting the names of the cities to match them with the survey dataset, we will remove them by rownumber (after comparing with the `municipalities_list.csv`) dataset. The rownumbers are:
+
+-   County of Essex: 119
+-   Township of Hamilton: 155
+-   County of Perth: 313
+-   County of Peterborough: 317
+-   County of Renfrew: 338
+-   Regional Municipality of Waterloo: 420
+
+```{r,save-file}
+
+#| echo: false
+  
+
+municipalities_clean <- municipalities_clean[-c(119,155,313,317,338,420),]
+
+
+#save the file in csv
+write.csv(municipalities_clean,here("data","municipalities_clean.csv"),row.names = FALSE)
+```

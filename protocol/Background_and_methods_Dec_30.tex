@@ -172,7 +172,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, enhanced, interior hidden, sharp corners, frame hidden, boxrule=0pt, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, breakable, sharp corners, frame hidden, enhanced, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \hypertarget{background}{%
 \section{Background}\label{background}}
@@ -318,8 +318,8 @@ Table~\ref{tbl-covariates}.
 
 \hypertarget{tbl-covariates}{}
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.1457}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.8543}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2083}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.7917}}@{}}
 \caption{\label{tbl-covariates}Selected socio-economic factors from the
 survey}\tabularnewline
 \toprule()
@@ -411,6 +411,9 @@ from the dataset according to the regional government aggregations
 provided by the Association of Municipalities of Ontario, which groups
 municipalities within regions, counties, districts, and
 single-tiers\textsuperscript{\protect\hyperlink{ref-ontario-municipalities}{22}}.
+The geographical regions were obtained from the websie of the province
+of Ontario
+\url{https://www.ontario.ca/page/list-ontario-municipalities\#section-3}
 
 \hypertarget{statistical-model}{%
 \subsection{Statistical model}\label{statistical-model}}
