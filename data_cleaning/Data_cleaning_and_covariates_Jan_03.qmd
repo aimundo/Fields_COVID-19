@@ -692,6 +692,37 @@ clean_data <-left_join(clean_data,geographic_areas,by="Geographic.area")
 
 # Raking
 
-The next step is to adjust the variables according to the Census data (raking). I will follow the steps provided by https://sdaza.com/blog/2012/raking/
+The next step is to adjust the variables according to the Census data (raking). I will follow the steps provided by [https://sdaza.com/blog/2012/raking/](https://sdaza.com/blog/2012/raking/) https://www.r-bloggers.com/2018/12/survey-raking-an-illustration/
+
+The variables to define raking weights are: 
+
+  - income
+  - age groups 
+  - geographical location
+  - race and ethnicity: check proportions here https://www.ontario.ca/document/2016-census-highlights/fact-sheet-9-ethnic-origin-and-visible-minorities
+  
+  
+```{r,define-target-list}
+
+library(weights)
+
+#get percentages
+wpct(clean_data$income)
+wpct(clean_data$age_group)
+wpct(clean_data$race)
+
+#create target list for weights
+
+age_group<-c(0.127,0.129,0.128,0.149,0.137,0.167)
+
+race<-c(0.016,0.047,0.066,)
+
+
+
+income<-c(0.075,0.116,0.154,0.195,)
+
+
+
+```
 
 
