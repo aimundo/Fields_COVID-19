@@ -83,6 +83,7 @@ data<-tibble(read.csv(here("data","Fields_data.csv"),na.strings = c("")))
 data$time_date_code<-ymd(data$time_date_code)
 ```
 
+
 ```{r, rename-columns,echo=FALSE,warning=FALSE}
 
 #get a new dataframe and extract variables of interest and make them factors
@@ -456,52 +457,6 @@ Visible Minorities: 29.3%
 Not a Visible Minority: 70.7% (Aboriginal 2.8%, White Caucasian 67.8%)
 
 
-## Geographical location
-
-Next, we were interested in analyzing the geographical distribution of the participants to see the percentage of answers from Toronto. This is important to see the spatial distribution of the answers as Toronto is the major metropolitan area 
-
-```{r,plot-location}
-#| echo: false
-#| warning: false
-#| fig-width: 8
-#| fig-height: 4
-#| fig-cap: Percentage of survey answers by city
-
-
-
-p1<-clean_data%>%
-  select(city)%>%
-  mutate(location=as.character(case_when(city=="Toronto"~"Toronto",
-                            city!="Toronto"~ "All other cities"
-                          )))
-
-p1$location<-as.factor(p1$location)
-
-
-ggplot(p1 %>% count(location) %>%    # then count number in each group
-         mutate(pct=n/sum(n),               # Calculate percent within each group
-                ypos = 200),  # Calculate label positions
-       aes(location, n, fill=location)) +
-  geom_bar(stat="identity") +
-  geom_text(aes(label=paste0(sprintf("%1.1f", pct*100),"%"), y=ypos))+
-  theme_classic()+
-  thm2
-
-
-```
-
-The proportion of responses from Toronto is 30.9% of the total. The Census data indicates that Toronto has around 38% of the total population province (5,433,590/14,223,942). This would mean that a correction would be needed also for the proportion of answers.
-
-Additionally, the data needs to be cleaned as some of the responses do not have an assigned city, and the entry only reads "None". These entries will be removed as they lack geographical information.
-
-```{r, remove-entries}
-
-clean_data<-clean_data%>%
-  filter(city!="None")
-
-
-```
-
 ## Age groups
 
 Another important aspect to consider is how the trends in the responses look over time by age group. This is because from the census data, the age groups for the province are as follows:
@@ -613,11 +568,22 @@ ggplot(p3%>% count(income_ord)%>%  # count number in each group
 
 Again, there are differences here in the patterns of response. The \<15,000 bracket accounts for about 20% of the responses, a much higher rate than the percentage they represent from the census, and there is variation within the other brackets as well.
 
-# Joining the municipalities data
+## Geographical location
 
-We have obtained and cleaned the data of the municipalities from the province of Ontario website, and cleaned the dataset to obtain the city names and geographical locations. Further details can be found in `municipalities.qmd` in the `data_cleaning` directory. Next, we will join and match the geographical location from the municipalities dataset to the clean dataset we have obtained in this document so far.
+Next, we are interested in analyzing the geographical distribution of the answers the participants within the geographical areas defined by the Association of Municipalities from Ontario. There are two parts to the geographical analysis:
+
+1) Add to the dataset the data for the municipalities so each city has the corresponding region it belongs to.
+1) Determine percentage of answers that correspond to Toronto. This is important because although the Census regions do not match the exact geographical boundaries of the municipalities and thus a direct correction for this cannot be easily obtained, Toronto is the largest urban area in the province and it is important to identify if corrections are needed with regard to the proportions from this place in the survey.
+
+### Joining the municipalities data
+
+We have obtained and cleaned the data of the municipalities from the province of Ontario website, and cleaned the dataset to obtain the city names and geographical locations. Further details can be found in `municipalities.qmd` in the `data_cleaning` directory. Next, we will join and match the geographical location from the municipalities dataset to the clean dataset we have obtained in this document so far after removing the entries that do not have a corresponding geographical location.
 
 ```{r,join-datasets}
+
+clean_data<-clean_data%>%
+  filter(city!="None")
+
 
 municipalities<-read.csv(here("data","municipalities_clean.csv"))
 
@@ -659,7 +625,7 @@ Note: there is one city "Kinburn", but there are two communities with such name,
 
 Also one occurence of "Sydenham", which can be a ward in Kingston or a community in Frotenac. Will assign Frotenac for the time being.
 
-## Merging missing municipalities and geographic area names
+### Merging missing municipalities and geographic area names
 
 After manually assigning the geographical regions to the municipalities that were missing (which can be found in `missing_municipalities.csv` in the `data` directory), these will be merged as the dataset `geographic_areas.csv` (also in `data`), which contains the titles for each region (e.g., "County", "Region").
 
@@ -694,39 +660,47 @@ clean_data <-left_join(clean_data,geographic_areas,by="Geographic.area")
 ```
 
 
-# Raking
+## Proportion of answers within Toronto
 
-The next step is to adjust the variables according to the Census data (raking). I will follow the steps provided by [https://sdaza.com/blog/2012/raking/](https://sdaza.com/blog/2012/raking/) https://www.r-bloggers.com/2018/12/survey-raking-an-illustration/
+The final step is of the geographical analysis is to determine the proportion of answers from Toronto.
 
-The variables to define raking weights are: 
-
-  - income
-  - age groups 
-  - geographical location
-  - race and ethnicity: check proportions here https://www.ontario.ca/document/2016-census-highlights/fact-sheet-9-ethnic-origin-and-visible-minorities
-  
-  
-```{r,define-target-list}
-
-library(weights)
-
-#get percentages
-wpct(clean_data$income)
-wpct(clean_data$age_group)
-wpct(clean_data$race)
-
-#create target list for weights
-
-age_group<-c(0.127,0.129,0.128,0.149,0.137,0.167)
-
-race<-c(0.016,0.047,0.066,)
+```{r,plot-location}
+#| echo: false
+#| warning: false
+#| fig-width: 8
+#| fig-height: 4
+#| fig-cap: Percentage of survey answers by city
 
 
 
-income<-c(0.075,0.116,0.154,0.195,)
+clean_data<-clean_data%>%
+  mutate(location=as.character(case_when(city=="Toronto"~"Toronto",
+                            city!="Toronto"~ "All other cities"
+                          )))%>%
+  mutate(location=as.factor(location))
 
+
+ggplot(clean_data %>% count(location) %>%    # then count number in each group
+         mutate(pct=n/sum(n),               # Calculate percent within each group
+                ypos = 200),  # Calculate label positions
+       aes(location, n, fill=location)) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label=paste0(sprintf("%1.1f", pct*100),"%"), y=ypos))+
+  theme_classic()+
+  thm1
 
 
 ```
 
+The proportion of responses from the city of Toronto is 31.3% of the total in the clean dataset. From the (Census data)[https://www.toronto.ca/wp-content/uploads/2022/02/92e3-City-Planning-2021-Census-Backgrounder-Population-Dwellings-Backgrounder.pdf], the city of Toronto as of 2021 has a population of 2,794,356, corresponding to 19.6% of the total population of the Province.
+
+At this point, the data has been cleaned and prepared for formal analysis.
+
+The clean dataset will be saved as a *.csv file.
+
+```{r,save-clean-dataset}
+#| echo: false
+
+#write.csv(clean_data,here("data","clean_dataset.csv"),row.names = FALSE)
+```
 
