@@ -6,7 +6,7 @@
 library(weights)
 library(here)
 library(survey)
-library(tidyverse)
+library(magrittr)
 library(lme4)
 library(gtsummary)
 
@@ -107,6 +107,108 @@ locations<-data.frame(location=c("All other cities",
                              2635905
                       ))
 
+geographic_areas <- data.frame(Geographic.area=c("Algoma",
+                                                "Brant",
+                                                #"Brantford",
+                                                "Bruce",
+                                                "Chatham-Kent",
+                                                "Cochrane",
+                                                "Dufferin",
+                                                "Durham",
+                                                "Elgin",
+                                                "Essex",
+                                                "Frontenac",
+                                                "Greater Sudbury",
+                                                "Grey",
+                                                "Haldimand",
+                                                #"Haliburton",
+                                                "Halton",
+                                                "Hamilton",
+                                                "Hastings",
+                                                "Huron",
+                                                "Kawartha Lakes",
+                                                "Kenora",
+                                                "Lambton",
+                                                "Lanark",
+                                                "Leeds and Grenville",
+                                                "Lennox and Addington",
+                                                "Manitoulin",
+                                                "Middlesex",
+                                                "Muskoka",
+                                                "Niagara",
+                                                "Nipissing",
+                                                "Norfolk",
+                                                "Northumberland",
+                                                "Ottawa",
+                                                "Oxford",
+                                                "Parry Sound",
+                                                "Peel",
+                                                "Perth",
+                                                "Peterborough",
+                                                "Prescott and Russell",
+                                                "Prince Edward",
+                                                "Rainy River",
+                                                "Renfrew",
+                                                "Simcoe",
+                                                "Stormont, Dundas and Glengarry",
+                                                "Sudbury",
+                                                "Thunder Bay",
+                                                "Timiskaming",
+                                                "Toronto",
+                                                "Waterloo",
+                                                "Wellington",
+                                                "York"),
+                              Freq=c(113777,
+                                     39474,
+                                     #104688,
+                                     73396,
+                                     103988,
+                                     77963,
+                                     66257,
+                                     696992,
+                                     94752,
+                                     422860,
+                                     161780,
+                                     166004,
+                                     100905,
+                                     49216,
+                                     #20571,
+                                     596637,
+                                     569353,
+                                     145746,
+                                     61366,
+                                     79247,
+                                     66000,
+                                     128154,
+                                     75760,
+                                     104070,
+                                     45182,
+                                     13935,
+                                     500563,
+                                     66674,
+                                     477941,
+                                     84716,
+                                     67490,
+                                     89356,
+                                     1017449,
+                                     121781,
+                                     46909,
+                                     1451022,
+                                     81565,
+                                     147681,
+                                     95639,
+                                     25704,
+                                     19437,
+                                     106365,
+                                     533169,
+                                     114637,
+                                     22368,
+                                     146682,
+                                     31424,
+                                     2794356,
+                                     587165,
+                                     241026,
+                                     1173334))
 
 ### Raking ####
 
@@ -124,16 +226,28 @@ a1$prob #all probs are 1
 ## The next line uses the survey design object a1, and the variables we will adjust for, with the population corrections
 ## from the data frames from above.
 
-a1.rake<-rake(a1,
+a1_rake<-rake(a1,
              sample=list(~age_group,
                          ~race,
                          ~income_ord,
-                         ~location),
-             population=list(ages,races,income_ords,locations))
+                         ~Geographic.area),
+             population=list(ages,
+                             races,
+                             income_ords,
+                             geographic_areas))
+
+a1_rake%>%
+  tbl_svysummary(by = first_dose, 
+                 percent = "row", 
+                 include=c(income_ord,
+                           age_group,
+                           Geographic.area,
+                           race))%>%
+  bold_labels()
 
 ## The sampling probabilities have now changed after the correction
 
-a1.rake$prob #probabilities have changed
+a1_rake$prob #probabilities have changed
 
 
 ### Model ###
@@ -144,14 +258,31 @@ a1.rake$prob #probabilities have changed
 ## race, and the geographic areas
 
 model1<-svyglm(first_dose_m~income_ord+age_group+Geographic.area+race,
-              design=a1.rake,
+              design=a1_rake,
               family = quasibinomial(), 
               control= list(maxit=25))
 
 
+
+summary(model1)
+
 ## helps visualize the model output
 
 model1 %>% tbl_regression(exponentiate = TRUE)
+
+## there are some significant differences, but this model does not let explore if there are changes by area by race
+## in each geographical region
+
+model2<-svyglm(first_dose_m~income_ord+age_group+Geographic.area*race,
+               design=a1_rake,
+               family = quasibinomial(), 
+               control= list(maxit=25))
+
+
+
+summary(model2)
+
+
 
 ## There are some differences. A model with interaction of Geographic area and race (to see if there was 
 ## an interaction effect of both) had singularity issues.
@@ -170,12 +301,56 @@ model1 %>% tbl_regression(exponentiate = TRUE)
 ## "unwtclus" is the GLMM the authors used. I will follow the same approach below to incorporate random effects by region
 
 
-model2 <- glmer(first_dose_m~(1|Geographic.area)+race+age_group+income_ord,data=model.frame(a1.rake),family=binomial)
+model2 <- glmer(first_dose_m~(1|Geographic.area.title)+Geographic.area,data=model.frame(a1.rake),family=binomial)
+
+summary(model2)
 
 ## This model has singularity issues and it seems geographic regions as a random effect
 ## is not being useful. 
 
-summary(model2)
+
+## Try the weMix package: pseudo maximum likelihood estimation
+
+library(WeMix)
+
+test_data <-cbind(clean_data,a1_rake$prob,a1_rake$allprob)
+
+
+
+test_data <-test_data %>% 
+  rename(Geographic_area=Geographic.area)
+
+names(test_data)[names(test_data) == "a1_rake$prob"] <- "rake_prob"
+
+model3 <- mix(first_dose_m ~ race + income_ord+age_group+ (1|Geographic_area), data=test_data, 
+              weights=c("rake_prob","probs"))
+
+
+
+
+
+
+
+### differences by race on percentage of yes and no
+
+clean_data %>%
+  filter(race=="latin_american",
+         #Geographic.area=="Toronto"
+         )%>%
+ggplot(mapping = aes(x = as.factor(first_dose),
+                     y = after_stat(count/sum(count)))) +
+  geom_bar() +
+ #xlab(paste0(unique(race)))+
+  scale_y_continuous(labels = scales::percent)
+
+
+clean_data %>%
+  filter(race=="latin_american",Geographic.area=="Hamilton")%>%
+  ggplot(mapping = aes(x = as.factor(first_dose),
+                       y = after_stat(count/sum(count)))) +
+  geom_bar() +
+  scale_y_continuous(labels = scales::percent)+
+  facet_wrap(~Geographic.area)
 
 
 ## It seems so far that I need to re-think the model and see what other options there are.

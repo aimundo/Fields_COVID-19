@@ -570,7 +570,11 @@ Again, there are differences here in the patterns of response. The \<15,000 brac
 
 ## Geographical location
 
-Next, we are interested in analyzing the geographical distribution of the answers the participants within the geographical areas defined by the Association of Municipalities from Ontario. There are two parts to the geographical analysis:
+Next, we are interested in analyzing the geographical distribution of the answers the participants within the geographical areas defined by the Association of Municipalities from Ontario. 
+
+**Update: the populations by census division/city were found on Jan 8, 2023 (from https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E). The correction will be done using these numbers instead. The numbers can be found in `census_population_by_division.csv` in `data` directory.**
+
+There are two parts to the geographical analysis:
 
 1) Add to the dataset the data for the municipalities so each city has the corresponding region it belongs to.
 1) Determine percentage of answers that correspond to Toronto. This is important because although the Census regions do not match the exact geographical boundaries of the municipalities and thus a direct correction for this cannot be easily obtained, Toronto is the largest urban area in the province and it is important to identify if corrections are needed with regard to the proportions from this place in the survey.
@@ -660,7 +664,11 @@ clean_data <-left_join(clean_data,geographic_areas,by="Geographic.area")
 ```
 
 
+
+
 ## Proportion of answers within Toronto
+
+**This section needs to be modified as the correction has been done by geographica area on Jan 8, 2023**
 
 The final step is of the geographical analysis is to determine the proportion of answers from Toronto.
 
