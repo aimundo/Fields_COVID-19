@@ -7,6 +7,7 @@ library(weights)
 library(here)
 library(survey)
 library(magrittr)
+library(tidyverse)
 library(lme4)
 library(gtsummary)
 
@@ -333,15 +334,40 @@ model3 <- mix(first_dose_m ~ race + income_ord+age_group+ (1|Geographic_area), d
 
 ### differences by race on percentage of yes and no
 
-clean_data %>%
-  filter(race=="latin_american",
-         #Geographic.area=="Toronto"
+test<-clean_data %>%
+  subset(
+         Geographic.area=="Toronto"
          )%>%
+  group_by(age_group,race)%>%
+ count()
+
+test
+
+test1<-clean_data %>%
+  subset(
+    Geographic.area=="Toronto"
+  )%>%
+  filter(first_dose=="yes")%>%
+  group_by(age_group,race)%>%
+summarise(val=n(),.groups="drop")
+
+test2<-left_join(test,test1)
+
+test2%>%
+  mutate(perc=val/n)%>%
+  ggplot(aes(x=age_group,y=perc,fill=race))+
+  geom_bar(stat="identity",position="stack")
+
+
+
+  mutate(total=count(first_dose=="yes"))
 ggplot(mapping = aes(x = as.factor(first_dose),
-                     y = after_stat(count/sum(count)))) +
+                     y = after_stat(count/sum(count)))
+       ) +
   geom_bar() +
  #xlab(paste0(unique(race)))+
-  scale_y_continuous(labels = scales::percent)
+  scale_y_continuous(labels = scales::percent)+
+  facet_wrap(~age_group)
 
 
 clean_data %>%
