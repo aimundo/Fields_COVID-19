@@ -1,10 +1,10 @@
-city,Geographic.area,Geographic.area.title,LHIN
-Acton,Halton,Region,Missisauga Halton
+﻿city,Geographic.area,Geographic.area.title,LHIN
+Acton,Halton,Region,Mississauga Halton
 Algoma Mills,Algoma,District,North East
 Alliston,Simcoe,County,North Simcoe Muskoka
 Almonte,Lanark,County,Champlain
 Amhertsburg,Essex,County,Erie St. Clair
-Ancaster,Hamilton,City,Hamilton Niagara Haldimand Brant
+Ancaster,Hamilton,City,Hamilton Niagara Haldimand Brant (Hnhb)
 Angus,Simcoe,County,North Simcoe Muskoka
 Ardendale,Frontenac,County,South East
 Arkell,Wellington,County,Waterloo Wellington
@@ -15,12 +15,12 @@ Ayton,Grey,County,South West
 Baden,Waterloo,Region,Waterloo Wellington
 Badjeros,Grey,County,South West
 Barrhaven,Ottawa,City,Champlain
-Beamsville,Niagara,Region,Hamilton Niagara Haldimand Brant
+Beamsville,Niagara,Region,Hamilton Niagara Haldimand Brant (Hnhb)
 Beeton,Simcoe,County,Central
 Belmont,Elgin,County,South West
 Belwood,Wellington,County,Waterloo Wellington
 Big Trout Lake,Kenora,District,North West
-Binbrook,Hamilton,City,Hamilton Niagara Haldimand Brant
+Binbrook,Hamilton,City,Hamilton Niagara Haldimand Brant (Hnhb)
 Blackstock,Durham,Region,Central East
 Blenheim,Chatham-Kent,City,Erie St. Clair
 Bloomfield,Prince Edward,City,South East
@@ -30,7 +30,7 @@ Brechin,Simcoe,County,North Simcoe Muskoka
 Breslau,Waterloo,Region,Waterloo Wellington
 Bridgenorth,Peterborough,County,Central East
 Brooklin,Durham,Region,Central East
-Caledonia,Haldimand,City,Hamilton Niagara Haldimand Brant
+Caledonia,Haldimand,City,Hamilton Niagara Haldimand Brant (Hnhb)
 Capreol,Greater Sudbury,City,North East
 Cargill,Bruce,County,South West
 Casselman,Prescott and Russell,County,Champlain
@@ -48,7 +48,7 @@ Cumberland,Ottawa,City,Champlain
 Downsview,Toronto,City,Toronto Central
 Dresden,Chatham-Kent,City,Erie St. Clair
 Drumbo,Oxford,County,South West
-Dundas,Hamilton,City,Hamilton Niagara Haldimand Brant
+Dundas,Hamilton,City,Hamilton Niagara Haldimand Brant (Hnhb)
 Dunrobin,Ottawa,City,Champlain
 East York,Toronto,City,Toronto Central
 Eganville,Renfrew,County,Champlain
@@ -61,18 +61,18 @@ Fenelon Falls,Kawartha Lakes,City,Central East
 Fingal,Elgin,County,South West
 Flesherton,Grey,County,South West
 Forest,Lambton,County,Erie St. Clair
-Georgetown,Halton,Region,Missisauga Halton
+Georgetown,Halton,Region,Mississauga Halton
 Godfrey,Frontenac,County,South East
 Grand Bend,Lambton,County,Erie St. Clair
 Haileybury,Timiskaming,District,North East
 Harriston,Wellington,County,Waterloo Wellington
-Hastings,Hastings,County,
+Hastings,Northumberland,County,Central East
 Havelock,Peterborough,County,Central East
 Hood,Lanark,County,Champlain
 Hudson,Timiskaming,District,North East
 Innisfil,Simcoe,County,North Simcoe Muskoka
 Janetville,Kawartha Lakes,City,Central East
-Jarvis,Haldimand,City,Hamilton Niagara Haldimand Brant
+Jarvis,Haldimand,City,Hamilton Niagara Haldimand Brant (Hnhb)
 Kanata,Ottawa,City,Champlain
 Kasabonika,Kenora,District,North West
 Keswick,York,Region,Central
@@ -97,7 +97,7 @@ Morrisburg,"Stormont, Dundas and Glengarry",County,Champlain
 Mount Albert,York,Region,Central
 Mount Brydges,Middlesex,County,South West
 Mount Elgin,Oxford,County,South West
-Mountain Grove,Frontenac,County,south east
+Mountain Grove,Frontenac,County,South East
 Nepean,Ottawa,City,Champlain
 Nobleton,York,Region,Central
 North Woodslee,Essex,County,Erie St. Clair
@@ -106,7 +106,7 @@ Omemee,Kawartha Lakes,City,Central East
 Orchardville,Grey,County,South West
 Orleans,Ottawa,City,Champlain
 Pakenham,Lanark,County,Champlain
-Paris,Brant,City,Hamilton Niagara Haldimand Brant
+Paris,Brant,City,Hamilton Niagara Haldimand Brant (Hnhb)
 Petawawa,Renfrew,County,Champlain
 Picton,Prince Edward,City,South East
 Pontypool,Kawartha Lakes,City,Central East
@@ -115,22 +115,22 @@ Port Rowan,Norfolk,City,South West
 Ramore,Cochrane,District,North East
 Richmond,Ottawa,City,Champlain
 Ridgetown,Chatham-Kent,City,Erie St. Clair
-Ridgeway,Niagara,Region,Hamilton Niagara Haldimand Brant
+Ridgeway,Niagara,Region,Hamilton Niagara Haldimand Brant (Hnhb)
 Rockland,Prescott and Russell,County,Champlain
 Rockwood,Wellington,County,Waterloo Wellington
-Rodney,Elgin,County,
+Rodney,Elgin,County,South West
 Russell,Prescott and Russell,County,Champlain
 Sandy Lake,Kenora,District,North West
 Scarborough,Toronto,City,Toronto Central
-Scotland,Brant,City,Hamilton Niagara Haldimand Brant
+Scotland,Brant,City,Hamilton Niagara Haldimand Brant (Hnhb)
 Severn Bridge,Muskoka,District,North Simcoe Muskoka
 Slate Falls,Kenora,District,North West
-South Porcupine,Cochrane,District,
-Springfield,Elgin,County,
+South Porcupine,Cochrane,District,North East
+Springfield,Elgin,County,South West
 Springford,Oxford,County,South West
-Stevensville,Niagara,Region,Hamilton Niagara Haldimand Brant
+Stevensville,Niagara,Region,Hamilton Niagara Haldimand Brant (Hnhb)
 Stittsville,Ottawa,City,Champlain
-Stoney Creek,Hamilton,City,Hamilton Niagara Haldimand Brant
+Stoney Creek,Hamilton,City,Hamilton Niagara Haldimand Brant (Hnhb)
 Stouffville,York,Region,Central
 Sturgeon Falls,Nipissing,District,North East
 Sunderland,Durham,Region,Central East
@@ -140,7 +140,7 @@ Sydenham,Frontenac,County,South East
 Thorndale,Middlesex,County,South West
 Thornhill,York,Region,Central
 Thornton,Simcoe,County,North Simcoe Muskoka
-Thorold,Niagara,Region,Hamilton Niagara Haldimand Brant
+Thorold,Niagara,Region,Hamilton Niagara Haldimand Brant (Hnhb)
 Tottenham,Simcoe,County,Central
 Trenton,Hastings,County,South East
 Unionville,York,Region,Central
@@ -149,11 +149,11 @@ Utterson,Muskoka,District,North Simcoe Muskoka
 Wallaceburg,Chatham-Kent,City,Erie St. Clair
 Wasaga Beach,Simcoe,County,North Simcoe Muskoka
 Washago,Simcoe,County,North Simcoe Muskoka
-Waterdown,Hamilton,City,Hamilton Niagara Haldimand Brant
-Waterford,Norfolk,City,Hamilton Niagara Haldimand Brant
+Waterdown,Hamilton,City,Hamilton Niagara Haldimand Brant (Hnhb)
+Waterford,Norfolk,City,Hamilton Niagara Haldimand Brant (Hnhb)
 Westport,Leeds and Grenville,County,South East
 Williamsburg,"Stormont, Dundas and Glengarry",County,Champlain
 Woodbridge,York,Region,Central
 Woodlawn,Ottawa,City,Champlain
-Wyecombe,Norfolk,City,Hamilton Niagara Haldimand Brant
+Wyecombe,Norfolk,City,Hamilton Niagara Haldimand Brant (Hnhb)
 Wyoming,Lambton,County,Erie St. Clair

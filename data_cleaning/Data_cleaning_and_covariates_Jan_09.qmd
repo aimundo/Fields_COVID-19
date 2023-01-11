@@ -703,16 +703,6 @@ ggplot(clean_data %>% count(location) %>%    # then count number in each group
 
 The proportion of responses from the city of Toronto is 31.3% of the total in the clean dataset. From the (Census data)[https://www.toronto.ca/wp-content/uploads/2022/02/92e3-City-Planning-2021-Census-Backgrounder-Population-Dwellings-Backgrounder.pdf], the city of Toronto as of 2021 has a population of 2,794,356, corresponding to 19.6% of the total population of the Province.
 
-At this point, the data has been cleaned and prepared for formal analysis.
-
-The clean dataset will be saved as a *.csv file.
-
-```{r,save-clean-dataset}
-#| echo: false
-
-#write.csv(clean_data,here("data","clean_dataset.csv"),row.names = FALSE)
-```
-
 
 # Health Regions approach
 
@@ -805,6 +795,47 @@ Some cities did not belong entirely to a LHIN. For example, Etobicoke was divide
 
 ```{r,merge-health-regions}
 
+#load health regions with missing entries fixed
+
 mhru<-read.csv(here("data","missing_health_regions_updated.csv"))
 
+#rename columns
+mhru <- mhru %>%
+  rename(Geographic_area_title=Geographic.area.title)
+  
+
+clean_data<-clean_data %>%
+  left_join(mhru, by = c("city")) %>%
+   mutate(LHIN = coalesce(LHIN.x,LHIN.y)) %>%
+  select(-c(LHIN.x,LHIN.y,Full_title.x,Geographic.area.y,Geographic_area_title.y))%>%
+  mutate(Health_Region=
+    case_when(LHIN=="Central"~ "Central",
+              LHIN=="Central West"~"Central",
+              LHIN=="Mississauga Halton"~"Central",
+              LHIN=="North Simcoe Muskoka"~"Central",
+              LHIN=="Central East"~"East",
+              LHIN=="South East"~"East",
+              LHIN=="Champlain"~"East",
+              LHIN=="North East"~"North East",
+              LHIN=="North West"~"North West",
+              LHIN=="Toronto Central"~"Toronto",
+              LHIN=="South West"~"West",
+              LHIN=="Hamilton Niagara Haldimand Brant (Hnhb)"~"West",
+              LHIN=="Waterloo Wellington"~"West",
+              LHIN=="Erie St. Clair"~"West"
+    ))%>%
+  rename(Geographic_area=Geographic.area.x,Geographic_area_title=Geographic_area_title.x)
+
+
+```
+
+
+At this point, the data has been cleaned and prepared for formal analysis.
+
+The clean dataset will be saved as a *.csv file.
+
+```{r,save-clean-dataset}
+#| echo: false
+
+write.csv(clean_data,here("data","clean_dataset.csv"),row.names = FALSE)
 ```

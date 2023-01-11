@@ -24,8 +24,7 @@ clean_data<-clean_data%>%
 
 #make variables of interest factors
 clean_data<-clean_data %<>%
-  mutate_at(c("income_ord","race","age_group","location","Geographic.area","Geographic.area.title"),factor)
-
+  mutate_at(c("income_ord","race","age_group","location","Geographic_area","Geographic_area_title"),factor)
 # recode the response of interest for categorical analysis
 clean_data<-clean_data %>%
   mutate(first_dose_m=case_when(
@@ -108,9 +107,9 @@ locations<-data.frame(location=c("All other cities",
                              2635905
                       ))
 
-geographic_areas <- data.frame(Geographic.area=c("Algoma",
+geographic_areas <- data.frame(Geographic_area=c("Algoma",
                                                 "Brant",
-                                                #"Brantford",
+                                                "Brantford",
                                                 "Bruce",
                                                 "Chatham-Kent",
                                                 "Cochrane",
@@ -161,7 +160,7 @@ geographic_areas <- data.frame(Geographic.area=c("Algoma",
                                                 "York"),
                               Freq=c(113777,
                                      39474,
-                                     #104688,
+                                     104688,
                                      73396,
                                      103988,
                                      77963,
@@ -211,6 +210,25 @@ geographic_areas <- data.frame(Geographic.area=c("Algoma",
                                      241026,
                                      1173334))
 
+
+# corrections for health regions
+
+health_regions<-data.frame(Health_Region=c(
+  "North West",
+  "North East",
+  "West",
+  "East",
+  "Central",
+  "Toronto"),
+  Freq=c(232299,
+    557000,
+    4000000,
+    3700000,
+    5000000,
+    1400000
+  )
+)
+
 ### Raking ####
 
 ## First, provide a survey design object. This is done using the dataset. The syntax
@@ -231,7 +249,7 @@ a1_rake<-rake(a1,
              sample=list(~age_group,
                          ~race,
                          ~income_ord,
-                         ~Geographic.area),
+                         ~Geographic_area),
              population=list(ages,
                              races,
                              income_ords,
@@ -242,9 +260,23 @@ a1_rake%>%
                  percent = "row", 
                  include=c(income_ord,
                            age_group,
-                           Geographic.area,
+                           Health_Region,
                            race))%>%
   bold_labels()
+
+
+## raking by Health Region
+
+a2_rake<-rake(a1,
+              sample=list(~age_group,
+                          ~race,
+                          ~income_ord,
+                          ~Health_Region),
+              population=list(ages,
+                              races,
+                              income_ords,
+                              health_regions))
+
 
 ## The sampling probabilities have now changed after the correction
 
@@ -258,23 +290,44 @@ a1_rake$prob #probabilities have changed
 ## The model uses the response to first dose vaccine status (yes or no) using income, age group,
 ## race, and the geographic areas
 
-model1<-svyglm(first_dose_m~income_ord+age_group+Geographic.area+race,
-              design=a1_rake,
+model1.hr<-svyglm(first_dose_m~+age_group+Health_Region*income_ord,
+              design=a2_rake,
               family = quasibinomial(), 
               control= list(maxit=25))
 
 
 
-summary(model1)
+summary(model1.hr)
 
 ## helps visualize the model output
 
-model1 %>% tbl_regression(exponentiate = TRUE)
+x1<-model1 %>% tbl_regression(exponentiate = FALSE)
+
+
+x2<-model1.hr %>% tbl_regression(exponentiate = FALSE)
+
+
+
+tbl_merge1<-
+  tbl_merge(
+    tbls = list(x1,x2),
+    tab_spanner = c("**Correction for Geographic Areas**","**Correction for Health Regions**")
+  )
+
+tbl_merge1
+
+###############
+
+
+model2<-svyglm(first_dose_m~+age_group+Health_Region*income_ord,
+               design=a1_rake,
+               family = quasibinomial(), 
+               control= list(maxit=25))
 
 ## there are some significant differences, but this model does not let explore if there are changes by area by race
 ## in each geographical region
 
-model2<-svyglm(first_dose_m~income_ord+age_group+Geographic.area*race,
+model2<-svyglm(first_dose_m~income_ord+age_group+Health_Region*race,
                design=a1_rake,
                family = quasibinomial(), 
                control= list(maxit=25))
@@ -302,11 +355,11 @@ summary(model2)
 ## "unwtclus" is the GLMM the authors used. I will follow the same approach below to incorporate random effects by region
 
 
-model2 <- glmer(first_dose_m~(1|Geographic.area.title)+Geographic.area,data=model.frame(a1.rake),family=binomial)
+model3<- glmer(first_dose_m~(1|Health_Region)+income_ords+race+age_group,data=model.frame(a1_rake),family=binomial)
 
 summary(model2)
 
-## This model has singularity issues and it seems geographic regions as a random effect
+## This model has singularity issues and it seems Health regions as a random effect
 ## is not being useful. 
 
 
@@ -317,13 +370,9 @@ library(WeMix)
 test_data <-cbind(clean_data,a1_rake$prob,a1_rake$allprob)
 
 
-
-test_data <-test_data %>% 
-  rename(Geographic_area=Geographic.area)
-
 names(test_data)[names(test_data) == "a1_rake$prob"] <- "rake_prob"
 
-model3 <- mix(first_dose_m ~ race + income_ord+age_group+ (1|Geographic_area), data=test_data, 
+model3 <- mix(first_dose_m ~ race + income_ord+age_group+ (1|Health_Region), data=test_data, 
               weights=c("rake_prob","probs"))
 
 
