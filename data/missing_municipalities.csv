@@ -1,178 +1,188 @@
-city,Geographic.area
-Etobicoke,Toronto
-Concord,York
-Courtice,Durham
-Millbrook,Peterborough
-Alexandria,"Stormont, Dundas and Glengarry"
-Ridgeway,Niagara
-Beamsville,Niagara
-Angus,Simcoe
-Stayner,Simcoe
-Scarborough,Toronto
-Bowmanville,Durham
-Lindsay,Kawartha Lakes
-Georgetown,Halton
-Woodbridge,York
-North York,Toronto
-Baden,Waterloo
-Belmont,Elgin
-Rockland,Prescott and Russell
-Kanata,Ottawa
-Stoney Creek,Hamilton
-Havelock,Peterborough
-Fenelon Falls,Kawartha Lakes
-Fergus,Wellington
-Stouffville,York
-Stittsville,Ottawa
-Bolton,Peel
-Ayton,Grey
-Cargill,Bruce
-Almonte,Lanark
-Keswick,York
-Dunrobin,Ottawa
-East York,Toronto
-Thornhill,York
-Acton,Halton
-Enterprise,Lennox and Addington
-Wiarton,Bruce
-Port Rowan,Norfolk
-Ashton,Lanark
-Alliston,Simcoe
-Napanee,Lennox and Addington
-Elk Lake,Timiskaming
-Maple,York
-Paris,Brant
-L'Orignal,Prescott and Russell
-Nepean,Ottawa
-Dundas,Hamilton
-Blenheim,Chatham-Kent
-Kinburn,Huron
-Hagersville,Haldimand
-Waterford,Norfolk
-Breslau,Waterloo
-Pakenham,Lanark
-Lansdowne,Leeds and Grenville
-Bridgenorth,Peterborough
-Limoges,Prescott and Russell
-Dresden,Chatham-Kent
-Jarvis,Haldimand
-Binbrook,Hamilton
-Harriston,Wellington
-Mount Forest,Wellington
-Picton,Prince Edward
-Ancaster,Hamilton
-Cannington,Durham
-Janetville,Kawartha Lakes
-Blackstock,Durham
-Lakefield,Peterborough
-Corbeil,Nipissing
-Ramore,Cochrane
-Waterdown,Hamilton
-Wallaceburg,Chatham-Kent
-Belwood,Wellington
-Grand Bend,Lambton
-Trenton,Hastings
-Amhertsburg,Essex
-Eganville,Renfrew
-Ardendale,Frontenac
-King City,York
-Wingham,Huron
-Orleans,Ottawa
-Chatham,Chatham-Kent
-Downsview,Toronto
-Monkton,Perth
-Utterson,Muskoka
-Manotick Station,Ottawa
-Flesherton,Grey
-North Woodslee,Essex
-Springford,Oxford
-Morrisburg,"Stormont, Dundas and Glengarry"
-Algoma Mills,Algoma
-Milverton,Perth
-Chesterville,"Stormont, Dundas and Glengarry"
-Sydenham,Frontenac
-South Porcupine,Cochrane
-Springfield,Elgin
-Stevensville,Niagara
-Caledonia,Haldimand
-Clinton,Huron
-Dunnville,Haldimand
-Chelmsford,Greater Sudbury
-Forest,Lambton
-Port Elgin,Bruce
-Walkerton,Bruce
-Zurich,Huron
-Kirkfield,Kawartha Lakes
-Little Current,Manitoulin
-Hood,Lanark
-New Hamburg,Waterloo
-Badjeros,Grey
-Williamsburg,"Stormont, Dundas and Glengarry"
-Wyoming,Lambton
-Capreol,Greater Sudbury
-Delhi,Norfolk
-Godfrey,Frontenac
-Attawapiskat,Kenora
-Sandy Lake,Kenora
-Richmond,Ottawa
-Washago,Simcoe
-Loretto,Simcoe
-Tottenham,Simcoe
-Omemee,Kawartha Lakes
-Brechin,Simcoe
-Elmira,Waterloo
-Sutton West,York
-Mount Brydges,Middlesex
-Wyecombe,Norfolk
-Beeton,Simcoe
-Longlac,Thunder Bay
-Coe Hill,Hastings
-Ohsweken,Brant
-Arkell,Wellington
-Bradford,Simcoe
-Kleinburg Station,York
-Brooklin,Durham
-Severn Bridge,Muskoka
-Ayr,Waterloo
-Corbyville,Hastings
-Fingal,Elgin
-Nobleton,York
-Ridgetown,Chatham-Kent
-Egbert,Simcoe
-Cumberland,Ottawa
-Geraldton,Thunder Bay
-Rodney,Elgin
-Rockwood,Wellington
-Lancaster,"Stormont, Dundas and Glengarry"
-Mount Elgin,Oxford
-Barrhaven,Ottawa
-Sunderland,Durham
-Kasabonika,Kenora
-Slate Falls,Kenora
-Thornton,Simcoe
-Sturgeon Falls,Nipissing
-Moose Creek,"Stormont, Dundas and Glengarry"
-Bloomfield,Prince Edward
-Pontypool,Kawartha Lakes
-Barry's Bay,Renfrew
-Unionville,York
-Lively,Greater Sudbury
-Strathroy,Middlesex
-Mount Albert,York
-Watford,Lambton
-Scotland,Brant
-Campbellford,Northumberland
-Mountain Grove,Frontenac
-Haileybury,Timiskaming
-Colborne,Northumberland
-Thorndale,Middlesex
-Lion's Head,Bruce
-Woodlawn,Ottawa
-Orchardville,Grey
-Drumbo,Oxford
-Big Trout Lake,Kenora
-Clarksburg,Grey
-Exeter,Huron
-Wikwemikong,Manitoulin
-Corunna,Lambton
-Utopia,Simcoe
+city
+Acton
+Alexandria
+Algoma Mills
+Alliston
+Almonte
+Amhertsburg
+Ancaster
+Angus
+Ardendale
+Arkell
+Ashton
+Attawapiskat
+Ayr
+Ayton
+Baden
+Badjeros
+Barrhaven
+Barry's Bay
+Beamsville
+Beeton
+Belmont
+Belwood
+Big Trout Lake
+Binbrook
+Blackstock
+Blenheim
+Bloomfield
+Bolton
+Bowmanville
+Bradford
+Brantford
+Brechin
+Breslau
+Bridgenorth
+Brooklin
+Caledonia
+Campbellford
+Cannington
+Capreol
+Cargill
+Chatham
+Chelmsford
+Chesterville
+Clarksburg
+Clinton
+Coe Hill
+Colborne
+Concord
+Corbeil
+Corbyville
+Corunna
+Courtice
+Cumberland
+Delhi
+Downsview
+Dresden
+Drumbo
+Dundas
+Dunnville
+Dunrobin
+Durham
+East York
+Eganville
+Egbert
+Elk Lake
+Elmira
+Enterprise
+Etobicoke
+Exeter
+Fenelon Falls
+Fergus
+Fingal
+Flesherton
+Forest
+Georgetown
+Geraldton
+Godfrey
+Grand Bend
+Greater Sudbury
+Hagersville
+Haileybury
+Haliburton
+Harriston
+Hastings
+Havelock
+Hood
+Janetville
+Jarvis
+Kanata
+Kasabonika
+Kawartha Lakes
+Keswick
+Kinburn
+King City
+Kirkfield
+Kleinburg Station
+Lakefield
+Lanark
+Lancaster
+Lansdowne
+Limoges
+Lindsay
+Lion's Head
+Little Current
+Lively
+Longlac
+Loretto
+L'Orignal
+Manotick Station
+Maple
+Millbrook
+Milverton
+Monkton
+Moose Creek
+Morrisburg
+Mount Albert
+Mount Brydges
+Mount Elgin
+Mount Forest
+Mountain Grove
+Napanee
+Nepean
+New Hamburg
+Nobleton
+North Woodslee
+North York
+Ohsweken
+Omemee
+Orchardville
+Orleans
+Ottawa
+Pakenham
+Paris
+Picton
+Pontypool
+Port Elgin
+Port Rowan
+Ramore
+Richmond
+Ridgetown
+Ridgeway
+Rockland
+Rockwood
+Rodney
+Sandy Lake
+Scarborough
+Scotland
+Severn Bridge
+Simcoe
+Slate Falls
+South Porcupine
+Springfield
+Springford
+Stayner
+Stevensville
+Stittsville
+Stoney Creek
+Stouffville
+Strathroy
+Sturgeon Falls
+Sunderland
+Sutton West
+Sydenham
+Thorndale
+Thornhill
+Thornton
+Toronto
+Tottenham
+Trenton
+Unionville
+Utopia
+Utterson
+Walkerton
+Wallaceburg
+Washago
+Waterdown
+Waterford
+Watford
+Wiarton
+Wikwemikong
+Williamsburg
+Wingham
+Woodbridge
+Woodlawn
+Wyecombe
+Wyoming
+Zurich

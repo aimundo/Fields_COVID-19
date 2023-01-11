@@ -1,52 +1,52 @@
-Geographic.area,Geographic.area.title
-Durham,Region
-Peel,Region
-Halton,Region
-Waterloo,Region
-York,Region
-Niagara,Region
-Bruce,County
-Lennox and Addington,County
-Middlesex,County
-Dufferin,County
-Northumberland,County
-Elgin,County
-Oxford,County
-Essex,County
-Perth,County
-Frontenac,County
-Peterborough,County
-Grey,County
-Prescott and Russell,County
-Haliburton,County
-Hastings,County
-Renfrew,County
-Huron,County
-Simcoe,County
-Lambton,County
-Lanark,County
-"Stormont, Dundas and Glengarry",County
-Wellington,County
-Leeds and Grenville,County
-Algoma,District
-Parry Sound,District
-Cochrane,District
-Rainy River,District
-Kenora,District
-Sudbury,District
-Muskoka,District
-Manitoulin,District
-Timiskaming,District
-Nipissing,District
-Thunder Bay,District
-Brant,City
-Brantford,City
-Chatham-Kent,City
-Greater Sudbury,City
-Hamilton,City
-Kawartha Lakes,City
-Norfolk,City
-Ottawa,City
-Prince Edward,City
-Toronto,City
-Haldimand,City
+Geographic_area,Geographic_area_title,Full_title
+Durham,Regional Municipality of,"Durham, Regional Municipality of"
+Halton,Regional Municipality of,"Halton, Regional Municipality of"
+Niagara,Regional Municipality of,"Niagara, Regional Municipality of"
+Peel,Regional Municipality of,"Peel, Regional Municipality of"
+Waterloo,Regional Municipality of,"Waterloo, Regional Municipality of"
+York,Regional Municipality of,"York, Regional Municipality of"
+Bruce,County of,"Bruce, County of"
+Dufferin,County of,"Dufferin, County of"
+Elgin,County of,"Elgin, County of"
+Essex,County of,"Essex, County of"
+Frontenac,County of,"Frontenac, County of"
+Grey,County of,"Grey, County of"
+Haliburton,County of,"Haliburton, County of"
+Hastings,County of,"Hastings, County of"
+Huron,County of,"Huron, County of"
+Lambton,County of,"Lambton, County of"
+Lanark,County of,"Lanark, County of"
+Leeds and Grenville,United Counties of,"Leeds and Grenville, United Counties of"
+Lennox and Addington,County of,"Lennox and Addington, County of"
+Middlesex,County of,"Middlesex, County of"
+Northumberland,County of,"Northumberland, County of"
+Oxford,County of,"Oxford, County of"
+Perth,County of,"Perth, County of"
+Peterborough,County of,"Peterborough, County of"
+Prescott and Russell,United Counties of,"Prescott and Russell, United Counties of"
+Renfrew,County of,"Renfrew, County of"
+Simcoe,County of,"Simcoe, County of"
+"Stormont, Dundas and Glengarry",United Counties of,"Stormont, Dundas and Glengarry, United Counties of"
+Wellington,County of,"Wellington, County of"
+Algoma,District,"Algoma, District"
+Cochrane,District,"Cochrane, District"
+Kenora,District,"Kenora, District"
+Manitoulin,District,"Manitoulin, District"
+Muskoka,District Municipality of,"Muskoka, District Municipality of"
+Nipissing,District,"Nipissing, District"
+Parry Sound,District,"Parry Sound, District"
+Rainy River,District,"Rainy River, District"
+Sudbury,District,"Sudbury, District"
+Thunder Bay,District,"Thunder Bay, District"
+Timiskaming,District,"Timiskaming, District"
+Brant,City of,"Brant, City of"
+Brantford,City of,"Brantford, City of"
+Chatham-Kent,City of,"Chatham-Kent, City of"
+Greater Sudbury,City of,"Greater Sudbury, City of"
+Haldimand,City of,"Haldimand, City of"
+Hamilton,City of,"Hamilton, City of"
+Kawartha Lakes,City of,"Kawartha Lakes, City of"
+Norfolk,City of,"Norfolk, City of"
+Ottawa,City of,"Ottawa, City of"
+Prince Edward,City of,"Prince Edward, City of"
+Toronto,City of,"Toronto, City of"

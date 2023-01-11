@@ -8,9 +8,9 @@ This document is about how the municipality data was obtained and the steps used
 
 The dataset was obtained from the website of the province of Ontario (https://www.ontario.ca/page/list-ontario-municipalities#section-3).
 
-The file obtained is a CSV but it needed to be cleaned to remove the innecesary information found in the name of each city so it can be combined with the survey dataset.
+The file obtained is a CSV but it needed to be cleaned to remove the unnecessary information found in the name of each city so it can be combined with the survey dataset.First, we only keep the name of the city and the municipal region they belong to, and later remove duplicate entries.
 
-```{r,loading}
+```{r,loading-first-clean}
 #| echo: false
 #| warning: false
 
@@ -22,50 +22,48 @@ municipalities<-read.csv(here("data","municipalities_list.csv"))
 
 
 municipalities_clean <- municipalities %>%
-#get only the city part (see https://stackoverflow.com/questions/66212344/extract-word-in-quotes-from-string)
+#get only the city/county part (see https://stackoverflow.com/questions/66212344/extract-word-in-quotes-from-string)
+  mutate(Full_title=str_extract(Municipality,'(?<=(?<!\\()")[^"]+(?=(?!\\))")'))
+
+
+```
+
+The second step of cleaning this dataset is the fact that it contains the names of the regions (e.g., the Regional Municipality of Peel appears listed along the geographical area of Peel, when they are the same thing). These entries need to be removed as in some cases some towns have the same name as a geographical region (e.g., Durham in Grey County, having the same name as the Regional Municipality of Durham). To do this, we will use the geographical regions listed on the [website](https://www.amo.on.ca/about-us/municipal-101/ontario-municipalities) of the Association of Municipalities of Ontario (AMO). As a clarification, because the "Districts" listed in this website do not serve any municipal government purpose, except on the case of the District Municipality of Muskoka only this last one needs to be removed from the municipality list. Lastly, on the AMO website some municipalities have their most recent status (e.g., Brant, which appears as city, but still appears listed as "County") in the website of the province of Ontario. We will load the AMO dataset (called `geographic_areas.csv`) and use to remove those entries from `municipalities_clean` that match the entries. Later, we will manually remove entries that do not have the same name but correspond to the same region.
+
+```{r,clean-second-step}
+
+# load AMO dataset
+geographic_areas <- read.csv(here("data","geographic_areas.csv"))
+
+#remove entries with the same name in the Ontario dataset
+
+municipalities_clean <- anti_join(municipalities_clean,geographic_areas,by="Full_title")
+
+# manually remove entries 
+
+exclude <-tibble(Full_title=c("Brant, County of", 
+                                       "Haldimand County", 
+                                       "Norfolk County",
+                                       "Prince Edward, County of",
+                                       "Chatham-Kent, Municipality of"))
   
-  mutate(city=str_extract(Municipality,'(?<=(?<!\\()")[^"]+(?=(?!\\))")'))%>%
-#keep only the name of the city
-mutate(city=word(city,sep=",")) %>%
+ #remove entries
+
+municipalities_clean <-anti_join(municipalities_clean,exclude, by="Full_title")%>%
   #remove the first column as it is no longer needed
   subset(select=-c(Municipality))
 
 ```
 
-One additional step is to remove from the dataset duplicate entries. In the dataset there are some instances that appear as upper tier division (counties, regions) that have the same name of a municipality, thus causing duplicates. The ones to remove are identified below.
+One additional step is to create a column that only has the city name (as the Fields Dataset only has the city name on it without the full name of "Township of", or "City of"). After that, the dataset is saved as a csv file.
 
 ```{r}
 
-municipalities_clean[duplicated(municipalities_clean$city),]
-
-```
-
-R detected the "duplicate" entries because the names of the cities we are interested in sometimes appear after the entry we want to remove. After examining the original municipalities dataset (`municipalities_list.csv`), and comparing it with the list provided above, the duplicate entries in the dataset that need to be removed correspond to:
-
--   County of Essex
--   Township of Hamilton (it is an aggregation according to https://en.wikipedia.org/wiki/Hamilton_Township,\_Ontario)
--   County of Perth
--   County of Peterborough
--   County of Renfrew
--   Regional Municipality of Waterloo
-
-These entries need to be removed as we are interested in municipalities within larger geographical areas, and these are aggregations that do not fit that criteria. The final step is to remove the duplicates. Because the word that identifies them as aggregations (i.e., "County", "Township") is lost in the process of getting the names of the cities to match them with the survey dataset, we will remove them by rownumber (after comparing with the `municipalities_list.csv`) dataset. The rownumbers are:
-
--   County of Essex: 119
--   Township of Hamilton: 155
--   County of Perth: 313
--   County of Peterborough: 317
--   County of Renfrew: 338
--   Regional Municipality of Waterloo: 420
-
-```{r,save-file}
-
-#| echo: false
-  
-
-municipalities_clean <- municipalities_clean[-c(119,155,313,317,338,420),]
+municipalities_clean <- municipalities_clean %>%
+  mutate(city=sub(",.*","",Full_title))
 
 
 #save the file in csv
 write.csv(municipalities_clean,here("data","municipalities_clean.csv"),row.names = FALSE)
+
 ```
