@@ -1,0 +1,195 @@
+---
+title: "Covid-19 Fields Survey Data Protocol"
+author:
+  - name: Ariel Mundo Ortiz
+    orcid: 0000-0002-6014-4538
+    email: ariel.mundo.ortiz@umontreal.ca
+    affiliations:
+      - name: École de santé publique - Université de Montréal
+        address: 7101 Park Avenue
+        city: Montreal
+        state: QC
+        postal-code: H3N 1X9
+date: "`r Sys.Date()`"
+format:
+  pdf:
+    link-citations: true
+    number-sections: true
+editor: visual
+bibliography: bibliography/refs.bib
+keep-tex: true
+csl: bibliography/jama.csl
+knitr:
+  opts_chunk:
+    dev: "ragg_png"
+---
+
+# Background
+
+The COVID-19 pandemic continues around the world with more than 600 million confirmed cases as of November of 2022 [@WHO-Covid]. During the first months of the pandemic in early 2020, non-pharmaceutical interventions (e.g., masking, social distancing) were the only methods available to manage the spread of the disease, but the rapid development of vaccines against the virus permitted their approval and use in some countries towards the last month part of 2020. For example, in the US and Canada vaccine campaigns began in mid-December of 2020 [@tanne2020; @bogoch2022]. Although it has been estimated that vaccines against COVID-19 have prevented around 14 millions of deaths worldwide [@watson2022], the rollout of COVID-19 vaccines has faced multiple challenges since its inception.
+
+In this regard, vaccination efforts have faced multiple: Inequalities with regard to vaccine access due to socio-economic factors, vaccine hesitancy, and differences in vaccination rates across different segments of the population are among the challenges identified in the administration of COVID-19 vaccines [@gerretsen2021; @nafilyan2021; @malik2020]. In the case of Canada, lower vaccine uptake has been associated with socio-economic factors such as younger age, educational level, presence of children in the household, lack of a regular healthcare provider, ethnic origin, and financial instability [@guay2022; @muhajarine2021; @carter2022].
+
+Additionally, it has been shown that geography also plays a crucial role in vaccination rates, as they vary due to spatial differences in attitudes towards vaccination [@malik2020], geographical differences in vaccine access and supply, vaccination location availability, and lack of prioritization of vulnerable groups [@bogoch2022; @nguyen2021].
+
+Studies that analyze geographical variations in vaccine uptake can help inform public health decision-makers to design policies to that are aimed at addressing vaccination disparities. In this regard, previous geographical (spatial) analyses of vaccination rates have shown that variations in vaccine uptake can occur within small governmental administrative units (e.g., counties in the case of the US) [@mollalo2021; @yang2022; @tiu2022; @bhuiyan2022], and that geographical analyses can be predictive of booster uptake patterns [@wood2022].
+
+In Canada, studies that have used a spatial approach to analyze vaccine uptake have shown disparities in vaccination rates across low and high income neighborhoods in the city of Toronto [@choi2021], among adolescents from deprived neighborhoods in the city of Montreal [@mckinnon2021], and highlighted disparities in vaccination status depending on age, income, and ethnic origin in all of the Canadian provinces[@guay2022]. However, to the best of our knowledge, there are no studies that have analyzed vaccination status within a province to identify inequalities that may exist within these geographical areas. A dissagregated view of variability within a province can help understand the barriers for vaccine delivery in the case of visible minorities, which have been disproportionately impacted in the pandemic [@hussain2022].
+
+# Research Question
+
+This study will examine self-reported COVID-19 vaccination status in the province of Ontario in order to determine the influence in vaccination status due to socio-economic (e.g., ethnic origin, age, income) and geographical factors (at level of the Health Regions of Ontario).
+
+# Methods
+
+## Data source: survey overview
+
+We obtained data from the Fields Institute for Research in Mathematical Sciences' (henceforth Fields) *Survey of COVID-19 related Behaviours and Attitudes*, a repeated cross sectional survey focused on the Canadian province of Ontario which ran from Sept 30, 2021 until January 17, 2022. This survey was commissioned by Fields and the Mathematical Modelling of COVID-19 Task Force, under the supervision of Dr. Kumar Murty, the Director of Fields with funding from the Canadian Institutes of Health Research. The survey was conducted by a third-party service provider (RIWI Corp.), under ethical guidance from University of Toronto.
+
+The survey was deployed using random domain intercept technology. Briefly, when web users clicked on a registered but commercially inactive web link or typed in a web address for a site that was dormant, they had a random chance of that link being temporarily managed by the company that administered the survey (RIWI Corp). Thus, instead of coming across a notification about the status of the site("this page does not exist"), the survey was deployed to the user. Web users then decided whether to anonymously participate, exiting the survey at any time if desired [@sargent2022].
+
+Respondents who wished to participate were asked to select their age from a matrix of values, and subsequent questions were displayed one at a time, after the respondent confirmed their selection by answering and selecting "next". Those who do not wished to participate were asked to either close the browser window or navigate away from the domain. After the survey closed (complete or incomplete) no one from that internet protocol (IP) address could access the survey again and the domain entry point rotated such that if a respondent were to attempt to access the survey again, share the link, or enter via the same address using an alternative IP address, the survey would not render.
+
+Additionally, respondents who indicated they were under the age of 16 were exited from the survey. No record was created in this case and due to domain cycling these users were unable to navigate back to the "age select" screen. The personal identifier information from each respondent was automatically scrubbed and replaced by a unique ID. Respondents were drawn exclusively from the province of Ontario, as per their devices meta-data.
+
+## Survey responses
+
+### Socio-demographic factors {#sec-socio-demographic-factors}
+
+From the different answers provided by the survey respondents, we selected the age group which they belonged to, income bracket, race/ethnicity, and employment status. The original survey included additional questions (e.g., sick leave, remote work, presence of minors in the household) but the survey design, which permitted respondents to exit the survey at any point resulted in a high rates of missing data for most of these answers. The socio-economic factors chosen for this study were the ones that had both the lowest rates of missingness and that provided an adequate level socio-economic and demographic information for our analysis. Information about the chosen socio-economic factors from the survey is provided in @tbl-covariates.
+
+| Variable             | Values                                                                                                                          |
+|:----------------|-------------------------------------------------------|
+| Age group            | 15-24,25-34,35-44,45-54,55-64, 65+                                                                                              |
+| Income bracket (CAD) | \<15,000, 15,000-24,999, 25,000-39,999, 40,000-59,999, 60,000-89,999, \>90,000                                                  |
+| Race/ethnicity       | Arab/Middle Eastern, Black, East Asian/Pacific Islander, Indigenous, Latin American, Mixed, South Asian, White Caucasian, other |
+                                                                                                                      |
+
+: Selected socio-economic factors from the survey {#tbl-covariates}
+
+### Vaccination status
+
+From the survey, we selected the question regarding vaccination status:
+
+-   "Have you received the first dose of the COVID vaccine?", with possible answers "yes" and "no"
+
+<!-- -   (If answered "yes" to the previous question) "Have you received the second dose of the COVID vaccine?" with possible answers "yes" and "no" -->
+
+<!-- -   (If answer was "no" to the first question) "If a vaccine was made available to you you would:" with possible answers "definitely get", "definitely not get", "probably get", and "probably not get" -->
+
+<!--           - definitely get -->
+
+<!--           - definitely not get -->
+
+<!--           - probably get -->
+
+<!--           - probably not get -->
+
+## Data cleaning
+
+The original dataset contained 39,029 entries (where each entry corresponded to a set of answers provided by a unique respondent). Following a preliminary analysis to identify the missing rates across the different answers within each entry, it was identified that many of the answers had high missing rates (\>80%) (note that the graph will be in the Appendix). Therefore, the dataset was cleaned in order to contain only the independent variables of interest with the lowest missing rates (@tbl-covariates) and the dependent variable.
+
+The cleaning process also included removing outliers that were identified during the preliminary analyses. Specifically, we removed those respondents that indicated to be below 25 years of age, living in a household of size 1, and that reported an income above CAD 110,000. After cleaning the dataset contained 5,247 entries (unique respondents).
+
+### Geographical location {#sec-geographical-location}
+
+For each survey participant certain data was automatically captured. This included the nearest municipality, which resulted in a total of 578 different municipalities within the dataset. Because our interest was to analyze the differences between Health Regions, we assigned the location (city) of each entry to its correspondent Health Region following a multi-step process: First, we used the municipality information from the website of the Association of Municipalities of Ontario (AMO) to assign geographical regions to each entry on the dataset. Secondly, we used a publicly available dataset of long-term care homes by Local Health Integrated Network (LHIN), which were the geographical divisions for health in Ontario before the adoption of the Health Regions, to match each city with its corresponding LHIN. Cities that did not have a LHIN entry on the dataset were searched in the websites of the LHINs and manually added to the dataset. Finally, we assigned the corresponding Health Regio to each city by matching the LHINs to the Health Regions that now encompass them, following the information provided by Ontario Health (details of the complete process are in the Appendix).
+
+## Corrections
+
+We identified differences between the proportions of various socio-economic factors the survey respondents when compared to the 2016 Census data for Ontario. These factors included age groups, income, and ethnicity/race identified. Additionally, because the Census divisions do not match the exact boundaries of the Census, we also obtained population estimates for each Health Region from the Ontario Health website in order to correct for the population within each Health Region. We corrected for all of these factors (age group, race/ethnicity, income, Health Region Population) using an iterative proportional fitting procedure (also known as *raking*) [@deming1940] in R using the `survey` package. The proportions of each of these factors and the data from the 2016 Census Data for Ontario used for the corrections can be found in the Appendix. Of notice, because the categories provided by the survey in some cases (e.g., race/ethnicity categories) did not match the categories from the Census, we aggregated them where appropriate to obtain an approximation to the categories in the Census. 
+
+<!-- ## Geographical location {#sec-geographical-location} -->
+
+<!-- For each survey participant certain data was automatically captured. This included the nearest municipality, which resulted in a total of 578 different municipalities within the dataset. Due to our interest in exploring vaccination status within a health region that encompasses multiple cities, we grouped the municipalities from the dataset according to the regional government aggregations provided by the Association of Municipalities of Ontario, which groups municipalities within regions, counties, districts, and single-tiers [@ontario-municipalities]. The geographical regions were obtained from the websie of the province of Ontario <https://www.ontario.ca/page/list-ontario-municipalities#section-3> -->
+
+## Statistical model
+
+We used a fixed-effects logistic regression to estimate the probability of vaccination depending on the socio-economic factors described in @sec-socio-demographic-factors and the Health Regions from @sec-geographical-location. We examined the interaction of income and Health Region as it has been shown that there has been an increase in income inequality within the provinces of Canada over time [@marchand2020], and the relatively recent implementation of the Health Regions motivated us to explore if income disparity may be an important factor to consider within each of the Health Regions. Our model appears in @eq-model.
+
+$$
+\log \frac{p\textrm{(vac)}}{1-p\textrm{(vac)}}= \beta_0+ \beta_{1}\textrm{(age group)} +\beta_{2} \textrm{ race} + \beta_3 \textrm{(Health Region} \times \textrm{income)} 
+$$ {#eq-model}
+
+Where $p\textrm{(vac)}$ indicates the probability of having received the first dose of a Covid-19 vaccine.
+
+# Results
+
+## Descriptive statistics of the Fields Covid-19 Survey
+
+@tbl-descriptive-stats shows the descriptive statistics (uncorrected) from the Fields Covid-19 survey data for vaccination status and each of the covariates analyzed. 
+
+
+```{r, load-prepare-data}
+#| echo: false
+#| warning: false
+#| message: false
+
+
+#load packages
+
+library(weights)
+library(here)
+library(survey)
+library(magrittr)
+library(tidyverse)
+library(lme4)
+library(gtsummary)
+
+data<-read.csv(here("data","clean_dataset.csv"))
+
+# remove rows with missing observations for race
+
+clean_data<-data%>%drop_na(race)
+
+#remove "municipal status" as is not part of the analysis (to avoid unexpected errors)
+
+clean_data<-clean_data%>%
+  select(-Municipal.status)
+
+#make variables of interest factors
+clean_data<-clean_data %<>%
+  mutate_at(c("income_ord","race","age_group","location","Geographic_area","Geographic_area_title"),factor)
+# recode the response of interest for categorical analysis
+clean_data<-clean_data %>%
+  mutate(first_dose_m=case_when(
+    first_dose=="yes"~1,
+    first_dose=="no"~0
+  ))
+
+
+# get percentages to see how different the data is from the Census (details of the Census values are in
+# Data_cleaning_and_covariates_Jan_05.qmd in directory "data cleaning")
+
+
+##### Summary of the dataset####
+
+
+data_summary<-clean_data %>%
+  tbl_summary(percent="row",
+    by= first_dose,
+    include=c(income_ord,
+    age_group,
+    Health_Region,
+    race)
+  ) %>% bold_labels()
+
+
+```
+
+
+
+```{r,summary-table}
+#| label: tbl-descriptive-stats
+#| tbl-cap: "Descriptive Statistics of the Fields Covid-19 Survey"
+#| message: false
+#| echo: false
+
+data_summary 
+
+```
+
+## References
+
+::: {#refs}
+:::

@@ -41,7 +41,17 @@ wpct(clean_data$age_group)
 wpct(clean_data$race)
 wpct(clean_data$location)
 
+##### Summary of the dataset####
 
+
+data_summary<-clean_data %>%
+  tbl_summary(percent="row",
+    by= first_dose,
+    include=c(income_ord,
+    age_group,
+    Health_Region,
+    race)
+  )
 
 ################ RAKING ###################################
 ## I had originally used the percentages from the census, but the "population values"
@@ -277,11 +287,22 @@ a2_rake<-rake(a1,
                               income_ords,
                               health_regions))
 
-
+raking_summary <-a2_rake %>% tbl_svysummary(by = first_dose, 
+                           percent = "row", 
+                           include=c(income_ord,
+                                     age_group,
+                                     Health_Region,
+                                     race))%>%
+  bold_labels()
 ## The sampling probabilities have now changed after the correction
 
-a1_rake$prob #probabilities have changed
+tbl_merge_raking<-
+  tbl_merge(
+    tbls = list(data_summary,raking_summary),
+    tab_spanner = c("**Uncorrected data**","**Corrected by raking**")
+  )
 
+tbl_merge_raking
 
 ### Model ###
 
@@ -290,7 +311,14 @@ a1_rake$prob #probabilities have changed
 ## The model uses the response to first dose vaccine status (yes or no) using income, age group,
 ## race, and the geographic areas
 
-model1.hr<-svyglm(first_dose_m~+age_group+Health_Region*income_ord,
+ #model with raking for geographical region
+
+model1<-svyglm(first_dose_m~+age_group+race+Health_Region*income_ord,
+                  design=a1_rake,
+                  family = quasibinomial(), 
+                  control= list(maxit=25))
+
+model1.hr<-svyglm(first_dose_m~+age_group+race+Health_Region*income_ord,
               design=a2_rake,
               family = quasibinomial(), 
               control= list(maxit=25))
@@ -299,42 +327,44 @@ model1.hr<-svyglm(first_dose_m~+age_group+Health_Region*income_ord,
 
 summary(model1.hr)
 
+
 ## helps visualize the model output
 
-x1<-model1 %>% tbl_regression(exponentiate = FALSE)
+x1<-model1 %>% tbl_regression(exponentiate = TRUE)
 
 
-x2<-model1.hr %>% tbl_regression(exponentiate = FALSE)
+x2<-model1.hr %>% tbl_regression(exponentiate = TRUE)
 
 
 
 tbl_merge1<-
   tbl_merge(
     tbls = list(x1,x2),
-    tab_spanner = c("**Correction for Geographic Areas**","**Correction for Health Regions**")
-  )
+    tab_spanner = c("**LM with correction for Geographic Areas**","**LM with correction for Health Regions**")
+  ) %>%
+  bold_labels()
 
 tbl_merge1
 
 ###############
 
 
-model2<-svyglm(first_dose_m~+age_group+Health_Region*income_ord,
-               design=a1_rake,
-               family = quasibinomial(), 
-               control= list(maxit=25))
+# model2<-svyglm(first_dose_m~+age_group+Health_Region*income_ord,
+#                design=a1_rake,
+#                family = quasibinomial(), 
+#                control= list(maxit=25))
 
 ## there are some significant differences, but this model does not let explore if there are changes by area by race
 ## in each geographical region
 
-model2<-svyglm(first_dose_m~income_ord+age_group+Health_Region*race,
-               design=a1_rake,
-               family = quasibinomial(), 
-               control= list(maxit=25))
-
-
-
-summary(model2)
+# model2<-svyglm(first_dose_m~income_ord+age_group+Health_Region*race,
+#                design=a1_rake,
+#                family = quasibinomial(), 
+#                control= list(maxit=25))
+# 
+# 
+# 
+# summary(model2)
 
 
 
@@ -355,9 +385,9 @@ summary(model2)
 ## "unwtclus" is the GLMM the authors used. I will follow the same approach below to incorporate random effects by region
 
 
-model3<- glmer(first_dose_m~(1|Health_Region)+income_ords+race+age_group,data=model.frame(a1_rake),family=binomial)
+model3<- glmer(first_dose_m ~ (1|Health_Region)+income_ord+age_group,data=model.frame(a2_rake),family=binomial)
 
-summary(model2)
+summary(model3)
 
 ## This model has singularity issues and it seems Health regions as a random effect
 ## is not being useful. 
@@ -367,10 +397,10 @@ summary(model2)
 
 library(WeMix)
 
-test_data <-cbind(clean_data,a1_rake$prob,a1_rake$allprob)
+test_data <-cbind(clean_data,a2_rake$prob,a2_rake$allprob)
 
 
-names(test_data)[names(test_data) == "a1_rake$prob"] <- "rake_prob"
+names(test_data)[19] <- "rake_prob"
 
 model3 <- mix(first_dose_m ~ race + income_ord+age_group+ (1|Health_Region), data=test_data, 
               weights=c("rake_prob","probs"))
