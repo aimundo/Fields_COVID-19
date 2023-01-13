@@ -98,6 +98,25 @@
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{fontspec}
+\usepackage{multicol}
+\usepackage{hhline}
+\usepackage{hyperref}
+\usepackage{placeins}
 \KOMAoption{captions}{tableheading}
 \makeatletter
 \makeatother
@@ -168,11 +187,11 @@
 
 \title{Covid-19 Fields Survey Data Protocol}
 \author{Ariel Mundo Ortiz}
-\date{1/12/23}
+\date{1/13/23}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, borderline west={3pt}{0pt}{shadecolor}, interior hidden, frame hidden, enhanced, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, sharp corners, frame hidden, boxrule=0pt, enhanced, breakable, interior hidden]}{\end{tcolorbox}}\fi
 
 \hypertarget{background}{%
 \section{Background}\label{background}}
@@ -243,10 +262,10 @@ pandemic\textsuperscript{\protect\hyperlink{ref-hussain2022}{19}}.
 \hypertarget{research-question}{%
 \section{Research Question}\label{research-question}}
 
-This study will examine self-reported COVID-19 vaccination status in the
-province of Ontario in order to determine the influence in vaccination
-status due to socio-economic (e.g., ethnic origin, age, income) and
-geographical factors (at level of the Health Regions of Ontario).
+This study will examine self-reported COVID-19 vaccination status within
+the province of Ontario in order to determine how socio-economic (e.g.,
+ethnic origin, age, income) and geographical factors (at level of the
+Health Regions of Ontario) influence vaccination within the province.
 
 \hypertarget{methods}{%
 \section{Methods}\label{methods}}
@@ -371,7 +390,7 @@ the answers had high missing rates (\textgreater80\%) (note that the
 graph will be in the Appendix). Therefore, the dataset was cleaned in
 order to contain only the independent variables of interest with the
 lowest missing rates (Table~\ref{tbl-covariates}) and the dependent
-variable.
+variable. The final clean dataset contained 3,709 unique entries.
 
 The cleaning process also included removing outliers that were
 identified during the preliminary analyses. Specifically, we removed
@@ -422,27 +441,95 @@ categories) did not match the categories from the Census, we aggregated
 them where appropriate to obtain an approximation to the categories in
 the Census.
 
-\hypertarget{statistical-model}{%
-\subsection{Statistical model}\label{statistical-model}}
+\hypertarget{statistical-models}{%
+\subsection{Statistical models}\label{statistical-models}}
 
-We used a fixed-effects logistic regression to estimate the probability
-of vaccination depending on the socio-economic factors described in
+Because of the binary outcome of the survey answer of our interest
+(vaccination status as ``yes'' or ``no'') we used a fixed-effects
+logistic regression to estimate the probability of vaccination depending
+on the socio-economic factors described in
 Section~\ref{sec-socio-demographic-factors} and the Health Regions from
-Section~\ref{sec-geographical-location}. We examined the interaction of
-income and Health Region as it has been shown that there has been an
-increase in income inequality within the provinces of Canada over
-time\textsuperscript{\protect\hyperlink{ref-marchand2020}{22}}, and the
+Section~\ref{sec-geographical-location}. Previous studies have shown
+that socio-economic factors, and their interactions are significant
+predictors of intent of vaccination and vaccination
+status\textsuperscript{\protect\hyperlink{ref-nguyen2022}{22}--\protect\hyperlink{ref-cnat2022a}{24}}.
+At the same time in the case of Canada, others have indicated an ongoing
+need of socio-economic information that can provide a rationale for the
+disparities in vaccination observed within some racial
+groups\textsuperscript{\protect\hyperlink{ref-cnat2022b}{25}}.
+
+Therefore, we built different logistic regression models that accounted
+for different levels of interaction between the available socio-economic
+factors obtained from the Fields Covid survey. The different models are
+described below.
+
+\hypertarget{model-building-and-selection}{%
+\subsubsection{Model building and
+selection}\label{model-building-and-selection}}
+
+The first model (\texttt{model1}) examined the interaction of income and
+Health Region as it has been shown that there has been an increase in
+income inequality within the provinces of Canada over
+time\textsuperscript{\protect\hyperlink{ref-marchand2020}{26}}, and the
 relatively recent implementation of the Health Regions motivated us to
 explore if income disparity may be an important factor to consider
-within each of the Health Regions. Our model appears in
-Equation~\ref{eq-model}.
+within each of the Health Regions.
 
-\begin{equation}\protect\hypertarget{eq-model}{}{
-\log \frac{p\textrm{(vac)}}{1-p\textrm{(vac)}}= \beta_0+ \beta_{1}\textrm{(age group)} +\beta_{2} \textrm{ race} + \beta_3 \textrm{(Health Region} \times \textrm{income)} 
-}\label{eq-model}\end{equation}
+The the model was fitted using the function \texttt{svyglm} from the
+\texttt{survey} R package in order to incorporate the correction in
+sampling probability obtained from raking. The model appears in
+Equation~\ref{eq-model1}.
+
+\begin{equation}\protect\hypertarget{eq-model1}{}{
+\begin{aligned}
+\log \left( \frac{p\textrm{(vac)}}{1-p\textrm{(vac)}} \right) = \beta_0+ \beta_{1}\textrm{(Age group)} +\beta_{2} \textrm{ Race} +\\ \beta_3 \textrm{ Health Region} + \beta_4 \textrm{ Income} + \beta_5\textrm{(Health Region} \times \textrm{Income)}
+\end{aligned}
+}\label{eq-model1}\end{equation}
 
 Where \(p\textrm{(vac)}\) indicates the probability of having received
 the first dose of a Covid-19 vaccine.
+
+The second model (\texttt{model2}) incorporated an interaction effect
+between age group and income to examine if a significant interaction
+occured between these factors as well. The model appears in
+Equation~\ref{eq-model2}.
+
+\begin{equation}\protect\hypertarget{eq-model2}{}{
+\begin{aligned}
+\log \left( \frac{p\textrm{(vac)}}{1-p\textrm{(vac)}} \right) = \beta_0+ \beta_{1}\textrm{(Age group)} +\beta_{2} \textrm{ Race} + \beta_3 \textrm{ Health Region} + \\\beta_4 \textrm{ Income}+ \beta_5\textrm{(Health Region} \times \textrm{Income)} + \beta_6 \textrm{ (Age group} \times \textrm{Income)}
+\end{aligned}
+}\label{eq-model2}\end{equation}
+
+A third model (\texttt{model3}) incorporated an interaction effect
+between race and income, and appears in Equation~\ref{eq-model3}.
+
+\begin{equation}\protect\hypertarget{eq-model3}{}{
+\begin{aligned}
+\log \left( \frac{p\textrm{(vac)}}{1-p\textrm{(vac)}} \right) = \beta_0+ \beta_{1}\textrm{(Age group)} +\beta_{2} \textrm{ Race} + \beta_3 \textrm{ Health Region} + \beta_4 \textrm{ Income}+\\ \beta_5\textrm{(Health Region} \times \textrm{Income)} + \beta_6 \textrm{ (Age group} \times \textrm{Income)} + \beta_7 \textrm{ (Race} \times \textrm{Income)}
+\end{aligned}
+}\label{eq-model3}\end{equation}
+
+Although it could have been interesting to examine the interaction of
+Health Region and Race, or 3-way interactions between socio-economic
+factors (e.g., age,income,race), these models had singularity issues.
+Next, we compared the AIC of the three models indicated above. The AICs
+are very similar and appear in Table~\ref{tbl-AIC}.
+
+\hypertarget{tbl-AIC}{}
+\begin{table}
+\caption{\label{tbl-AIC}AIC for the three models }\tabularnewline
+
+\centering
+\begin{tabular}[t]{rl}
+\toprule
+AIC & model\\
+\midrule
+3580.878 & model1\\
+3614.465 & model2\\
+3633.575 & model3\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
@@ -456,52 +543,302 @@ Table~\ref{tbl-descriptive-stats} shows the descriptive statistics
 status and each of the covariates analyzed.
 
 \hypertarget{tbl-descriptive-stats}{}
-\begin{longtable}[]{@{}lcc@{}}
-\caption{\label{tbl-descriptive-stats}Descriptive Statistics of the
-Fields Covid-19 Survey}\tabularnewline
-\toprule()
-\textbf{Characteristic} & \textbf{no}, N = 1,000 & \textbf{yes}, N =
-2,709 \\
-\midrule()
-\endfirsthead
-\toprule()
-\textbf{Characteristic} & \textbf{no}, N = 1,000 & \textbf{yes}, N =
-2,709 \\
-\midrule()
-\endhead
-\textbf{income\_ord} & & \\
-15000\_24999 & 167 (34\%) & 326 (66\%) \\
-25000\_39999 & 144 (31\%) & 316 (69\%) \\
-40000\_59999 & 116 (25\%) & 348 (75\%) \\
-60000\_89999 & 71 (17\%) & 343 (83\%) \\
-over\_90000 & 251 (25\%) & 752 (75\%) \\
-under\_15000 & 251 (29\%) & 624 (71\%) \\
-\textbf{age\_group} & & \\
-16\_24 & 230 (27\%) & 634 (73\%) \\
-25\_34 & 193 (27\%) & 518 (73\%) \\
-35\_44 & 136 (25\%) & 400 (75\%) \\
-45\_54 & 130 (28\%) & 335 (72\%) \\
-55\_64 & 80 (20\%) & 317 (80\%) \\
-65\_and\_over & 231 (31\%) & 505 (69\%) \\
-\textbf{Health\_Region} & & \\
-Central & 224 (28\%) & 581 (72\%) \\
-East & 135 (23\%) & 448 (77\%) \\
-North East & 36 (34\%) & 71 (66\%) \\
-North West & 6 (12\%) & 45 (88\%) \\
-Toronto & 371 (28\%) & 953 (72\%) \\
-West & 228 (27\%) & 611 (73\%) \\
-\textbf{race} & & \\
-arab\_middle\_eastern & 77 (35\%) & 141 (65\%) \\
-black & 120 (39\%) & 186 (61\%) \\
-east\_asian\_pacific\_islander & 72 (23\%) & 236 (77\%) \\
-indigenous & 82 (38\%) & 134 (62\%) \\
-latin\_american & 70 (38\%) & 112 (62\%) \\
-mixed & 111 (34\%) & 213 (66\%) \\
-other & 134 (34\%) & 255 (66\%) \\
-south\_asian & 89 (23\%) & 294 (77\%) \\
-white\_caucasian & 245 (18\%) & 1,138 (82\%) \\
-\bottomrule()
+\begin{table}[H]
+
+\providecommand{\docline}[3]{\noalign{\global\setlength{\arrayrulewidth}{#1}}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\setlength{\tabcolsep}{0pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+\begin{longtable}[c]{|p{2.35in}|p{1.21in}|p{1.27in}}
+
+\caption{\label{tbl-descriptive-stats}Descriptive Statistics of the Fields Covid-19 Survey } \\ 
+
+
+\hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=1pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=1pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=1pt}-}
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Variable}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{no,\ N\ =\ 1,000}}\textcolor[HTML]{000000}{\textsuperscript{\fontsize{11}{11}\selectfont{1}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{yes,\ N\ =\ 2,709}}\textcolor[HTML]{000000}{\textsuperscript{\fontsize{11}{11}\selectfont{1}}}} \\
+
+\hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=1pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=1pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=1pt}-}\endhead
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{Income}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{15000\_24999}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{167\ (34\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{326\ (66\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{25000\_39999}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{144\ (31\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{316\ (69\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{40000\_59999}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{116\ (25\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{348\ (75\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{60000\_89999}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{71\ (17\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{343\ (83\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{over\_90000}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{251\ (25\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{752\ (75\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{under\_15000}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{251\ (29\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{624\ (71\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{Age\_group}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{16\_24}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{230\ (27\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{634\ (73\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{25\_34}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{193\ (27\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{518\ (73\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{35\_44}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{136\ (25\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{400\ (75\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{45\_54}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{130\ (28\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{335\ (72\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{55\_64}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{80\ (20\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{317\ (80\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{65\_and\_over}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{231\ (31\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{505\ (69\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{Health\_Region}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Central}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{224\ (28\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{581\ (72\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{East}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{135\ (23\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{448\ (77\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{North\ East}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{36\ (34\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{71\ (66\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{North\ West}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{6\ (12\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{45\ (88\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{Toronto}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{371\ (28\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{953\ (72\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{West}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{228\ (27\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{611\ (73\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\textbf{Race}}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{arab\_middle\_eastern}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{77\ (35\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{141\ (65\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{black}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{120\ (39\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{186\ (61\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{east\_asian\_pacific\_islander}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{72\ (23\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{236\ (77\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{indigenous}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{82\ (38\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{134\ (62\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{latin\_american}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{70\ (38\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{112\ (62\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{mixed}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{111\ (34\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{213\ (66\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{other}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{134\ (34\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{255\ (66\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{south\_asian}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{89\ (23\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{294\ (77\%)}}} \\
+
+
+
+
+
+\multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\raggedright}p{\dimexpr 2.35in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{white\_caucasian}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.21in+0\tabcolsep+0\arrayrulewidth}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{245\ (18\%)}}} & \multicolumn{1}{!{\color[HTML]{000000}\vrule width 0pt}>{\centering}p{\dimexpr 1.27in+0\tabcolsep+0\arrayrulewidth}!{\color[HTML]{000000}\vrule width 0pt}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{1,138\ (82\%)}}} \\
+
+\hhline{>{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=1pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=1pt}->{\arrayrulecolor[HTML]{000000}\global\arrayrulewidth=1pt}-}
+
+
+
+\multicolumn{3}{!{\color[HTML]{FFFFFF}\vrule width 0pt}>{\raggedright}p{\dimexpr 4.83in+4\tabcolsep+2\arrayrulewidth}!{\color[HTML]{FFFFFF}\vrule width 0pt}}{\textcolor[HTML]{000000}{\textsuperscript{\fontsize{11}{11}\selectfont{1}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{n\ (\%)}}} \\
+
+
+
+
+
 \end{longtable}
+
+\end{table}
+
+\hypertarget{model-comparisons}{%
+\subsection{Model Comparisons}\label{model-comparisons}}
+
+The output from the three models is too long to give a summarized view.
+I am still trying to get the important parts out but in the meantime
+here are the summary findings:
+
+\begin{itemize}
+\item
+  \textbf{Model 1} Significant values on:
+\item
+  Age: None
+\item
+  Race: East Asian/Pacific Islander, South Asian, White Caucasian
+\item
+  Income: 60000-89000 CAD, Over 90000
+\item
+  Interaction of Income and Health Region: Toronto and 60000-899999,
+  North West and over\_90000, North West and under\_15000
+\item
+  \textbf{Model 2} Significant values on:
+\item
+  Age: None
+\item
+  Race: East Asian/Pacific Islander, South Asian, White Caucasian
+\item
+  Health Region: East
+\item
+  Income: 60000-89000 CAD, Over 90000
+\item
+  Interaction of Income and Health Region: East and 60000\_89999,
+  Toronto and 60000-899999, North West and over\_90000, North West and
+  under\_15000
+\item
+  Interaction of Age and income: A couple of low values, but none below
+  0.05
+\end{itemize}
+
+including here the results of the third model, which I believe is the
+most appropriate as it has a similar AIC to the other ones, and it is
+able to provide interaction information on three different instances.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Model 3} Significant values on:
+\item
+  Age: None
+\item
+  Race: Indigenous
+\item
+  Health Region: East, Toronto
+\item
+  Income: 60000-89000 CAD
+\item
+  Interaction of Income and Health Region: East and 40000\_59999, East
+  and 60000\_89999, Toronto and 60000-899999, East and over\_90000,
+  North West and over\_90000, North West and under\_15000
+\item
+  Interaction of Age and income: A couple of low values, but none below
+  0.05
+\item
+  Interaction of Race and Income: indigenous and 25000\_39999,
+  indigenous and over\_90000, mixed and over\_90000, white\_caucasian
+  and over\_90000
+\end{itemize}
+
+So far, considering that the interaction of socioeconomic factors are
+important predictors of vaccination status, I believe the model that
+provides a more cohesive picture of the data is model 3 as it shows
+differences between race and income which could be important if we
+consider the types of occupations that people in certain regions do, and
+how these influences their vaccination status.
+
+\begin{table}
+
+\end{table}
+
+\FloatBarrier
 
 \hypertarget{references}{%
 \subsection{References}\label{references}}
@@ -666,8 +1003,40 @@ a sampled frequency table when the expected marginal totals are known.
 \emph{The Annals of Mathematical Statistics}. 1940;11(4):427-444.
 doi:\href{https://doi.org/10.1214/aoms/1177731829}{10.1214/aoms/1177731829}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-marchand2020}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-nguyen2022}{}}%
 \CSLLeftMargin{22. }%
+\CSLRightInline{Nguyen KH, Anneser E, Toppo A, Allen JD, Parott JS,
+Corlin L. Disparities in national and state estimates of {COVID}-19
+vaccination receipt and intent to vaccinate by race/ethnicity, income,
+and age group among adults~\(\geq\)~18~years, united states.
+\emph{Vaccine}. 2022;40(1):107-113.
+doi:\href{https://doi.org/10.1016/j.vaccine.2021.11.040}{10.1016/j.vaccine.2021.11.040}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-shih2021}{}}%
+\CSLLeftMargin{23. }%
+\CSLRightInline{Shih SF, Wagner AL, Masters NB, Prosser LA, Lu Y,
+Zikmund-Fisher BJ. Vaccine hesitancy and rejection of a vaccine for the
+novel coronavirus in the united states. \emph{Frontiers in Immunology}.
+2021;12.
+doi:\href{https://doi.org/10.3389/fimmu.2021.558270}{10.3389/fimmu.2021.558270}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-cnat2022a}{}}%
+\CSLLeftMargin{24. }%
+\CSLRightInline{Cénat JM, Noorishad PG, Farahi SMMM, et al. Prevalence
+and factors related to {COVID}-19 vaccine hesitancy and unwillingness in
+canada: A systematic review and meta-analysis. \emph{Journal of Medical
+Virology}. 2022;95(1).
+doi:\href{https://doi.org/10.1002/jmv.28156}{10.1002/jmv.28156}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-cnat2022b}{}}%
+\CSLLeftMargin{25. }%
+\CSLRightInline{Cénat JM, Noorishad PG, Bakombo SM, et al. A systematic
+review on vaccine hesitancy in black communities in canada: Critical
+issues and research failures. \emph{Vaccines}. 2022;10(11):1937.
+doi:\href{https://doi.org/10.3390/vaccines10111937}{10.3390/vaccines10111937}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-marchand2020}{}}%
+\CSLLeftMargin{26. }%
 \CSLRightInline{Marchand Y, Dubé J, Breau S. Exploring the causes and
 consequences of regional income inequality in canada. \emph{Economic
 Geography}. 2020;96(2):83-107.

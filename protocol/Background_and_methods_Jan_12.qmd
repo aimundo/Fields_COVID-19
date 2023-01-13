@@ -15,6 +15,9 @@ format:
   pdf:
     link-citations: true
     number-sections: true
+    include-in-header: 
+      text: |
+        \usepackage{placeins}
 editor: visual
 bibliography: bibliography/refs.bib
 keep-tex: true
@@ -23,6 +26,163 @@ knitr:
   opts_chunk:
     dev: "ragg_png"
 ---
+
+```{r, load-prepare-data}
+#| echo: false
+#| warning: false
+#| message: false
+
+
+#load packages
+
+library(weights)
+library(here)
+library(survey)
+library(magrittr)
+library(tidyverse)
+library(lme4)
+library(kableExtra)
+library(modelsummary)
+library(gtsummary)
+
+data<-read.csv(here("data","clean_dataset.csv"))
+
+# remove rows with missing observations for race
+
+clean_data<-data%>%drop_na(race)
+
+#remove "municipal status" as is not part of the analysis (to avoid unexpected errors)
+
+clean_data<-clean_data %>%
+  select(-Municipal.status) %>%
+  rename(Race=race,Age_group=age_group,Income=income_ord)
+
+#make variables of interest factors
+clean_data<-clean_data %<>%
+  mutate_at(c("Income","Race","Age_group","location","Geographic_area","Geographic_area_title"),factor)
+# recode the response of interest for categorical analysis
+clean_data<-clean_data %>%
+  mutate(first_dose_m=case_when(
+    first_dose=="yes"~1,
+    first_dose=="no"~0
+  ))
+
+
+# get percentages to see how different the data is from the Census (details of the Census values are in
+# Data_cleaning_and_covariates_Jan_05.qmd in directory "data cleaning")
+
+
+##### Summary of the dataset####
+
+
+data_summary<-clean_data %>%
+  tbl_summary(percent="row",
+    by= first_dose,
+    include=c(Income,
+    Age_group,
+    Health_Region,
+    Race)
+  ) %>% bold_labels()
+
+# Each of these dataframes provide the population totals for the different variables and their categories
+
+Ages<-data.frame(Age_group=c("16_24",
+                             "25_34",
+                             "35_44",
+                             "45_54",
+                             "55_64",
+                             "65_and_over"),
+                 Freq=c(1707959,
+                        1734856,
+                        1721407,
+                        2003826,
+                        1842444,
+                        2245898))
+
+
+
+Races<-data.frame(Race=c("arab_middle_eastern",
+                         "black",
+                         "east_asian_pacific_islander",
+                         "indigenous",
+                         "latin_american",
+                         "mixed",
+                         "other",
+                         "south_asian",
+                         "white_caucasian"),
+                  Freq=c(212782,
+                         638346,
+                         886592,
+                         376558,
+                         197020,
+                         130033,
+                         705333,
+                         1166361,
+                         9118079 ))
+
+Incomes<-data.frame(Income=c("under_15000",
+                                     "15000_24999",
+                                     "25000_39999",
+                                     "40000_59999",
+                                     "60000_89999",
+                                     "over_90000"),
+                        Freq=c(294643,
+                               387688,
+                               599624,
+                               796052,
+                               1007988,
+                               2083176
+                               
+                        ))
+
+
+# corrections for health regions
+
+Health_Regions<-data.frame(Health_Region=c(
+  "North West",
+  "North East",
+  "West",
+  "East",
+  "Central",
+  "Toronto"),
+  Freq=c(232299,
+    557000,
+    4000000,
+    3700000,
+    5000000,
+    1400000
+  )
+)
+
+### Raking ####
+
+## First, provide a survey design object. This is done using the dataset. The syntax
+## means that there is no stratification (id=~1). When the line below is run it will throw
+## a warning because we do not have "design" weights in the dataset (other datasets do have this).
+
+
+a1<-svydesign(id=~1,data=clean_data)
+
+## because there are no sampling weights, each observation as a probability of 1 of being sampled at this stage. 
+
+#a1$prob #all probs are 1
+
+## The next line uses the survey design object a1, and the variables we will adjust for, with the population corrections
+## from the data frames from above.
+
+a1_rake<-rake(a1,
+             sample=list(~Age_group,
+                         ~Race,
+                         ~Income,
+                         ~Health_Region),
+             population=list(Ages,
+                             Races,
+                             Incomes,
+                             Health_Regions))
+
+
+```
+
 
 # Background
 
@@ -38,7 +198,7 @@ In Canada, studies that have used a spatial approach to analyze vaccine uptake h
 
 # Research Question
 
-This study will examine self-reported COVID-19 vaccination status in the province of Ontario in order to determine the influence in vaccination status due to socio-economic (e.g., ethnic origin, age, income) and geographical factors (at level of the Health Regions of Ontario).
+This study will examine self-reported COVID-19 vaccination status within the province of Ontario in order to determine how socio-economic (e.g., ethnic origin, age, income) and geographical factors (at level of the Health Regions of Ontario) influence vaccination within the province.
 
 # Methods
 
@@ -87,7 +247,7 @@ From the survey, we selected the question regarding vaccination status:
 
 ## Data cleaning
 
-The original dataset contained 39,029 entries (where each entry corresponded to a set of answers provided by a unique respondent). Following a preliminary analysis to identify the missing rates across the different answers within each entry, it was identified that many of the answers had high missing rates (\>80%) (note that the graph will be in the Appendix). Therefore, the dataset was cleaned in order to contain only the independent variables of interest with the lowest missing rates (@tbl-covariates) and the dependent variable.
+The original dataset contained 39,029 entries (where each entry corresponded to a set of answers provided by a unique respondent). Following a preliminary analysis to identify the missing rates across the different answers within each entry, it was identified that many of the answers had high missing rates (\>80%) (note that the graph will be in the Appendix). Therefore, the dataset was cleaned in order to contain only the independent variables of interest with the lowest missing rates (@tbl-covariates) and the dependent variable. The final clean dataset contained 3,709 unique entries.
 
 The cleaning process also included removing outliers that were identified during the preliminary analyses. Specifically, we removed those respondents that indicated to be below 25 years of age, living in a household of size 1, and that reported an income above CAD 110,000. After cleaning the dataset contained 5,247 entries (unique respondents).
 
@@ -103,15 +263,110 @@ We identified differences between the proportions of various socio-economic fact
 
 <!-- For each survey participant certain data was automatically captured. This included the nearest municipality, which resulted in a total of 578 different municipalities within the dataset. Due to our interest in exploring vaccination status within a health region that encompasses multiple cities, we grouped the municipalities from the dataset according to the regional government aggregations provided by the Association of Municipalities of Ontario, which groups municipalities within regions, counties, districts, and single-tiers [@ontario-municipalities]. The geographical regions were obtained from the websie of the province of Ontario <https://www.ontario.ca/page/list-ontario-municipalities#section-3> -->
 
-## Statistical model
+## Statistical models
 
-We used a fixed-effects logistic regression to estimate the probability of vaccination depending on the socio-economic factors described in @sec-socio-demographic-factors and the Health Regions from @sec-geographical-location. We examined the interaction of income and Health Region as it has been shown that there has been an increase in income inequality within the provinces of Canada over time [@marchand2020], and the relatively recent implementation of the Health Regions motivated us to explore if income disparity may be an important factor to consider within each of the Health Regions. Our model appears in @eq-model.
+Because of the binary outcome of the survey answer of our interest (vaccination status as "yes" or "no") we used a fixed-effects logistic regression to estimate the probability of vaccination depending on the socio-economic factors described in @sec-socio-demographic-factors and the Health Regions from @sec-geographical-location. 
+Previous studies have shown that socio-economic factors, and their interactions are significant predictors of intent of vaccination and vaccination status [@nguyen2022; @shih2021;@cnat2022a]. At the same time in the case of Canada, others have indicated an ongoing need of socio-economic information that can provide a rationale for the disparities in vaccination observed within some racial groups [@cnat2022b]. 
+
+Therefore, we built different logistic regression models that accounted for different levels of interaction between the available socio-economic factors obtained from the Fields Covid survey. The different models are described below.
+
+### Model building and selection
+
+The first model (`model1`) examined the interaction of income and Health Region as it has been shown that there has been an increase in income inequality within the provinces of Canada over time [@marchand2020], and the relatively recent implementation of the Health Regions motivated us to explore if income disparity may be an important factor to consider within each of the Health Regions.
+
+The the model was fitted using the function `svyglm` from the `survey` R package in order to incorporate the correction in sampling probability obtained from raking. The model appears in @eq-model1.
 
 $$
-\log \frac{p\textrm{(vac)}}{1-p\textrm{(vac)}}= \beta_0+ \beta_{1}\textrm{(age group)} +\beta_{2} \textrm{ race} + \beta_3 \textrm{(Health Region} \times \textrm{income)} 
-$$ {#eq-model}
+\begin{aligned}
+\log \left( \frac{p\textrm{(vac)}}{1-p\textrm{(vac)}} \right) = \beta_0+ \beta_{1}\textrm{(Age group)} +\beta_{2} \textrm{ Race} +\\ \beta_3 \textrm{ Health Region} + \beta_4 \textrm{ Income} + \beta_5\textrm{(Health Region} \times \textrm{Income)}
+\end{aligned}
+$$ {#eq-model1}
 
 Where $p\textrm{(vac)}$ indicates the probability of having received the first dose of a Covid-19 vaccine.
+
+The second model (`model2`) incorporated an interaction effect between age group and income to examine if a significant interaction occured between these factors as well. The model appears in @eq-model2.
+
+$$
+\begin{aligned}
+\log \left( \frac{p\textrm{(vac)}}{1-p\textrm{(vac)}} \right) = \beta_0+ \beta_{1}\textrm{(Age group)} +\beta_{2} \textrm{ Race} + \beta_3 \textrm{ Health Region} + \\\beta_4 \textrm{ Income}+ \beta_5\textrm{(Health Region} \times \textrm{Income)} + \beta_6 \textrm{ (Age group} \times \textrm{Income)}
+\end{aligned}
+$$ {#eq-model2}
+
+A third model (`model3`) incorporated an interaction effect between race and income, and appears in @eq-model3.
+
+$$
+\begin{aligned}
+\log \left( \frac{p\textrm{(vac)}}{1-p\textrm{(vac)}} \right) = \beta_0+ \beta_{1}\textrm{(Age group)} +\beta_{2} \textrm{ Race} + \beta_3 \textrm{ Health Region} + \beta_4 \textrm{ Income}+\\ \beta_5\textrm{(Health Region} \times \textrm{Income)} + \beta_6 \textrm{ (Age group} \times \textrm{Income)} + \beta_7 \textrm{ (Race} \times \textrm{Income)}
+\end{aligned}
+$$ {#eq-model3}
+
+
+Although it could have been interesting to examine the interaction of Health Region and Race, or 3-way interactions between socio-economic factors (e.g., age,income,race), these models had singularity issues. Next, we compared the AIC of the three models indicated above. The AICs are very similar and appear in @tbl-AIC.
+
+
+```{r,models}
+#| echo: false
+#| warning: false
+#| message: false
+#| label: tbl-AIC
+#| tbl-cap: "AIC for the three models"
+
+### Model ###
+
+## the first model is a simple logistic regression with fixed effects only svyglm uses the glm
+## function to calculate, so it does not allow for random effects.
+
+model1<-svyglm(first_dose_m~Age_group+Race+Health_Region*Income+Health_Region,
+              design=a1_rake,
+              family = quasibinomial(), 
+              control= list(maxit=25))
+
+
+model2<-svyglm(first_dose_m~Age_group+Race+Health_Region*Income+Health_Region+Age_group*Income,
+              design=a1_rake,
+              family = quasibinomial(), 
+              control= list(maxit=25))
+
+
+model3<-svyglm(first_dose_m~Age_group+Race+Health_Region*Income+Health_Region+Age_group*Income+Race*Income,
+              design=a1_rake,
+              family = quasibinomial(), 
+              control= list(maxit=25))
+
+
+
+# model4<-svyglm(first_dose_m~Age_group+Income+Race+Health_Region+Health_Region*Income+Income*Age_group+Income*Race+Income*Age_group*Race,
+#               design=a1_rake,
+#               family = quasibinomial(), 
+#               control= list(maxit=25))
+# 
+# 
+# model5<-svyglm(first_dose_m~Age_group+Income+Race+Health_Region+Health_Region*Income+Income*Age_group+Income*Race+Race*Health_Region,
+#               design=a1_rake,
+#               family = quasibinomial(), 
+#               control= list(maxit=25))
+
+
+#summary(model1.test)
+#summary(model1.hr)
+
+model_comp<-as_tibble(AIC(model1,model2,model3))%>%
+  select(-c(eff.p,deltabar))%>%
+  add_column(model=c("model1","model2","model3"))
+
+model_comp%>%
+  kbl(booktabs=T,
+      col.names = c("AIC","model"))
+  
+## helps visualize the model output
+
+
+###############
+
+
+
+```
+
 
 # Results
 
@@ -120,74 +375,132 @@ Where $p\textrm{(vac)}$ indicates the probability of having received the first d
 @tbl-descriptive-stats shows the descriptive statistics (uncorrected) from the Fields Covid-19 survey data for vaccination status and each of the covariates analyzed. 
 
 
-```{r, load-prepare-data}
-#| echo: false
-#| warning: false
-#| message: false
-
-
-#load packages
-
-library(weights)
-library(here)
-library(survey)
-library(magrittr)
-library(tidyverse)
-library(lme4)
-library(gtsummary)
-
-data<-read.csv(here("data","clean_dataset.csv"))
-
-# remove rows with missing observations for race
-
-clean_data<-data%>%drop_na(race)
-
-#remove "municipal status" as is not part of the analysis (to avoid unexpected errors)
-
-clean_data<-clean_data%>%
-  select(-Municipal.status)
-
-#make variables of interest factors
-clean_data<-clean_data %<>%
-  mutate_at(c("income_ord","race","age_group","location","Geographic_area","Geographic_area_title"),factor)
-# recode the response of interest for categorical analysis
-clean_data<-clean_data %>%
-  mutate(first_dose_m=case_when(
-    first_dose=="yes"~1,
-    first_dose=="no"~0
-  ))
-
-
-# get percentages to see how different the data is from the Census (details of the Census values are in
-# Data_cleaning_and_covariates_Jan_05.qmd in directory "data cleaning")
-
-
-##### Summary of the dataset####
-
-
-data_summary<-clean_data %>%
-  tbl_summary(percent="row",
-    by= first_dose,
-    include=c(income_ord,
-    age_group,
-    Health_Region,
-    race)
-  ) %>% bold_labels()
-
-
-```
-
-
-
 ```{r,summary-table}
 #| label: tbl-descriptive-stats
 #| tbl-cap: "Descriptive Statistics of the Fields Covid-19 Survey"
 #| message: false
 #| echo: false
 
-data_summary 
+data_summary %>%
+  modify_header(label = "**Variable**") %>%
+  as_flex_table()
 
 ```
+
+## Model Comparisons
+
+The output from the three models is too long to give a summarized view. I am still trying to get the important parts out but in the meantime here are the summary findings:
+
+- **Model 1**
+  Significant values on:
+- Age: None
+- Race: East Asian/Pacific Islander, South Asian, White Caucasian
+- Income: 60000-89000 CAD, Over 90000
+- Interaction of Income and Health Region: Toronto and 60000-899999, North West and over_90000, North West  and under_15000
+              
+- **Model 2**
+    Significant values on:
+- Age: None
+- Race: East Asian/Pacific Islander, South Asian, White Caucasian
+- Health Region: East
+- Income: 60000-89000 CAD, Over 90000
+- Interaction of Income and Health Region: East and 60000_89999, Toronto and 60000-899999, North West and over_90000, North West  and under_15000
+- Interaction of Age and income: A couple of low values, but none below 0.05
+
+including here the results of the third model, which I believe is the most appropriate as it has a similar AIC to the other ones, and it is able to provide interaction information on three different instances. 
+
+
+- **Model 3**
+    Significant values on:
+- Age: None
+- Race: Indigenous
+- Health Region: East, Toronto
+- Income: 60000-89000 CAD
+- Interaction of Income and Health Region: East and 40000_59999, East and 60000_89999, Toronto and 60000-899999, East and  over_90000, North West and over_90000, North West  and under_15000
+- Interaction of Age and income: A couple of low values, but none below 0.05
+- Interaction of Race and Income: indigenous and 25000_39999, indigenous and over_90000, mixed and over_90000, white_caucasian and over_90000
+
+
+So far, considering that the interaction of socioeconomic factors are important predictors of vaccination status, I believe the model that provides a more cohesive picture of the data is model 3 as it shows differences between race and income which could be important if we consider the types of occupations that people in certain regions do, and how these influences their vaccination status. 
+
+<!-- @tbl-model shows the odds-ratio, 95\% confidence interval, and p-value for the logistic regression model for the first dose of vaccination by age group, race, income, Health Region, and the interaction of income and Health Region.  -->
+
+
+```{r, model-table}
+#| label: tbl-model
+#| tbl-cap: "Logistic Regression Model Estimates"
+#| message: false
+#| echo: false
+#| warning: false
+
+
+# models<-list(model1,model2,model3)
+# # 
+# modelsummary(models,exponentiate = TRUE, stars = T, statistic = c("conf.int",
+#                           "p = {p.value}"))
+# 
+#  
+# modelsummary(model1,exponentiate = TRUE, stars = T, statistic = c("conf.int",
+#                           coef_omit = c(1),
+#                           "p = {p.value}"))
+
+# model_tbl1<-model1 %>%
+#   tbl_regression(exponentiate = TRUE) %>%
+#   bold_labels()%>%
+#   modify_header(label = "**Variable**")
+# # 
+# # test<-summary(model1)
+# # 
+# model_tbl1<-model1 %>%
+#   tbl_regression(exponentiate = TRUE) %>%
+#   select(variable, estimate, p.value) %>%
+#   filter(p.value <= 0.05)%>%
+#   kbl()%>%
+#   as_kable_extra() %>%
+#   kableExtra::kable_styling(
+#     font_size = 8
+#   )
+# 
+# # 
+# model_tbl2<-model2 %>%
+#   tbl_regression(exponentiate = TRUE) %>%
+#   bold_labels()%>%
+#   modify_header(label = "**Variable**")%>%
+#   as_kable_extra() %>%
+#   kableExtra::kable_styling(
+#     font_size = 8
+#   )
+# 
+# model_tbl3<-model3 %>%
+#   tbl_regression(exponentiate = TRUE) %>%
+#   bold_labels()%>%
+#   modify_header(label = "**Variable**")%>%
+#   as_kable_extra() %>%
+#   kableExtra::kable_styling(
+#     font_size = 10
+#   )
+
+# model_tbl3
+# 
+# model_tbl3
+# 
+# tbl_merge_model<-
+#   tbl_merge(
+#     tbls = list(model_tbl1,model_tbl2,model_tbl3),
+#     tab_spanner = c("**Model 1**","**Model 2**", "**Model 3**")
+#   )%>%
+#   as_flex_table()
+# 
+# tbl_merge_model
+# 
+
+# modelsummary(model3,exponentiate = TRUE, stars = T, statistic = c("conf.int",
+#                           "p = {p.value}"))
+
+```
+
+
+\FloatBarrier
 
 ## References
 
