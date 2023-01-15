@@ -44,6 +44,7 @@ library(lme4)
 library(kableExtra)
 library(modelsummary)
 library(gtsummary)
+library(patchwork)
 
 data<-read.csv(here("data","clean_dataset.csv"))
 
@@ -427,50 +428,77 @@ So far, considering that the interaction of socioeconomic factors are important 
 
 
 ```{r, model-table}
-#| label: tbl-model
-#| tbl-cap: "Logistic Regression Model Estimates"
 #| message: false
 #| echo: false
 #| warning: false
+#| fig-width: 8
+#| fig-height: 8
 
 
-# models<-list(model1,model2,model3)
-# # 
-# modelsummary(models,exponentiate = TRUE, stars = T, statistic = c("conf.int",
-#                           "p = {p.value}"))
-# 
-#  
-# modelsummary(model1,exponentiate = TRUE, stars = T, statistic = c("conf.int",
-#                           coef_omit = c(1),
-#                           "p = {p.value}"))
+ # models<-list("First Model"=model1,
+ #              "Second Model"=model2,
+ #              "Third Model"=model3)
 
-# model_tbl1<-model1 %>%
-#   tbl_regression(exponentiate = TRUE) %>%
-#   bold_labels()%>%
-#   modify_header(label = "**Variable**")
-# # 
-# # test<-summary(model1)
-# # 
-# model_tbl1<-model1 %>%
-#   tbl_regression(exponentiate = TRUE) %>%
-#   select(variable, estimate, p.value) %>%
-#   filter(p.value <= 0.05)%>%
-#   kbl()%>%
-#   as_kable_extra() %>%
-#   kableExtra::kable_styling(
-#     font_size = 8
-#   )
+a<-modelplot(model1,coef_omit = ':')+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
+  scale_color_manual(values = c("black", "red"))+ggtitle("First Model")
+
+b<-modelplot(model2,coef_omit = ':')+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
+  scale_color_manual(values = c("black", "red"))+ggtitle("Second Model")
+
+c<-modelplot(model3,coef_omit = ':')+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
+  scale_color_manual(values = c("black", "red"))+ggtitle("Third Model")
+
+a+b+c+plot_layout(guides = 'collect')+plot_annotation(title="Fixed effects of all models")& theme(legend.position = 'bottom')
+  
+
+d<-modelplot(model1,coef_omit = "^(?!.*:)")+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
+  scale_color_manual(values = c("black", "red"))+ggtitle("First Model")
+
+e<-modelplot(model2,coef_omit = "^(?!.*:)")+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
+  scale_color_manual(values = c("black", "red"))+ggtitle("First Model")
+
+
+f<-modelplot(model3,coef_omit = "^(?!.*:)")+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
+  scale_color_manual(values = c("black", "red"))+ggtitle("First Model")
+
+d+e+f+plot_layout(guides = 'collect')+plot_annotation(title="Interaction effects of all models") & theme(legend.position = 'bottom')
+
+
+#  modelsummary(models,exponentiate = TRUE, stars = T, statistic = c("conf.int",
+#                            "p = {p.value}"))
 # 
-# # 
-# model_tbl2<-model2 %>%
-#   tbl_regression(exponentiate = TRUE) %>%
-#   bold_labels()%>%
-#   modify_header(label = "**Variable**")%>%
-#   as_kable_extra() %>%
-#   kableExtra::kable_styling(
-#     font_size = 8
-#   )
 # 
+#  modelsummary(model1,exponentiate = TRUE, stars = T, statistic ="conf.int")
+# 
+#  model_tbl1<-model1 %>%
+#    tbl_regression(exponentiate = TRUE) %>%
+#    bold_labels()%>%
+#    modify_header(label = "**Variable**")
+# 
+#   test<-summary(model1)
+# 
+#  model_tbl1<-model1 %>%
+#    tbl_regression(exponentiate = TRUE) %>%
+#    select(variable, estimate, p.value) %>%
+#    filter(p.value <= 0.05)%>%
+#    kbl()%>%
+#    as_kable_extra() %>%
+#    kableExtra::kable_styling(
+#      font_size = 8
+#    )
+# 
+# 
+# 
+# # # 
+# # model_tbl2<-model2 %>%
+# #   tbl_regression(exponentiate = TRUE) %>%
+# #   bold_labels()%>%
+# #   modify_header(label = "**Variable**")%>%
+# #   as_kable_extra() %>%
+# #   kableExtra::kable_styling(
+# #     font_size = 8
+# #   )
+# # 
 # model_tbl3<-model3 %>%
 #   tbl_regression(exponentiate = TRUE) %>%
 #   bold_labels()%>%
@@ -479,23 +507,26 @@ So far, considering that the interaction of socioeconomic factors are important 
 #   kableExtra::kable_styling(
 #     font_size = 10
 #   )
-
-# model_tbl3
 # 
-# model_tbl3
+# # model_tbl3
+# # 
+# # model_tbl3
+# # 
+# # tbl_merge_model<-
+# #   tbl_merge(
+# #     tbls = list(model_tbl1,model_tbl2,model_tbl3),
+# #     tab_spanner = c("**Model 1**","**Model 2**", "**Model 3**")
+# #   )%>%
+# #   as_flex_table()
+# # 
+# # tbl_merge_model
+# # 
 # 
-# tbl_merge_model<-
-#   tbl_merge(
-#     tbls = list(model_tbl1,model_tbl2,model_tbl3),
-#     tab_spanner = c("**Model 1**","**Model 2**", "**Model 3**")
-#   )%>%
-#   as_flex_table()
-# 
-# tbl_merge_model
-# 
-
-# modelsummary(model3,exponentiate = TRUE, stars = T, statistic = c("conf.int",
-#                           "p = {p.value}"))
+#  modelsummary(model3,exponentiate = TRUE, 
+#               stars = T, 
+#               estimate = "{estimate} [{conf.low}, {conf.high}]",
+#               #statistic = NULL
+#               )
 
 ```
 
