@@ -452,14 +452,14 @@ a+b+c+plot_layout(guides = 'collect')+plot_annotation(title="Fixed effects of al
   
 
 d<-modelplot(model1,coef_omit = "^(?!.*:)")+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
-  scale_color_manual(values = c("black", "red"))+ggtitle("First Model")
+  scale_color_manual(values = c("black", "red"))+ggtitle("1st Model")
 
 e<-modelplot(model2,coef_omit = "^(?!.*:)")+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
-  scale_color_manual(values = c("black", "red"))+ggtitle("First Model")
+  scale_color_manual(values = c("black", "red"))+ggtitle("2nd Model")
 
 
 f<-modelplot(model3,coef_omit = "^(?!.*:)")+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
-  scale_color_manual(values = c("black", "red"))+ggtitle("First Model")
+  scale_color_manual(values = c("black", "red"))+ggtitle("3rd Model")
 
 d+e+f+plot_layout(guides = 'collect')+plot_annotation(title="Interaction effects of all models") & theme(legend.position = 'bottom')
 
