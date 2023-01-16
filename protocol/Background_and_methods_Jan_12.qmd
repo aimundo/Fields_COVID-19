@@ -18,6 +18,8 @@ format:
     include-in-header: 
       text: |
         \usepackage{placeins}
+  html:
+    toc: true
 editor: visual
 bibliography: bibliography/refs.bib
 keep-tex: true
@@ -419,49 +421,61 @@ including here the results of the third model, which I believe is the most appro
 - Income: 60000-89000 CAD
 - Interaction of Income and Health Region: East and 40000_59999, East and 60000_89999, Toronto and 60000-899999, East and  over_90000, North West and over_90000, North West  and under_15000
 - Interaction of Age and income: A couple of low values, but none below 0.05
-- Interaction of Race and Income: indigenous and 25000_39999, indigenous and over_90000, mixed and over_90000, white_caucasian and over_90000
+- Interaction of Race and Income: indigenous and 25000_39999, indigenous and over_90000, mixed and over_90000, white_caucasian and over_90000. A visual representation of the estimates of the models can be see below, where @fig-fixed-effects shows the odds-ratio, 95\% confidence interval for the single fixed effects of the three models. @fig-interaction-effects shows the odds ratio and 95\% confidence interval for the interaction effects of models 1 and 2, and @fig-interaction-effects-mod3 shows the interaction effects for model 3.
 
 
-So far, considering that the interaction of socioeconomic factors are important predictors of vaccination status, I believe the model that provides a more cohesive picture of the data is model 3 as it shows differences between race and income which could be important if we consider the types of occupations that people in certain regions do, and how these influences their vaccination status. 
-
-<!-- @tbl-model shows the odds-ratio, 95\% confidence interval, and p-value for the logistic regression model for the first dose of vaccination by age group, race, income, Health Region, and the interaction of income and Health Region.  -->
-
-
-```{r, model-table}
+```{r, model-fixed-eff}
 #| message: false
+#| label: fig-fixed-effects
 #| echo: false
 #| warning: false
 #| fig-width: 8
-#| fig-height: 8
+#| fig-cap: "Fixed effects of all models"
+#| fig-height: 12
 
 
  # models<-list("First Model"=model1,
  #              "Second Model"=model2,
  #              "Third Model"=model3)
 
+# cm<-c('Incomeunder_15000'='Under CAD 15000',
+#       'Income25000_39999'='CAD 25000-39999',
+#       'Income40000_59999'='CAD 40000-59999',
+#       'Income60000_89999'='CAD 60000-89999',
+#       'Incomeover_90000'='Over CAD 90000',
+#       'Age_group25_24'='Age 25-34',
+#       'Age_group35_44'='Age 35-44',
+#       'Age_group45-54'='Age 45-54',
+#       'Age_group55_64'='Age 55-64',
+#       'Age_group65_and_over'='Age 65 and over',
+#       'Raceblack'='Black',
+#       'Raceeast_asian_pacific_islander'='East Asian/Pacific Islander',
+#       'Raceindigenous'="Indigenous",
+#       'Racelatin_american'='Latin American',
+#       'Racemixed'='mixed',
+#       'Raceother'='Other',
+#       'Racesouth_asian'='South Asian',
+#       'Racewhite_caucasian'='White Caucasian',
+#       'Health_RegionNorth East'='North East',
+#       'Health_RegionNorth West'='North West',
+#       'Health_RegionToronto'='Toronto',
+#       'Health_RegionWest'='West',
+#       
+#       )
+
 a<-modelplot(model1,coef_omit = ':')+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
-  scale_color_manual(values = c("black", "red"))+ggtitle("First Model")
+  scale_color_manual(values = c("black", "red"))+ggtitle("First Model")+xlab("")
 
 b<-modelplot(model2,coef_omit = ':')+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
-  scale_color_manual(values = c("black", "red"))+ggtitle("Second Model")
+  scale_color_manual(values = c("black", "red"))+ggtitle("Second Model")+xlab("")
 
 c<-modelplot(model3,coef_omit = ':')+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
   scale_color_manual(values = c("black", "red"))+ggtitle("Third Model")
 
-a+b+c+plot_layout(guides = 'collect')+plot_annotation(title="Fixed effects of all models")& theme(legend.position = 'bottom')
+
+
+a+b+c+plot_layout(guides = 'collect',ncol=1)+plot_annotation(title="Fixed effects of all models")& theme(legend.position = 'bottom')
   
-
-d<-modelplot(model1,coef_omit = "^(?!.*:)")+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
-  scale_color_manual(values = c("black", "red"))+ggtitle("1st Model")
-
-e<-modelplot(model2,coef_omit = "^(?!.*:)")+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
-  scale_color_manual(values = c("black", "red"))+ggtitle("2nd Model")
-
-
-f<-modelplot(model3,coef_omit = "^(?!.*:)")+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
-  scale_color_manual(values = c("black", "red"))+ggtitle("3rd Model")
-
-d+e+f+plot_layout(guides = 'collect')+plot_annotation(title="Interaction effects of all models") & theme(legend.position = 'bottom')
 
 
 #  modelsummary(models,exponentiate = TRUE, stars = T, statistic = c("conf.int",
@@ -529,6 +543,54 @@ d+e+f+plot_layout(guides = 'collect')+plot_annotation(title="Interaction effects
 #               )
 
 ```
+
+
+```{r,model-interactions}
+#| message: false
+#| echo: false
+#| label: fig-interaction-effects
+#| warning: false
+#| fig-cap: "Interaction Effects of models 1 and 2"
+#| fig-width: 10
+#| fig-height: 10
+
+#cm<-c('Incomeunder_15000'='Under 15000')
+
+
+d<-modelplot(model1,coef_omit = "^(?!.*:)")+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant"))+
+  scale_color_manual(values = c("black", "red"))+ggtitle("1st Model")+xlab("")
+
+e<-modelplot(model2,coef_omit = "^(?!.*:)")+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
+  scale_color_manual(values = c("black", "red"))+ggtitle("2nd Model")
+
+
+f<-modelplot(model3,coef_omit = "^(?!.*:)")+aes(color = ifelse(p.value < 0.05, "Significant", "Not significant")) +
+  scale_color_manual(values = c("black", "red"))+ggtitle("3rd Model")
+
+d+e+plot_layout(guides = 'collect',ncol=1)+plot_annotation(title="Interaction effects for models 1 and 2") & theme(legend.position = 'bottom')
+
+```
+
+
+```{r,third-model}
+#| message: false
+#| echo: false
+#| label: fig-interaction-effects-mod3
+#| warning: false
+#| fig-cap: "Interaction Effects of model 3"
+#| fig-width: 10
+#| fig-height: 15
+
+
+f+plot_layout(guides = 'collect',ncol=1)+plot_annotation(title="Interaction effects for model 3") & theme(legend.position = 'bottom')
+
+
+
+```
+
+
+**So far, considering that the interaction of socioeconomic factors are important predictors of vaccination status, I believe the model that provides a more cohesive picture of the data is model 3 as it shows differences between race and income which could be important if we consider the types of occupations that people in certain regions do, and how these influences their vaccination status.**
+
 
 
 \FloatBarrier
