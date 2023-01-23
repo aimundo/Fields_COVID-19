@@ -87,7 +87,17 @@ data_summary<-clean_data %>%
     Race)
   ) %>% bold_labels()
 
+clean_data <-clean_data %>%
+  filter(Health_Region !="North East", Health_Region !="North West")
+
 # Each of these dataframes provide the population totals for the different variables and their categories
+
+clean_data %>%
+  tbl_summary(
+    include=c(
+    Health_Region,)
+  ) %>% bold_labels()
+
 
 Ages<-data.frame(Age_group=c("16_24",
                              "25_34",
@@ -142,20 +152,22 @@ Incomes<-data.frame(Income=c("under_15000",
 # corrections for health regions
 
 Health_Regions<-data.frame(Health_Region=c(
-  "North West",
-  "North East",
+  #"North West",
+  #"North East",
   "West",
   "East",
   "Central",
   "Toronto"),
-  Freq=c(232299,
-    557000,
+  Freq=c(#232299,
+    #557000,
     4000000,
     3700000,
     5000000,
     1400000
   )
 )
+
+# probably best strategy is to remove the North West and North East regions as they only constitute 5% of the total population of Ontario.
 
 ### Raking ####
 
