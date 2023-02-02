@@ -183,11 +183,11 @@
 
 \title{Covid-19 Fields Survey Data Protocol}
 \author{Ariel Mundo Ortiz}
-\date{1/30/23}
+\date{1/31/23}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, borderline west={3pt}{0pt}{shadecolor}, enhanced, breakable, boxrule=0pt, interior hidden, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners, enhanced, breakable, frame hidden, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \hypertarget{background}{%
 \section{Background}\label{background}}
@@ -400,29 +400,30 @@ corresponding to a unique respondent).
 
 For each survey participant certain data was automatically captured.
 This included the nearest municipality, which resulted in a total of 578
-different municipalities within the dataset. Because our interest was to
-analyze the differences between Health Regions, we assigned the location
-(city) of each entry to its correspondent Health Region following a
-multi-step process: First, we used the municipality information from the
-website of the Association of Municipalities of Ontario (AMO) to assign
-geographical regions to each entry on the dataset. Secondly, we used a
-publicly available dataset of long-term care homes by Local Health
-Integrated Network (LHIN), which were the geographical divisions for
-health in Ontario before the adoption of the Health Regions, to match
-each city with its corresponding LHIN. Cities that did not have a LHIN
-entry on the dataset were searched in the websites of the LHINs and
-manually added to the dataset. Finally, we assigned the corresponding
-Health Region to each city by matching the LHINs to the Health Regions
-that now encompass them, following the information provided by Ontario
-Health (details of the complete process are in the Appendix).
+different municipalities within the dataset. Due to our interest in
+analyzing the differences between Health Regions, we assigned the
+location (city) of each entry to its correspondent Health Region
+following a multi-step process: First, we used the municipality
+information from the website of the Association of Municipalities of
+Ontario (AMO) to assign geographical regions to each entry on the
+dataset. Secondly, we used a publicly available dataset of long-term
+care homes by Local Health Integrated Network (LHIN, the previous
+geographical divisions for health in Ontario before the adoption of the
+Health Regions), to match each city with its corresponding LHIN. Cities
+that did not have a LHIN entry on the dataset were searched in the
+websites of the LHINs and manually added to the dataset. Finally, we
+assigned the corresponding Health Region to each city by matching the
+LHINs to the Health Regions that now encompass them, following the
+information provided by Ontario Health (details of the complete process
+are in the Appendix).
 
 Following an assessment of the number of entries corresponding to each
-Health Region in the clean dataset, there were a relatively low number
-of observations from the North East and North West regions (2.9\% and
-1.4\% of the total clean dataset, respectively). Due to the low number
-of entries in each case, we omitted the entries from these regions from
-further analyses. Therefore, the total number of unique entries used for
-analysis was 3,551.
+Health Region in the clean dataset, we removed entries that corresponded
+to the North East and North West Health Regions as they comprised only
+107 observations (4.3\% of the total). Due to the low number of entries
+in these regions, we omitted these Health Regions from further analyses.
+Therefore, the total number of unique entries used for analysis was
+3,551 comprising the East, Central, Toronto, and West Health Regions.
 
 \hypertarget{corrections}{%
 \subsection{Corrections}\label{corrections}}
@@ -556,30 +557,30 @@ Region) and their interactions as predictors. The reference groups in
 each case were set as follows: 16 to 24 years (age group), White
 Caucasian (Race), Toronto (Health Region), Over CAD 90,000 (Income).
 Socio-economic factors with statistically significant odds ratios were
-the age group of 65 years and over (OR=0.58), persons who identified as
+the age group of 65 years and over (OR=0.44), persons who identified as
 Arab/Middle Eastern (OR=0.15), Black (OR=0.17), Indigenous (OR=0.27),
-Latin American (OR=0.24), South Asian (OR=0.17) and Other Race/Ethnicity
+Latin American (OR=0.24), South Asian (OR=0.4) and Other Race/Ethnicity
 (a group that included minorities not found elsewhere, OR=0.17), and
 those that lived in a household with an income bracket between CAD
-25,000 and CAD 39,999.
+25,000-39,999 (OR=0.23).
 
 Regarding the interaction effects, the interaction of the Central Health
 Region and income bracket between 15000 to 24999 CAD was statistically
 significant (OR=0.4). In age group and income, significant effects were
 estimated for those 65 years and older with a household income between
-25000-39999 CAD (OR=0.001), and with an income between 40000 and 59999
+CAD 25000-39999 (OR=7.21), and with an income between CAD 40000-59999
 (OR=3.12). In the case of race and income, significant effects were
 estimated for individuals that identified as Arab/Middle Easterners with
-a family income between 15000 and 24000 (OR=5.68) or income under 15000
-CAD (OR=4.21), Black individuals with a family income under 15000 CAD
-(OR=4.26) or between 15000 and 24999 CAD (OR=3.35); additionally, there
-were statistically significant interaction effects in the case of those
-that identified as belonging to a race not identified elsewhere with an
-income under 15000 CAD (OR=3.73), between 15000 and 24999 (OR 11.2),
-between 25000 and 39999 CAD (OR=4.67), or with an income between 40000
-and 59999 CAD (OR=9.58). Finally, in race and income there was a
-significant interaction effect for South Asian individuals with an
-income under 15000 CAD (OR=3.10).
+a family income between 15000 and 24999 (OR=5.68) or income under CAD
+15000 (OR=4.21), Black individuals with a family income under CAD 15000
+(OR=4.26) or between CAD 15000-24999 (OR=3.35); additionally, there were
+statistically significant interaction effects in the case of those that
+identified as belonging to a race not identified elsewhere (``Other'')
+within multiple income brackets: under CAD 15000 (OR=3.73), between
+15000 and 24999 (OR 11.2), between 25000 and 39999 CAD (OR=4.67), and
+with income CAD 40000-59999 (OR=9.58). Finally, there was a significant
+interaction effect for South Asian individuals with an income under CAD
+15000 (OR=3.10).
 
 \hypertarget{tbl-model}{}
 \begin{longtable}{lccc}
