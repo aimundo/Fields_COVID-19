@@ -1,0 +1,52 @@
+---
+title: '**Socio-economic and geographic determinants of Covid-19 vaccination**'
+author: Ariel Mundo Ortiz
+format: pdf
+bibliography: refs.bib
+csl: jama.csl
+link-citations: yes #adds links to the citations
+---
+
+
+# Abstract
+
+
+# Keywords {-}
+
+
+```{r setup, message = FALSE,include=FALSE}
+#the packages needed to run the code
+
+library(weights)
+library(here)
+library(survey)
+library(magrittr)
+library(tidyverse)
+library(lme4)
+library(kableExtra)
+library(modelsummary)
+library(gtsummary)
+library(patchwork)
+
+```
+
+
+```{r} 
+#| child: 01-background.qmd
+```
+
+<!-- \FloatBarrier -->
+
+```{r} 
+#| child: 02-methods.qmd
+```
+
+
+```{r}
+#| child: 03-results.qmd
+```
+
+# References
+
+::: {#refs}
+:::

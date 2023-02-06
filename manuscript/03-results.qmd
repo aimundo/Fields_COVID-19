@@ -1,0 +1,48 @@
+# Results
+
+## Survey Results
+
+@tbl-descriptive-stats shows the descriptive statistics (uncorrected) from the Fields Covid-19 survey data for vaccination status and each of the covariates analyzed. The total number of entries from the survey in the dataset after cleaning was 3,551. Overall, 26.9\% of survey respondents (958) reported not having received the first dose of the vaccine, whereas 73.1\% (2,593) reported having received it. Regarding socio-economic factors, respondents who reported living in a household with an income under CAD 15,000 or above 90,000 represented approximately 50\% of the total number of entries, with 71\% and 75\% of the respondents in each income bracket indicating to have received the first dose of the vaccine, respectively. The age group between 16-24 years had the highest representation in the survey responses (837, 23.6\% of all responses), followed by the age group of those between 65 and over (692, 19.5\% of the total); 73\% of those in the 16 to 24 years age group reported to have received the vaccine, whereas 68\% of those above 65 years indicated the same. The Health Region with the highest number of participants in the survey was Toronto, accounting for 1,342 entries (37.7\%) and a 72\% vaccination rate. Regarding race, individuals that identified as White/Caucasian represented 1313 (37\%) of all entries and had the highest vaccination uptake with 82\% of them indicating to have received the COVID-19 vaccine. On the other hand, those that identified as Indigenous had the lowest vaccine uptake with 60\% indicating to have received the vaccine.
+
+
+```{r,summary-table}
+#| label: tbl-descriptive-stats
+#| tbl-cap: "Descriptive Statistics of the Fields Covid-19 Survey"
+#| message: false
+#| echo: false
+
+source(here::here("code","data_preparation.R"))
+
+data_summary %>%
+  modify_header(label = "**Variable**") %>%
+  as_kable_extra(booktabs = TRUE) %>%
+  # reduce font size to make table fit. 
+  # you may also use the `latex_options = "scale_down"` argument here.
+  kableExtra::kable_styling(latex_options = "repeat_header",font_size = 9)
+
+```
+
+## Multivariate Regression
+
+@tbl-model shows the results of the logistic regression on vaccination status using socio-economic, geographical factors (by Health Region) and their interactions as predictors. The reference groups in each case were set as follows: 16 to 24 years (age group), White Caucasian (Race), Toronto (Health Region), Over CAD 90,000 (Income). Socio-economic factors with statistically significant odds ratios were the age group of 65 years and over (OR=0.44), persons who identified as Arab/Middle Eastern (OR=0.15), Black (OR=0.17), Indigenous (OR=0.27), Latin American (OR=0.24), South Asian (OR=0.4) and Other Race/Ethnicity (a group that included minorities not found elsewhere, OR=0.17), and those that lived in a household with an income bracket between CAD 25,000-39,999 (OR=0.23).
+
+Regarding the interaction effects, the interaction of the Central Health Region and income bracket between 15000 to 24999 CAD was statistically significant (OR=0.4). In age group and income, significant effects were estimated for those 65 years and older with a household income between CAD 25000-39999 (OR=7.21), and with an income between CAD 40000-59999 (OR=3.12). In the case of race and income, significant effects were estimated for individuals that identified as Arab/Middle Easterners with a family income between 15000 and 24999 (OR=5.68) or income under CAD 15000 (OR=4.21), Black individuals with a family income under CAD 15000 (OR=4.26) or between CAD 15000-24999 (OR=3.35); additionally, there were statistically significant interaction effects in the case of those that identified as belonging to a race not identified elsewhere ("Other") within multiple income brackets: under CAD 15000 (OR=3.73), between 15000 and 24999 (OR 11.2), between 25000 and 39999 CAD (OR=4.67), and with income CAD 40000-59999 (OR=9.58). Finally, there was a significant interaction effect for South Asian individuals with an income under CAD 15000 (OR=3.10).
+
+```{r,model-table}
+#| message: false
+#| warning: false
+#| echo: false
+#| label: tbl-model
+#| tbl-cap: "Multiple Regression Analysis-Predictors of Vaccination Status"
+source(here::here("code","raking_logistic_regression.R"))
+
+m1 %>%
+  tbl_regression(exponentiate = TRUE,
+                 label=list(Health_Region ~ "Health Region",
+                 Age_group ~ "Age Group")) %>%
+    bold_labels()%>%
+  as_kable_extra(booktabs = TRUE, longtable=T) %>%
+  # reduce font size to make table fit. 
+  # you may also use the `latex_options = "scale_down" argument here.
+  kableExtra::kable_styling(latex_options = "repeat_header")
+```

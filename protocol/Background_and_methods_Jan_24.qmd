@@ -244,7 +244,7 @@ Additionally, respondents who indicated they were under the age of 16 were exite
 From the different answers provided by the survey respondents, we selected the age group which they belonged to, income bracket, race/ethnicity, and employment status. The original survey included additional questions (e.g., sick leave, remote work, presence of minors in the household) but the survey design, which permitted respondents to exit the survey at any point resulted in a high rates of missing data for most of these answers. The socio-economic factors chosen for this study were the ones that had both the lowest rates of missingness and that provided an adequate level socio-economic and demographic information for our analysis. Information about the chosen socio-economic factors from the survey is provided in @tbl-covariates.
 
 | Variable             | Values                                                                                                                          |
-|:-----------------|------------------------------------------------------|
+|:-------------------|----------------------------------------------------|
 | Age group            | 15-24,25-34,35-44,45-54,55-64, 65+                                                                                              |
 | Income bracket (CAD) | \<15,000, 15,000-24,999, 25,000-39,999, 40,000-59,999, 60,000-89,999, \>90,000                                                  |
 | Race/ethnicity       | Arab/Middle Eastern, Black, East Asian/Pacific Islander, Indigenous, Latin American, Mixed, South Asian, White Caucasian, other |
@@ -390,7 +390,7 @@ data_summary %>%
 
 ## Vaccination status, socio-economic and geographical variables
 
-@tbl-model shows the results of the logistic regression on vaccination status using socio-economic, geographical factors (by Health Region) and their interactions as predictors. The reference groups in each case were set as follows:  16 to 24 years (age group), White Caucasian (Race), Toronto (Health Region), Over CAD 90,000 (Income). Socio-economic factors with statistically significant odds ratios were the age group of 65 years and over (OR=0.44), persons who identified as Arab/Middle Eastern (OR=0.15), Black (OR=0.17), Indigenous (OR=0.27), Latin American (OR=0.24), South Asian (OR=0.4) and Other Race/Ethnicity (a group  that included minorities not found elsewhere, OR=0.17), and those that lived in a household with an income bracket between CAD 25,000-39,999 (OR=0.23). 
+@tbl-model shows the results of the logistic regression on vaccination status using socio-economic, geographical factors (by Health Region) and their interactions as predictors. The reference groups in each case were set as follows: 16 to 24 years (age group), White Caucasian (Race), Toronto (Health Region), Over CAD 90,000 (Income). Socio-economic factors with statistically significant odds ratios were the age group of 65 years and over (OR=0.44), persons who identified as Arab/Middle Eastern (OR=0.15), Black (OR=0.17), Indigenous (OR=0.27), Latin American (OR=0.24), South Asian (OR=0.4) and Other Race/Ethnicity (a group that included minorities not found elsewhere, OR=0.17), and those that lived in a household with an income bracket between CAD 25,000-39,999 (OR=0.23).
 
 Regarding the interaction effects, the interaction of the Central Health Region and income bracket between 15000 to 24999 CAD was statistically significant (OR=0.4). In age group and income, significant effects were estimated for those 65 years and older with a household income between CAD 25000-39999 (OR=7.21), and with an income between CAD 40000-59999 (OR=3.12). In the case of race and income, significant effects were estimated for individuals that identified as Arab/Middle Easterners with a family income between 15000 and 24999 (OR=5.68) or income under CAD 15000 (OR=4.21), Black individuals with a family income under CAD 15000 (OR=4.26) or between CAD 15000-24999 (OR=3.35); additionally, there were statistically significant interaction effects in the case of those that identified as belonging to a race not identified elsewhere ("Other") within multiple income brackets: under CAD 15000 (OR=3.73), between 15000 and 24999 (OR 11.2), between 25000 and 39999 CAD (OR=4.67), and with income CAD 40000-59999 (OR=9.58). Finally, there was a significant interaction effect for South Asian individuals with an income under CAD 15000 (OR=3.10).
 
@@ -430,8 +430,6 @@ model3 %>%
   # you may also use the `latex_options = "scale_down" argument here.
   kableExtra::kable_styling(latex_options = "repeat_header")
 ```
-
-
 
 \FloatBarrier
 
