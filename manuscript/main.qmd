@@ -1,5 +1,5 @@
 ---
-title: '**Socio-economic and geographic determinants of Covid-19 vaccination**'
+title: '**Covid-19 vaccination in the province of Ontario: A geographical and socio-economical analysis**'
 author: Ariel Mundo Ortiz
 format: pdf
 bibliography: refs.bib
@@ -31,11 +31,11 @@ library(patchwork)
 ```
 
 
+
 ```{r} 
 #| child: 01-background.qmd
 ```
 
-<!-- \FloatBarrier -->
 
 ```{r} 
 #| child: 02-methods.qmd
