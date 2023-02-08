@@ -244,7 +244,7 @@ Additionally, respondents who indicated they were under the age of 16 were exite
 From the different answers provided by the survey respondents, we selected the age group which they belonged to, income bracket, race/ethnicity, and employment status. The original survey included additional questions (e.g., sick leave, remote work, presence of minors in the household) but the survey design, which permitted respondents to exit the survey at any point resulted in a high rates of missing data for most of these answers. The socio-economic factors chosen for this study were the ones that had both the lowest rates of missingness and that provided an adequate level socio-economic and demographic information for our analysis. Information about the chosen socio-economic factors from the survey is provided in @tbl-covariates.
 
 | Variable             | Values                                                                                                                          |
-|:---------------------|---------------------------------------------------------------------------------------------------------------------------------|
+|:--------------------|---------------------------------------------------|
 | Age group            | 15-24,25-34,35-44,45-54,55-64, 65+                                                                                              |
 | Income bracket (CAD) | \<15,000, 15,000-24,999, 25,000-39,999, 40,000-59,999, 60,000-89,999, \>90,000                                                  |
 | Race/ethnicity       | Arab/Middle Eastern, Black, East Asian/Pacific Islander, Indigenous, Latin American, Mixed, South Asian, White Caucasian, other |

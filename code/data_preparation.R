@@ -1,5 +1,6 @@
-## this script takes the clean data set and does some preparatory steps such as recoding
-## variables to create a table summary
+# this script takes the clean dataset generated from the data cleaning process and does some preparatory steps such as 
+# variable recoding, creating a variable for the dependent variable in the regression, and creating 
+# a summary table of the dataset
 
 data<-read.csv(here("data","clean_dataset.csv"))
 

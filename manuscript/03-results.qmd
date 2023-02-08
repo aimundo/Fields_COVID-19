@@ -34,8 +34,11 @@ Regarding the interaction effects, the interaction of the Central Health Region 
 #| echo: false
 #| label: tbl-model
 #| tbl-cap: "Multiple Regression Analysis-Predictors of Vaccination Status"
-source(here::here("code","raking_logistic_regression.R"))
 
+#logistic regression
+source(here::here("code","regression.R"))
+
+# create table with the model output
 m1 %>%
   tbl_regression(exponentiate = TRUE,
                  label=list(Health_Region ~ "Health Region",
