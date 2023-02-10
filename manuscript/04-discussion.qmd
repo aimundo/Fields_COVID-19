@@ -1,1 +1,13 @@
 # Discussion
+
+The rapid development of COVID-19 vaccines has been considered as a major achievement of modern medicine [@davis2022]. The availability of vaccines at the end of 2020 made some believe that they would be a determinant factor in a rapid ending of the pandemic [@thelancet2021]. However, despite previous successful vaccination campaigns that were crucial to control diseases such as smallpox and polio [@kayser2021], vaccination efforts in the case of Covid-19 have faced multiple challenges that have complicated the achievement of global immunity.
+
+Among the different challenges faced by Covid-19 vaccination efforts are the development of new variants due to inadequate public health measures [@li2021] and vaccine inequity  between low and high income countries[@tamey2022]. However, it is also well established that even in the case of high income countries that have had ample access to vaccines since 2020, such as the US, the UK, and Canada, there have been challenges in vaccination efforts due to differences in vaccine uptake among different segments of the population. More specifically, lower vaccine uptake has been associated with socio-economic factors such as race (i.e., identifying as Black, Asian, Indigenous) and household income (typically within lower income brackets) [@willis2021;@skirrow2022;@stoler2021;@khubchandani2021]. Reasons given for this association have included medical mistrust due to systemic medical racism, mistrust in vaccines, and the influence of conspiracy theories [@stoler2021;@willis2021;@bogart2021;@mosby2021;@freeman2020].
+
+- Influence of geography
+
+- ontario and Health Regions
+
+- Results
+
+- Limitations

@@ -46,6 +46,12 @@ library(patchwork)
 #| child: 03-results.qmd
 ```
 
+
+```{r}
+#| child: 04-discussion.qmd
+```
+
+
 # References
 
 ::: {#refs}
