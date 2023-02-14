@@ -2,6 +2,7 @@
 title: '**Covid-19 vaccination in the province of Ontario: A geographical and socio-economical analysis**'
 author: Ariel Mundo Ortiz
 format: pdf
+linestretch: 2
 bibliography: refs.bib
 csl: jama.csl
 link-citations: yes #adds links to the citations
