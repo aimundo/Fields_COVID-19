@@ -15,7 +15,7 @@ source(here::here("code","data_preparation.R"))
 
 data_summary %>%
   modify_header(label = "**Variable**") %>%
-  as_kable_extra(booktabs = TRUE) %>%
+  as_kable_extra(booktabs = TRUE,linesep="") %>%
   # reduce font size to make table fit. 
   # you may also use the `latex_options = "scale_down"` argument here.
   kableExtra::kable_styling(latex_options = "repeat_header",font_size = 9)
@@ -28,6 +28,9 @@ data_summary %>%
 
 Regarding the interaction effects, the interaction of the Central Health Region and income bracket between 15000 to 24999 CAD was statistically significant (OR=0.4). In age group and income, significant effects were estimated for those 65 years and older with a household income between CAD 25000-39999 (OR=7.21), and with an income between CAD 40000-59999 (OR=3.12). In the case of race and income, significant effects were estimated for individuals that identified as Arab/Middle Easterners with a family income between 15000 and 24999 (OR=5.68) or income under CAD 15000 (OR=4.21), Black individuals with a family income under CAD 15000 (OR=4.26) or between CAD 15000-24999 (OR=3.35); additionally, there were statistically significant interaction effects in the case of those that identified as belonging to a race not identified elsewhere ("Other") within multiple income brackets: under CAD 15000 (OR=3.73), between 15000 and 24999 (OR 11.2), between 25000 and 39999 CAD (OR=4.67), and with income CAD 40000-59999 (OR=9.58). Finally, there was a significant interaction effect for South Asian individuals with an income under CAD 15000 (OR=3.10).
 
+\footnotesize
+
+\renewcommand{\arraystretch}{0.5}
 ```{r,model-table}
 #| message: false
 #| warning: false
@@ -44,7 +47,7 @@ m1 %>%
                  label=list(Health_Region ~ "Health Region",
                  Age_group ~ "Age Group")) %>%
     bold_labels()%>%
-  as_kable_extra(booktabs = TRUE, longtable=T) %>%
+  as_kable_extra(booktabs = TRUE, longtable=T, linesep="") %>%
   # reduce font size to make table fit. 
   # you may also use the `latex_options = "scale_down" argument here.
   kableExtra::kable_styling(latex_options = "repeat_header")
