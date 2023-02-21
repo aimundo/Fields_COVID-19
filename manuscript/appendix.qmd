@@ -84,7 +84,7 @@ It is important to mention that the categories for race/ethnicity provided in th
 Visible Minorities: 29.3%
 Not a Visible Minority: 70.7% (Aboriginal 2.8%, White Caucasian 67.8%)
 
-It can be seen that there are differences in the distribution of each ethnicity between the Census data and the survey. For example, Arabs/Middle Easteners correspond to 5.9% of the survey responses, but population-wise individuals that identify in this ethnic group correspond to 1.6% of the Ontario population.
+It can be seen that there are differences in the distribution of each ethnicity between the Census data and the survey. For example, Arabs/Middle Easterner correspond to 5.9% of the survey responses, but population-wise individuals that identify in this ethnic group correspond to 1.6% of the Ontario population.
 
 # Age Groups
 

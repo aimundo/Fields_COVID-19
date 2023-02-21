@@ -33,20 +33,52 @@ clean_data <-clean_data %>%
 #eliminate the levels of the removed health regions
 clean_data <- droplevels(clean_data)
 
+
+## Recode income
+
+
+clean_data<-clean_data%>%
+  mutate(income_ord = case_when(
+    income %in% "under_15000" ~ "under_25000",
+    income %in% "15000_24999" ~ "under_25000",
+    income %in% "25000_39999" ~ "25000_59999",
+    income %in% "40000_59999" ~ "25000_59999",
+    income %in% "60000_89999" ~ "60000_and_above",
+    income %in% "90000_109999" ~ "60000_and_above",
+    income %in%"over_110000" ~ "60000_and_above",
+  ))%>%
+  mutate(income_ord=as.factor(income_ord))
+
+#re-group age groups
+
+clean_data<-clean_data%>%
+  mutate(Age_group_ord = case_when(
+    Age_group %in% "16_24" ~ "16_34",
+    Age_group %in% "25_34" ~ "16_34",
+    Age_group %in% "35_44" ~ "35_54",
+    Age_group %in% "45_54" ~ "35_54",
+    Age_group %in% "55_64" ~ "55_and_over",
+    Age_group %in% "65_and_over" ~ "55_and_over",
+  ))%>%
+  mutate(Age_group_ord=as.factor(Age_group_ord))
+
+
 ## relevel for reference groups in the model
 
-clean_data<- within(clean_data, Age_group <- relevel(Age_group, ref = "16_24"))
+clean_data<- within(clean_data, Age_group_ord <- relevel(Age_group_ord, ref = "16_34"))
 clean_data<- within(clean_data, Race <- relevel(Race, ref = "white_caucasian"))
 clean_data<- within(clean_data, Health_Region <- relevel(Health_Region, ref = "Toronto"))
-clean_data<- within(clean_data, Income <- relevel(Income, ref = "over_90000"))
+clean_data<- within(clean_data, income_ord <- relevel(income_ord, ref = "60000_and_above"))
+
 
 #create summary table
 
 data_summary<-clean_data %>%
   tbl_summary(percent="row",
               by= first_dose,
-              include=c(Income,
-                        Age_group,
+              include=c(income_ord,
+                        Age_group_ord,
                         Health_Region,
                         Race)
   ) %>% bold_labels()
+

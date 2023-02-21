@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>methods</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="02-methods_files/libs/clipboard/clipboard.min.js"></script>
+<script src="02-methods_files/libs/quarto-html/quarto.js"></script>
+<script src="02-methods_files/libs/quarto-html/popper.min.js"></script>
+<script src="02-methods_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="02-methods_files/libs/quarto-html/anchor.min.js"></script>
+<link href="02-methods_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="02-methods_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="02-methods_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="02-methods_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="02-methods_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="methods" class="level1">
+<h1>Methods</h1>
+<section id="data-source-survey-overview" class="level2">
+<h2 class="anchored" data-anchor-id="data-source-survey-overview">Data source: survey overview</h2>
+<p>We used data from the <em>Survey of COVID-19 related Behaviours and Attitudes</em>, a repeated cross sectional survey focused on the Canadian province of Ontario which ran from Sept 30, 2021 until January 17, 2022 and that was comissioned by the Fields Institute for Research in Mathematical Sciences (henceforth Fields) and the Mathematical Modelling of COVID-19 Task Force. The survey was conducted by a third-party service provider (RIWI Corp.), under ethical guidance from the University of Toronto.</p>
+<p>Briefly, the survey was deployed used random domain intercept technology, where if users clicked on a registered but commercially inactive web link or typed in a web address for a site that was dormant, they had a random chance of that link being temporarily managed by the company that administered the survey and instead of coming across a notification about the status of the site(“this page does not exist”), the survey was deployed to the user <span class="citation" data-cites="sargent2022">[@sargent2022]</span>. Users then decided whether to anonymously participate, and those that participated were able to exit the survey at any time. After the survey closed, regardless if it was complete or incomplete, access was denied to any further users with the same internet protocol (IP) address and the domain entry point rotated such that if a user were to attempt to access the survey again, share the link, or enter via the same address using an alternative IP address, the survey would not deploy. This effectively meant that a user could participate only once in the survey.</p>
+<p>Additionally, users who indicated they were under the age of 16 were exited from the survey without creating a record, furthermore, these users were unable to navigate back to the “age select” screen. The personal identifier information from each user that participated in the survey was automatically scrubbed and replaced by a unique ID. Respondents were drawn exclusively from the province of Ontario, as per their devices meta-data.</p>
+</section>
+<section id="survey-responses" class="level2">
+<h2 class="anchored" data-anchor-id="survey-responses">Survey responses</h2>
+<section id="sec-socio-demographic-factors" class="level3">
+<h3 class="anchored" data-anchor-id="sec-socio-demographic-factors">Socio-demographic factors</h3>
+<p>Socio-economic information selected from the survey answers included age group, income bracket, and race/ethnicity. The levels of each socio-economic factor used for analysis appear in <strong>?@tbl-covariates</strong>.</p>
+<table class="table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 73%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Age group</td>
+<td>16-34,35-54,55 and over</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Income bracket (CAD)</td>
+<td>under 25,000, 25,000-59,999, 60,000 and above</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Race/ethnicity</td>
+<td>Arab/Middle Eastern, Black, East Asian/Pacific Islander, Indigenous, Latin American, Mixed, South Asian, White Caucasian, Other<span class="math inline">\(^1\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl>
+<dt>{ <span class="math inline">\(^1\)</span>: Obtained by adding Southeast Asian, Filipino, West Asian, and Minority not identified elsewhere.}</dt>
+<dd>
+<p>Selected socio-economic factors from the survey {#tbl-covariates}</p>
+</dd>
+</dl>
+<p>Furthermore, the information on vaccination status was provided by survey participants who answered the question “Have you received the first dose of the COVID vaccine?”, with possible answers “yes” and “no”.</p>
+<!-- -   (If answered "yes" to the previous question) "Have you received the second dose of the COVID vaccine?" with possible answers "yes" and "no" -->
+<!-- -   (If answer was "no" to the first question) "If a vaccine was made available to you you would:" with possible answers "definitely get", "definitely not get", "probably get", and "probably not get" -->
+<!--           - definitely get -->
+<!--           - definitely not get -->
+<!--           - probably get -->
+<!--           - probably not get -->
+</section>
+</section>
+<section id="data-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="data-cleaning">Data cleaning</h2>
+<p>The original dataset contained 39,029 entries (where each entry corresponded to a set of answers provided by a unique respondent). Following a preliminary analysis, the dataset was cleaned in order to only contain the socio-economic information provided in <strong>?@tbl-covariates</strong> and vaccination status. The cleaning process also included removing outliers that were identified during the preliminary analyses. Specifically, we removed those respondents that indicated to be below 25 years of age, living in a household of size 1, and that reported an income above CAD 110,000. The next step consisted in processing the geographical information in the survey (city where the survey was responded) in order to match each city to its correspondent Health Region. Details of this process are given below.</p>
+<section id="sec-geographical-location" class="level3">
+<h3 class="anchored" data-anchor-id="sec-geographical-location">Geographical location</h3>
+<p>For each survey participant certain data was automatically captured, including the nearest municipality (city). This resulted in a total of 578 different municipalities within the clean dataset. Due to our interest in analyzing the differences between Health Regions, we assigned the city of each entry to its correspondent Health Region following a multi-step process. Briefly, we used Local Health Integrated Networks (LHINs) to assign a Health Region to each entry in the survey. LHINs were the geographical divisions for health used by Ontario before the adoption of the Health Regions; because of the lack of a publicly available list of all municipalities within each Health Region, we used a dataset of long-term care homes and LHINs to match each city to LHIN, followed by matching each LHIN to a Health Region following the information provided on the Ontario Health Website, where the list of LHINs and corresponding Health Regions is available. In the case of municipalities that did not appear in the long-term dataset, we manually searched each city in the LHINs websites in order to provide geographical information. The raw dataset, clean dataset, details of the data cleaning process, and the addition of Health Region and LHIN information are described in detail in the github repository: https://github.com/aimundo/Fields_COVID-19/.</p>
+<p>Following an assessment of the number of entries corresponding to each Health Region in the final dataset, only 107 observations (4.3% of the total) corresponded to cities located in the North West and North East Health Regions. Due to the low number of entries, we omitted these Health Regions from further analyses. Therefore, the total number of unique entries used for analysis was 3,551 which included the East, Central, Toronto, and West Health Regions.</p>
+</section>
+</section>
+<section id="corrections" class="level2">
+<h2 class="anchored" data-anchor-id="corrections">Corrections</h2>
+<p>We identified differences between the proportions of all the socio-economic factors included in the analysis (<strong>?@tbl-covariates</strong>) and the 2016 Canada Census data for Ontario. Additionally, because the Census divisions do not match the exact boundaries of the Health Regions, we also obtained population estimates for each Health Region from the Ontario Health website in order to correct for the population totals. We used an iterative proportional fitting procedure (<em>raking</em>) <span class="citation" data-cites="deming1940">[@deming1940]</span> to correct for socio-economic factors and Health Region populations using the R <code>survey</code> package. Details about the correction can be found in the Appendix.</p>
+</section>
+<section id="statistical-analyses" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-analyses">Statistical analyses</h2>
+<p>We used a logistic regression model to estimate the probability of vaccination depending on the socio-economic factors described in <a href="#sec-socio-demographic-factors">Section&nbsp;1.2.1</a>, the Health Regions from <a href="#sec-geographical-location">Section&nbsp;1.3.1</a>, and the interactions between Race and Health Region, and Race and income as previous studies have shown that socio-economic factors and their interactions are significant predictors of intent of vaccination and vaccination status <span class="citation" data-cites="nguyen2022 shih2021 cnat2022a">[@nguyen2022; @shih2021; @cnat2022a]</span>. The model appears in <a href="#eq-model3">Equation&nbsp;1</a>,</p>
+<p><span id="eq-model3"><span class="math display">\[
+\begin{aligned}
+\log \left( \frac{p\textrm{(vac)}}{1-p\textrm{(vac)}} \right) = \beta_0+ \beta_{1}\textrm{(Age group)} +\beta_{2} \textrm{ Race} + \beta_3 \textrm{ Health Region} + \beta_4 \textrm{ Income}+\\ \beta_5\textrm{(Health Region} \times \textrm{Race)} + \beta_6 \textrm{ (Income} \times \textrm{Race)}
+\end{aligned}
+\tag{1}\]</span></span></p>
+<p>Where <span class="math inline">\(p\textrm{(vac)}\)</span> indicates the probability of having received the first dose of a Covid-19 vaccine, <span class="math inline">\(\beta_0\)</span> indicates the population intercept, and <span class="math inline">\(\beta_1...\beta_6\)</span> indicate the coefficients for each term. The the model was fitted using the function <code>svyglm</code> from the <code>survey</code> R package in order to incorporate the correction in sampling probability obtained from raking.</p>
+<p>All analyses were conducted in RStudio (2022.12.0 Build 353), using R 4.2.2 and the packages <code>survey</code> <span class="citation" data-cites="lumley2011">[@lumley2011]</span>,<code>tidyverse</code> <span class="citation" data-cites="wickham2019">[@wickham2019]</span>, and <code>quarto</code> <span class="citation" data-cites="quarto">[@quarto]</span>.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,18 +1,12 @@
 #Each of these dataframes provides the population totals for the different variables and their categories
 
 
-Ages<-data.frame(Age_group=c("16_24",
-                             "25_34",
-                             "35_44",
-                             "45_54",
-                             "55_64",
-                             "65_and_over"),
-                 Freq=c(1707959,
-                        1734856,
-                        1721407,
-                        2003826,
-                        1842444,
-                        2245898))
+Ages<-data.frame(Age_group_ord=c("16_34",
+                                 "35_54",
+                                 "55_and_over"),
+                 Freq=c(3442815,
+                        3725233,
+                        4088342))
 
 
 
@@ -35,19 +29,12 @@ Races<-data.frame(Race=c("arab_middle_eastern",
                          1166361,
                          9118079 ))
 
-Incomes<-data.frame(Income=c("under_15000",
-                             "15000_24999",
-                             "25000_39999",
-                             "40000_59999",
-                             "60000_89999",
-                             "over_90000"),
-                    Freq=c(294643,
-                           387688,
-                           599624,
-                           796052,
-                           1007988,
-                           2083176
-                           
+Incomes<-data.frame(income_ord=c("under_25000",
+                             "25000_59999",
+                             "60000_and_above"),
+                    Freq=c(682331,
+                           1395676,
+                           3091164
                     ))
 
 
@@ -87,9 +74,9 @@ a1<-svydesign(id=~1,data=clean_data)
 ## from the data frames from above.
 
 a1_rake<-rake(a1,
-              sample=list(~Age_group,
+              sample=list(~Age_group_ord,
                           ~Race,
-                          ~Income,
+                          ~income_ord,
                           ~Health_Region),
               population=list(Ages,
                               Races,

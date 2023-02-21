@@ -1,0 +1,272 @@
+---
+title: "**Data cleaning and model testing with grouped categories**"
+subtitle: Re-working groups
+author: "Ariel Mundo"
+format: pdf
+toc: true
+toc-depth: 2
+editor: source
+urlcolor: blue
+#bibliography: refs.bib
+---
+
+```{r, setup, echo=FALSE}
+#| warning: false
+library(tidyverse)
+library(here)
+library(lubridate)
+library(gtsummary)
+library(patchwork)
+library(visdat)
+library(survey)
+library(gt)
+library(scales)
+library(scico)
+
+thm1<-scale_fill_scico_d(palette="buda",begin=0.3, end=0.8, direction = -1, aesthetics = "fill")
+
+thm2<-scale_fill_scico_d(palette="oleron",begin=0.0, end=1.0, direction = -1, aesthetics = "fill")
+
+thm3<-scale_fill_scico_d(palette="fes",begin=0.0, end=1.0, direction = -1, aesthetics = "fill")
+```
+
+## Process
+
+Merge income as: below 24k, 25-60k, 60k and above
+Age: 16-34, 35-54, 55 and over
+
+Interactions: Race * Income, Race * Health Region
+
+```{r, prepare-data}
+
+data1<-read.csv(here("data","clean_dataset.csv"))
+
+data1 <- data1 %>% 
+  drop_na(race)
+
+data_summary2<-data1 %>%
+  tbl_summary(percent="row",
+              by= first_dose,
+              include=c(income,
+                        age_group,
+                        race,
+                        Health_Region)) %>% 
+  bold_labels()
+
+data_summary2
+
+## Recode income
+
+
+data1<-data1%>%
+    mutate(income_ord = case_when(
+                                  income %in% "under_15000" ~ "under_25000",
+                                  income %in% "15000_24999" ~ "under_25000",
+                                  income %in% "25000_39999" ~ "25000_59999",
+                                  income %in% "40000_59999" ~ "25000_59999",
+                                  income %in% "60000_89999" ~ "60000_and_above",
+                                  income %in% "90000_109999" ~ "60000_and_above",
+                                  income %in%"over_110000" ~ "60000_and_above",
+                                ))%>%
+  mutate(income_ord=as.factor(income_ord))
+
+
+data1<-data1%>%
+    mutate(age_group_ord = case_when(
+                                  age_group %in% "16_24" ~ "16_34",
+                                  age_group %in% "25_34" ~ "16_34",
+                                  age_group %in% "35_44" ~ "35_54",
+                                  age_group %in% "45_54" ~ "35_54",
+                                  age_group %in% "55_64" ~ "55_and_over",
+                                  age_group %in% "65_and_over" ~ "55_and_over",
+                                ))%>%
+  mutate(age_group_ord=as.factor(age_group_ord))
+
+
+```
+
+
+```{r,raking}
+#remove north health regions (low numbers)
+
+#get health regions to eliminate
+
+data1<-data1 %>%
+  select(-Municipal.status) %>%
+  rename(Race=race,Age_group_ord=age_group_ord,Income=income_ord)
+
+data1<-data1 %<>%
+  mutate_at(c("Income","Race","Age_group_ord","Health_Region"),factor)
+ 
+
+data1 <- data1 %>%
+  filter(Health_Region!="North East" , Health_Region!="North West")
+
+
+#eliminate the levels of the removed health regions
+data1 <- droplevels(data1)
+
+
+```
+
+
+# Raking
+
+
+```{r,raking}
+Ages<-data.frame(Age_group_ord=c("16_34",
+                             "35_54",
+                             "55_and_over"),
+                 Freq=c(3442815,
+                        3725233,
+                        4088342))
+
+
+
+Races<-data.frame(Race=c("arab_middle_eastern",
+                         "black",
+                         "east_asian_pacific_islander",
+                         "indigenous",
+                         "latin_american",
+                         "mixed",
+                         "other",
+                         "south_asian",
+                         "white_caucasian"),
+                  Freq=c(212782,
+                         638346,
+                         886592,
+                         376558,
+                         197020,
+                         130033,
+                         705333,
+                         1166361,
+                         9118079 ))
+
+Incomes<-data.frame(Income=c("under_25000",
+                             "25000_59999",
+                             "60000_and_above"),
+                    Freq=c(682331,
+                           1395676,
+                           3091164
+                    ))
+
+
+# corrections for Health Regions, without the North East and North West regions
+
+Health_Regions<-data.frame(Health_Region=c(
+  #"North West",
+  #"North East",
+  "West",
+  "East",
+  "Central",
+  "Toronto"),
+  Freq=c(#232299,
+    #557000,
+    4095589,
+    3742520,
+    5032410,
+    1440644
+  )
+)
+
+
+data1<-data1 %>%
+  mutate(first_dose_m=case_when(
+    first_dose=="yes"~1,
+    first_dose=="no"~0
+  ))
+
+
+data1<- within(data1, Age_group_ord <- relevel(Age_group_ord, ref = "16_34"))
+data1<- within(data1, Race <- relevel(Race, ref = "white_caucasian"))
+data1<- within(data1, Health_Region <- relevel(Health_Region, ref = "Toronto"))
+data1<- within(data1, Income <- relevel(Income, ref = "60000_and_above"))
+
+
+a1<-svydesign(id=~1,data=data1)
+
+## because there are no sampling weights, each observation as a probability of 1 of being sampled at this stage. 
+
+
+## The next line uses the survey design object a1, and the variables we will adjust for, with the population corrections
+## from the data frames from above.
+
+a1_rake<-rake(a1,
+              sample=list(~Age_group_ord,
+                          ~Race,
+                          ~Income,
+                          ~Health_Region),
+              population=list(Ages,
+                              Races,
+                              Incomes,
+                              Health_Regions))
+
+
+
+#model
+
+m1<-svyglm(first_dose_m~Age_group_ord+Income+Race+Health_Region,
+           design=a1_rake,
+           family = quasibinomial(), 
+           control= list(maxit=25))
+
+m2<-svyglm(first_dose_m~Age_group_ord+Income+Race+Health_Region+Race*Income,
+           design=a1_rake,
+           family = quasibinomial(), 
+           control= list(maxit=25))
+
+m3<-svyglm(first_dose_m~Age_group_ord+Income+Race+Health_Region+Race*Health_Region,
+           design=a1_rake,
+           family = quasibinomial(), 
+           control= list(maxit=25))
+
+
+m4<-svyglm(first_dose_m~Age_group_ord+Income+Race+Health_Region+Race*Income+Race*Health_Region,
+           design=a1_rake,
+           family = quasibinomial(), 
+           control= list(maxit=25))
+
+
+
+
+
+
+t1<-m1 %>%
+  tbl_regression(exponentiate = TRUE,
+                 label=list(Health_Region ~ "Health Region",
+                 Age_group_ord ~ "Age Group")) %>%
+    bold_labels()
+
+t2<-m2 %>%
+  tbl_regression(exponentiate = TRUE,
+                 label=list(Health_Region ~ "Health Region",
+                 Age_group_ord ~ "Age Group")) %>%
+    bold_labels()
+
+
+t3<-m3 %>%
+  tbl_regression(exponentiate = TRUE,
+                 label=list(Health_Region ~ "Health Region",
+                 Age_group_ord ~ "Age Group")) %>%
+    bold_labels()
+
+t4<-m4 %>%
+  tbl_regression(exponentiate = TRUE,
+                 label=list(Health_Region ~ "Health Region",
+                 Age_group_ord ~ "Age Group")) %>%
+    bold_labels()
+
+
+tm<-tbl_merge(tbls=list(t1,t2,t3,t4),tab_spanner = c("No interactions","Race x Income","Race x Health Region", "Race x Income, Race x Health Region "))
+
+tm
+
+t5<-data1 %>% 
+  tbl_cross(row = Race, col = Income)
+
+t6<- data1 %>%
+  tbl_cross (row=Race, col= Health_Region)
+
+tbl_stack(tbls=list(t4,t5),group_header = c("Race and Income", "Race and Health Region"))
+
+```

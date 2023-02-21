@@ -1,0 +1,658 @@
+---
+title: "**Covid-19 vaccination in the province of Ontario: A geographical and socio-economical analysis**"
+subtitle: Data Cleaning
+author: "Ariel Mundo"
+format: pdf
+toc: true
+toc-depth: 2
+editor: source
+urlcolor: blue
+#bibliography: refs.bib
+---
+
+```{r, setup, echo=FALSE}
+#| warning: false
+library(tidyverse)
+library(here)
+library(lubridate)
+library(gtsummary)
+library(patchwork)
+library(visdat)
+library(gt)
+library(scales)
+library(scico)
+
+thm1<-scale_fill_scico_d(palette="buda",begin=0.3, end=0.8, direction = -1, aesthetics = "fill")
+
+thm2<-scale_fill_scico_d(palette="oleron",begin=0.0, end=1.0, direction = -1, aesthetics = "fill")
+
+thm3<-scale_fill_scico_d(palette="fes",begin=0.0, end=1.0, direction = -1, aesthetics = "fill")
+```
+
+# Purpose
+
+This document focuses on the cleaning of the data from the Survey of COVID-19 related Behaviours and Attitudes which was used as the data source for the analysis in the main paper. The cleaning process encompassed exploratory analyses, covariate selection, removal of outliers, and adding geographical information to the data for analysis (Health Regions in Ontario). At the end of the data cleaning process, a dataset ready for for formal analyses was produced. This document can be rendered to re-create all the steps used in the cleaning process and to generate the same dataset that was used for analysis. 
+
+Note, however, that code chunks where intermediate csv files are generated (such as those for missing municipalities, or missing Health Regions) are commented in the current document as they were executed once to create the files. Also, to reduce the lenght of the document, the code in the code chunks does not appear in the rendered file.
+
+# Background
+
+The original Fields Covid-19 survey contained information about Covid-19 vaccination status and other COVID measures in different cities in Ontario. Information provided by respondents included:
+
+-   Age (only above 16, if age above 75 then it appears as 98)
+-   Age-group (generated from age)
+-   Employment status
+-   Remote work within the last month
+-   If person receives paid sick leave
+-   Number of people in household
+-   Number of people from household that attend school
+-   Chronic illnesses within the household same time
+-   Race
+-   Three first digits of postal code
+-   Day, month and year the survey was accessed
+
+Respondents provided multiple answers regarding vaccination:
+
+-   "Have you received the first dose of the COVID vaccine?" (y/n)
+
+-   (If answered "yes" above) "Have you received the second dose of the COVID vaccine?" (y/n)
+
+-   (If answer was "no" to the first question) "If a vaccine was made available to you you would:"
+
+          - definitely get
+          - definitely not get
+          - probably get
+          - probably not get
+
+## Data Loading
+
+The first task was to load the raw data, extract the majority of the responses from the survey that could be used for regression, and if they were categorical, make them factors to do the exploratory analysis.
+
+```{r,load-data,warning=FALSE,echo=FALSE}
+
+#the dataframe has missing answers as blankspaces, need to change them all to NA
+
+data<-tibble(read.csv(here("data","Fields_data.csv"),na.strings = c("")))
+
+
+#get the variables of interest, convert to factors when required
+d1<-data%>%select(
+  time_date_code,
+  city,
+  age,
+  age_group,
+  q02_first_dose,
+  q02a_second_dose,
+  q11_employed,
+  q13_hh_size,
+  q09_hh_income,
+  q02b_vaccine,
+  q16_race,
+  q11a_work_remotely,
+  q11b_sick_leave,
+  q14_hh_attending_school,
+  q24a_postal_first,
+  q24b_postal_second,
+  q24c_postal_third)%>%
+  rename(date=time_date_code,
+         first_dose=q02_first_dose,
+         second_dose=q02a_second_dose,
+         get_vaccine=q02b_vaccine,
+         h_size=q13_hh_size,
+         income=q09_hh_income,
+         employed=q11_employed,
+         race=q16_race,
+         remote_work=q11a_work_remotely,
+         sick_leave=q11b_sick_leave,
+         school=q14_hh_attending_school,
+         pc_1=q24a_postal_first,
+         pc_2=q24b_postal_second,
+         pc_3=q24c_postal_third
+         )%>%
+  mutate(across(c("age_group",
+            "city",
+            "employed",
+            "h_size",
+            "income",
+            "race",
+            "remote_work",
+            "sick_leave",
+            "school"),as.factor))
+  
+```
+
+## Choosing covariates
+
+The next step consisted in identify the missing rates of the covariates, and determine which of those could be included in the model. The following code chunk creates a table with the number of missing observations and percentages.
+
+```{r}
+#| echo: false
+#| warning: false
+#| tbl-cap: Percentage of missing observations \n all covariates
+
+t1<-d1%>%
+  select(age_group,
+         income,
+         race,
+         remote_work,
+         sick_leave,
+         school,
+         pc_1,
+         pc_2,
+         pc_3)%>%
+ summarise_all(funs(sum(!is.na(.)/length(.))))%>%#count percentage of NAs
+  pivot_longer(everything())%>%
+  arrange(desc(value))%>%
+  rename(observations=value,
+         variable=name)
+
+#get actual observations
+t2<-d1%>%
+  select(age_group,
+         employed,
+         h_size,
+         income,race,
+         remote_work,
+         sick_leave,
+         school,
+         pc_1,
+         pc_2,
+         pc_3)%>%
+ summarise_all(funs(sum(is.na(.)/length(.))))%>%#count percentage of NAs
+  pivot_longer(everything())%>%
+  arrange(desc(value))%>%
+  rename(missigness=value,
+         variable=name)
+
+
+
+
+#joining both to make table
+
+t3<-left_join(t1,t2,by="variable")
+
+#make table
+
+t3%>%
+  gt()%>%
+  fmt_percent(
+   columns=missigness,
+    decimals=1)
+  
+```
+
+From the table, it can be seen that the covariate with the least amount of observations is "sick_leave".
+
+However, per the dictionary in the original dataset, "sick_leave" was answered only by those that reported to be employed (the survey design made this response conditional). Therefore, those unemployed would be excluded in an analysis that considers this variable.
+
+Therefore, we decided to select the following covariates from the original dataset:
+
+-   age group
+-   income
+-   race
+-   employment status
+
+From these covariates, the one with the highest missing rate of observations is the employment status. Next, we cleaned the data in order to have complete observations about employment, and to see how the missing rates looked for the other covariates. The following code chunk creates histograms for the different covariates and a table with missing rates in the the `clean_data` data frame which was created from the raw data.
+
+```{r}
+#| echo: false
+#| warning: false
+#| tbl-cap: Missing observations and histograms of the data
+#| fig-width: 10
+
+clean_data<-d1%>%
+  select(age_group,
+         income,
+         race,
+         city,
+         first_dose)%>%
+  drop_na(age_group,
+          income,
+          race,
+          city,
+          first_dose)
+
+data_summary<-clean_data %>%
+  tbl_summary(percent="row",
+              by= first_dose,
+              include=c(income,
+                        age_group,
+                        race)
+  ) %>% bold_labels()
+
+
+## original clean dataset
+
+data1<-read.csv(here("data","clean_dataset.csv"))
+
+data_summary2<-data1 %>%
+  drop_na(race)%>%
+  tbl_summary(percent="row",
+              by= first_dose,
+              include=c(income,
+                        age_group,
+                        race)
+  ) %>% bold_labels()
+
+
+tbl_merge(tbls=list(data_summary2,data_summary),tab_spanner = c("Original Clean Dataset","Dataset choosing covariates first"))
+
+
+
+### histogram plots to see issues about income, age and household #####
+
+# clean_data%>%
+#   ggplot(aes(x=age))+
+#   geom_histogram(binwidth=10)+
+#   facet_wrap(~income)
+
+
+a<-d1%>%
+  mutate(income_ord = fct_relevel(income,
+                                   "under_15000",
+                                   "15000_24999",
+                                   "25000_39999",
+                                   "40000_59999",
+                                   "60000_89999",
+                                   "90000_109999",
+                                  "over_110000"
+                                   ))%>%
+  ggplot(aes(x=age))+
+  geom_histogram(binwidth=10)+
+  facet_wrap(~income_ord)+
+  ylim(c(0,1200))+
+  theme(strip.text.x = element_text(size = 8))+
+  theme_classic()+
+  thm1
+
+b<-d1%>%
+  mutate(h_size_ord = fct_relevel(h_size,
+                                   "1",
+                                   "2",
+                                   "3",
+                                   "4",
+                                   "5",
+                                   "6",
+                                   "7",
+                                   "8",
+                                   "9",
+                                   "10_or_more"
+                                   ))%>%
+  ggplot(aes(x=age))+
+  geom_histogram(binwidth=10)+
+  facet_wrap(~h_size_ord)+
+  ylim(c(0,200))+
+  theme(strip.text.x = element_text(size = 8))+
+  theme_classic()+
+  thm1
+ 
+
+c<-clean_data%>%
+   mutate(income_ord = fct_relevel(income,
+                                   "under_15000",
+                                   "15000_24999",
+                                   "25000_39999",
+                                   "40000_59999",
+                                   "60000_89999",
+                                   "90000_109999",
+                                  "over_110000"
+                                   ))%>%
+  ggplot(aes(x=age))+
+  geom_histogram(binwidth=10)+
+  facet_wrap(~income_ord)+
+  theme(strip.text.x = element_text(size = 5))+
+  theme_classic()+
+  thm1
+
+d<-clean_data%>%
+   mutate(h_size_ord = fct_relevel(h_size,
+                                   "1",
+                                   "2",
+                                   "3",
+                                   "4",
+                                   "5",
+                                   "6",
+                                   "7",
+                                   "8",
+                                   "9",
+                                   "10_or_more"
+                                   ))%>%
+  ggplot(aes(x=age))+
+  geom_histogram(binwidth=10)+
+  facet_wrap(~h_size_ord)+
+  ylim(c(0,200))+
+  theme_classic()+
+  theme(strip.text.x = element_text(size = 8))+
+  thm1
+
+
+a+b+plot_annotation(title="Original dataset")
+
+c+d+plot_annotation(title="Clean dataset")
+
+
+e<-clean_data%>%
+  ggplot(aes(x=age,fill=employed))+
+  geom_histogram(stat="count",binwidth=10)+
+facet_wrap(~income)+
+  theme_classic()+
+  ggtitle("Clean dataset")+
+  thm1
+
+f<-d1%>%
+  ggplot(aes(x=age,fill=employed))+
+  geom_histogram(stat="count",binwidth=10)+
+  #ylim(c(0,200))+
+facet_wrap(~income)+
+  theme_classic()+
+  ylim(c(0,100))+
+  ggtitle("Original dataset")+
+  thm1
+
+
+f+e
+
+
+
+t4<-clean_data%>%
+ summarise_all(funs(sum(is.na(.)/length(.))))%>% #count percentage of NAs
+  pivot_longer(everything())%>%
+  arrange(desc(value))%>%
+  rename(missigness=value,
+         variable=name)%>%
+  gt()%>%
+  fmt_percent(
+   columns=missigness,
+    decimals=1)
+t4
+
+```
+
+
+At this stage in the analysis, we examined the data for outliers. We identified certain entries in the survey that corresponded to individuals that were under 25 years of age and that reported having an income \>110k while living in a household 1. The next code chunk creates a plot of the number of observations that have these characteristics, which were around 20. Next, these outliers were removed from the dataset.
+
+```{r,outliers, echo=FALSE, warning=FALSE,message=FALSE}
+outliers<-clean_data %>%
+  filter(age_group=="16_24" &
+           h_size==1 &
+           income=="over_110000"
+    
+  )
+  
+outliers%>%
+  ggplot(aes(x=h_size))+
+  geom_histogram(stat="count")
+
+#From the plot it is about 21 entries that are outliers. Now, remove these outliers
+
+clean_data<-anti_join(clean_data,outliers)
+
+```
+
+The next code chunk creates another table with covariate missing rates in the clean dataset. It can be seen that at this stage the answer about the first dose of the vaccine has no missing observations, the answer about having received the second dose of the vaccine has 27% of missing observations, and the answer about if people would get a vaccine has 76% of missing observations.
+
+```{r,complete-obs}
+#| echo: false
+#| warning: false
+#| tbl-cap: Clean dataset missigness
+
+
+t7<-clean_data%>%
+  drop_na(race)%>%
+ summarise_all(funs(sum(is.na(.)/length(.))))%>% #count percentage of NAs
+  pivot_longer(everything())%>%
+  arrange(desc(value))%>%
+  rename(missigness=value,
+         variable=name)%>%
+  gt()%>%
+  fmt_percent(
+   columns=missigness,
+    decimals=1)
+t7
+```
+
+
+## Geographical Information
+
+Because each of the respondents of the survey was assigned a geographical location (city), we were interested in accounting for geographical location in our analysis. We used a multi-step process to assign geographical information to the entries in the dataset.
+
+There are two parts to the geographical analysis:
+
+1) Assign to each entry in the dataset municipalities the geographical region it belongs to using municipality and geographical region information.
+
+2) Assign a Health Region to each survey entry using the geographical and Local Integrated Health Network (LHIN) information.
+
+The details of each step are outlined below.
+
+### Municipality Data
+
+We have obtained and cleaned the data of the municipalities from the province of Ontario [website](https://www.ontario.ca/page/list-ontario-municipalities#section-3), and cleaned the dataset to obtain the city names and geographical locations. Further details can be found in `municipalities.qmd` in the `data_cleaning` directory. We will join and match the geographical location from the municipalities dataset to the clean dataset we have obtained in this document so far after removing the entries that do not have a corresponding geographical location.
+
+```{r,join-datasets, echo=FALSE}
+
+clean_data<-clean_data%>%
+  filter(city!="None")
+
+
+municipalities<-read.csv(here("data","municipalities_clean.csv"))
+
+municipalities$Municipal.status<-as.factor(municipalities$Municipal.status)
+
+municipalities$Geographic.area<-as.factor(municipalities$Geographic.area)
+
+municipalities$city<-as.factor(municipalities$city)
+
+
+clean_data<-left_join(clean_data,municipalities,by="city")
+
+```
+
+
+The following chunk identified which entries were left without a geographical region:
+
+```{r, missing-geog-area, echo= FALSE}
+
+test<-clean_data %>%
+  filter(is.na(Geographic.area))%>%
+  distinct(city)
+
+```
+
+
+This analysis identified that 2744 entries did not get a geographical region. These 2744 entries corresponded to 187 unique cities. These cities without a region were exported to a csv file in order to manually write their geographical areas following the Association of Municipalities of Ontario divisions, using Wikipedia to check the status of each municipality. The following chunk created the csv file. The code is commented now as it was run once.
+
+```{r,write-file}
+#| echo: false
+
+#write.csv(test,here("data","missing_municipalities.csv"),row.names = FALSE)
+
+```
+
+After searching and manually entering the geographic area for each city, the file was saved as `missing_municipalities_updated.csv`, and this file was used for the next steps.
+
+Note: there is one city "Kinburn", but there are two communities with such name, one in Huron County and one in Carelton County, we assigned it to Huron County. In the case of "Sydenham", which can be a ward in Kingston or a community in Frotenac, we assigned it to Frotenac.
+
+### Merging missing municipalities and geographic area names
+
+After manually assigning the geographical regions to the municipalities that were missing (which can be found in `missing_municipalities.csv` in the `data` directory), these were merged as the dataset `geographic_areas.csv` (also in `data`), which contains the titles for each region (e.g., "County", "Region").
+
+```{r,merge-datasets-2, echo=FALSE}
+#load missing municipalities dataset
+
+missing_municipalities<-read.csv(here("data","missing_municipalities_updated.csv"))
+
+
+#combining geographical regions
+
+clean_data<-clean_data %>%
+  left_join(missing_municipalities, by = c("city")) %>%
+  mutate(Geographic.area = coalesce(Geographic.area.x,Geographic.area.y)) %>%
+  select(-c(Geographic.area.x,Geographic.area.y))
+
+clean_data$Geographic.area<-as.factor(clean_data$Geographic.area)
+
+# load the the titles for each region
+
+geographic_areas<-read.csv(here("data","geographic_areas.csv"))
+
+geographic_areas$Geographic_area<-as.factor(geographic_areas$Geographic_area)
+
+geographic_areas$Geographic_area_title <-as.factor(geographic_areas$Geographic_area_title)
+
+#merge the datasets
+
+clean_data <-left_join(clean_data,geographic_areas,by=c("Geographic.area"="Geographic_area")) %>%
+   subset(select=-c(Full_title.y))
+   
+   
+```
+
+### Health Regions
+
+We sought to geographically analyze the information in the survey using the The Health Regions of Ontario. However, these Health Regions do not match the divisions from the census, and there is no publicly available dataset from Health Ontario that lists each municipality and its corresponding Health Region. We used therefore a multi-stage approach to incorporate the information into the dataset:
+
+- First, we used the dataset from Paul Allen regarding long-term care homes in Ontario (https://paulallen.ca/consolidated-dataset-of-ltc-homes-in-ontario/) to obtain information about communities and the Local Health Integration Network (LHINs) where long-term care homes were located.
+
+- Second, using the LHIN information, we added the Health Region each entry corresponded to using the information on LHIN and Health Region correspondence, which can be found here: https://www.ontariohealth.ca/about-us/our-people. 
+
+- Third, after merging the dataset, we manually added LHINs to those municipalities that did not have an entry at this stage.
+
+
+The dataset from Paul Allen was downloaded and saved as `Consolidated_LTC_dataset.csv` in the `data` directory. One thing to note is that there was a missing observation (coded as "Not provided") for one of the entries (city of Napanee, located in the Lennox and Addington County). Under the LHIN divisions, Napanee was in the South East LHIN. Also, there is one entry that says "244 Main Street East" as the community entry but it should be "Stayner" (the address provided belongs to Stayner). The information was fixed before adding the Health Region.
+
+```{r,get-health-data, echo=FALSE}
+
+#load data
+ltc_data <- read.csv(here("data","Consolidated_LTC_dataset.csv"))
+
+## checking missing observations
+
+sum(ltc_data$X_LHIN=="Not provided")
+
+ltc_data <- ltc_data %>%
+  mutate(X_LHIN=replace(X_LHIN,X_LHIN=="Not provided","South East"))
+
+ltc_data <- ltc_data %>%
+  mutate(COMMUNITY=replace(COMMUNITY,COMMUNITY==" 244 Main Street East","Stayner"))
+
+#keep relevant columns and add Health region information
+ltc_data <-ltc_data %>%
+ select(c("COMMUNITY","X_LHIN"))%>%
+  rename(city=COMMUNITY,
+         LHIN=X_LHIN)%>%
+  mutate(Health_Region=
+    case_when(LHIN=="Central"~ "Central",
+              LHIN=="Central West"~"Central",
+              LHIN=="Mississauga Halton"~"Central",
+              LHIN=="North Simcoe Muskoka"~"Central",
+              LHIN=="Central East"~"East",
+              LHIN=="South East"~"East",
+              LHIN=="Champlain"~"East",
+              LHIN=="North East"~"North East",
+              LHIN=="North West"~"North West",
+              LHIN=="Toronto Central"~"Toronto",
+              LHIN=="South West"~"West",
+              LHIN=="Hamilton Niagara Haldimand Brant (Hnhb)"~"West",
+              LHIN=="Waterloo Wellington"~"West",
+              LHIN=="Erie St. Clair"~"West"
+    )
+  )%>%
+  distinct(city,.keep_all = TRUE)
+
+
+```
+
+
+
+Next, we combined the datasets and wrote csv file with those cities that were not assigned a Health Region. The next code chunk does these steps (note that the line for writing the csv file has ben commented as it was run only once).
+
+```{r,combine, echo=FALSE}
+
+clean_data<-left_join(clean_data,ltc_data,by="city")
+
+
+ missing_health_regions<-clean_data %>% filter(is.na(LHIN)) %>%
+   distinct(city,.keep_all = TRUE)%>%
+   select(city,Geographic.area,Geographic_area_title,LHIN,Health_Region)
+
+#write.csv(missing_health_regions,here("data","missing_health_regions.csv"),row.names = FALSE)
+
+```
+
+To obtain the missing LHINswe, obtained information from the LHIN websites, which listed all the municipalities within each LHIN. The websites were:
+
+- South East [link](https://www.southeasthealthline.ca/aboutourregion.aspx?region=RuralFrontenacLennoxAddington)
+
+- North Simcoe Muskoka [link](https://www.nsmhealthline.ca/aboutourregion.aspx)
+
+- Champlain [link](https://www.champlainhealthline.ca/aboutourregion.aspx?region=StormontDundasGlen)
+
+- Waterloo Wellington [link](https://www.wwhealthline.ca/aboutourregion.aspx?region=KitchenerWaterlooWellesleyWilmotWoolwich)
+
+- North West [link](https://www.northwesthealthline.ca/aboutourregion.aspx)
+
+- North East [link](https://www.northeasthealthline.ca/aboutourregion.aspx)
+
+- Erie St. Clair [link](https://www.eriestclairhealthline.ca/aboutourregion.aspx)
+
+- South West [link](https://www.southwesthealthline.ca/aboutourregion.aspx)
+
+- Hamilton Niagara Haldimand Brant [link](https://www.hnhbhealthline.ca/aboutourregion.aspx)
+
+- Central West [link](https://www.centralwesthealthline.ca/aboutourregion.aspx)
+
+- Central East [link](https://www.centraleasthealthline.ca/aboutourregion.aspx)
+
+- Mississauga Halton [link](https://www.mississaugahaltonhealthline.ca/aboutourregion.aspx?region=HaltonHills)
+
+- Toronto Central [link](https://www.torontocentralhealthline.ca/aboutourregion.aspx)
+
+
+Some cities did not belong entirely to a LHIN. For example, Etobicoke was divided between the Central, Central East, and Toronto Central LHINs. We chose in these case the LHIN that covered the larger geographical region of each city (Toronto Central LHIN in the case of Etobicoke). We next assigned LHINs to the entries were they were missing using the information from the webistes, and created a csv with the updated information (the file is called `missing_health_regions_updated.csv`). The next code chunk loads this file, assigns LHINs and creates a new column in the dataset for Health Region.
+
+```{r,merge-health-regions, echo=FALSE}
+
+#load health regions with missing entries fixed
+
+mhru<-read.csv(here("data","missing_health_regions_updated.csv"))
+
+#rename columns
+mhru <- mhru %>%
+  rename(Geographic_area_title=Geographic.area.title)
+  
+
+clean_data<-clean_data %>%
+  left_join(mhru, by = c("city")) %>%
+   mutate(LHIN = coalesce(LHIN.x,LHIN.y)) %>%
+  select(-c(LHIN.x,LHIN.y,Full_title.x,Geographic.area.y,Geographic_area_title.y))%>%
+  mutate(Health_Region=
+    case_when(LHIN=="Central"~ "Central",
+              LHIN=="Central West"~"Central",
+              LHIN=="Mississauga Halton"~"Central",
+              LHIN=="North Simcoe Muskoka"~"Central",
+              LHIN=="Central East"~"East",
+              LHIN=="South East"~"East",
+              LHIN=="Champlain"~"East",
+              LHIN=="North East"~"North East",
+              LHIN=="North West"~"North West",
+              LHIN=="Toronto Central"~"Toronto",
+              LHIN=="South West"~"West",
+              LHIN=="Hamilton Niagara Haldimand Brant (Hnhb)"~"West",
+              LHIN=="Waterloo Wellington"~"West",
+              LHIN=="Erie St. Clair"~"West"
+    ))%>%
+  rename(Geographic_area=Geographic.area.x,Geographic_area_title=Geographic_area_title.x)
+
+
+```
+
+
+At this point, the data was ready for formal analysis.
+
+The clean dataset and completed dataset was saved as a *.csv file called `clean_dataset`.
+
+```{r,save-clean-dataset}
+#| echo: false
+
+#write.csv(clean_data,here("data","clean_dataset.csv"),row.names = FALSE)
+```

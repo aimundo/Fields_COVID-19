@@ -6,8 +6,10 @@
 source(here::here("code","raking.R"))
 
 # logistic regression model
-m1<-svyglm(first_dose_m~Age_group+Race+Health_Region*Income+Health_Region+Age_group*Income+Race*Income,
+
+m1<-svyglm(first_dose_m~Age_group_ord+income_ord+Race+Health_Region+Race*income_ord+Race*Health_Region,
            design=a1_rake,
            family = quasibinomial(), 
            control= list(maxit=25))
+
 

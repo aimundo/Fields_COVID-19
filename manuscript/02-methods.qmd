@@ -6,22 +6,20 @@ We used data from the *Survey of COVID-19 related Behaviours and Attitudes*, a r
 
 Briefly, the survey was deployed used random domain intercept technology, where if users clicked on a registered but commercially inactive web link or typed in a web address for a site that was dormant, they had a random chance of that link being temporarily managed by the company that administered the survey and instead of coming across a notification about the status of the site("this page does not exist"), the survey was deployed to the user [@sargent2022]. Users then decided whether to anonymously participate, and those that participated were able to exit the survey at any time. After the survey closed, regardless if it was complete or incomplete, access was denied to any further users with the same internet protocol (IP) address and the domain entry point rotated such that if a user were to attempt to access the survey again, share the link, or enter via the same address using an alternative IP address, the survey would not deploy. This effectively meant that a user could participate only once in the survey.
 
-Additionally, users who indicated they were under the age of 16 were exited from the survey, no record was created, and these users were unable to navigate back to the "age select" screen. The personal identifier information from each user was automatically scrubbed and replaced by a unique ID. Respondents were drawn exclusively from the province of Ontario, as per their devices meta-data.
+Additionally, users who indicated they were under the age of 16 were exited from the survey without creating a record, furthermore, these users were unable to navigate back to the "age select" screen. The personal identifier information from each user that participated in the survey was automatically scrubbed and replaced by a unique ID. Respondents were drawn exclusively from the province of Ontario, as per their devices meta-data.
 
-## Survey responses
+## Survey responses {#sec-socio-demographic-factors}
 
-### Socio-demographic factors {#sec-socio-demographic-factors}
+Socio-economic information selected from the survey answers included age group, income bracket, and race/ethnicity. The levels of each socio-economic factor used for analysis appear in @tbl-covariates.
 
-Socio-economic information selected for analysis from the survey answers included age group, income bracket, and race/ethnicity. Information about these socio-economic factors in the survey is provided in @tbl-covariates.
-
-| Variable             | Values                                                                                                                          |
-|:------------------|-----------------------------------------------------|
-| Age group            | 16-24,25-34,35-44,45-54,55-64, 65+                                                                                              |
-| Income bracket (CAD) | \<15,000, 15,000-24,999, 25,000-39,999, 40,000-59,999, 60,000-89,999, \>90,000                                                  |
+| Variable             | Levels                                            |            
+|:---------------------|---------------------------------------------------|
+| Age group            | 16-34,35-54,55 and over                           |
+| Income bracket (CAD) | under 25,000, 25,000-59,999, 60,000 and above     |
 | Race/ethnicity       | Arab/Middle Eastern, Black, East Asian/Pacific Islander, Indigenous, Latin American, Mixed, South Asian, White Caucasian, Other |
-|                      |                                                                                                                                 |
-
+                                                                                                                   
 : Selected socio-economic factors from the survey {#tbl-covariates}
+
 
 Furthermore, the information on vaccination status was provided by survey participants who answered the question "Have you received the first dose of the COVID vaccine?", with possible answers "yes" and "no". 
 
@@ -55,15 +53,15 @@ We identified differences between the proportions of all the socio-economic fact
 
 ## Statistical analyses
 
-We used a fixed-effects logistic regression model to estimate the probability of vaccination depending on the socio-economic factors described in @sec-socio-demographic-factors and the Health Regions from @sec-geographical-location, as previous studies have shown that socio-economic factors and their interactions are significant predictors of intent of vaccination and vaccination status [@nguyen2022; @shih2021; @cnat2022a]. The model appears in @eq-model3,
+We used a logistic regression model to estimate the probability of vaccination depending on the socio-economic factors described in @sec-socio-demographic-factors, the Health Regions from @sec-geographical-location, and the interactions between Race and Health Region, and Race and income as previous studies have shown that socio-economic factors and their interactions are significant predictors of intent of vaccination and vaccination status [@nguyen2022; @shih2021; @cnat2022a]. The model appears in @eq-model3,
 
 $$
 \begin{aligned}
-\log \left( \frac{p\textrm{(vac)}}{1-p\textrm{(vac)}} \right) = \beta_0+ \beta_{1}\textrm{(Age group)} +\beta_{2} \textrm{ Race} + \beta_3 \textrm{ Health Region} + \beta_4 \textrm{ Income}+\\ \beta_5\textrm{(Health Region} \times \textrm{Income)} + \beta_6 \textrm{ (Age group} \times \textrm{Income)} + \beta_7 \textrm{ (Race} \times \textrm{Income)}
+\log \left( \frac{p\textrm{(vac)}}{1-p\textrm{(vac)}} \right) = \beta_0+ \beta_{1}\textrm{(Age group)} +\beta_{2} \textrm{ Race} + \beta_3 \textrm{ Health Region} + \beta_4 \textrm{ Income}+\\ \beta_5\textrm{(Health Region} \times \textrm{Race)} + \beta_6 \textrm{ (Income} \times \textrm{Race)}
 \end{aligned}
 $$ {#eq-model3}
 
-Where $p\textrm{(vac)}$ indicates the probability of having received the first dose of a Covid-19 vaccine, $\beta_0$ indicates the population intercept, $\beta_1...\beta_7$ indicate the coefficients for each of the fixed and interaction effects of age group, race, Health Region, and income. The the model was fitted using the function `svyglm` from the `survey` R package in order to incorporate the correction in sampling probability obtained from raking.
+Where $p\textrm{(vac)}$ indicates the probability of having received the first dose of a Covid-19 vaccine, $\beta_0$ indicates the population intercept, and $\beta_1...\beta_6$ indicate the coefficients for each term. The the model was fitted using the function `svyglm` from the `survey` R package in order to incorporate the correction in sampling probability obtained from raking.
 
 All analyses were conducted in RStudio (2022.12.0 Build 353), using R 4.2.2 and the packages `survey` [@lumley2011],`tidyverse` [@wickham2019], and `quarto` [@quarto].
 

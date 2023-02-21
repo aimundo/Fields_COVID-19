@@ -24,9 +24,11 @@ data_summary %>%
 
 ## Multivariate Regression
 
-@tbl-model shows the results of the logistic regression on vaccination status using socio-economic, geographical factors (by Health Region) and their interactions as predictors. The reference groups in each case were set as follows: 16 to 24 years (age group), White Caucasian (Race), Toronto (Health Region), Over CAD 90,000 (Income). Socio-economic factors with statistically significant odds ratios were the age group of 65 years and over (OR=0.44), persons who identified as Arab/Middle Eastern (OR=0.15), Black (OR=0.17), Indigenous (OR=0.27), Latin American (OR=0.24), South Asian (OR=0.4) and Other Race/Ethnicity (a group those that identified as Southeast Asian, Filipino, West Asian, and Minorities Not Identified Elsewhere, OR=0.17), and those that lived in a household with an income bracket between CAD 25,000-39,999 (OR=0.23).
+@tbl-model shows the results of the logistic regression on vaccination status using socio-economic, geographical factors (by Health Region) and their interactions as predictors. The reference groups in each case were set as follows: 16 to 34 years (age group), White Caucasian (Race), Toronto (Health Region), CAD 60,000 and over (Income). Statistically significant odds ratios were identified for individuals with a household income under CAD 25,000 (OR=0.37) and between CAD 25,000-59,999 (OR=0.59), persons who identified as Arab/Middle Eastern (OR=0.31), Black (OR=0.32), Latin American (OR=0.28), Other Race/Ethnicity (a group those that identified as Southeast Asian, Filipino, West Asian, and Minorities Not Identified Elsewhere, OR=0.22), and inviduals living in the West Health Region (OR=1.55).
 
-Regarding the interaction effects, the interaction of the Central Health Region and income bracket between 15000 to 24999 CAD was statistically significant (OR=0.4). In age group and income, significant effects were estimated for those 65 years and older with a household income between CAD 25000-39999 (OR=7.21), and with an income between CAD 40000-59999 (OR=3.12). In the case of race and income, significant effects were estimated for individuals that identified as Arab/Middle Easterners with a family income between 15000 and 24999 (OR=5.68) or income under CAD 15000 (OR=4.21), Black individuals with a family income under CAD 15000 (OR=4.26) or between CAD 15000-24999 (OR=3.35); additionally, there were statistically significant interaction effects in the case of those that identified as belonging to a race not identified elsewhere ("Other") within multiple income brackets: under CAD 15000 (OR=3.73), between 15000 and 24999 (OR 11.2), between 25000 and 39999 CAD (OR=4.67), and with income CAD 40000-59999 (OR=9.58). Finally, there was a significant interaction effect for South Asian individuals with an income under CAD 15000 (OR=3.10).
+Moreover, statistically-significant higher odd ratios were determined in the case of income and race; specifically, for individuals with a household income below CAD 25,000 that identified as Arab/Middle Eastern (OR=3.05), Black (3.19), Latin American (OR=2.80), and Other (4.59); and for individuals with a household income between CAD 25,000 and 59,999 that identified as Other racial minority (OR=6.93).
+
+For Health Region and race, significant lower vaccination odds were identified for Black individuals in the Central Health Region (OR=0.44), and Other racial minorities and South Asian individuals that live in the West Health Region (ORs=0.41).
 
 \footnotesize
 
@@ -45,7 +47,7 @@ source(here::here("code","regression.R"))
 m1 %>%
   tbl_regression(exponentiate = TRUE,
                  label=list(Health_Region ~ "Health Region",
-                 Age_group ~ "Age Group")) %>%
+                 Age_group_ord ~ "Age Group")) %>%
     bold_labels()%>%
   as_kable_extra(booktabs = TRUE, longtable=T, linesep="") %>%
   # reduce font size to make table fit. 
