@@ -10,7 +10,7 @@ Additionally, users who indicated they were under the age of 16 were exited from
 
 ## Survey responses {#sec-socio-demographic-factors}
 
-Socio-economic information selected from the survey answers included age group, income bracket, and race/ethnicity. The levels of each socio-economic factor used for analysis appear in @tbl-covariates.
+Socio-economic information selected from the survey answers included age group and income brackets, and race/ethnicity. The levels of each socio-economic factor used for analysis appear in @tbl-covariates.
 
 | Variable             | Levels                                            |            
 |:---------------------|---------------------------------------------------|
@@ -37,7 +37,7 @@ Furthermore, the information on vaccination status was provided by survey partic
 
 ## Data cleaning
 
-The original dataset contained 39,029 entries (where each entry corresponded to a set of answers provided by a unique respondent). Following a preliminary analysis, the dataset was cleaned in order to only contain the socio-economic information provided in @tbl-covariates and vaccination status. The cleaning process also included removing outliers that were identified during the preliminary analyses. Specifically, we removed those respondents that indicated to be below 25 years of age, living in a household of size 1, and that reported an income above CAD 110,000. The next step consisted in processing the geographical information in the survey (city where the survey was responded) in order to match each city to its correspondent Health Region. Details of this process are given below.
+The original dataset contained 39,029 entries (where each entry corresponded to a set of answers provided by a unique respondent). Following a preliminary analysis, the dataset was cleaned in order to only contain the socio-economic information provided in @tbl-covariates and vaccination status. The cleaning process also included removing outliers that were identified during the preliminary analyses, and processing the geographical information in the survey (city where the survey was responded) in order to match each city to its correspondent Health Region. 
 
 
 

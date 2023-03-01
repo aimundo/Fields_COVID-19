@@ -9,11 +9,23 @@ Within the age groups of survey respondents, the age group between 16-34 years h
 
 ```{r,summary-table}
 #| label: tbl-descriptive-stats
-#| tbl-cap: "Descriptive Statistics of the Fields Covid-19 Survey"
+#| tbl-cap: "Descriptive Statistics of the Fields Covid-19 Survey (by Vaccination Status)"
 #| message: false
 #| echo: false
 
 source(here::here("code","data_preparation.R"))
+
+#create summary table
+
+data_summary<-clean_data %>%
+  tbl_summary(percent="row",
+              by= first_dose,
+              include=c(income_ord,
+                        Age_group_ord,
+                        Health_Region,
+                        Race)
+  ) %>% bold_labels()
+
 
 data_summary %>%
   modify_header(label = "**Variable**") %>%
@@ -26,14 +38,13 @@ data_summary %>%
 
 ## Multivariate Regression
 
-@tbl-model shows the results of the logistic regression on vaccination status using socio-economic factors (age group, income, race), geographical areas (Health Regions) and the interactions between income and race and Health Region and race. The reference groups were set as follows: 16 to 34 years (age group), White Caucasian (Race), Toronto (Health Region), CAD 60,000 and over (Income). There were no statistically significant differences in vaccination rates within the age groups, but significant odds ratios were estimated for individuals within the rest of the covariates. Within household income brackets, individuals with an income under CAD 25,000 or between CAD 25,000-59,999 had significantly lower odds of vaccination than those with an income above CAD 60,000 (ORs=0.37 and 0.59, respectively). Within Race/Ethnicity, individuals who identified as Arab/Middle Eastern, Black, or Latin American, had significantly lower odds of vaccination than those in the White/Caucasian group (ORs=0.31, 0.32, 0.28, respectively); additionally, those individuals in the Other Race/Ethnicity group (a group that included Southeast Asian, Filipino, West Asian, and Minorities Not Identified Elsewhere) had even lower odds of vaccination than the other minority groups, with an OR of 0.22. Regarding Health Regions, individuals that reported living in the West Health Region (which comprises the regions of Waterloo and Niagara, the counties of Wellington, Essex, and Lambton, and the cities of Hamilton, Haldimand, Brant, and Chatham-Kent) had significantly higher odds of vaccination than those in the Health Region of Toronto (OR=1.55).
+@tbl-model shows the results of the logistic regression on vaccination status using socio-economic factors (age group, income, race), geographical areas (Health Regions) and the interactions between income and race and Health Region and race. The reference groups were set as follows: 16 to 34 years (age group), White Caucasian (Race), Toronto (Health Region), CAD 60,000 and over (Income). There were no statistically significant differences in vaccination rates within the age groups from the survey, but significant odds ratios were estimated for other covariates. Within household income brackets, individuals with an income under CAD 25,000 or between CAD 25,000-59,999 had significantly lower odds of vaccination than those with an income above CAD 60,000 (ORs=0.37 and 0.59, respectively). Within Race/Ethnicity, individuals who identified as Arab/Middle Eastern, Black, or Latin American, had significantly lower odds of vaccination than those in the White/Caucasian group (ORs=0.31, 0.32, 0.28, respectively); additionally, those individuals in the Other Race/Ethnicity group (a group that included Southeast Asian, Filipino, West Asian, and Minorities Not Identified Elsewhere) had even lower odds of vaccination than the other minority groups, with an OR of 0.22. Regarding Health Regions, individuals that reported living in the West Health Region (which comprises the regions of Waterloo and Niagara, the counties of Wellington, Essex, and Lambton, and the cities of Hamilton, Haldimand, Brant, and Chatham-Kent) had significantly higher odds of vaccination than those in the Health Region of Toronto (OR=1.55).
 
-Moreover, statistically-significant higher odd ratios were determined in the case of the interaction of income and race; specifically, for individuals with a household income below CAD 25,000 who identified as Arab/Middle Eastern (OR=3.05), Black (OR=3.19), Latin American (OR=2.80), or that belonged to other minority groups  (OR=4.59). Within the CAD 25,000-59,999 income bracket, individuals who identified as belonging to other racial minority groups had significantly higher odds of vaccination (OR=6.93).
+Moreover, statistically-significant odd ratios were determined in the case of the interaction of income and race; specifically, for individuals with a household income below CAD 25,000 who identified as Arab/Middle Eastern (OR=3.05), Black (OR=3.19), Latin American (OR=2.80), or that belonged to other minority groups  (OR=4.59). Within the CAD 25,000-59,999 income bracket, individuals who identified as belonging to other racial minority groups had significantly higher odds of vaccination (OR=6.93).
 
-For the interaction of Health Region and race, significant lower vaccination odds were identified for Black individuals in the Central Health Region, which comprises the region of York, counties of Dufferin and Simcoe and the district of Muskoka (OR=0.44). Finally, individuals that identified as part of other racial minorities or South Asian iand that lived in the West Health Region had significantly lower odds of vaccination  (ORs=0.41).
+For the interaction of Health Region and race, significant odds of vaccination were identified for Black individuals in the Central Health Region, which comprises the region of York, counties of Dufferin and Simcoe and the district of Muskoka (OR=0.44), and in individuals that identified as part of other racial minorities or South Asian that lived in the West Health Region (ORs=0.41).
 
 \footnotesize
-
 \renewcommand{\arraystretch}{0.5}
 ```{r,model-table}
 #| message: false
@@ -56,3 +67,5 @@ m1 %>%
   # you may also use the `latex_options = "scale_down" argument here.
   kableExtra::kable_styling(latex_options = "repeat_header")
 ```
+
+\normalsize

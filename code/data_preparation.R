@@ -69,16 +69,3 @@ clean_data<- within(clean_data, Age_group_ord <- relevel(Age_group_ord, ref = "1
 clean_data<- within(clean_data, Race <- relevel(Race, ref = "white_caucasian"))
 clean_data<- within(clean_data, Health_Region <- relevel(Health_Region, ref = "Toronto"))
 clean_data<- within(clean_data, income_ord <- relevel(income_ord, ref = "60000_and_above"))
-
-
-#create summary table
-
-data_summary<-clean_data %>%
-  tbl_summary(percent="row",
-              by= first_dose,
-              include=c(income_ord,
-                        Age_group_ord,
-                        Health_Region,
-                        Race)
-  ) %>% bold_labels()
-

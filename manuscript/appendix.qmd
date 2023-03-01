@@ -14,12 +14,13 @@ format:
 ```{r, setup, echo=FALSE}
 #| warning: false
 library(tidyverse)
+library(magrittr)
 library(here)
-library(lubridate)
 library(patchwork)
-library(visdat)
 library(gt)
-library(scales)
+library(gtsummary)
+library(survey)
+library(emmeans)
 library(scico)
 
 thm1<-scale_fill_scico_d(palette="buda",begin=0.3, end=0.8, direction = -1, aesthetics = "fill")
@@ -27,6 +28,10 @@ thm1<-scale_fill_scico_d(palette="buda",begin=0.3, end=0.8, direction = -1, aest
 thm2<-scale_fill_scico_d(palette="oleron",begin=0.0, end=1.0, direction = -1, aesthetics = "fill")
 
 thm3<-scale_fill_scico_d(palette="fes",begin=0.0, end=1.0, direction = -1, aesthetics = "fill")
+
+thm4<-scale_fill_scico_d(palette="tokyo",begin=0.3, end=0.8, direction = -1, aesthetics = c("colour","fill"))
+
+thm5<-scale_fill_scico_d(palette="imola",begin=0.3, end=0.8, direction = -1, aesthetics = c("colour","fill"))
 
 clean_data <- read.csv(here("data","clean_dataset.csv"))
 
@@ -219,3 +224,91 @@ Note that as indicated in the paper, we excluded observations from the North Eas
 # Corrections
 
 We used the iterative proportional fitting procedure (_raking_) in order to account for the differences in income, age groups, race/ethnicity and the population from the Health Regions. Details of the implementation can be found in the R Script `raking_logistic_regression.R` in the `code` directory.
+
+
+# Interactions from the Regression Model
+
+The plots below show the interactions for Race and Income and Race and Health Region based on the regression model presented in the main paper.
+
+```{r,interaction-race-income}
+#| echo: false
+#| warning: false
+#| fig-height: 4
+#| fig-width: 6
+#| fig-cap: Interaction plot between Race and Income
+
+
+#call scripts for data preparation and regression
+source(here::here("code","data_preparation.R"))
+source(here::here("code","regression.R"))
+
+race_income<-emmip(m1, Race ~ income_ord, CIs=TRUE,plotit = FALSE)
+
+ggplot(data=race_income,aes(x=income_ord,group=Race,color=Race,fill=Race))+
+  geom_ribbon(aes(ymin=LCL,ymax=UCL),alpha=0.5,show.legend = FALSE)+
+  geom_line(aes(group=Race,y=yvar),show.legend = FALSE)+
+  facet_wrap(~Race)+
+  ylab("Linear predictor")+
+  theme_classic()+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  thm5
+```
+
+```{r,interaction-race-hr}
+#| echo: false
+#| warning: false
+#| fig-height: 4
+#| fig-width: 6
+#| fig-cap: Interaction plot between Race and Health Region
+
+race_hr<-emmip(m1, Race ~ Health_Region, CIs=TRUE,plotit = FALSE)
+
+ggplot(data=race_hr,aes(x=Health_Region,group=Race,color=Race,fill=Race))+
+  geom_ribbon(aes(ymin=LCL,ymax=UCL),alpha=0.5,show.legend = FALSE)+
+  geom_line(aes(group=Race,y=yvar),show.legend = FALSE)+
+  facet_wrap(~Race)+
+  ylab("Linear predictor")+
+  theme_classic()+thm4
+
+```
+
+
+# Socio-economic Information from the Survey Data
+
+The tables below present summaries of information from the Fields survey (from the clean dataset analyzed in the main paper), showing responses by White/Caucasian individuals by Health Region and proportion of answers by LHIN in the West Health Region.
+
+```{r,health-region}
+#| label: tbl-hr-percentages
+#| tbl-cap: "Reported Vaccination Status from the Survey for White/Caucasian Individuals by Health Region"
+#| message: false
+#| echo: false
+
+clean_data %>% subset (Race=="white_caucasian")%>%
+  tbl_summary(
+    percent="row",
+    by= first_dose,
+    include=c(Health_Region),
+    sort = all_categorical() ~ "frequency"
+  ) %>% bold_labels()
+```
+
+
+
+```{r,West-HR-LHIN}
+#| label: tbl-west-hr-lhin
+#| tbl-cap: "Proportion of answers by LHIN (West Health Region)"
+#| message: false
+#| echo: false
+
+clean_data %>% subset (Health_Region=="West")%>%
+tbl_summary(include=c(LHIN),
+            sort = all_categorical() ~ "frequency") %>% 
+  bold_labels()
+
+
+clean_data %>% subset (LHIN=="Hamilton Niagara Haldimand Brant (Hnhb)")%>%
+tbl_summary(include=c(Race),
+            sort = all_categorical() ~ "frequency") %>% 
+  bold_labels()
+
+```
