@@ -2,14 +2,14 @@
 
 ## Survey Results
 
-@tbl-descriptive-stats shows the descriptive statistics (uncorrected) from the Fields Covid-19 survey data for vaccination status and each of the covariates analyzed. The total number of entries from the survey in the dataset after cleaning was 3,551. Overall, 26.9\% of survey respondents (958) reported not having received the first dose of the vaccine, whereas 73.1\% (2,593) reported having received it. Within each socio-economic factor, respondents who reported living in a household with an income under CAD 25,000 represented  37\% of the total number of entries, those within the CAD 25,000-59,999 income bracket represented 25% of the total sample, and those with an income above CAD 60,000 represented 38 \% of the sample; across all income brackets, the percentage of individuals that reported having received a first dose of the vaccine was consistent, above 69\%.
+@tbl-descriptive-stats shows the descriptive statistics (uncorrected) from the Fields COVID-19 survey data for vaccination status and each of the covariates analyzed. The total number of entries from the survey in the dataset after cleaning was 3,551. Overall, 26.9\% of survey respondents (958) reported not having received the first dose of the vaccine, whereas 73.1\% (2,593) reported having received it. Within each socio-economic factor, respondents who reported living in a household with an income under CAD 25,000 represented  37\% of the total number of entries, those within the CAD 25,000-59,999 income bracket represented 25% of the total sample, and those with an income above CAD 60,000 represented 38 \% of the sample; across all income brackets, the percentage of individuals that reported having received a first dose of the vaccine was consistent, above 69\%.
 
 Within the age groups of survey respondents, the age group between 16-34 years had the highest representation in the survey responses (1,521, 42.8\% of all responses). Within this age bracket, 73\% of respondents indicated having received the vaccine, whereas the lowest vaccination rate was in the bracket of those 55 years of age and above, with a total of 72\%. The Health Region with highest representation in the survey was Toronto, accounting for 1,324 entries (37.2\%), with a vaccination rate of 72\%. Regarding race/ethnicity, individuals that identified as White/Caucasian represented 1313 (37\%) of all entries and had the highest vaccination uptake with 82\% of them indicating to have received the COVID-19 vaccine. On the other hand, the ethnic group with the lowest number of entries in the survey was Latin American, with a total of 180, or 5\% of all entries. Vaccination rates across all minority groups were below the value reported by White/Caucasians, with the lowest vaccination rate (60\%) being reported by individuals that identified as Indigenous.
 
 
 ```{r,summary-table}
 #| label: tbl-descriptive-stats
-#| tbl-cap: "Descriptive Statistics of the Fields Covid-19 Survey (by Vaccination Status)"
+#| tbl-cap: "Descriptive Statistics of the Fields COVID-19 Survey (by Vaccination Status)"
 #| message: false
 #| echo: false
 
@@ -23,7 +23,10 @@ data_summary<-clean_data %>%
               include=c(income_ord,
                         Age_group_ord,
                         Health_Region,
-                        Race)
+                        Race),
+              label=list(Health_Region ~ "Health Region",
+                 Age_group_ord ~ "Age Group",
+                 income_ord="Income")
   ) %>% bold_labels()
 
 
@@ -38,11 +41,11 @@ data_summary %>%
 
 ## Multivariate Regression
 
-@tbl-model shows the results of the logistic regression on vaccination status using socio-economic factors (age group, income, race), geographical areas (Health Regions) and the interactions between income and race and Health Region and race. The reference groups were set as follows: 16 to 34 years (age group), White Caucasian (Race), Toronto (Health Region), CAD 60,000 and over (Income). There were no statistically significant differences in vaccination rates within the age groups from the survey, but significant odds ratios were estimated for other covariates. Within household income brackets, individuals with an income under CAD 25,000 or between CAD 25,000-59,999 had significantly lower odds of vaccination than those with an income above CAD 60,000 (ORs=0.37 and 0.59, respectively). Within Race/Ethnicity, individuals who identified as Arab/Middle Eastern, Black, or Latin American, had significantly lower odds of vaccination than those in the White/Caucasian group (ORs=0.31, 0.32, 0.28, respectively); additionally, those individuals in the Other Race/Ethnicity group (a group that included Southeast Asian, Filipino, West Asian, and Minorities Not Identified Elsewhere) had even lower odds of vaccination than the other minority groups, with an OR of 0.22. Regarding Health Regions, individuals that reported living in the West Health Region (which comprises the regions of Waterloo and Niagara, the counties of Wellington, Essex, and Lambton, and the cities of Hamilton, Haldimand, Brant, and Chatham-Kent) had significantly higher odds of vaccination than those in the Health Region of Toronto (OR=1.55).
+@tbl-model shows the results of the logistic regression on vaccination status using socio-economic factors (age group, income, race), geographical areas (Health Regions) and the interactions between income and race and Health Region and race. The reference groups were set as follows: 16 to 34 years (age group), White Caucasian (Race), Toronto (Health Region), CAD 60,000 and over (Income). There were no statistically significant differences in vaccination rates within the age groups from the survey, but significant odds ratios were estimated for other covariates. Within household income brackets, individuals with an income under CAD 25,000 or between CAD 25,000-59,999 had significantly lower odds of vaccination than those with an income above CAD 60,000 (ORs=0.37 and 0.59, respectively). Within Race/Ethnicity, individuals who identified as Arab/Middle Eastern, Black, or Latin American, had significantly lower odds of vaccination than those in the White/Caucasian group (ORs=0.31, 0.32, 0.28, and _p_=0.004,<0.001 and 0.004, respectively); additionally, those individuals in the Other Race/Ethnicity group (a group that included Southeast Asian, Filipino, West Asian, and Minorities Not Identified Elsewhere) had even lower odds of vaccination than the other minority groups (OR=0.22, _p_<0.001). Regarding Health Regions, individuals that reported living in the West Health Region (which comprises the regions of Waterloo and Niagara, the counties of Wellington, Essex, and Lambton, and the cities of Hamilton, Haldimand, Brant, and Chatham-Kent) had significantly higher odds of vaccination than those in the Health Region of Toronto (OR=1.55, _p_=0.029).
 
-Moreover, statistically-significant odd ratios were determined in the case of the interaction of income and race; specifically, for individuals with a household income below CAD 25,000 who identified as Arab/Middle Eastern (OR=3.05), Black (OR=3.19), Latin American (OR=2.80), or that belonged to other minority groups  (OR=4.59). Within the CAD 25,000-59,999 income bracket, individuals who identified as belonging to other racial minority groups had significantly higher odds of vaccination (OR=6.93).
+Moreover, statistically-significant odd ratios were determined in the case of the interaction of income and race; specifically, for individuals with a household income below CAD 25,000 who identified as Arab/Middle Eastern (OR=3.05, _p_=0.013), Black (OR=3.19, _p_=0.004), Latin American (OR=2.80, _p_=0.041), or that belonged to other minority groups  (OR=4.59, _p_<0.001). Within the CAD 25,000-59,999 income bracket, individuals who identified as belonging to other racial minority groups had significantly higher odds of vaccination (OR=6.93, _p_<0.001).
 
-For the interaction of Health Region and race, significant odds of vaccination were identified for Black individuals in the Central Health Region, which comprises the region of York, counties of Dufferin and Simcoe and the district of Muskoka (OR=0.44), and in individuals that identified as part of other racial minorities or South Asian that lived in the West Health Region (ORs=0.41).
+For the interaction of Health Region and race, significant odds of vaccination were identified for Black individuals in the Central Health Region, which comprises the region of York, counties of Dufferin and Simcoe and the district of Muskoka (OR=0.44, _p_=0.046), and in individuals that identified as part of other racial minorities or South Asian that lived in the West Health Region (ORs=0.41, _p_=0.032 and _p_=0.037, respectively).
 
 \footnotesize
 \renewcommand{\arraystretch}{0.5}
@@ -60,7 +63,8 @@ source(here::here("code","regression.R"))
 m1 %>%
   tbl_regression(exponentiate = TRUE,
                  label=list(Health_Region ~ "Health Region",
-                 Age_group_ord ~ "Age Group")) %>%
+                 Age_group_ord ~ "Age Group",
+                 income_ord="Income")) %>%
     bold_labels()%>%
   as_kable_extra(booktabs = TRUE, longtable=T, linesep="") %>%
   # reduce font size to make table fit. 

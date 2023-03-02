@@ -235,8 +235,7 @@ The plots below show the interactions for Race and Income and Race and Health Re
 #| warning: false
 #| fig-height: 4
 #| fig-width: 6
-#| fig-cap: Interaction plot between Race and Income
-
+#| fig-cap: Estimated marginal means for the combination between Race and Income in the regression model.
 
 #call scripts for data preparation and regression
 source(here::here("code","data_preparation.R"))
@@ -254,12 +253,13 @@ ggplot(data=race_income,aes(x=income_ord,group=Race,color=Race,fill=Race))+
   thm5
 ```
 
+
 ```{r,interaction-race-hr}
 #| echo: false
 #| warning: false
 #| fig-height: 4
 #| fig-width: 6
-#| fig-cap: Interaction plot between Race and Health Region
+#| fig-cap: Estimated marginal means for the combination between Race and Health Region in the regression model.
 
 race_hr<-emmip(m1, Race ~ Health_Region, CIs=TRUE,plotit = FALSE)
 
@@ -306,9 +306,23 @@ tbl_summary(include=c(LHIN),
   bold_labels()
 
 
-clean_data %>% subset (LHIN=="Hamilton Niagara Haldimand Brant (Hnhb)")%>%
-tbl_summary(include=c(Race),
-            sort = all_categorical() ~ "frequency") %>% 
-  bold_labels()
-
+# clean_data %>% subset (LHIN=="Hamilton Niagara Haldimand Brant (Hnhb)")%>%
+# tbl_summary(include=c(Race),
+#             sort = all_categorical() ~ "frequency") %>% 
+#   bold_labels()
+# 
+# 
+# clean_data %>% subset (LHIN=="Hamilton Niagara Haldimand Brant (Hnhb)")%>%
+# tbl_summary(by=first_dose,
+#             percent="row",
+#   include=c(Race),
+#             sort = all_categorical() ~ "frequency") %>% 
+#   bold_labels()
+# 
+# clean_data %>% subset (LHIN=="Erie St. Clair")%>%
+# tbl_summary(by=first_dose,
+#             percent="row",
+#   include=c(Race),
+#             sort = all_categorical() ~ "frequency") %>% 
+#   bold_labels()
 ```

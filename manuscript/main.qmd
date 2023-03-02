@@ -11,9 +11,13 @@ link-citations: yes #adds links to the citations
 
 # Abstract
 
+The COVID-19 pandemic continues to be a worldwide public health concern. Although vaccines against this disease were rapidly developed, vaccination uptake has not ben equal across all the segments of the population. In particular, it has been shown that there have been differences in vaccine uptake across different segments of the population. However, there are also differences in vaccination across geographical areas, which might be important to consider in the development of future public health policies against COVID-19. In this study, we examined the relationship between vaccination status (having received the first dose of a COVID-19 vaccine), and different socio-economic and geographical factors. Our results show differences in vaccination due to race/ethnicity, income, Health Regions (geographical areas used for health service access in Ontario), and their interactions. In particular, we show
+that individuals who identified as Arab/Middle Eastern, Black, or Latin American, had significantly lower odds of vaccination than White/Caucasian individuals (ORs=0.31, 0.32, 0.28, and _p_=0.004,_p_<0.001 and _p_=0.004, respectively), and that individuals with a household income below CAD 25,000 who identified as Arab/Middle Eastern (OR=3.05, _p_=0.013), Black (OR=3.19, _p_=0.004), Latin American (OR=2.80, _p_=0.041), or that belonged to other minority groups  (OR=4.59, _p_<0.001) had higher odds of vaccination than individuals from the same racial/ethnic group in higher income brackets. Finally, we also identified lower odds of vaccination within different minority groups in West Health Region. This study shows that there is an ongoing need to better understand and address differences in vaccination uptake across diverse segments of the population that have been largely impacted by the pandemic.
+
 
 # Keywords {-}
 
+Covid-19, vaccination, survey, socio-economic factors, visible minorities.
 
 ```{r setup, message = FALSE,include=FALSE}
 #the packages needed to run the code
@@ -52,6 +56,10 @@ library(patchwork)
 #| child: 04-discussion.qmd
 ```
 
+
+```{r}
+#| child: 05-conclusion.qmd
+```
 
 # References
 
