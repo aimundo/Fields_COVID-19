@@ -1,10 +1,31 @@
 ---
-title: '**Covid-19 vaccination in the province of Ontario: A geographical and socio-economical analysis**'
-author: Ariel Mundo Ortiz
-format: pdf
+title: '**COVID-19 vaccination in Ontario: Exploring intra-provincial variations within Health Regions and socio-economic strata**'
+authors:
+  - name: Ariel Mundo Ortiz
+    affiliations:
+      - ref: crm
+    email: ariel.mundo.ortiz@umontreal.ca
+    orcid: 0000-0002-6014-4538
+  - name: Bouchra Nasri
+    affiliations:
+      - ref: espum
+    email: bouchra.nasri@umontreal.ca
+    corresponding: true
+affiliations:
+  - id: crm
+    name: Centre de Recherches Mathématiques, University of Montreal, Montréal, Canada
+  - id: espum
+    name: Department of Social and Preventive Medicine, École de Santé Publique, University of Montreal, Montréal, Canada 
+filters:
+  - authors-block
+format: 
+  pdf:
+    include-in-header: latex/preamble.sty
+    mainfont: "Palatino Linotype"
+    keep-tex: true
 linestretch: 2
-bibliography: refs.bib
-csl: jama.csl
+bibliography: references/refs.bib
+csl: references/jama.csl
 link-citations: yes #adds links to the citations
 ---
 
