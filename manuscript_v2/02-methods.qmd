@@ -1,0 +1,49 @@
+# Methods
+
+## Data {#sec-data}
+
+We used data from the *Survey of COVID-19 related Behaviours and Attitudes*, a repeated cross sectional survey focused on the Canadian province of Ontario that was commissioned by the Fields Institute for Research in Mathematical Sciences (henceforth Fields) and the  Mathematical Modelling of COVID-19 Task Force under ethical guidance from the University of Toronto. The survey collected socio-economic information from participants (@tbl-covariates), recorded their location (using the nearest municipality), and asked information on vaccination status by using the question "Have you received the first dose of the COVID vaccine?", with possible answers "yes" and "no". The original dataset contained 39,029 entries (where each entry corresponded to a unique respondent).
+
+This dataset was cleaned to remove outliers that were identified during preliminary analyses, and processing the geographical information in the survey (city where the survey was responded) in order to match each city to its correspondent Health Region.
+
+
+| Variable             | Levels                                            |            
+|:---------------------|---------------------------------------------------|
+| Age group            | 16-34,35-54,55 and over                           |
+| Income bracket (CAD) | under 25,000, 25,000-59,999, 60,000 and above     |
+| Race/ethnicity       | Arab/Middle Eastern, Black, East Asian/Pacific Islander, Indigenous, Latin American, Mixed, South Asian, White Caucasian, Other |
+                                                                                                                   
+: Socio-economic factors from the Fields COVID-19 survey {#tbl-covariates}
+
+The clean dataset contained responses from more than 200 different municipalities within Ontario (@fig-map). Because of the lack of a publicly available list of all municipalities within each Health Region, we used a dataset of long-term care homes and LHINs to match each city to LHIN, followed by matching each LHIN to a Health Region following the information provided on the Ontario Health Website, where the list of LHINs and corresponding Health Regions is available. In the case of municipalities that did not appear in the long-term care home dataset, we manually searched each city in the LHINs websites in order to provide geographical information. The original dataset, clean dataset, and details on the data cleaning process are described in detail in the GitHub repository for this paper, which can be found at [https://github.com/aimundo/Fields_COVID-19/](https://github.com/aimundo/Fields_COVID-19/).
+
+Following an assessment of the number of entries corresponding to each Health Region in the final dataset, only 107 observations (4.3% of the total) corresponded to cities located in the North West and North East Health Regions. The low representation of these Health Regions in the dataset is noticeable in @fig-map, where the number of cities in each Health Region is relatively low compared to the most populated Health Regions, such as the Toronto or Central Regions. We omitted the North East and North East Health Regions from further analyses due to the low number of entries. Therefore, the total number of unique entries used for analysis was 3,551 which included the East, Central, Toronto, and West Health Regions.
+
+```{r,map}
+#| label: fig-map
+#| fig-cap: "Geographic representation of the data collected by the _Survey of COVID-19 related Behaviours and Attitudes_, collected by the Fields Institute in Ontario. The municipalities (cities) from where survey participants provided answers (in the clean dataset) appear as points. The Health six Regions are color-coded. Internal boundaries within certain Health Regions indicate areas that belonged to the Local Integrated Health Networks (LHINs), the geographic areas for healthcare in Ontario before the adoption of the Health Regions."
+#| message: false
+#| echo: false
+#| fig-height: 3
+#| figh-width: 2
+
+knitr::include_graphics(here("data","map_data","map.pdf"))
+
+```
+
+
+## Statistical analyses
+
+We used a logistic regression model to estimate the probability of vaccination depending on the socio-economic factors described in @tbl-covariates, the Health Regions from Ontario indicated in @sec-data, and the interactions between Race and Health Region, and Race and income, as previous studies have shown that socio-economic factors and their interactions are significant predictors of intent of vaccination and vaccination status [@nguyen2022; @shih2021; @cnat2022a].
+
+<!-- $$ -->
+<!-- \begin{aligned} -->
+<!-- \log \left( \frac{p\textrm{(vac)}}{1-p\textrm{(vac)}} \right) = \beta_0+ \beta_{1}\textrm{(Age group)} +\beta_{2} \textrm{ Race} + \beta_3 \textrm{ Health Region} + \beta_4 \textrm{ Income}+\\ \beta_5\textrm{(Health Region} \times \textrm{Race)} + \beta_6 \textrm{ (Income} \times \textrm{Race)} -->
+<!-- \end{aligned} -->
+<!-- $$ {#eq-model3} -->
+
+<!-- Where $p\textrm{(vac)}$ indicates the probability of having received the first dose of a COVID-19 vaccine, $\beta_0$ indicates the population intercept, and $\beta_1...\beta_6$ indicate the coefficients for each term.  -->
+
+The model was fitted first to the clean dataset to obtain uncorrected estimates. Additionally, because we identified differences between the proportions of all the socio-economic factors included in the analysis (@tbl-covariates) and the Census data for Ontario, we used an iterative proportional fitting procedure (_raking_) [@deming1940] to correct the data using Census socio-economic data and Health Region population totals, in order to obtain corrected estimates from the model. Details regarding the correction can be found in the Appendix. 
+All analyses were conducted in R 4.2.2 using the packages `survey` [@lumley2011],`tidyverse` [@wickham2019], and `quarto` [@quarto].
+
