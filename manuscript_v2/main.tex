@@ -195,7 +195,7 @@ Nasri\textsuperscript{2,*}}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, interior hidden, borderline west={3pt}{0pt}{shadecolor}, enhanced, breakable, sharp corners, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, enhanced, interior hidden, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \setstretch{2}
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
@@ -252,14 +252,12 @@ minorities.
 \section{Background}\label{background}}
 
 The vaccines against COVID-19 have been considered a major achievement
-of modern medicine as their rapid
-development\textsuperscript{\protect\hyperlink{ref-davis2022}{1}}
-allowed the start of broad vaccination campaigns towards the end of 2020
-in certain countries such as the
-US\textsuperscript{\protect\hyperlink{ref-tanne2020}{2}} and
-Canada\textsuperscript{\protect\hyperlink{ref-bogoch2022}{3}}. This made
-some believe that vaccines were destined to be a determinant factor in a
-rapid ending of the
+of modern medicine as their rapid development allowed the start of broad
+vaccination campaigns towards the end of 2020 in certain countries, such
+as the US and
+Canada\textsuperscript{\protect\hyperlink{ref-davis2022}{1}--\protect\hyperlink{ref-tanne2020}{3}}.
+This made some believe that vaccines were destined to be a determinant
+factor in a rapid ending of the
 pandemic\textsuperscript{\protect\hyperlink{ref-thelancet2021}{4}}.
 However, although it has been estimated that COVID-19 vaccines have
 prevented around 14 million of deaths
@@ -269,12 +267,12 @@ smallpox and polio, which were implemented on a global scale and that
 were indeed crucial to control these
 diseases\textsuperscript{\protect\hyperlink{ref-kayser2021}{6}}. In
 fact, the rollout of COVID-19 vaccines has faced multiple challenges
-since its inception which ultimately have hampered the goal of global
-immunity.
+since its inception which ultimately have hampered their use to achieve
+the ultimate goal of global immunity.
 
-This ongoing lack of a successful global rollout of the COVID-19
-vaccines is a multifaceted issue resulting from, as among other things,
-the development of new variants due to inadequate public health
+This problematic of COVID-19 vaccines rollout is a multifaceted issue
+resulting from, among other things, the development of new variants due
+to inadequate public health
 measures\textsuperscript{\protect\hyperlink{ref-li2021}{7}}, inequality
 in vaccine access between high- and low-income
 countries\textsuperscript{\protect\hyperlink{ref-gerretsen2021}{8},\protect\hyperlink{ref-tamey2022}{9}},
@@ -283,21 +281,23 @@ hesitancy\textsuperscript{\protect\hyperlink{ref-nafilyan2021}{10}}, and
 differences in vaccination uptake across different segments of the
 population\textsuperscript{\protect\hyperlink{ref-malik2020}{11}}. In
 particular, it is well established that differences in vaccination
-uptake have been present even in the case of countries that have had
-ample access to vaccines since 2020 (such as the US, the UK, and
-Canada), where lower vaccine uptake has been observed within racial
-minorities (i.e., individuals that identify as Black, Asian, or
-Indigenous), and in individuals within low income
+uptake have been present even in countries that have had ample access to
+vaccines since 2020 (such as the US, the UK, and Canada), where lower
+vaccine uptake has been observed within racial minorities (i.e.,
+individuals that identify as Black, Asian, or Indigenous), and in
+individuals within low income
 brackets\textsuperscript{\protect\hyperlink{ref-willis2021}{12}--\protect\hyperlink{ref-khubchandani2021}{15}}.
 Reasons given for lower vaccine uptake in these cases have included
-medical mistrust due to systemic medical racism, mistrust in vaccines,
-and the influence of conspiracy
-theories\textsuperscript{\protect\hyperlink{ref-willis2021}{12},\protect\hyperlink{ref-stoler2021}{14},\protect\hyperlink{ref-bogart2021}{16}--\protect\hyperlink{ref-freeman2020}{18}}.
-More specifically, in the case of Canada, lower vaccine uptake has been
-observed in young individuals, those with a low educational level,
-households with children, those without a regular healthcare provider,
-individuals that identify as part of a visible minorities or Indigenous,
-and those that are financially
+medical mistrust due to systemic medical
+racism\textsuperscript{\protect\hyperlink{ref-stoler2021}{14}}, mistrust
+in vaccines\textsuperscript{\protect\hyperlink{ref-willis2021}{12}}, and
+the influence of conspiracy
+theories\textsuperscript{\protect\hyperlink{ref-bogart2021}{16}--\protect\hyperlink{ref-freeman2020}{18}}.
+Moreover, in the case of Canada, lower vaccine uptake has been observed
+in young individuals, those with a low educational level, households
+with children, those without a regular healthcare provider, individuals
+that identify as part of a visible minorities or Indigenous, and those
+that are financially
 unstable\textsuperscript{\protect\hyperlink{ref-guay2022}{19}--\protect\hyperlink{ref-hussain2022}{21}}.
 
 However, it is important to consider that vaccination uptake can also be
@@ -308,49 +308,53 @@ vaccination\textsuperscript{\protect\hyperlink{ref-malik2020}{11}},
 spatial differences in vaccine access and supply, vaccination location
 availability, and lack of prioritization of areas where vulnerable
 groups
-reside\textsuperscript{\protect\hyperlink{ref-bogoch2022}{3},\protect\hyperlink{ref-nguyen2021}{22}}.
+reside\textsuperscript{\protect\hyperlink{ref-bogoch2022}{2},\protect\hyperlink{ref-nguyen2021}{22}}.
 Other studies have also shown heterogeneity in vaccine uptake within
 small governmental administrative units such as
 counties\textsuperscript{\protect\hyperlink{ref-mollalo2021}{23}--\protect\hyperlink{ref-bhuiyan2022}{26}},
 and that and that accounting for geographical differences in vaccination
 can help predict patterns of booster
 uptake\textsuperscript{\protect\hyperlink{ref-wood2022}{27}}. Overall,
-the existing body of research on geographical/spatial differences in
-vaccination has provided valuable information that can be used by
+the evidence provided by the literature demonstrates the existence of
+spatially-driven heterogeneities in vaccine uptake that be used by
 decision-makers in the development of public health policies that are
-focused on improving vaccination within specific administrative or
-geographical areas. However, spatial analyses of vaccination have been
-very limited in Canada, as existing studies have been focused only at
-certain cities (such as
-Toronto\textsuperscript{\protect\hyperlink{ref-choi2021}{28}}, or
-Montreal\textsuperscript{\protect\hyperlink{ref-mckinnon2021}{29}}), or
-have explored differences at a province-wide
-level\textsuperscript{\protect\hyperlink{ref-guay2022}{19}}. However,
-there is a lack of studies that explore spatial heterogeneities in
-vaccination at the intra-provincial level.
+focused on addressing these disparities within specific administrative
+or geographical areas.
 
-Ontario is the most populated province in Canada, and has recently seen
-major changes on its healthcare structure as between 2006 and 2019, it
-provided healthcare access using 14 intra-provincial divisions called
-the Local Health Integrated Networks (LHINs). However, this approach was
-complex and caused systemic
+However, such analyses have been carried mostly in territories outside
+of Canada, where available studies have been focused in certain cities
+(such as Toronto\textsuperscript{\protect\hyperlink{ref-choi2021}{28}},
+or Montreal\textsuperscript{\protect\hyperlink{ref-mckinnon2021}{29}}),
+or have explored differences at a province-wide
+level\textsuperscript{\protect\hyperlink{ref-guay2022}{19}}. Thus, there
+is a need for studies that explore spatial differences in vaccination
+within the Canadian territory and that consequently, can help identify
+disparities that need to be addressed within specific areas in each
+province.
+
+This need is particularly important in the case of Ontario, the most
+populated province in Canada. Between 2006 and 2019, Ontario provided
+healthcare access to its inhabitants using 14 intra-provincial divisions
+called the Local Health Integrated Networks (LHINs). However, this
+approach was complex, bureaucratic, and led to systemic
 inequalities\textsuperscript{\protect\hyperlink{ref-tsasis2012}{30}}. In
 late 2019, the 14 LHINs were phased out and the areas they covered were
 incorporated into 6 Health Regions (North East, North West, Central,
 Toronto, West, and East) in an effort to improve the healthcare system
 of the province\textsuperscript{\protect\hyperlink{ref-dong2022}{31}}.
-Because the adoption of the Health Regions has been recent, there is an
-ongoing need to analyze the impact of their adoption and intra-regional
-differences that might exist, which is specially important in the
-context of the COVID-19 pandemic.
+Because the adoption of the Health Regions occurred at a relatively
+recent time, there is an ongoing need to analyze the impact of this
+measure and identify the existence of intra-regional differences that
+might exist, and which could be specially important in the context of
+the COVID-19 pandemic.
 
-To address this need, in this study we analyzed differences in
-self-reported COVID-19 vaccination status using socio-economic (e.g.,
-income, racial/ethnic identification), and spatial information at the
-level of the Health Regions, to identify the existence of
-intra-provincial differences that might need to be addressed to ensure
-that the healthcare system of Ontario is more inclusive and that
-responds to the needs of its most vulnerable population.
+In this study, we analyzed differences in self-reported COVID-19
+vaccination status in Ontario using socio-economic (e.g., income,
+racial/ethnic identification), and spatial information at the level of
+the Health Regions to identify the existence of differences that might
+need to be addressed to ensure that the healthcare system of Ontario is
+more inclusive and that responds to the needs of its most vulnerable
+population.
 
 \hypertarget{methods}{%
 \section{Methods}\label{methods}}
@@ -424,13 +428,13 @@ Following an assessment of the number of entries corresponding to each
 Health Region in the final dataset, only 107 observations (4.3\% of the
 total) corresponded to cities located in the North West and North East
 Health Regions. The low representation of these Health Regions in the
-dataset is noticeable in Figure~\ref{fig-map}, where the number of
-cities in each Health Region is relatively low compared to the most
-populated Health Regions, such as the Toronto or Central Regions. We
-omitted the North East and North East Health Regions from further
-analyses due to the low number of entries. Therefore, the total number
-of unique entries used for analysis was 3,551 which included the East,
-Central, Toronto, and West Health Regions.
+dataset is noticeable in Figure~\ref{fig-map},which shows that responses
+from these areas came from a relatively low number of cities when
+compared to the most populated Health Regions, such as the Toronto or
+Central Regions. We omitted the North East and North East Health Regions
+from further analyses due to the low number of entries. Therefore, the
+total number of unique entries used for analysis was 3,551 which
+included the East, Central, Toronto, and West Health Regions.
 
 \begin{figure}
 
@@ -481,19 +485,18 @@ and \texttt{quarto}\textsuperscript{\protect\hyperlink{ref-quarto}{38}}.
 \hypertarget{survey-results}{%
 \subsection{Survey Results}\label{survey-results}}
 
-Table~\ref{tbl-descriptive-stats} shows the descriptive statistics
-(uncorrected) from the Fields COVID-19 survey data for vaccination
-status and each of the covariates analyzed. The total number of entries
-from the survey in the dataset after cleaning was 3,551. Overall, 26.9\%
-of survey respondents (958) reported not having received the first dose
-of the vaccine, whereas 73.1\% (2,593) reported having received it.
-Within each socio-economic factor, respondents who reported living in a
-household with an income under CAD 25,000 represented 37\% of the total
-number of entries, those within the CAD 25,000-59,999 income bracket
-represented 25\% of the total sample, and those with an income above CAD
-60,000 represented 38 \% of the sample; across all income brackets, the
-percentage of individuals that reported having received a first dose of
-the vaccine was consistent, above 69\%.
+Table~\ref{tbl-descriptive-stats} shows the descriptive statistics from
+the Fields COVID-19 survey data for vaccination status and each of the
+covariates analyzed. The total number of entries analyzed was 3,551.
+Overall, 26.9\% of survey respondents (958) reported not having received
+the first dose of the vaccine, whereas 73.1\% (2,593) reported having
+received it. Within each socio-economic factor, respondents who reported
+living in a household with an income under CAD 25,000 represented 37\%
+of the total number of entries, those within the CAD 25,000-59,999
+income bracket represented 25\% of the total sample, and those with an
+income above CAD 60,000 represented 38 \% of the sample; across all
+income brackets, the percentage of individuals that reported having
+received a first dose of the vaccine was consistent, above 69\%.
 
 Within the age groups of survey respondents, the age group between 16-34
 years had the highest representation in the survey responses (1,521,
@@ -888,20 +891,20 @@ influences intention to take COVID-19 vaccine. \emph{British Journal of
 Health Psychology}. 2022;27(2):300-319.
 doi:\url{https://doi.org/10.1111/bjhp.12546}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-tanne2020}{}}%
-\CSLLeftMargin{2. }%
-\CSLRightInline{Tanne JH. Covid-19: {FDA} panel votes to authorise
-pfizer {BioNTech} vaccine. \emph{{BMJ}}. Published online December
-2020:m4799.
-doi:\href{https://doi.org/10.1136/bmj.m4799}{10.1136/bmj.m4799}}
-
 \leavevmode\vadjust pre{\hypertarget{ref-bogoch2022}{}}%
-\CSLLeftMargin{3. }%
+\CSLLeftMargin{2. }%
 \CSLRightInline{Bogoch II, Halani S. {COVID}-19 vaccines: A geographic,
 social and policy view of vaccination efforts in ontario, canada.
 \emph{Cambridge Journal of Regions, Economy and Society}. Published
 online November 2022.
 doi:\href{https://doi.org/10.1093/cjres/rsac043}{10.1093/cjres/rsac043}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-tanne2020}{}}%
+\CSLLeftMargin{3. }%
+\CSLRightInline{Tanne JH. Covid-19: {FDA} panel votes to authorise
+pfizer {BioNTech} vaccine. \emph{{BMJ}}. Published online December
+2020:m4799.
+doi:\href{https://doi.org/10.1136/bmj.m4799}{10.1136/bmj.m4799}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-thelancet2021}{}}%
 \CSLLeftMargin{4. }%

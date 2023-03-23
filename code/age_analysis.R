@@ -1,3 +1,5 @@
+library(patchwork)
+
 clean_data %>%
   tbl_summary(percent="row",
               by= first_dose,
@@ -10,6 +12,7 @@ clean_data %>%
                          income_ord="Income")
   ) %>% bold_labels()
 
+
 clean_data$test<-as.factor(clean_data$age)
 
 clean_data %>%
@@ -18,15 +21,42 @@ clean_data %>%
               include=test)%>% 
   bold_labels()
 
-ggplot(data=clean_data,aes(x=age,y=first_dose_m,group=age))+geom_bar(stat="identity")
+##important: according to the data dictionary, the age of those >75 was
+## coded as "98"
+ggplot(data=clean_data,
+       aes(x=age,y=first_dose_m,group=age))+
+  geom_bar(stat="identity")
 
 
 test2 <- clean_data %>% 
-  group_by(age) %>% 
+  group_by(age,Age_group,Age_group_ord) %>% 
   count(first_dose_m) %>% 
   mutate(pct = n / sum(n)) 
 
 # Plot 
-ggplot(test2, aes(x = age, y = pct, fill = age)) +
-  geom_col(position = "dodge") +
-  facet_wrap(~ age) 
+a<-test2 %>%
+  subset(first_dose_m==1 & Age_group_ord=="16_34")%>%
+ggplot(aes(x = age, y = pct, fill = age)) +
+  geom_smooth(show.legend = FALSE)+
+ geom_point(show.legend = FALSE)+
+  facet_wrap(~Age_group_ord)
+
+b<-test2 %>%
+  subset(first_dose_m==1 & Age_group_ord=="35_54")%>%
+  ggplot(aes(x = age, y = pct, fill = age)) +
+  geom_smooth(show.legend = FALSE)+
+  geom_point(show.legend = FALSE)+
+  facet_wrap(~Age_group_ord)
+
+c<-test2 %>%
+  subset(first_dose_m==1 & Age_group_ord=="55_and_over")%>%
+  ggplot(aes(x = age, y = pct, fill = age)) +
+  geom_smooth(show.legend = FALSE)+
+  geom_point(show.legend = FALSE)+
+  facet_wrap(~Age_group_ord)
+
+a+b+c
+
+
+## try to get percentage of people that said yes per age group and plot it
+
