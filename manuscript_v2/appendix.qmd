@@ -50,11 +50,10 @@ thm4<-scale_fill_scico_d(palette="tokyo",begin=0.3, end=0.8, direction = -1, aes
 
 thm5<-scale_fill_scico_d(palette="imola",begin=0.3, end=0.8, direction = -1, aesthetics = c("colour","fill"))
 
-clean_data <- read.csv(here("data","clean_dataset.csv"))
-
-# remove rows with missing observations for race to obtain accurate numbers
-
-clean_data<-clean_data %>% drop_na(race)
+#call scripts for data preparation and regression
+source(here::here("code","data_preparation.R"))
+source(here::here("code","raking.R"))
+source(here::here("code","regression.R"))
 ```
 
 This document provides details on assessing the socio-economic information from the clean survey dataset, and how it compared to the Census Data for ontario. At the end, it also provides information about the corrections implemented into the data. The variables examined were: race/ethnicity, age groups, income, and population by Health Region. The computations are performed in the `clean_dataset.csv` file that was created at the end of the data cleaning process. Population-wide totals were obtained from the 2016, available in the [Statistics Canada Website](https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/prof/details/Page.cfm?Lang=E&Geo1=PR&Code1=35&Geo2=&Code2=&Data=Count&SearchText=Ontario&Sear).
@@ -68,8 +67,8 @@ First, we explored how the race and ethnicity information from the dataset and h
 #| warning: false
 #| tbl-cap: Ethnic information from the clean dataset
   t6<-clean_data%>%
-    select(race)%>%
-    group_by(race)%>%
+    select(Race)%>%
+    group_by(Race)%>%
     summarise(observations = n()) %>%
   mutate(percentage = observations / sum(observations))%>%
     gt()%>%
@@ -132,8 +131,8 @@ To compare the survey data to the Census, the next chunk creates a barplot of th
 #| fig-cap: Age group distributions from the dataset
 
 p2<-clean_data%>%
-  select(age_group)%>%
-   mutate(age_group_ord = fct_relevel(age_group,
+  select(Age_group)%>%
+   mutate(Age_group_ord = fct_relevel(Age_group,
                                       "16_24",
                                       "25_34",
                                       "35_44",
@@ -142,10 +141,10 @@ p2<-clean_data%>%
                                   "65_and_over"
                                           ))
 
-  ggplot(p2%>%count(age_group_ord) %>%    # G count number in each group
+  ggplot(p2%>%count(Age_group_ord) %>%    # G count number in each group
          mutate(pct=n/sum(n),               # Calculate percent within each group
                 ypos = 200),  # Calculate label positions
-       aes(age_group_ord, n, fill=age_group_ord)) +
+       aes(Age_group_ord, n, fill=Age_group_ord)) +
   geom_bar(stat="identity") +
   geom_text(aes(label=paste0(sprintf("%1.1f", pct*100),"%"), y=ypos))+
   theme_classic()+
@@ -242,6 +241,30 @@ Note that as indicated in the paper, we excluded observations from the North Eas
 
 We used the iterative proportional fitting procedure (_raking_) in order to account for the differences in income, age groups, race/ethnicity and the population from the Health Regions. Details of the implementation can be found in the R Script `raking_logistic_regression.R` in the `code` directory.
 
+# Vaccination rates by Age
+
+The table below provides the percentages of vaccination from the survey data.
+
+```{r,vacc-table}
+#| label: tbl-vaccination
+#| tbl-cap: "Vaccination Status by Age from the Survey Data"
+#| message: false
+#| echo: false
+
+clean_data$test<-as.factor(clean_data$age)
+
+tvac<-clean_data %>%
+  tbl_summary(percent="row",
+              by= first_dose,
+              include=test,
+              label=test~"Age")%>%
+  bold_labels()%>%
+as_kable_extra(booktabs = TRUE,linesep="",longtable=T) %>%
+  kableExtra::kable_styling(latex_options = "repeat_header")
+
+tvac
+```
+
 
 # Interactions from the Regression Model
 
@@ -253,10 +276,6 @@ The plots below show the interactions for Race and Income and Race and Health Re
 #| fig-height: 4
 #| fig-width: 6
 #| fig-cap: Estimated marginal means for the combination between Race and Income in the regression model.
-
-#call scripts for data preparation and regression
-source(here::here("code","data_preparation.R"))
-source(here::here("code","regression.R"))
 
 race_income<-emmip(m1, Race ~ income_ord, CIs=TRUE,plotit = FALSE)
 
@@ -306,7 +325,8 @@ clean_data %>% subset (Race=="white_caucasian")%>%
     by= first_dose,
     include=c(Health_Region),
     sort = all_categorical() ~ "frequency"
-  ) %>% bold_labels()
+  ) %>% bold_labels()%>%
+  as_kable_extra(booktabs = TRUE,linesep="")
 ```
 
 
@@ -320,7 +340,8 @@ clean_data %>% subset (Race=="white_caucasian")%>%
 clean_data %>% subset (Health_Region=="West")%>%
 tbl_summary(include=c(LHIN),
             sort = all_categorical() ~ "frequency") %>% 
-  bold_labels()
+  bold_labels()%>%
+  as_kable_extra(booktabs = TRUE,linesep="")
 
 
 # clean_data %>% subset (LHIN=="Hamilton Niagara Haldimand Brant (Hnhb)")%>%
