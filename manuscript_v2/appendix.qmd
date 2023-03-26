@@ -239,7 +239,7 @@ Note that as indicated in the paper, we excluded observations from the North Eas
 
 # Corrections
 
-We used the iterative proportional fitting procedure (_raking_) in order to account for the differences in income, age groups, race/ethnicity and the population from the Health Regions. Details of the implementation can be found in the R Script `raking_logistic_regression.R` in the `code` directory.
+We used the iterative proportional fitting procedure (_raking_) in order to account for the differences in income, age groups, race/ethnicity and the population from the Health Regions. Details of the implementation can be found in the R Script `raking.R` in the `code` directory.
 
 # Vaccination rates by Age
 
@@ -311,7 +311,7 @@ ggplot(data=race_hr,aes(x=Health_Region,group=Race,color=Race,fill=Race))+
 
 # Socio-economic Information from the Survey Data
 
-The tables below present summaries of information from the Fields survey (from the clean dataset analyzed in the main paper), showing responses by White/Caucasian individuals by Health Region and proportion of answers by LHIN in the West Health Region.
+Tables A-7 and A-8 present summaries of information from the Fields survey (from the clean dataset analyzed in the main paper), showing responses by White/Caucasian individuals by Health Region and proportion of answers by LHIN in the West Health Region.
 
 ```{r,health-region}
 #| label: tbl-hr-percentages

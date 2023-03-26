@@ -185,7 +185,7 @@ Nasri\textsuperscript{2,*}}
 \renewcommand\thefigure{\thesection-\arabic{figure}}
 
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, interior hidden, sharp corners, boxrule=0pt, breakable, enhanced, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, interior hidden, frame hidden, breakable, sharp corners, boxrule=0pt, enhanced]}{\end{tcolorbox}}\fi
 
 \setstretch{2}
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
@@ -439,8 +439,8 @@ totals for these areas were not used in the final analysis.
 We used the iterative proportional fitting procedure (\emph{raking}) in
 order to account for the differences in income, age groups,
 race/ethnicity and the population from the Health Regions. Details of
-the implementation can be found in the R Script
-\texttt{raking\_logistic\_regression.R} in the \texttt{code} directory.
+the implementation can be found in the R Script \texttt{raking.R} in the
+\texttt{code} directory.
 
 \hypertarget{vaccination-rates-by-age}{%
 \section{Vaccination rates by Age}\label{vaccination-rates-by-age}}
@@ -562,10 +562,10 @@ Health Region in the regression model.}
 \section{Socio-economic Information from the Survey
 Data}\label{socio-economic-information-from-the-survey-data}}
 
-The tables below present summaries of information from the Fields survey
-(from the clean dataset analyzed in the main paper), showing responses
-by White/Caucasian individuals by Health Region and proportion of
-answers by LHIN in the West Health Region.
+Tables A-7 and A-8 present summaries of information from the Fields
+survey (from the clean dataset analyzed in the main paper), showing
+responses by White/Caucasian individuals by Health Region and proportion
+of answers by LHIN in the West Health Region.
 
 \hypertarget{tbl-hr-percentages}{}
 \begin{table}
