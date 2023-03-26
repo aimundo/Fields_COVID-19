@@ -195,7 +195,7 @@ Nasri\textsuperscript{2,*}}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, enhanced, interior hidden, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, enhanced, frame hidden, breakable, interior hidden, sharp corners]}{\end{tcolorbox}}\fi
 
 \setstretch{2}
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
@@ -367,7 +367,8 @@ Attitudes}, a repeated cross sectional survey focused on the Canadian
 province of Ontario that was commissioned by the Fields Institute for
 Research in Mathematical Sciences (henceforth Fields) and the
 Mathematical Modelling of COVID-19 Task Force under ethical guidance
-from the University of Toronto. The survey collected socio-economic
+from the University of Toronto, and which ran between September 30th,
+2021 and January 17th,2022. The survey collected socio-economic
 information from participants (Table~\ref{tbl-covariates}), recorded
 their location (using the nearest municipality), and asked information
 on vaccination status by using the question ``Have you received the
@@ -434,7 +435,8 @@ compared to the most populated Health Regions, such as the Toronto or
 Central Regions. We omitted the North East and North East Health Regions
 from further analyses due to the low number of entries. Therefore, the
 total number of unique entries used for analysis was 3,551 which
-included the East, Central, Toronto, and West Health Regions.
+included the East, Central, Toronto, and West Health Regions and that
+covered the period between September 30th,2021 and December 12th, 2021.
 
 \begin{figure}
 
@@ -698,44 +700,75 @@ Asian that lived in the West Health Region (ORs=0.41, \emph{p}=0.032 and
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
 
-The change from LHINs to Health Regions for healthcare in Ontario was
-aimed at reducing healthcare
-disparities\textsuperscript{\protect\hyperlink{ref-tsasis2012}{30}}. The
-relatively recent nature of the change, which occurred in late 2019,
-highlights the importance of studies that can determine if there are
-intra-regional differences in healthcare that need to be addressed,
-particularly in the context of the COVID-19 pandemic.
+There existence of healthcare disparities within Ontario is a topic of
+particular interest in due to the recent change in the healthcare system
+of this region, which eliminated the LHIN model and adopted larger
+Health Regions system in late 2019 in an attempt to address the
+disparities of the former
+approach\textsuperscript{\protect\hyperlink{ref-tsasis2012}{30},\protect\hyperlink{ref-dong2022}{31}}.
+In this context, analyzing COVID-19 vaccination estimates within the
+province is important as they can provide an initial assessment of
+variations that might need to be addressed by decision-makers.
 
 Our results indicate that across the most densely populated Health
 Regions of Ontario, almost three quarters of the surveyed individuals
 reported having received the first dose of the COVID-19 vaccine
-(Table~\ref{tbl-descriptive-stats}), and that there were no significant
-differences in vaccination odds among the age groups considered in the
-survey. This result is consistent with overall vaccination rates
-reported for Canada, which have been relatively higher when compared to
-other high income
-countries\textsuperscript{\protect\hyperlink{ref-dube2022}{39}}, with
-vaccination uptake rates across different age groups presented in other
-studies\textsuperscript{\protect\hyperlink{ref-guay2022}{19},\protect\hyperlink{ref-macdonald2021}{40}},
-and with the vaccination information provided by Public Health Ontario,
-which shows that for the period where the Fields survey ran (Sept 30,
-2021-Jan 17, 2022) there was a minimum of 80\% of first dose vaccination
-coverage among all the age groups considered in the
-survey\textsuperscript{\protect\hyperlink{ref-ontario-covid}{41}}.
+(Table~\ref{tbl-descriptive-stats}). It is worth mentioning that
+province-wide vaccination rates for the period of interest are somewhat
+different from those of the survey, particularly in the case of those 55
+years of age and older, which in the survey had a vaccination rate of
+72\%, against a rate of 88.4\% reported for the closest age bracket (50
+years of age and older) reported by Public Health Ontario at the start
+of the period covered by the data (between September 30th, 2021 and
+December 12th,
+2021)\textsuperscript{\protect\hyperlink{ref-ontario-covid}{39}}. In
+this regard, differences are to be expected because the survey
+represents a random sample from the population, and therefore, the
+sampling process is likely to cause variations between the values from
+the survey and province-wide estimates.
 
-However, we identified intra-provincial differences in vaccination based
-on socio-economic and geographical factors. First, our results show
-significant differences in vaccination odds in individuals with a
-household income below CAD 60,000 and in individuals belonging to
-visible minority groups. Those who identified as Black, Latin American,
-or belonging to a minority group not included in the survey (Southeast
-Asian, Filipino, West Asian, and Minority not identified elsewhere) had
-vaccination odds below 33\% when compared to individuals that identified
-as White/Caucasian (Table~\ref{tbl-model}). These results are consistent
-with other studies that have shown lower vaccination rates in
-individuals that identify as part of a racial minority, or that have a
-low household
-income\textsuperscript{\protect\hyperlink{ref-guay2022}{19}--\protect\hyperlink{ref-hussain2022}{21},\protect\hyperlink{ref-carter2022}{42}}.
+We believe that these differences did not have a significant impact in
+our analyses, because our results indicate that there were no
+significant differences in vaccination odds among the age groups
+considered in the survey, in agreement with the overall vaccination
+rates reported for Canada, which have been relatively higher when
+compared to other high income
+countries\textsuperscript{\protect\hyperlink{ref-dube2022}{40}}, and
+with vaccination uptake rates across different age groups presented in
+other
+studies\textsuperscript{\protect\hyperlink{ref-guay2022}{19},\protect\hyperlink{ref-macdonald2021}{41}}.
+Moreover, vaccination rates within each age in the dataset are in good
+agreement with province-wide estimates (e.g., a rate of 95\% for those
+with 61 years of age, Supplementary Table A-6). Additionally, when
+overall vaccination rates for the province are disaggregated, it can be
+seen that regional differences were present during the period analyzed,
+which can be masked by province-wide estimates. For example, the Public
+Health Unit of Lambton (a region within the West Health Region) and the
+Public Health Unit of Haliburton, Kawartha, and the Pine Ridge District
+(an area covered by the East Health Region) reported lower vaccination
+rates (78\%) for those 50 years of age and older at the beginning of the
+period of interest, whereas other regions had higher vaccination
+rates\textsuperscript{\protect\hyperlink{ref-ontario-covid}{39}}. To
+this day, differences in vaccination rates within the province are
+present, because according to Public Health Ontario, as of March of 2023
+some regions have less than 75\% vaccination
+rate\textsuperscript{\protect\hyperlink{ref-ontario-covid-map}{42}}.
+Overall, these reasons indicate that the estimates obtained from the
+data are in good agreement with the trends from the population.
+
+We identified significant intra-provincial differences in vaccination
+based on socio-economic and geographical factors. First, our results
+show differences in odds of vaccination in individuals with a household
+income below CAD 60,000 and in individuals belonging to visible minority
+groups. Those who identified as Arab/Middle Eastern, Black, Latin
+American, or that belonged to a minority group not included in the
+survey (Southeast Asian, Filipino, West Asian, and minority groups not
+identified elsewhere) had vaccination odds that were less than a third
+of individuals that identified as White/Caucasian
+(Table~\ref{tbl-model}). These results are consistent with other studies
+that have shown lower vaccination rates in individuals that identify as
+part of a racial minority, or that have a low household
+income\textsuperscript{\protect\hyperlink{ref-guay2022}{19}--\protect\hyperlink{ref-hussain2022}{21},\protect\hyperlink{ref-carter2022}{43}}.
 
 In this study, we also decided to explore the interactions between
 income and race and race and Health Region, as it is known that many
@@ -762,13 +795,13 @@ Supplementary Figure A-3).
 This result is likely due to the fact that individuals that belong
 racial minority groups tend to perform occupations that have been deemed
 as ``essential'' in the context of the
-pandemic\textsuperscript{\protect\hyperlink{ref-hawkins2020}{43},\protect\hyperlink{ref-ct2021}{44}},
+pandemic\textsuperscript{\protect\hyperlink{ref-hawkins2020}{44},\protect\hyperlink{ref-ct2021}{45}},
 which include occupations such as grocery store workers, gas station
 workers, warehouse and distribution workers, and manufacturing workers,
 all being occupations for which an income within the significant
 brackets is to be expected. In the case of Ontario, essential workers
 had priority for COVID-19
-vaccination\textsuperscript{\protect\hyperlink{ref-mishra2021}{45}},
+vaccination\textsuperscript{\protect\hyperlink{ref-mishra2021}{46}},
 which would explain the higher odds of vaccination for these individuals
 in certain income brackets, in contrast to the lower odds of vaccination
 for the same type of individuals with higher household income. In other
@@ -784,7 +817,7 @@ the cities of Hamilton, Haldimand, Brant, and Chatham-Kent. In this
 case, a possible rationale for the results is the fact that in the
 survey, about 47\% of the entries for this Health Region corresponded to
 White/Caucasian individuals, who reported an overall 83\% vaccination
-rate (Supplementary Table A-6). However, the interaction effect of
+rate (Supplementary Table A-7). However, the interaction effect of
 Health Region and race was also significant in the case of individuals
 identifying as South Asian or other minorities not included in the
 survey Table~\ref{tbl-model}. In this case, the results of the
@@ -795,21 +828,21 @@ Region decreased when compared to the other Health Regions
 
 According to Ontario Health, 13.2\% of the population in the West Health
 Region identifies as a visible minority, whereas 2.5\% identifies as
-Indigenous\textsuperscript{\protect\hyperlink{ref-ontariohealth}{46}}.
+Indigenous\textsuperscript{\protect\hyperlink{ref-ontariohealth}{47}}.
 In the case of this analysis, the estimated lower odds are likely to be
 explained from a socio-economic perspective. In fact, 50\% of the
 answers from this region in the survey came from the former LHINs of
 Hamilton Niagara Haldimand Brant, and Erie St.~Clair, both which are
 among the regions of Ontario with the highest proportion of their
 population (more than 20\%) in the lowest income
-quintile\textsuperscript{\protect\hyperlink{ref-buajitti2018}{47}}
-(Supplementary Table A-7). Therefore, this result partly reinforces the
+quintile\textsuperscript{\protect\hyperlink{ref-buajitti2018}{48}}
+(Supplementary Table A-8). Therefore, this result partly reinforces the
 well-known existing association between low vaccination rates and
 income, but it additionally indicates that there were intra-regional
 differences in vaccination. Interestingly, a disproportionate number of
 COVID-19 cases and low vaccination rate (under 50\%) have been
 previously reported in the South Asian community of
-Ontario\textsuperscript{\protect\hyperlink{ref-anand2022}{48}}; in this
+Ontario\textsuperscript{\protect\hyperlink{ref-anand2022}{49}}; in this
 regard, our result provides additional context by showing that within
 the South Asian community, there were differences in vaccination uptake
 across Ontario. Moreover, because significant lower odds of vaccination
@@ -835,7 +868,7 @@ these areas in the survey (Figure~\ref{fig-map}). Although low
 representation from these areas is based on the fact that these regions
 only account for 5\% of the total population of Ontario, these regions
 are the home to more than 100,000 individuals that identify as
-Indigenous\textsuperscript{\protect\hyperlink{ref-ontariohealth}{46}}, a
+Indigenous\textsuperscript{\protect\hyperlink{ref-ontariohealth}{47}}, a
 minority group that has historically suffered from reduced access to
 health care and
 discrimination\textsuperscript{\protect\hyperlink{ref-mosby2021}{17}}.
@@ -843,22 +876,23 @@ Therefore, there is a need for additional studies that focus on these
 low-populated Health Regions in Ontario where disparities in vaccination
 might be significant and understudied.
 
-The results in this study are based on self-reported data, where the
-risk of bias exist. Despite this, because in the context of COVID-19 it
-has been shown that good agreement exists between self-reported and
-documented vaccination
-status\textsuperscript{\protect\hyperlink{ref-stephenson2022}{49}}, the
-effect of self-reported bias is likely to not be significant in this
-case. Finally, it is likely that there have been differences in
-vaccination across the province as more doses of the vaccine were
-administered and as successive variants emerged. Because this study
-focused only on vaccination status regarding the first dose of the
-vaccine within a relatively short time window, it can only provide a
-snapshot of the societal dynamics behind the pandemic. Nonetheless, the
-results presented here can serve as a starting point to motivate future
-longitudinal research that aims to quantify geographical differences
-within vulnerable segments of the population, and that can be used to
-inform the development of public health policies within the province of
+The results in this study are based on self-reported data, where there
+is a risk that biased values are reported. Despite this, because in the
+context of COVID-19 it has been shown that good agreement exists between
+self-reported and documented vaccination
+status\textsuperscript{\protect\hyperlink{ref-stephenson2022}{50}}, and
+therefore, the effect of self-reported bias is likely to not be
+significant in our analyses. Finally, it is likely that there have been
+differences in vaccination across the province as more doses of the
+vaccine were administered and as successive variants emerged. Because
+this study focused only on vaccination status regarding the first dose
+of the vaccine within a relatively short time window, it can only
+provide a snapshot of the societal dynamics behind the pandemic.
+Nonetheless, the results presented here can serve as a starting point to
+motivate the collection of robust longitudinal data that can be used to
+quantify geographical and temporal differences within vulnerable
+segments of the population, and that can be used to inform the
+development of adequate public health policies within the province of
 Ontario or across other provinces that aim to minimize disparities in
 health access.
 
@@ -1168,28 +1202,33 @@ doi:\href{https://doi.org/10.21105/joss.01686}{10.21105/joss.01686}}
 Markdown Publishing System}.; 2022.
 \url{https://CRAN.R-project.org/package=quarto}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-dube2022}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-ontario-covid}{}}%
 \CSLLeftMargin{39. }%
+\CSLRightInline{{Ontario COVID-19 Data Tool}. Accessed February 27,
+2023.
+\url{https://www.publichealthontario.ca/en/data-and-analysis/infectious-disease/covid-19-data-surveillance/covid-19-data-tool?tab=vaccine}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-dube2022}{}}%
+\CSLLeftMargin{40. }%
 \CSLRightInline{Dubé E, Gagnon D, MacDonald N. Between persuasion and
 compulsion: The case of {COVID}-19 vaccination in canada.
 \emph{Vaccine}. 2022;40(29):3923-3926.
 doi:\href{https://doi.org/10.1016/j.vaccine.2022.05.053}{10.1016/j.vaccine.2022.05.053}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-macdonald2021}{}}%
-\CSLLeftMargin{40. }%
+\CSLLeftMargin{41. }%
 \CSLRightInline{MacDonald NE, Comeau J, Dubé Ève, et al. Royal society
 of canada {COVID}-19 report: Enhancing {COVID}-19 vaccine acceptance in
 canada. Blais JM, ed. \emph{{FACETS}}. 2021;6:1184-1246.
 doi:\href{https://doi.org/10.1139/facets-2021-0037}{10.1139/facets-2021-0037}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-ontario-covid}{}}%
-\CSLLeftMargin{41. }%
-\CSLRightInline{{Ontario COVID-19 Data Tool}. Accessed February 27,
-2023.
-\url{https://www.publichealthontario.ca/en/data-and-analysis/infectious-disease/covid-19-data-surveillance/covid-19-data-tool?tab=vaccine}}
+\leavevmode\vadjust pre{\hypertarget{ref-ontario-covid-map}{}}%
+\CSLLeftMargin{42. }%
+\CSLRightInline{{Ontario COVID-19 Data Tool}. Accessed March 24, 2023.
+\url{https://www.publichealthontario.ca/en/data-and-analysis/infectious-disease/covid-19-data-surveillance/covid-19-data-tool?tab=maps}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-carter2022}{}}%
-\CSLLeftMargin{42. }%
+\CSLLeftMargin{43. }%
 \CSLRightInline{Carter MA, Biro S, Maier A, Shingler C, Guan TH.
 {COVID}-19 vaccine uptake in southeastern ontario, canada: Monitoring
 and addressing health inequities. \emph{Journal of Public Health
@@ -1197,14 +1236,14 @@ Management and Practice}. 2022;28(6):615-623.
 doi:\href{https://doi.org/10.1097/phh.0000000000001565}{10.1097/phh.0000000000001565}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-hawkins2020}{}}%
-\CSLLeftMargin{43. }%
+\CSLLeftMargin{44. }%
 \CSLRightInline{Hawkins D. Differential occupational risk for {COVID}-19
 and other infection exposure according to race and ethnicity.
 \emph{American Journal of Industrial Medicine}. 2020;63(9):817-820.
 doi:\href{https://doi.org/10.1002/ajim.23145}{10.1002/ajim.23145}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-ct2021}{}}%
-\CSLLeftMargin{44. }%
+\CSLLeftMargin{45. }%
 \CSLRightInline{Côté D, Durant S, MacEachen E, et al. A rapid scoping
 review of {COVID}-19 and vulnerable workers: Intersecting occupational
 and public health issues. \emph{American Journal of Industrial
@@ -1212,28 +1251,28 @@ Medicine}. 2021;64(7):551-566.
 doi:\href{https://doi.org/10.1002/ajim.23256}{10.1002/ajim.23256}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-mishra2021}{}}%
-\CSLLeftMargin{45. }%
+\CSLLeftMargin{46. }%
 \CSLRightInline{Mishra S, Stall NM, Ma H, et al. \emph{A Vaccination
 Strategy for Ontario {COVID}-19 Hotspots and Essential Workers}. Ontario
 {COVID}-19 Science Advisory Table; 2021.
 doi:\href{https://doi.org/10.47326/ocsat.2021.02.26.1.0}{10.47326/ocsat.2021.02.26.1.0}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-ontariohealth}{}}%
-\CSLLeftMargin{46. }%
+\CSLLeftMargin{47. }%
 \CSLRightInline{\emph{{A}nnual {B}usiness {P}lan 2022/23}. Ontario
 Health;
 \url{https://www.ontariohealth.ca/sites/ontariohealth/files/2022-05/OHBusinessPlan22_23.pdf};
 2022.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-buajitti2018}{}}%
-\CSLLeftMargin{47. }%
+\CSLLeftMargin{48. }%
 \CSLRightInline{Buajitti E, Watson T, Kornas K, Bornbaum C, Henry D,
 Rosella LC. Ontario atlas of adult mortality, 1992-2015: Trends in
 {L}ocal {H}ealth {I}ntegration {N}etworks. Published online 2018.
 \url{https://tspace.library.utoronto.ca/handle/1807/82836}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-anand2022}{}}%
-\CSLLeftMargin{48. }%
+\CSLLeftMargin{49. }%
 \CSLRightInline{Anand SS, Arnold C, Bangdiwala SI, et al. Seropositivity
 and risk factors for {SARS}-{CoV}-2 infection in a south asian community
 in ontario: A cross-sectional analysis of a prospective cohort study.
@@ -1241,7 +1280,7 @@ in ontario: A cross-sectional analysis of a prospective cohort study.
 doi:\href{https://doi.org/10.9778/cmajo.20220031}{10.9778/cmajo.20220031}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-stephenson2022}{}}%
-\CSLLeftMargin{49. }%
+\CSLLeftMargin{50. }%
 \CSLRightInline{Stephenson M, Olson SM, Self WH, et al. Ascertainment of
 vaccination status by self-report versus source documentation: Impact on
 measuring {COVID}-19 vaccine effectiveness. \emph{Influenza and Other
