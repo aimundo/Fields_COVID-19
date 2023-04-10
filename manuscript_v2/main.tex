@@ -10,7 +10,6 @@
 
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{setspace}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -195,9 +194,8 @@ Nasri\textsuperscript{2,*}}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, enhanced, frame hidden, breakable, interior hidden, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, frame hidden, boxrule=0pt, breakable, enhanced, sharp corners]}{\end{tcolorbox}}\fi
 
-\setstretch{2}
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
 Montreal, Montréal, Canada\\
 \textsuperscript{2} Department of Social and Preventive Medicine, École

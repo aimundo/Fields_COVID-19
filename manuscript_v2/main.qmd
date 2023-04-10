@@ -23,7 +23,7 @@ format:
     include-in-header: latex/preamble.sty
     #mainfont: "Palatino Linotype"
     keep-tex: true
-linestretch: 2
+#linestretch: 1
 bibliography: references/refs.bib
 csl: references/jama.csl
 link-citations: yes #adds links to the citations
