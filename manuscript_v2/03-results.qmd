@@ -79,10 +79,19 @@ t1<-m1 %>%
                             income_ord="Income")) %>%
   bold_labels()
 
+t2<-m2 %>%
+  tbl_regression(exponentiate = TRUE,
+                 label=list(Health_Region ~ "Health Region",
+                            Age_group_ord ~ "Age Group",
+                            income_ord="Income")) %>%
+  bold_labels()
+
+# ggplot(data=clean_data,aes(y=first_dose))+
+#   geom_bar()+facet_wrap(~Month)
 
 tbl_merge <-
   tbl_merge(
-    tbls = list(t0, t1),
+    tbls = list(t0, t2),
     tab_spanner = c("**Uncorrected**", "**Corrected**")
   )%>%
   bold_labels()%>%

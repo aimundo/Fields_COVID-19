@@ -63,9 +63,31 @@ clean_data<-clean_data%>%
   mutate(Age_group_ord=as.factor(Age_group_ord))
 
 
+
+## get month from the data
+
+clean_data$date <-as_date(clean_data$date)
+
+
+clean_data<-clean_data %>%
+  mutate(Month=format(date,"%B"))
+
+clean_data<-clean_data %>%
+  mutate(MonthDay=as.numeric(format(date,"%m.%d")))
+
+
+clean_data$Month <- as.factor(clean_data$Month)
+
 ## relevel for reference groups in the model
 
 clean_data<- within(clean_data, Age_group_ord <- relevel(Age_group_ord, ref = "16_34"))
 clean_data<- within(clean_data, Race <- relevel(Race, ref = "white_caucasian"))
 clean_data<- within(clean_data, Health_Region <- relevel(Health_Region, ref = "Toronto"))
 clean_data<- within(clean_data, income_ord <- relevel(income_ord, ref = "60000_and_above"))
+clean_data<- within(clean_data, Month <- relevel(Month, ref = "October"))
+
+# remove september, only 2 observations
+
+clean_data <-clean_data %>%
+  subset(Month!="September")
+  

@@ -194,7 +194,7 @@ Nasri\textsuperscript{2,*}}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, frame hidden, boxrule=0pt, breakable, enhanced, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, breakable, frame hidden, sharp corners, interior hidden, borderline west={3pt}{0pt}{shadecolor}, enhanced]}{\end{tcolorbox}}\fi
 
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
 Montreal, Montréal, Canada\\
@@ -524,23 +524,23 @@ Status) }\tabularnewline
 
 \begin{tabular}{lcc}
 \toprule
-\textbf{Variable} & \textbf{no}, N = 958 & \textbf{yes}, N = 2,593\\
+\textbf{Variable} & \textbf{no}, N = 958 & \textbf{yes}, N = 2,591\\
 \midrule
 \textbf{Income} &  & \\
-\hspace{1em}60000\_and\_above & 305 (23\%) & 1,049 (77\%)\\
+\hspace{1em}60000\_and\_above & 305 (23\%) & 1,048 (77\%)\\
 \hspace{1em}25000\_59999 & 253 (28\%) & 636 (72\%)\\
-\hspace{1em}under\_25000 & 400 (31\%) & 908 (69\%)\\
+\hspace{1em}under\_25000 & 400 (31\%) & 907 (69\%)\\
 \textbf{Age Group} &  & \\
-\hspace{1em}16\_34 & 409 (27\%) & 1,112 (73\%)\\
+\hspace{1em}16\_34 & 409 (27\%) & 1,111 (73\%)\\
 \hspace{1em}35\_54 & 252 (26\%) & 712 (74\%)\\
-\hspace{1em}55\_and\_over & 297 (28\%) & 769 (72\%)\\
+\hspace{1em}55\_and\_over & 297 (28\%) & 768 (72\%)\\
 \textbf{Health Region} &  & \\
-\hspace{1em}Toronto & 371 (28\%) & 953 (72\%)\\
-\hspace{1em}Central & 224 (28\%) & 581 (72\%)\\
+\hspace{1em}Toronto & 371 (28\%) & 952 (72\%)\\
+\hspace{1em}Central & 224 (28\%) & 580 (72\%)\\
 \hspace{1em}East & 135 (23\%) & 448 (77\%)\\
 \hspace{1em}West & 228 (27\%) & 611 (73\%)\\
 \textbf{Race} &  & \\
-\hspace{1em}white\_caucasian & 233 (18\%) & 1,080 (82\%)\\
+\hspace{1em}white\_caucasian & 233 (18\%) & 1,079 (82\%)\\
 \hspace{1em}arab\_middle\_eastern & 76 (36\%) & 138 (64\%)\\
 \hspace{1em}black & 114 (38\%) & 184 (62\%)\\
 \hspace{1em}east\_asian\_pacific\_islander & 69 (23\%) & 234 (77\%)\\
@@ -548,7 +548,7 @@ Status) }\tabularnewline
 \hspace{1em}latin\_american & 69 (38\%) & 111 (62\%)\\
 \hspace{1em}mixed & 105 (34\%) & 205 (66\%)\\
 \hspace{1em}other & 128 (35\%) & 239 (65\%)\\
-\hspace{1em}south\_asian & 88 (23\%) & 287 (77\%)\\
+\hspace{1em}south\_asian & 88 (24\%) & 286 (76\%)\\
 \bottomrule
 \multicolumn{3}{l}{\rule{0pt}{1em}\textsuperscript{1} n (\%)}\\
 \end{tabular}
@@ -627,69 +627,73 @@ Asian that lived in the West Health Region (ORs=0.41, \emph{p}=0.032 and
 \endlastfoot
 \textbf{Age Group} &  &  &  &  &  & \\
 \hspace{1em}16\_34 & — & — &  & — & — & \\
-\hspace{1em}35\_54 & 0.93 & 0.77, 1.13 & 0.5 & 0.90 & 0.67, 1.21 & 0.5\\
+\hspace{1em}35\_54 & 0.93 & 0.77, 1.14 & 0.5 & 0.90 & 0.67, 1.21 & 0.5\\
 \hspace{1em}55\_and\_over & 0.74 & 0.61, 0.89 & 0.002 & 0.99 & 0.74, 1.32 & >0.9\\
+\textbf{Month} &  &  &  &  &  & \\
+\hspace{1em}October & — & — &  & — & — & \\
+\hspace{1em}December & 1.16 & 0.91, 1.49 & 0.2 & 1.16 & 0.78, 1.71 & 0.5\\
+\hspace{1em}November & 0.95 & 0.81, 1.12 & 0.6 & 0.92 & 0.71, 1.18 & 0.5\\
 \textbf{Income} &  &  &  &  &  & \\
 \hspace{1em}60000\_and\_above & — & — &  & — & — & \\
-\hspace{1em}25000\_59999 & 0.59 & 0.41, 0.84 & 0.004 & 0.59 & 0.39, 0.89 & 0.011\\
+\hspace{1em}25000\_59999 & 0.59 & 0.41, 0.84 & 0.003 & 0.59 & 0.39, 0.88 & 0.010\\
 \hspace{1em}under\_25000 & 0.41 & 0.29, 0.58 & <0.001 & 0.37 & 0.25, 0.56 & <0.001\\
 \textbf{Race} &  &  &  &  &  & \\
 \hspace{1em}white\_caucasian & — & — &  & — & — & \\
-\hspace{1em}arab\_middle\_eastern & 0.24 & 0.12, 0.50 & <0.001 & 0.31 & 0.14, 0.69 & 0.004\\
+\hspace{1em}arab\_middle\_eastern & 0.24 & 0.12, 0.49 & <0.001 & 0.31 & 0.14, 0.68 & 0.003\\
 \hspace{1em}black & 0.30 & 0.17, 0.54 & <0.001 & 0.32 & 0.17, 0.60 & <0.001\\
-\hspace{1em}east\_asian\_pacific\_islander & 0.74 & 0.36, 1.52 & 0.4 & 1.15 & 0.50, 2.66 & 0.7\\
-\hspace{1em}indigenous & 0.37 & 0.17, 0.81 & 0.013 & 0.44 & 0.19, 1.02 & 0.056\\
-\hspace{1em}latin\_american & 0.28 & 0.13, 0.59 & <0.001 & 0.28 & 0.11, 0.67 & 0.004\\
-\hspace{1em}mixed & 0.59 & 0.31, 1.12 & 0.11 & 0.64 & 0.25, 1.65 & 0.4\\
+\hspace{1em}east\_asian\_pacific\_islander & 0.73 & 0.36, 1.51 & 0.4 & 1.15 & 0.50, 2.66 & 0.7\\
+\hspace{1em}indigenous & 0.38 & 0.17, 0.82 & 0.014 & 0.45 & 0.20, 1.04 & 0.061\\
+\hspace{1em}latin\_american & 0.28 & 0.13, 0.59 & <0.001 & 0.27 & 0.11, 0.66 & 0.004\\
+\hspace{1em}mixed & 0.58 & 0.30, 1.11 & 0.10 & 0.63 & 0.24, 1.62 & 0.3\\
 \hspace{1em}other & 0.20 & 0.11, 0.35 & <0.001 & 0.22 & 0.12, 0.41 & <0.001\\
-\hspace{1em}south\_asian & 0.80 & 0.44, 1.45 & 0.5 & 0.91 & 0.49, 1.69 & 0.8\\
+\hspace{1em}south\_asian & 0.79 & 0.44, 1.43 & 0.4 & 0.90 & 0.48, 1.67 & 0.7\\
 \textbf{Health Region} &  &  &  &  &  & \\
 \hspace{1em}Toronto & — & — &  & — & — & \\
-\hspace{1em}Central & 1.30 & 0.85, 2.00 & 0.2 & 1.47 & 0.92, 2.35 & 0.11\\
-\hspace{1em}East & 1.54 & 1.01, 2.34 & 0.044 & 1.42 & 0.90, 2.23 & 0.13\\
-\hspace{1em}West & 1.35 & 0.95, 1.94 & 0.10 & 1.55 & 1.05, 2.30 & 0.029\\
+\hspace{1em}Central & 1.30 & 0.84, 2.00 & 0.2 & 1.47 & 0.92, 2.36 & 0.11\\
+\hspace{1em}East & 1.54 & 1.01, 2.34 & 0.044 & 1.41 & 0.90, 2.22 & 0.14\\
+\hspace{1em}West & 1.35 & 0.94, 1.93 & 0.10 & 1.54 & 1.04, 2.29 & 0.031\\
 \textbf{Income * Race} &  &  &  &  &  & \\
-\hspace{1em}25000\_59999 * arab\_middle\_eastern & 2.16 & 0.93, 4.99 & 0.072 & 1.79 & 0.67, 4.83 & 0.2\\
-\hspace{1em}under\_25000 * arab\_middle\_eastern & 2.96 & 1.39, 6.26 & 0.005 & 3.05 & 1.26, 7.39 & 0.013\\
-\hspace{1em}25000\_59999 * black & 1.19 & 0.60, 2.39 & 0.6 & 1.34 & 0.59, 3.05 & 0.5\\
-\hspace{1em}under\_25000 * black & 2.88 & 1.48, 5.59 & 0.002 & 3.19 & 1.45, 6.99 & 0.004\\
-\hspace{1em}25000\_59999 * east\_asian\_pacific\_islander & 0.95 & 0.44, 2.07 & >0.9 & 0.42 & 0.17, 1.05 & 0.062\\
-\hspace{1em}under\_25000 * east\_asian\_pacific\_islander & 1.91 & 0.90, 4.04 & 0.090 & 1.16 & 0.47, 2.86 & 0.8\\
-\hspace{1em}25000\_59999 * indigenous & 1.81 & 0.74, 4.43 & 0.2 & 1.36 & 0.48, 3.89 & 0.6\\
-\hspace{1em}under\_25000 * indigenous & 1.64 & 0.73, 3.69 & 0.2 & 1.45 & 0.55, 3.80 & 0.5\\
-\hspace{1em}25000\_59999 * latin\_american & 0.89 & 0.38, 2.10 & 0.8 & 1.24 & 0.45, 3.43 & 0.7\\
-\hspace{1em}under\_25000 * latin\_american & 3.09 & 1.33, 7.16 & 0.009 & 2.80 & 1.04, 7.51 & 0.041\\
-\hspace{1em}25000\_59999 * mixed & 0.86 & 0.39, 1.93 & 0.7 & 0.85 & 0.32, 2.26 & 0.7\\
-\hspace{1em}under\_25000 * mixed & 1.26 & 0.64, 2.47 & 0.5 & 1.10 & 0.37, 3.27 & 0.9\\
-\hspace{1em}25000\_59999 * other & 5.46 & 2.41, 12.3 & <0.001 & 6.93 & 2.65, 18.1 & <0.001\\
-\hspace{1em}under\_25000 * other & 4.06 & 2.25, 7.31 & <0.001 & 4.59 & 2.33, 9.05 & <0.001\\
-\hspace{1em}25000\_59999 * south\_asian & 1.13 & 0.54, 2.36 & 0.7 & 1.20 & 0.51, 2.85 & 0.7\\
-\hspace{1em}under\_25000 * south\_asian & 1.59 & 0.83, 3.06 & 0.2 & 2.00 & 0.93, 4.30 & 0.077\\
+\hspace{1em}25000\_59999 * arab\_middle\_eastern & 2.19 & 0.95, 5.05 & 0.067 & 1.85 & 0.68, 4.99 & 0.2\\
+\hspace{1em}under\_25000 * arab\_middle\_eastern & 2.95 & 1.39, 6.24 & 0.005 & 3.08 & 1.27, 7.47 & 0.013\\
+\hspace{1em}25000\_59999 * black & 1.18 & 0.59, 2.36 & 0.6 & 1.31 & 0.58, 2.98 & 0.5\\
+\hspace{1em}under\_25000 * black & 2.84 & 1.46, 5.53 & 0.002 & 3.15 & 1.43, 6.92 & 0.004\\
+\hspace{1em}25000\_59999 * east\_asian\_pacific\_islander & 0.97 & 0.44, 2.10 & >0.9 & 0.42 & 0.17, 1.06 & 0.066\\
+\hspace{1em}under\_25000 * east\_asian\_pacific\_islander & 1.90 & 0.90, 4.01 & 0.094 & 1.15 & 0.47, 2.84 & 0.8\\
+\hspace{1em}25000\_59999 * indigenous & 1.77 & 0.72, 4.32 & 0.2 & 1.33 & 0.46, 3.80 & 0.6\\
+\hspace{1em}under\_25000 * indigenous & 1.60 & 0.71, 3.60 & 0.3 & 1.41 & 0.54, 3.72 & 0.5\\
+\hspace{1em}25000\_59999 * latin\_american & 0.89 & 0.38, 2.10 & 0.8 & 1.25 & 0.45, 3.45 & 0.7\\
+\hspace{1em}under\_25000 * latin\_american & 3.10 & 1.34, 7.21 & 0.009 & 2.81 & 1.04, 7.59 & 0.041\\
+\hspace{1em}25000\_59999 * mixed & 0.87 & 0.39, 1.93 & 0.7 & 0.87 & 0.33, 2.33 & 0.8\\
+\hspace{1em}under\_25000 * mixed & 1.27 & 0.65, 2.49 & 0.5 & 1.12 & 0.38, 3.33 & 0.8\\
+\hspace{1em}25000\_59999 * other & 5.50 & 2.43, 12.5 & <0.001 & 6.96 & 2.67, 18.2 & <0.001\\
+\hspace{1em}under\_25000 * other & 4.09 & 2.27, 7.37 & <0.001 & 4.63 & 2.34, 9.13 & <0.001\\
+\hspace{1em}25000\_59999 * south\_asian & 1.14 & 0.55, 2.38 & 0.7 & 1.22 & 0.52, 2.87 & 0.7\\
+\hspace{1em}under\_25000 * south\_asian & 1.58 & 0.82, 3.05 & 0.2 & 2.01 & 0.93, 4.34 & 0.075\\
 \textbf{Race * Health Region} &  &  &  &  &  & \\
-\hspace{1em}arab\_middle\_eastern * Central & 0.75 & 0.33, 1.71 & 0.5 & 0.66 & 0.26, 1.70 & 0.4\\
-\hspace{1em}black * Central & 0.48 & 0.23, 1.01 & 0.055 & 0.44 & 0.19, 0.98 & 0.046\\
-\hspace{1em}east\_asian\_pacific\_islander * Central & 0.84 & 0.37, 1.88 & 0.7 & 0.98 & 0.38, 2.53 & >0.9\\
-\hspace{1em}indigenous * Central & 0.60 & 0.24, 1.51 & 0.3 & 0.63 & 0.22, 1.79 & 0.4\\
-\hspace{1em}latin\_american * Central & 0.69 & 0.28, 1.72 & 0.4 & 0.67 & 0.23, 1.96 & 0.5\\
-\hspace{1em}mixed * Central & 0.63 & 0.29, 1.35 & 0.2 & 0.73 & 0.24, 2.22 & 0.6\\
-\hspace{1em}other * Central & 0.96 & 0.48, 1.92 & >0.9 & 0.80 & 0.36, 1.78 & 0.6\\
-\hspace{1em}south\_asian * Central & 0.70 & 0.34, 1.45 & 0.3 & 0.54 & 0.25, 1.20 & 0.13\\
-\hspace{1em}arab\_middle\_eastern * East & 0.58 & 0.20, 1.65 & 0.3 & 0.43 & 0.13, 1.45 & 0.2\\
-\hspace{1em}black * East & 0.82 & 0.36, 1.86 & 0.6 & 0.83 & 0.34, 2.04 & 0.7\\
-\hspace{1em}east\_asian\_pacific\_islander * East & 0.82 & 0.30, 2.24 & 0.7 & 0.86 & 0.29, 2.56 & 0.8\\
-\hspace{1em}indigenous * East & 0.55 & 0.21, 1.44 & 0.2 & 0.69 & 0.23, 2.08 & 0.5\\
-\hspace{1em}latin\_american * East & 0.79 & 0.28, 2.23 & 0.7 & 1.03 & 0.32, 3.34 & >0.9\\
-\hspace{1em}mixed * East & 0.71 & 0.31, 1.60 & 0.4 & 0.91 & 0.28, 3.03 & 0.9\\
-\hspace{1em}other * East & 0.86 & 0.37, 1.99 & 0.7 & 1.05 & 0.39, 2.83 & >0.9\\
-\hspace{1em}south\_asian * East & 0.50 & 0.20, 1.24 & 0.14 & 0.52 & 0.19, 1.45 & 0.2\\
-\hspace{1em}arab\_middle\_eastern * West & 1.16 & 0.48, 2.77 & 0.7 & 1.00 & 0.37, 2.73 & >0.9\\
-\hspace{1em}black * West & 0.77 & 0.36, 1.65 & 0.5 & 0.76 & 0.32, 1.80 & 0.5\\
-\hspace{1em}east\_asian\_pacific\_islander * West & 0.54 & 0.24, 1.20 & 0.13 & 0.52 & 0.20, 1.34 & 0.2\\
-\hspace{1em}indigenous * West & 0.44 & 0.19, 1.02 & 0.056 & 0.39 & 0.14, 1.09 & 0.073\\
-\hspace{1em}latin\_american * West & 0.97 & 0.39, 2.43 & >0.9 & 0.94 & 0.32, 2.72 & >0.9\\
-\hspace{1em}mixed * West & 0.53 & 0.25, 1.11 & 0.092 & 0.37 & 0.12, 1.16 & 0.089\\
-\hspace{1em}other * West & 0.55 & 0.27, 1.12 & 0.10 & 0.41 & 0.18, 0.93 & 0.032\\
-\hspace{1em}south\_asian * West & 0.50 & 0.23, 1.07 & 0.075 & 0.41 & 0.18, 0.95 & 0.037\\*
+\hspace{1em}arab\_middle\_eastern * Central & 0.76 & 0.33, 1.71 & 0.5 & 0.66 & 0.25, 1.69 & 0.4\\
+\hspace{1em}black * Central & 0.48 & 0.23, 1.02 & 0.055 & 0.44 & 0.19, 0.99 & 0.046\\
+\hspace{1em}east\_asian\_pacific\_islander * Central & 0.84 & 0.38, 1.89 & 0.7 & 0.98 & 0.38, 2.53 & >0.9\\
+\hspace{1em}indigenous * Central & 0.60 & 0.24, 1.50 & 0.3 & 0.63 & 0.22, 1.78 & 0.4\\
+\hspace{1em}latin\_american * Central & 0.69 & 0.28, 1.71 & 0.4 & 0.66 & 0.22, 1.93 & 0.4\\
+\hspace{1em}mixed * Central & 0.63 & 0.30, 1.35 & 0.2 & 0.73 & 0.24, 2.23 & 0.6\\
+\hspace{1em}other * Central & 0.98 & 0.49, 1.95 & >0.9 & 0.81 & 0.36, 1.81 & 0.6\\
+\hspace{1em}south\_asian * Central & 0.71 & 0.34, 1.47 & 0.4 & 0.55 & 0.25, 1.21 & 0.14\\
+\hspace{1em}arab\_middle\_eastern * East & 0.57 & 0.20, 1.63 & 0.3 & 0.43 & 0.13, 1.43 & 0.2\\
+\hspace{1em}black * East & 0.84 & 0.37, 1.89 & 0.7 & 0.86 & 0.35, 2.11 & 0.7\\
+\hspace{1em}east\_asian\_pacific\_islander * East & 0.82 & 0.30, 2.24 & 0.7 & 0.86 & 0.29, 2.54 & 0.8\\
+\hspace{1em}indigenous * East & 0.56 & 0.21, 1.45 & 0.2 & 0.70 & 0.23, 2.11 & 0.5\\
+\hspace{1em}latin\_american * East & 0.80 & 0.28, 2.25 & 0.7 & 1.03 & 0.31, 3.40 & >0.9\\
+\hspace{1em}mixed * East & 0.70 & 0.31, 1.60 & 0.4 & 0.92 & 0.28, 3.05 & 0.9\\
+\hspace{1em}other * East & 0.87 & 0.38, 2.02 & 0.7 & 1.08 & 0.40, 2.91 & 0.9\\
+\hspace{1em}south\_asian * East & 0.50 & 0.20, 1.24 & 0.14 & 0.51 & 0.19, 1.42 & 0.2\\
+\hspace{1em}arab\_middle\_eastern * West & 1.18 & 0.49, 2.82 & 0.7 & 1.02 & 0.37, 2.77 & >0.9\\
+\hspace{1em}black * West & 0.78 & 0.36, 1.67 & 0.5 & 0.77 & 0.32, 1.82 & 0.5\\
+\hspace{1em}east\_asian\_pacific\_islander * West & 0.54 & 0.24, 1.21 & 0.14 & 0.52 & 0.20, 1.36 & 0.2\\
+\hspace{1em}indigenous * West & 0.45 & 0.19, 1.05 & 0.064 & 0.40 & 0.14, 1.12 & 0.082\\
+\hspace{1em}latin\_american * West & 0.99 & 0.39, 2.48 & >0.9 & 0.96 & 0.33, 2.79 & >0.9\\
+\hspace{1em}mixed * West & 0.53 & 0.25, 1.10 & 0.088 & 0.37 & 0.12, 1.15 & 0.085\\
+\hspace{1em}other * West & 0.55 & 0.27, 1.12 & 0.10 & 0.41 & 0.18, 0.92 & 0.032\\
+\hspace{1em}south\_asian * West & 0.50 & 0.24, 1.08 & 0.078 & 0.41 & 0.18, 0.95 & 0.037\\*
 \multicolumn{7}{l}{\rule{0pt}{1em}\textsuperscript{1} OR = Odds Ratio, CI = Confidence Interval}\\
 \end{longtable}
 
