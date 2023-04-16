@@ -77,6 +77,7 @@ clean_data<-clean_data %>%
 
 
 clean_data$Month <- as.factor(clean_data$Month)
+clean_data$Month <- fct_relevel(clean_data$Month,levels=c("October","November","December"))
 
 ## relevel for reference groups in the model
 
@@ -84,9 +85,9 @@ clean_data<- within(clean_data, Age_group_ord <- relevel(Age_group_ord, ref = "1
 clean_data<- within(clean_data, Race <- relevel(Race, ref = "white_caucasian"))
 clean_data<- within(clean_data, Health_Region <- relevel(Health_Region, ref = "Toronto"))
 clean_data<- within(clean_data, income_ord <- relevel(income_ord, ref = "60000_and_above"))
-clean_data<- within(clean_data, Month <- relevel(Month, ref = "October"))
+#clean_data<- within(clean_data, Month <- relevel(Month, ref = "October"))
 
-# remove september, only 2 observations
+# remove september, as it only has 2 observations
 
 clean_data <-clean_data %>%
   subset(Month!="September")
