@@ -1,24 +1,24 @@
 #Each of these dataframes provides the population totals for the different variables and their categories
 
 
-Ages<-data.frame(Age_group_ord=c("16_34",
-                                 "35_54",
-                                 "55_and_over"),
+Ages<-data.frame(Age_group_ord=c("16-34",
+                                 "35-54",
+                                 "55 and over"),
                  Freq=c(3442815,
                         3725233,
                         4088342))
 
 
 
-Races<-data.frame(Race=c("arab_middle_eastern",
-                         "black",
-                         "east_asian_pacific_islander",
-                         "indigenous",
-                         "latin_american",
-                         "mixed",
-                         "other",
-                         "south_asian",
-                         "white_caucasian"),
+Races<-data.frame(Race=c("Arab/Middle Eastern",
+                         "Black",
+                         "East Asian/Pacific Islander",
+                         "Indigenous",
+                         "Latin American",
+                         "Mixed",
+                         "Other",
+                         "South Asian",
+                         "White/Caucasian"),
                   Freq=c(212782,
                          638346,
                          886592,
@@ -29,9 +29,9 @@ Races<-data.frame(Race=c("arab_middle_eastern",
                          1166361,
                          9118079 ))
 
-Incomes<-data.frame(income_ord=c("under_25000",
-                             "25000_59999",
-                             "60000_and_above"),
+Incomes<-data.frame(income_ord=c("under 25000",
+                             "25000-59999",
+                             "60000 and above"),
                     Freq=c(682331,
                            1395676,
                            3091164

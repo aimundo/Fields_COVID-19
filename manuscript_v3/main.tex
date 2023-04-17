@@ -193,7 +193,7 @@ Nasri\textsuperscript{1,2,*}}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, breakable, interior hidden, borderline west={3pt}{0pt}{shadecolor}, frame hidden, enhanced, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, breakable, borderline west={3pt}{0pt}{shadecolor}, interior hidden, sharp corners, boxrule=0pt, enhanced]}{\end{tcolorbox}}\fi
 
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
 Montreal, Montréal, Canada\\
@@ -222,21 +222,19 @@ vaccination due to race/ethnicity, income, Health Regions (geographical
 areas used for health service access in Ontario), and their
 interactions. In particular, we show that individuals who identified as
 Arab/Middle Eastern, Black, or Latin American, had significantly lower
-odds of vaccination than White/Caucasian individuals (ORs=0.31, 0.32,
-0.28, and \emph{p}=0.004, \emph{p}\textless0.001 and \emph{p}=0.004,
+odds of vaccination than White/Caucasian individuals (ORs and 95\%
+CIs=0.31{[}0.14,0.68{]}, 0.32{[}0.17,0.60{]}, 0.27{[}0.11,0.66{]},
 respectively), and that individuals with a household income below CAD
-25,000 who identified as Arab/Middle Eastern (OR=3.05, \emph{p}=0.013),
-Black (OR=3.19, \emph{p}=0.004), Latin American (OR=2.80,
-\emph{p}=0.041), or that belonged to other minority groups (OR=4.59,
-\emph{p}\textless0.001) had higher odds of vaccination than individuals
-from the same racial/ethnic group in higher income brackets. Finally, we
-also identified lower odds of vaccination within certain minority groups
-in the West Health Region, which comprises the regions of Waterloo and
-Niagara, the counties of Wellington, Essex and Lambton, and the cities
-of Hamilton, Haldimand, Brant, and Chatham-Kent. This study shows that
-there is an ongoing need to better understand and address differences in
-vaccination uptake across diverse segments of the population that have
-been largely impacted by the pandemic.
+25,000 who identified as Arab/Middle Eastern (OR=3.08, 95\%
+CI={[}1.27,7.47{]}), Black (OR=3.15,95\% CI={[}1.43,6.92{]}), Latin
+American (OR=2.81, 95\% CI={[}1. 04,7.59{]}), or that belonged to other
+minority groups (OR=4.63,95\% CI={[}2.34,9.13{]}) had higher odds of
+vaccination than individuals from the same racial/ethnic group in higher
+income brackets. Finally, we also identified lower odds of vaccination
+within certain minority groups in the West Health Region. This study
+shows that there is an ongoing need to better understand and address
+differences in vaccination uptake across diverse segments of the
+population that have been largely impacted by the pandemic.
 
 \hypertarget{keywords}{%
 \section*{Keywords}\label{keywords}}
@@ -505,19 +503,21 @@ indicated having received the vaccine, whereas the lowest vaccination
 rate was in the bracket of those 55 years of age and above, with 72\%.
 The Health Region with highest representation in the survey was Toronto,
 accounting for 1,323 entries (37.3\% of the total), with a vaccination
-rate of 72\%. Regarding race/ethnicity, individuals that identified as
-White/Caucasian represented 37\% of all entries (1,312) and had the
-highest vaccination uptake with 82\% of them indicating to have received
-the COVID-19 vaccine. On the other hand, the ethnic group with the
-lowest number of entries in the survey was Latin American, with a total
-of 180, or 5\% of all entries. Vaccination rates across all minority
-groups were below the value reported by White/Caucasians, with the
-lowest vaccination rate (60\%) being reported by individuals that
-identified as Indigenous.
+rate of 72\%. Across the three months covered by the survey, the highest
+number of entries was in October of 2021, with a total of 1,732
+respondents, which corresponded to 49\% of all the survey entries.
+Additionally, the proportion of respondents who reported being
+vaccinated was similar in all months, ranging between 72\% and 75\%,
+with the highest value corresponding to December of 2021.
 
-\begin{verbatim}
-Warning: Outer names are only allowed for unnamed scalar atomic inputs
-\end{verbatim}
+Regarding race/ethnicity, individuals that identified as White/Caucasian
+represented 37\% of all entries (1,312) and had the highest vaccination
+uptake with 82\% of them indicating to have received the COVID-19
+vaccine. On the other hand, the ethnic group with the lowest number of
+entries in the survey was Latin American, with a total of 180, or 5\% of
+all entries. Vaccination rates across all minority groups were below the
+value reported by White/Caucasians, with the lowest vaccination rate
+(60\%) being reported by individuals that identified as Indigenous.
 
 \hypertarget{tbl-descriptive-stats}{}
 \begin{table}
@@ -530,14 +530,14 @@ Status) }\tabularnewline
 \toprule
 \textbf{Variable} & \textbf{no}, N = 958 & \textbf{yes}, N = 2,591\\
 \midrule
-\textbf{Income} &  & \\
-\hspace{1em}60000\_and\_above & 305 (23\%) & 1,048 (77\%)\\
-\hspace{1em}25000\_59999 & 253 (28\%) & 636 (72\%)\\
-\hspace{1em}under\_25000 & 400 (31\%) & 907 (69\%)\\
+\textbf{Income (CAD)} &  & \\
+\hspace{1em}60000 and above & 305 (23\%) & 1,048 (77\%)\\
+\hspace{1em}25000-59999 & 253 (28\%) & 636 (72\%)\\
+\hspace{1em}under 25000 & 400 (31\%) & 907 (69\%)\\
 \textbf{Age Group} &  & \\
-\hspace{1em}16\_34 & 409 (27\%) & 1,111 (73\%)\\
-\hspace{1em}35\_54 & 252 (26\%) & 712 (74\%)\\
-\hspace{1em}55\_and\_over & 297 (28\%) & 768 (72\%)\\
+\hspace{1em}16-34 & 409 (27\%) & 1,111 (73\%)\\
+\hspace{1em}35-54 & 252 (26\%) & 712 (74\%)\\
+\hspace{1em}55 and over & 297 (28\%) & 768 (72\%)\\
 \textbf{Health Region} &  & \\
 \hspace{1em}Toronto & 371 (28\%) & 952 (72\%)\\
 \hspace{1em}Central & 224 (28\%) & 580 (72\%)\\
@@ -547,17 +547,16 @@ Status) }\tabularnewline
 \hspace{1em}October & 469 (27\%) & 1,263 (73\%)\\
 \hspace{1em}November & 376 (28\%) & 980 (72\%)\\
 \hspace{1em}December & 113 (25\%) & 348 (75\%)\\
-\hspace{1em}September & 0 (NA\%) & 0 (NA\%)\\
 \textbf{Race} &  & \\
-\hspace{1em}white\_caucasian & 233 (18\%) & 1,079 (82\%)\\
-\hspace{1em}arab\_middle\_eastern & 76 (36\%) & 138 (64\%)\\
-\hspace{1em}black & 114 (38\%) & 184 (62\%)\\
-\hspace{1em}east\_asian\_pacific\_islander & 69 (23\%) & 234 (77\%)\\
-\hspace{1em}indigenous & 76 (40\%) & 115 (60\%)\\
-\hspace{1em}latin\_american & 69 (38\%) & 111 (62\%)\\
-\hspace{1em}mixed & 105 (34\%) & 205 (66\%)\\
-\hspace{1em}other & 128 (35\%) & 239 (65\%)\\
-\hspace{1em}south\_asian & 88 (24\%) & 286 (76\%)\\
+\hspace{1em}White/Caucasian & 233 (18\%) & 1,079 (82\%)\\
+\hspace{1em}Arab/Middle Eastern & 76 (36\%) & 138 (64\%)\\
+\hspace{1em}Black & 114 (38\%) & 184 (62\%)\\
+\hspace{1em}East Asian/Pacific Islander & 69 (23\%) & 234 (77\%)\\
+\hspace{1em}Indigenous & 76 (40\%) & 115 (60\%)\\
+\hspace{1em}Latin American & 69 (38\%) & 111 (62\%)\\
+\hspace{1em}Mixed & 105 (34\%) & 205 (66\%)\\
+\hspace{1em}Other & 128 (35\%) & 239 (65\%)\\
+\hspace{1em}South Asian & 88 (24\%) & 286 (76\%)\\
 \bottomrule
 \multicolumn{3}{l}{\rule{0pt}{1em}\textsuperscript{1} n (\%)}\\
 \end{tabular}
@@ -639,74 +638,74 @@ Asian that lived in the West Health Region (ORs=0.41, \emph{p}=0.032 and
 \bottomrule
 \endlastfoot
 \textbf{Age Group} &  &  &  &  &  & \\
-\hspace{1em}16\_34 & — & — &  & — & — & \\
-\hspace{1em}35\_54 & 0.93 & 0.77, 1.14 & 0.5 & 0.90 & 0.67, 1.21 & 0.5\\
-\hspace{1em}55\_and\_over & 0.74 & 0.61, 0.89 & 0.002 & 0.99 & 0.74, 1.32 & >0.9\\
+\hspace{1em}16-34 & — & — &  & — & — & \\
+\hspace{1em}35-54 & 0.93 & 0.77, 1.14 & 0.5 & 0.90 & 0.67, 1.21 & 0.5\\
+\hspace{1em}55 and over & 0.74 & 0.61, 0.89 & 0.002 & 0.99 & 0.74, 1.32 & >0.9\\
 \textbf{Month} &  &  &  &  &  & \\
 \hspace{1em}October & — & — &  & — & — & \\
 \hspace{1em}November & 0.95 & 0.81, 1.12 & 0.6 & 0.92 & 0.71, 1.18 & 0.5\\
 \hspace{1em}December & 1.16 & 0.91, 1.49 & 0.2 & 1.16 & 0.78, 1.71 & 0.5\\
-\textbf{Income} &  &  &  &  &  & \\
-\hspace{1em}60000\_and\_above & — & — &  & — & — & \\
-\hspace{1em}25000\_59999 & 0.59 & 0.41, 0.84 & 0.003 & 0.59 & 0.39, 0.88 & 0.010\\
-\hspace{1em}under\_25000 & 0.41 & 0.29, 0.58 & <0.001 & 0.37 & 0.25, 0.56 & <0.001\\
+\textbf{Income (CAD)} &  &  &  &  &  & \\
+\hspace{1em}60000 and above & — & — &  & — & — & \\
+\hspace{1em}25000-59999 & 0.59 & 0.41, 0.84 & 0.003 & 0.59 & 0.39, 0.88 & 0.010\\
+\hspace{1em}under 25000 & 0.41 & 0.29, 0.58 & <0.001 & 0.37 & 0.25, 0.56 & <0.001\\
 \textbf{Race} &  &  &  &  &  & \\
-\hspace{1em}white\_caucasian & — & — &  & — & — & \\
-\hspace{1em}arab\_middle\_eastern & 0.24 & 0.12, 0.49 & <0.001 & 0.31 & 0.14, 0.68 & 0.003\\
-\hspace{1em}black & 0.30 & 0.17, 0.54 & <0.001 & 0.32 & 0.17, 0.60 & <0.001\\
-\hspace{1em}east\_asian\_pacific\_islander & 0.73 & 0.36, 1.51 & 0.4 & 1.15 & 0.50, 2.66 & 0.7\\
-\hspace{1em}indigenous & 0.38 & 0.17, 0.82 & 0.014 & 0.45 & 0.20, 1.04 & 0.061\\
-\hspace{1em}latin\_american & 0.28 & 0.13, 0.59 & <0.001 & 0.27 & 0.11, 0.66 & 0.004\\
-\hspace{1em}mixed & 0.58 & 0.30, 1.11 & 0.10 & 0.63 & 0.24, 1.62 & 0.3\\
-\hspace{1em}other & 0.20 & 0.11, 0.35 & <0.001 & 0.22 & 0.12, 0.41 & <0.001\\
-\hspace{1em}south\_asian & 0.79 & 0.44, 1.43 & 0.4 & 0.90 & 0.48, 1.67 & 0.7\\
+\hspace{1em}White/Caucasian & — & — &  & — & — & \\
+\hspace{1em}Arab/Middle Eastern & 0.24 & 0.12, 0.49 & <0.001 & 0.31 & 0.14, 0.68 & 0.003\\
+\hspace{1em}Black & 0.30 & 0.17, 0.54 & <0.001 & 0.32 & 0.17, 0.60 & <0.001\\
+\hspace{1em}East Asian/Pacific Islander & 0.73 & 0.36, 1.51 & 0.4 & 1.15 & 0.50, 2.66 & 0.7\\
+\hspace{1em}Indigenous & 0.38 & 0.17, 0.82 & 0.014 & 0.45 & 0.20, 1.04 & 0.061\\
+\hspace{1em}Latin American & 0.28 & 0.13, 0.59 & <0.001 & 0.27 & 0.11, 0.66 & 0.004\\
+\hspace{1em}Mixed & 0.58 & 0.30, 1.11 & 0.10 & 0.63 & 0.24, 1.62 & 0.3\\
+\hspace{1em}Other & 0.20 & 0.11, 0.35 & <0.001 & 0.22 & 0.12, 0.41 & <0.001\\
+\hspace{1em}South Asian & 0.79 & 0.44, 1.43 & 0.4 & 0.90 & 0.48, 1.67 & 0.7\\
 \textbf{Health Region} &  &  &  &  &  & \\
 \hspace{1em}Toronto & — & — &  & — & — & \\
 \hspace{1em}Central & 1.30 & 0.84, 2.00 & 0.2 & 1.47 & 0.92, 2.36 & 0.11\\
 \hspace{1em}East & 1.54 & 1.01, 2.34 & 0.044 & 1.41 & 0.90, 2.22 & 0.14\\
 \hspace{1em}West & 1.35 & 0.94, 1.93 & 0.10 & 1.54 & 1.04, 2.29 & 0.031\\
-\textbf{Income * Race} &  &  &  &  &  & \\
-\hspace{1em}25000\_59999 * arab\_middle\_eastern & 2.19 & 0.95, 5.05 & 0.067 & 1.85 & 0.68, 4.99 & 0.2\\
-\hspace{1em}under\_25000 * arab\_middle\_eastern & 2.95 & 1.39, 6.24 & 0.005 & 3.08 & 1.27, 7.47 & 0.013\\
-\hspace{1em}25000\_59999 * black & 1.18 & 0.59, 2.36 & 0.6 & 1.31 & 0.58, 2.98 & 0.5\\
-\hspace{1em}under\_25000 * black & 2.84 & 1.46, 5.53 & 0.002 & 3.15 & 1.43, 6.92 & 0.004\\
-\hspace{1em}25000\_59999 * east\_asian\_pacific\_islander & 0.97 & 0.44, 2.10 & >0.9 & 0.42 & 0.17, 1.06 & 0.066\\
-\hspace{1em}under\_25000 * east\_asian\_pacific\_islander & 1.90 & 0.90, 4.01 & 0.094 & 1.15 & 0.47, 2.84 & 0.8\\
-\hspace{1em}25000\_59999 * indigenous & 1.77 & 0.72, 4.32 & 0.2 & 1.33 & 0.46, 3.80 & 0.6\\
-\hspace{1em}under\_25000 * indigenous & 1.60 & 0.71, 3.60 & 0.3 & 1.41 & 0.54, 3.72 & 0.5\\
-\hspace{1em}25000\_59999 * latin\_american & 0.89 & 0.38, 2.10 & 0.8 & 1.25 & 0.45, 3.45 & 0.7\\
-\hspace{1em}under\_25000 * latin\_american & 3.10 & 1.34, 7.21 & 0.009 & 2.81 & 1.04, 7.59 & 0.041\\
-\hspace{1em}25000\_59999 * mixed & 0.87 & 0.39, 1.93 & 0.7 & 0.87 & 0.33, 2.33 & 0.8\\
-\hspace{1em}under\_25000 * mixed & 1.27 & 0.65, 2.49 & 0.5 & 1.12 & 0.38, 3.33 & 0.8\\
-\hspace{1em}25000\_59999 * other & 5.50 & 2.43, 12.5 & <0.001 & 6.96 & 2.67, 18.2 & <0.001\\
-\hspace{1em}under\_25000 * other & 4.09 & 2.27, 7.37 & <0.001 & 4.63 & 2.34, 9.13 & <0.001\\
-\hspace{1em}25000\_59999 * south\_asian & 1.14 & 0.55, 2.38 & 0.7 & 1.22 & 0.52, 2.87 & 0.7\\
-\hspace{1em}under\_25000 * south\_asian & 1.58 & 0.82, 3.05 & 0.2 & 2.01 & 0.93, 4.34 & 0.075\\
+\textbf{Income (CAD) * Race} &  &  &  &  &  & \\
+\hspace{1em}25000-59999 * Arab/Middle Eastern & 2.19 & 0.95, 5.05 & 0.067 & 1.85 & 0.68, 4.99 & 0.2\\
+\hspace{1em}under 25000 * Arab/Middle Eastern & 2.95 & 1.39, 6.24 & 0.005 & 3.08 & 1.27, 7.47 & 0.013\\
+\hspace{1em}25000-59999 * Black & 1.18 & 0.59, 2.36 & 0.6 & 1.31 & 0.58, 2.98 & 0.5\\
+\hspace{1em}under 25000 * Black & 2.84 & 1.46, 5.53 & 0.002 & 3.15 & 1.43, 6.92 & 0.004\\
+\hspace{1em}25000-59999 * East Asian/Pacific Islander & 0.97 & 0.44, 2.10 & >0.9 & 0.42 & 0.17, 1.06 & 0.066\\
+\hspace{1em}under 25000 * East Asian/Pacific Islander & 1.90 & 0.90, 4.01 & 0.094 & 1.15 & 0.47, 2.84 & 0.8\\
+\hspace{1em}25000-59999 * Indigenous & 1.77 & 0.72, 4.32 & 0.2 & 1.33 & 0.46, 3.80 & 0.6\\
+\hspace{1em}under 25000 * Indigenous & 1.60 & 0.71, 3.60 & 0.3 & 1.41 & 0.54, 3.72 & 0.5\\
+\hspace{1em}25000-59999 * Latin American & 0.89 & 0.38, 2.10 & 0.8 & 1.25 & 0.45, 3.45 & 0.7\\
+\hspace{1em}under 25000 * Latin American & 3.10 & 1.34, 7.21 & 0.009 & 2.81 & 1.04, 7.59 & 0.041\\
+\hspace{1em}25000-59999 * Mixed & 0.87 & 0.39, 1.93 & 0.7 & 0.87 & 0.33, 2.33 & 0.8\\
+\hspace{1em}under 25000 * Mixed & 1.27 & 0.65, 2.49 & 0.5 & 1.12 & 0.38, 3.33 & 0.8\\
+\hspace{1em}25000-59999 * Other & 5.50 & 2.43, 12.5 & <0.001 & 6.96 & 2.67, 18.2 & <0.001\\
+\hspace{1em}under 25000 * Other & 4.09 & 2.27, 7.37 & <0.001 & 4.63 & 2.34, 9.13 & <0.001\\
+\hspace{1em}25000-59999 * South Asian & 1.14 & 0.55, 2.38 & 0.7 & 1.22 & 0.52, 2.87 & 0.7\\
+\hspace{1em}under 25000 * South Asian & 1.58 & 0.82, 3.05 & 0.2 & 2.01 & 0.93, 4.34 & 0.075\\
 \textbf{Race * Health Region} &  &  &  &  &  & \\
-\hspace{1em}arab\_middle\_eastern * Central & 0.76 & 0.33, 1.71 & 0.5 & 0.66 & 0.25, 1.69 & 0.4\\
-\hspace{1em}black * Central & 0.48 & 0.23, 1.02 & 0.055 & 0.44 & 0.19, 0.99 & 0.046\\
-\hspace{1em}east\_asian\_pacific\_islander * Central & 0.84 & 0.38, 1.89 & 0.7 & 0.98 & 0.38, 2.53 & >0.9\\
-\hspace{1em}indigenous * Central & 0.60 & 0.24, 1.50 & 0.3 & 0.63 & 0.22, 1.78 & 0.4\\
-\hspace{1em}latin\_american * Central & 0.69 & 0.28, 1.71 & 0.4 & 0.66 & 0.22, 1.93 & 0.4\\
-\hspace{1em}mixed * Central & 0.63 & 0.30, 1.35 & 0.2 & 0.73 & 0.24, 2.23 & 0.6\\
-\hspace{1em}other * Central & 0.98 & 0.49, 1.95 & >0.9 & 0.81 & 0.36, 1.81 & 0.6\\
-\hspace{1em}south\_asian * Central & 0.71 & 0.34, 1.47 & 0.4 & 0.55 & 0.25, 1.21 & 0.14\\
-\hspace{1em}arab\_middle\_eastern * East & 0.57 & 0.20, 1.63 & 0.3 & 0.43 & 0.13, 1.43 & 0.2\\
-\hspace{1em}black * East & 0.84 & 0.37, 1.89 & 0.7 & 0.86 & 0.35, 2.11 & 0.7\\
-\hspace{1em}east\_asian\_pacific\_islander * East & 0.82 & 0.30, 2.24 & 0.7 & 0.86 & 0.29, 2.54 & 0.8\\
-\hspace{1em}indigenous * East & 0.56 & 0.21, 1.45 & 0.2 & 0.70 & 0.23, 2.11 & 0.5\\
-\hspace{1em}latin\_american * East & 0.80 & 0.28, 2.25 & 0.7 & 1.03 & 0.31, 3.40 & >0.9\\
-\hspace{1em}mixed * East & 0.70 & 0.31, 1.60 & 0.4 & 0.92 & 0.28, 3.05 & 0.9\\
-\hspace{1em}other * East & 0.87 & 0.38, 2.02 & 0.7 & 1.08 & 0.40, 2.91 & 0.9\\
-\hspace{1em}south\_asian * East & 0.50 & 0.20, 1.24 & 0.14 & 0.51 & 0.19, 1.42 & 0.2\\
-\hspace{1em}arab\_middle\_eastern * West & 1.18 & 0.49, 2.82 & 0.7 & 1.02 & 0.37, 2.77 & >0.9\\
-\hspace{1em}black * West & 0.78 & 0.36, 1.67 & 0.5 & 0.77 & 0.32, 1.82 & 0.5\\
-\hspace{1em}east\_asian\_pacific\_islander * West & 0.54 & 0.24, 1.21 & 0.14 & 0.52 & 0.20, 1.36 & 0.2\\
-\hspace{1em}indigenous * West & 0.45 & 0.19, 1.05 & 0.064 & 0.40 & 0.14, 1.12 & 0.082\\
-\hspace{1em}latin\_american * West & 0.99 & 0.39, 2.48 & >0.9 & 0.96 & 0.33, 2.79 & >0.9\\
-\hspace{1em}mixed * West & 0.53 & 0.25, 1.10 & 0.088 & 0.37 & 0.12, 1.15 & 0.085\\
-\hspace{1em}other * West & 0.55 & 0.27, 1.12 & 0.10 & 0.41 & 0.18, 0.92 & 0.032\\
-\hspace{1em}south\_asian * West & 0.50 & 0.24, 1.08 & 0.078 & 0.41 & 0.18, 0.95 & 0.037\\*
+\hspace{1em}Arab/Middle Eastern * Central & 0.76 & 0.33, 1.71 & 0.5 & 0.66 & 0.25, 1.69 & 0.4\\
+\hspace{1em}Black * Central & 0.48 & 0.23, 1.02 & 0.055 & 0.44 & 0.19, 0.99 & 0.046\\
+\hspace{1em}East Asian/Pacific Islander * Central & 0.84 & 0.38, 1.89 & 0.7 & 0.98 & 0.38, 2.53 & >0.9\\
+\hspace{1em}Indigenous * Central & 0.60 & 0.24, 1.50 & 0.3 & 0.63 & 0.22, 1.78 & 0.4\\
+\hspace{1em}Latin American * Central & 0.69 & 0.28, 1.71 & 0.4 & 0.66 & 0.22, 1.93 & 0.4\\
+\hspace{1em}Mixed * Central & 0.63 & 0.30, 1.35 & 0.2 & 0.73 & 0.24, 2.23 & 0.6\\
+\hspace{1em}Other * Central & 0.98 & 0.49, 1.95 & >0.9 & 0.81 & 0.36, 1.81 & 0.6\\
+\hspace{1em}South Asian * Central & 0.71 & 0.34, 1.47 & 0.4 & 0.55 & 0.25, 1.21 & 0.14\\
+\hspace{1em}Arab/Middle Eastern * East & 0.57 & 0.20, 1.63 & 0.3 & 0.43 & 0.13, 1.43 & 0.2\\
+\hspace{1em}Black * East & 0.84 & 0.37, 1.89 & 0.7 & 0.86 & 0.35, 2.11 & 0.7\\
+\hspace{1em}East Asian/Pacific Islander * East & 0.82 & 0.30, 2.24 & 0.7 & 0.86 & 0.29, 2.54 & 0.8\\
+\hspace{1em}Indigenous * East & 0.56 & 0.21, 1.45 & 0.2 & 0.70 & 0.23, 2.11 & 0.5\\
+\hspace{1em}Latin American * East & 0.80 & 0.28, 2.25 & 0.7 & 1.03 & 0.31, 3.40 & >0.9\\
+\hspace{1em}Mixed * East & 0.70 & 0.31, 1.60 & 0.4 & 0.92 & 0.28, 3.05 & 0.9\\
+\hspace{1em}Other * East & 0.87 & 0.38, 2.02 & 0.7 & 1.08 & 0.40, 2.91 & 0.9\\
+\hspace{1em}South Asian * East & 0.50 & 0.20, 1.24 & 0.14 & 0.51 & 0.19, 1.42 & 0.2\\
+\hspace{1em}Arab/Middle Eastern * West & 1.18 & 0.49, 2.82 & 0.7 & 1.02 & 0.37, 2.77 & >0.9\\
+\hspace{1em}Black * West & 0.78 & 0.36, 1.67 & 0.5 & 0.77 & 0.32, 1.82 & 0.5\\
+\hspace{1em}East Asian/Pacific Islander * West & 0.54 & 0.24, 1.21 & 0.14 & 0.52 & 0.20, 1.36 & 0.2\\
+\hspace{1em}Indigenous * West & 0.45 & 0.19, 1.05 & 0.064 & 0.40 & 0.14, 1.12 & 0.082\\
+\hspace{1em}Latin American * West & 0.99 & 0.39, 2.48 & >0.9 & 0.96 & 0.33, 2.79 & >0.9\\
+\hspace{1em}Mixed * West & 0.53 & 0.25, 1.10 & 0.088 & 0.37 & 0.12, 1.15 & 0.085\\
+\hspace{1em}Other * West & 0.55 & 0.27, 1.12 & 0.10 & 0.41 & 0.18, 0.92 & 0.032\\
+\hspace{1em}South Asian * West & 0.50 & 0.24, 1.08 & 0.078 & 0.41 & 0.18, 0.95 & 0.037\\*
 \multicolumn{7}{l}{\rule{0pt}{1em}\textsuperscript{1} OR = Odds Ratio, CI = Confidence Interval}\\
 \end{longtable}
 
@@ -715,18 +714,20 @@ Asian that lived in the West Health Region (ORs=0.41, \emph{p}=0.032 and
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
 
-There existence of healthcare disparities within Ontario is a topic of
-particular interest as it motivated the recent change in the healthcare
-system of this region, which a system based on Health Regions in late
-2019 in an attempt to address the disparities from the LHIN
-model\textsuperscript{\protect\hyperlink{ref-tsasis2012}{30},\protect\hyperlink{ref-dong2022}{31}}.
-In this context, analyzing COVID-19 vaccination estimates within the
-province is important as they can provide an initial assessment of
-variations that might need to be addressed by decision-makers.
+The existence of healthcare disparities in Ontario motivated the recent
+change in the healthcare system of the province, which changed the LHIN
+model for a Health Region model in late
+2019\textsuperscript{\protect\hyperlink{ref-tsasis2012}{30},\protect\hyperlink{ref-dong2022}{31}}.
+In this context, analyzing COVID-19 vaccination estimates between the
+Health Regions can serve as an indicator of ongoing intra-provincial
+disparities that may need to be addressed to ensure that the Health
+Region model is able to improve health access for the inhabitants of
+Ontario, which faces unique challenges due to its condition as the most
+populated and the most ethnically diverse province of Canada.
 
 Our results indicate that across the most densely populated Health
-Regions of Ontario, almost three quarters of the surveyed individuals
-reported having received the first dose of the COVID-19 vaccine
+Regions of Ontario, almost three quarters of surveyed individuals
+reported to have received the first dose of the COVID-19 vaccine
 (Table~\ref{tbl-descriptive-stats}). It is worth mentioning that
 province-wide vaccination rates for the period of interest are somewhat
 different from those of the survey, particularly in the case of those 55
@@ -736,39 +737,50 @@ years of age and older) reported by Public Health Ontario at the start
 of the period covered by the data (between October 1st, 2021 and
 December 12th,
 2021)\textsuperscript{\protect\hyperlink{ref-ontario-covid}{39}}. In
-this regard, differences are to be expected because the survey
-represents a random sample from the population, and therefore, the
-sampling process is likely to cause variations between the values from
-the survey and province-wide estimates.
+this case, differences between the survey and province-wide estimates
+are to be expected as the data from survey represents a random sample
+from the overall population.
 
-We believe that these differences did not have a significant impact in
-our analyses, because our results indicate that there were no
-significant differences in vaccination odds among the age groups
-considered in the survey, in agreement with the overall vaccination
-rates reported for Canada, which have been relatively higher when
-compared to other high income
+However, this variation did not lead to discrepant results, as the
+estimates from the model indicate that no significant differences in
+vaccination odds were identified among the age groups analyzed, in
+agreement with both overall vaccination rates reported for Canada, which
+have been relatively higher when compared to other high income
 countries\textsuperscript{\protect\hyperlink{ref-dube2022}{40}}, and
 with vaccination uptake rates across different age groups presented in
 other
 studies\textsuperscript{\protect\hyperlink{ref-guay2022}{19},\protect\hyperlink{ref-macdonald2021}{41}}.
-Moreover, vaccination rates within each age in the dataset are in good
-agreement with province-wide estimates (e.g., a rate of 95\% for those
-with 61 years of age, Supplementary Table A-6). Additionally, when
-overall vaccination rates for the province are disaggregated, it can be
-seen that regional differences were present during the period analyzed,
-which can be masked by province-wide estimates. For example, the Public
+In other words, although vaccination rates obtained from the survey were
+slightly lower than the provincial estimates, these values still
+represented a valid approximation; this notion is reinforced by the
+consistency in the proportion of vaccination rates
+(Table~\ref{tbl-descriptive-stats}) and vaccination odds
+(Table~\ref{tbl-model}) across the period covered by the survey, which
+follow the vaccination rates from Public Health Ontario and which
+indicate that due to the relatively high coverage achieved in the
+population at that point, there were no abrupt shift in the trends,
+which increased by around 3\% across all age groups during the three
+months (October, November, and December of
+2021\textsuperscript{\protect\hyperlink{ref-ontario-covid}{39}}).
+Moreover, there was good agreement between vaccination rates within each
+age in the raw dataset and province-wide estimates (e.g., a rate of 95\%
+for those with 61 years of age, Supplementary Table A-6, which is
+similar to the value reported by Public Health Ontario). It is also
+important to mention that regional differences can be masked by overall
+estimates, as when overall vaccination rates for the province (from
+Public Health Ontario) are disaggregated, it can be seen that regional
+differences during the period analyzed existed. For example, the Public
 Health Unit of Lambton (a region within the West Health Region) and the
 Public Health Unit of Haliburton, Kawartha, and the Pine Ridge District
 (an area covered by the East Health Region) reported lower vaccination
 rates (78\%) for those 50 years of age and older at the beginning of the
-period of interest, whereas other regions had higher vaccination
-rates\textsuperscript{\protect\hyperlink{ref-ontario-covid}{39}}. To
-this day, differences in vaccination rates within the province are
-present, because according to Public Health Ontario, as of March of 2023
-some regions have less than 75\% vaccination
+period of interest, in contrast with other regions that had vaccination
+rates above
+80\%\textsuperscript{\protect\hyperlink{ref-ontario-covid}{39}}. To this
+day, differences in vaccination rates within the province continue, as
+according to Public Health Ontario, as of March of 2023 some regions
+still have less than 75\% vaccination
 rate\textsuperscript{\protect\hyperlink{ref-ontario-covid-map}{42}}.
-Overall, these reasons indicate that the estimates obtained from the
-data are in good agreement with the trends from the population.
 
 We identified significant intra-provincial differences in vaccination
 based on socio-economic and geographical factors. First, our results
@@ -860,7 +872,7 @@ Ontario\textsuperscript{\protect\hyperlink{ref-anand2022}{49}}; in this
 regard, our result provides additional context by showing that within
 the South Asian community, there were differences in vaccination uptake
 across Ontario. Moreover, because significant lower odds of vaccination
-were also identified other minority groups, this provides a rationale
+were also identified in other minority groups, this provides a rationale
 for future studies that explore how vaccination uptake varies across
 different minority groups within Ontario and other Canadian provinces.
 

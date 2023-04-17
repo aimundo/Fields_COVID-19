@@ -4,13 +4,16 @@
 
 @tbl-descriptive-stats shows the descriptive statistics from the Fields COVID-19 survey data for vaccination status and each of the covariates analyzed. The total number of entries analyzed was 3,549. Overall, 27\% (958) of survey respondents  reported not having received the first dose of the vaccine, whereas 73\% (2,591) reported having received it. Within each socio-economic factor, respondents who reported living in a household with an income under CAD 25,000 represented  37\%  (1307) of the number of entries, those within the CAD 25,000-59,999 income bracket represented 25% (889) of the total sample, and those with an income above CAD 60,000 represented 38 \% (1353) of the sample. Between the three income brackets, the lower vaccination rate corresponded to the under CAD 25,000 group, with 69\% .
 
-Within the age groups of survey respondents, the age group between 16-34 years had the highest representation in the survey responses (1,520 or 42.8\% of all responses). Within this age bracket, 73\% of respondents indicated having received the vaccine, whereas the lowest vaccination rate was in the bracket of those 55 years of age and above, with 72\%. The Health Region with highest representation in the survey was Toronto, accounting for 1,323 entries (37.3\% of the total), with a vaccination rate of 72\%. Regarding race/ethnicity, individuals that identified as White/Caucasian represented 37\% of all entries (1,312) and had the highest vaccination uptake with 82\% of them indicating to have received the COVID-19 vaccine. On the other hand, the ethnic group with the lowest number of entries in the survey was Latin American, with a total of 180, or 5\% of all entries. Vaccination rates across all minority groups were below the value reported by White/Caucasians, with the lowest vaccination rate (60\%) being reported by individuals that identified as Indigenous.
+Within the age groups of survey respondents, the age group between 16-34 years had the highest representation in the survey responses (1,520 or 42.8\% of all responses). Within this age bracket, 73\% of respondents indicated having received the vaccine, whereas the lowest vaccination rate was in the bracket of those 55 years of age and above, with 72\%. The Health Region with highest representation in the survey was Toronto, accounting for 1,323 entries (37.3\% of the total), with a vaccination rate of 72\%. Across the three months covered by the survey, the highest number of entries was in October of 2021, with a total of 1,732 respondents, which corresponded to 49\% of all the survey entries. Additionally, the proportion of respondents who reported being vaccinated was similar in all months, ranging between 72\% and 75\%, with the highest value corresponding to December of 2021.
+
+Regarding race/ethnicity, individuals that identified as White/Caucasian represented 37\% of all entries (1,312) and had the highest vaccination uptake with 82\% of them indicating to have received the COVID-19 vaccine. On the other hand, the ethnic group with the lowest number of entries in the survey was Latin American, with a total of 180, or 5\% of all entries. Vaccination rates across all minority groups were below the value reported by White/Caucasians, with the lowest vaccination rate (60\%) being reported by individuals that identified as Indigenous.
 
 
 ```{r,summary-table}
 #| label: tbl-descriptive-stats
 #| tbl-cap: "Descriptive Statistics of the Fields COVID-19 Survey (by Vaccination Status)"
 #| message: false
+#| warning: false
 #| echo: false
 
 source(here::here("code","data_preparation.R"))
@@ -27,7 +30,7 @@ data_summary<-clean_data %>%
                         Race),
               label=list(Health_Region ~ "Health Region",
                  Age_group_ord ~ "Age Group",
-                 income_ord="Income")
+                 income_ord="Income (CAD)")
   ) %>% bold_labels()
 
 
@@ -69,22 +72,22 @@ t0<-m0 %>%
   tbl_regression(exponentiate = TRUE,
                  label=list(Health_Region ~ "Health Region",
                             Age_group_ord ~ "Age Group",
-                            income_ord="Income")) %>%
+                            income_ord="Income (CAD)")) %>%
   bold_labels()
 
 
-t1<-m1 %>%
-  tbl_regression(exponentiate = TRUE,
-                 label=list(Health_Region ~ "Health Region",
-                            Age_group_ord ~ "Age Group",
-                            income_ord="Income")) %>%
-  bold_labels()
+# t1<-m1 %>%
+#   tbl_regression(exponentiate = TRUE,
+#                  label=list(Health_Region ~ "Health Region",
+#                             Age_group_ord ~ "Age Group",
+#                             income_ord="Income")) %>%
+#   bold_labels()
 
 t2<-m2 %>%
   tbl_regression(exponentiate = TRUE,
                  label=list(Health_Region ~ "Health Region",
                             Age_group_ord ~ "Age Group",
-                            income_ord="Income")) %>%
+                            income_ord="Income (CAD)")) %>%
   bold_labels()
 
 # ggplot(data=clean_data,aes(y=first_dose))+

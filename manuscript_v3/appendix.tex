@@ -151,8 +151,8 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  pdftitle={COVID-19 vaccination in Ontario: Exploring intra-provincial variations within Health Regions and socio-economic strata},
-  pdfauthor={Ariel Mundo Ortiz1; Bouchra Nasri2,},
+  pdftitle={Differences in COVID-19 vaccination in the province of Ontario across Health Regions and socio-economic strata},
+  pdfauthor={Ariel Mundo Ortiz1,2; Bouchra Nasri1,2,},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -160,9 +160,8 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
-\title{\textbf{COVID-19 vaccination in Ontario: Exploring
-intra-provincial variations within Health Regions and socio-economic
-strata}}
+\title{\textbf{Differences in COVID-19 vaccination in the province of
+Ontario across Health Regions and socio-economic strata}}
 \usepackage{etoolbox}
 \makeatletter
 \providecommand{\subtitle}[1]{% add subtitle to \maketitle
@@ -170,8 +169,8 @@ strata}}
 }
 \makeatother
 \subtitle{Appendix}
-\author{Ariel Mundo Ortiz\textsuperscript{1} \and Bouchra
-Nasri\textsuperscript{2,*}}
+\author{Ariel Mundo Ortiz\textsuperscript{1,2} \and Bouchra
+Nasri\textsuperscript{1,2,*}}
 \date{}
 
 \begin{document}
@@ -185,7 +184,7 @@ Nasri\textsuperscript{2,*}}
 \renewcommand\thefigure{\thesection-\arabic{figure}}
 
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, interior hidden, frame hidden, breakable, sharp corners, boxrule=0pt, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, interior hidden, enhanced, breakable, frame hidden, sharp corners]}{\end{tcolorbox}}\fi
 
 \setstretch{2}
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
@@ -221,15 +220,15 @@ following chunk creates a summary table for the Race variable.
 \toprule
 Race & observations & percentage \\ 
 \midrule
-white\_caucasian & 1313 & $37.0\%$ \\ 
-arab\_middle\_eastern & 214 & $6.0\%$ \\ 
-black & 298 & $8.4\%$ \\ 
-east\_asian\_pacific\_islander & 303 & $8.5\%$ \\ 
-indigenous & 191 & $5.4\%$ \\ 
-latin\_american & 180 & $5.1\%$ \\ 
-mixed & 310 & $8.7\%$ \\ 
-other & 367 & $10.3\%$ \\ 
-south\_asian & 375 & $10.6\%$ \\ 
+White/Caucasian & 1312 & $37.0\%$ \\ 
+Arab/Middle Eastern & 214 & $6.0\%$ \\ 
+Black & 298 & $8.4\%$ \\ 
+East Asian/Pacific Islander & 303 & $8.5\%$ \\ 
+Indigenous & 191 & $5.4\%$ \\ 
+Latin American & 180 & $5.1\%$ \\ 
+Mixed & 310 & $8.7\%$ \\ 
+Other & 367 & $10.3\%$ \\ 
+South Asian & 374 & $10.5\%$ \\ 
 \bottomrule
 \end{longtable}
 
@@ -453,12 +452,12 @@ data.
 \caption{\label{tbl-vaccination}Vaccination Status by Age from the Survey Data }\tabularnewline
 
 \toprule
-\textbf{Characteristic} & \textbf{no}, N = 958 & \textbf{yes}, N = 2,593\\
+\textbf{Characteristic} & \textbf{no}, N = 958 & \textbf{yes}, N = 2,591\\
 \midrule
 \endfirsthead
 \multicolumn{3}{@{}l}{\textit{(continued)}}\\
 \toprule
-\textbf{Characteristic} & \textbf{no}, N = 958 & \textbf{yes}, N = 2,593\\
+\textbf{Characteristic} & \textbf{no}, N = 958 & \textbf{yes}, N = 2,591\\
 \midrule
 \endhead
 
@@ -476,7 +475,7 @@ data.
 \hspace{1em}23 & 21 (24\%) & 67 (76\%)\\
 \hspace{1em}24 & 23 (29\%) & 55 (71\%)\\
 \hspace{1em}25 & 25 (24\%) & 80 (76\%)\\
-\hspace{1em}26 & 23 (30\%) & 53 (70\%)\\
+\hspace{1em}26 & 23 (31\%) & 52 (69\%)\\
 \hspace{1em}27 & 16 (25\%) & 49 (75\%)\\
 \hspace{1em}28 & 13 (20\%) & 52 (80\%)\\
 \hspace{1em}29 & 13 (26\%) & 37 (74\%)\\
@@ -508,7 +507,7 @@ data.
 \hspace{1em}55 & 12 (23\%) & 41 (77\%)\\
 \hspace{1em}56 & 13 (26\%) & 37 (74\%)\\
 \hspace{1em}57 & 12 (22\%) & 43 (78\%)\\
-\hspace{1em}58 & 6 (14\%) & 38 (86\%)\\
+\hspace{1em}58 & 6 (14\%) & 37 (86\%)\\
 \hspace{1em}59 & 4 (12\%) & 28 (88\%)\\
 \hspace{1em}60 & 3 (11\%) & 25 (89\%)\\
 \hspace{1em}61 & 1 (4.5\%) & 21 (95\%)\\
@@ -542,7 +541,7 @@ Health Region based on the regression model presented in the main paper.
 
 }
 
-\caption{Estimated marginal means for the combination between Race and
+\caption{Estimated marginal means for the interaction between Race and
 Income in the regression model.}
 
 \end{figure}
@@ -553,7 +552,7 @@ Income in the regression model.}
 
 }
 
-\caption{Estimated marginal means for the combination between Race and
+\caption{Estimated marginal means for the interaction between Race and
 Health Region in the regression model.}
 
 \end{figure}
@@ -575,13 +574,13 @@ Individuals by Health Region }\tabularnewline
 \centering
 \begin{tabular}{lcc}
 \toprule
-\textbf{Characteristic} & \textbf{no}, N = 233 & \textbf{yes}, N = 1,080\\
+\textbf{Characteristic} & \textbf{no}, N = 233 & \textbf{yes}, N = 1,079\\
 \midrule
 \textbf{Health\_Region} &  & \\
 \hspace{1em}Toronto & 85 (21\%) & 321 (79\%)\\
 \hspace{1em}West & 69 (17\%) & 329 (83\%)\\
 \hspace{1em}East & 41 (15\%) & 236 (85\%)\\
-\hspace{1em}Central & 38 (16\%) & 194 (84\%)\\
+\hspace{1em}Central & 38 (16\%) & 193 (84\%)\\
 \bottomrule
 \multicolumn{3}{l}{\rule{0pt}{1em}\textsuperscript{1} n (\%)}\\
 \end{tabular}

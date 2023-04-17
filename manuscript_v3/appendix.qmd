@@ -1,14 +1,16 @@
 ---
-title: '**COVID-19 vaccination in Ontario: Exploring intra-provincial variations within Health Regions and socio-economic strata**'
+title: '**Differences in COVID-19 vaccination in the province of Ontario across Health Regions and socio-economic strata**'
 subtitle: Appendix
 authors:
   - name: Ariel Mundo Ortiz
     affiliations:
       - ref: crm
+      - ref: espum
     email: ariel.mundo.ortiz@umontreal.ca
     orcid: 0000-0002-6014-4538
   - name: Bouchra Nasri
     affiliations:
+      - ref: crm
       - ref: espum
     email: bouchra.nasri@umontreal.ca
     corresponding: true
@@ -35,6 +37,7 @@ library(magrittr)
 library(here)
 library(patchwork)
 library(gt)
+library(lubridate)
 library(gtsummary)
 library(survey)
 library(emmeans)
@@ -146,6 +149,7 @@ p2<-clean_data%>%
                 ypos = 200),  # Calculate label positions
        aes(Age_group_ord, n, fill=Age_group_ord)) +
   geom_bar(stat="identity") +
+    xlab("Age group")+
   geom_text(aes(label=paste0(sprintf("%1.1f", pct*100),"%"), y=ypos))+
   theme_classic()+
   thm1
@@ -275,9 +279,9 @@ The plots below show the interactions for Race and Income and Race and Health Re
 #| warning: false
 #| fig-height: 4
 #| fig-width: 6
-#| fig-cap: Estimated marginal means for the combination between Race and Income in the regression model.
+#| fig-cap: Estimated marginal means for the interaction between Race and Income in the regression model.
 
-race_income<-emmip(m1, Race ~ income_ord, CIs=TRUE,plotit = FALSE)
+race_income<-emmip(m2, Race ~ income_ord, CIs=TRUE,plotit = FALSE)
 
 ggplot(data=race_income,aes(x=income_ord,group=Race,color=Race,fill=Race))+
   geom_ribbon(aes(ymin=LCL,ymax=UCL),alpha=0.5,show.legend = FALSE)+
@@ -295,9 +299,9 @@ ggplot(data=race_income,aes(x=income_ord,group=Race,color=Race,fill=Race))+
 #| warning: false
 #| fig-height: 4
 #| fig-width: 6
-#| fig-cap: Estimated marginal means for the combination between Race and Health Region in the regression model.
+#| fig-cap: Estimated marginal means for the interaction between Race and Health Region in the regression model.
 
-race_hr<-emmip(m1, Race ~ Health_Region, CIs=TRUE,plotit = FALSE)
+race_hr<-emmip(m2, Race ~ Health_Region, CIs=TRUE,plotit = FALSE)
 
 ggplot(data=race_hr,aes(x=Health_Region,group=Race,color=Race,fill=Race))+
   geom_ribbon(aes(ymin=LCL,ymax=UCL),alpha=0.5,show.legend = FALSE)+
@@ -319,7 +323,7 @@ Tables A-7 and A-8 present summaries of information from the Fields survey (from
 #| message: false
 #| echo: false
 
-clean_data %>% subset (Race=="white_caucasian")%>%
+clean_data %>% subset (Race=="White/Caucasian")%>%
   tbl_summary(
     percent="row",
     by= first_dose,
@@ -343,24 +347,4 @@ tbl_summary(include=c(LHIN),
   bold_labels()%>%
   as_kable_extra(booktabs = TRUE,linesep="")
 
-
-# clean_data %>% subset (LHIN=="Hamilton Niagara Haldimand Brant (Hnhb)")%>%
-# tbl_summary(include=c(Race),
-#             sort = all_categorical() ~ "frequency") %>% 
-#   bold_labels()
-# 
-# 
-# clean_data %>% subset (LHIN=="Hamilton Niagara Haldimand Brant (Hnhb)")%>%
-# tbl_summary(by=first_dose,
-#             percent="row",
-#   include=c(Race),
-#             sort = all_categorical() ~ "frequency") %>% 
-#   bold_labels()
-# 
-# clean_data %>% subset (LHIN=="Erie St. Clair")%>%
-# tbl_summary(by=first_dose,
-#             percent="row",
-#   include=c(Race),
-#             sort = all_categorical() ~ "frequency") %>% 
-#   bold_labels()
 ```
