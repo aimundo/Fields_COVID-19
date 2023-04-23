@@ -31,7 +31,8 @@ data_summary<-clean_data %>%
               label=list(Health_Region ~ "Health Region",
                  Age_group_ord ~ "Age Group",
                  income_ord="Income (CAD)")
-  ) %>% bold_labels()
+  ) %>% add_p("prop.test")%>%
+  bold_labels()
 
 
 data_summary %>%
@@ -68,12 +69,21 @@ source(here::here("code","regression.R"))
 
 # create tables with the model outputs
 
-t0<-m0 %>%
-  tbl_regression(exponentiate = TRUE,
-                 label=list(Health_Region ~ "Health Region",
-                            Age_group_ord ~ "Age Group",
-                            income_ord="Income (CAD)")) %>%
-  bold_labels()
+# t0<-m0 %>%
+#   tbl_regression(exponentiate = TRUE,
+#                  label=list(Health_Region ~ "Health Region",
+#                             Age_group_ord ~ "Age Group",
+#                             income_ord="Income (CAD)")) %>%
+#   bold_labels()
+
+
+modelplot(m0)+
+  aes(color=ifelse(p.value<0.05, "Significant","Non-significant"))+
+  scale_color_manual(values=c("black","red"))
+
+modelplot(m2)+
+  aes(color=ifelse(p.value<0.05, "Significant","Non-significant"))+
+  scale_color_manual(values=c("black","red"))
 
 
 # t1<-m1 %>%
