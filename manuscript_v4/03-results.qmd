@@ -31,7 +31,7 @@ data_summary<-clean_data %>%
               label=list(Health_Region ~ "Health Region",
                  Age_group_ord ~ "Age Group",
                  income_ord="Income (CAD)")
-  ) %>% add_p("prop.test")%>%
+  ) %>% add_p()%>%
   bold_labels()
 
 
@@ -52,14 +52,15 @@ Moreover, statistically-significant odd ratios were determined in the case of th
 
 For the interaction of Health Region and race, significant odds of vaccination were identified for Black individuals in the Central Health Region, which comprises the region of York, counties of Dufferin and Simcoe and the district of Muskoka (OR=0.44, _p_=0.046), and in individuals that identified as part of other racial minorities or South Asian that lived in the West Health Region (ORs=0.41, _p_=0.032 and _p_=0.037, respectively).
 
-\footnotesize
-\renewcommand{\arraystretch}{0.5}
-```{r,model-table}
+```{r,model-uncorr-fig}
 #| message: false
 #| warning: false
 #| echo: false
-#| label: tbl-model
-#| tbl-cap: "Multiple Regression Analysis-Predictors of Vaccination Status"
+#| fig-align: left
+#| fig-width: 7
+#| fig-height: 7
+#| label: fig-model-uncorr
+#| fig-cap: "Coefficient estimates and confidence intervals for the uncorrected model. For the interaction terms, only those with a statistically significant values are shown."
 
 #call the script for raking
 source(here::here("code","raking.R"))
@@ -67,66 +68,102 @@ source(here::here("code","raking.R"))
 #logistic regression
 source(here::here("code","regression.R"))
 
-# create tables with the model outputs
 
-# t0<-m0 %>%
-#   tbl_regression(exponentiate = TRUE,
-#                  label=list(Health_Region ~ "Health Region",
-#                             Age_group_ord ~ "Age Group",
-#                             income_ord="Income (CAD)")) %>%
-#   bold_labels()
+#create dataframe from modelplot, remove names of factors, drop the intercept
 
+mplot1<-modelplot(m0,draw=FALSE,coef_omit = "Intercept") %>%
+  mutate(term=str_remove_all(term,"Race|Age_group_ord|Month|Health_Region|income_ord"))
 
-modelplot(m0)+
-  aes(color=ifelse(p.value<0.05, "Significant","Non-significant"))+
-  scale_color_manual(values=c("black","red"))
+#add column by factor 
+mplot1$factor<-c(rep("Age",2),
+                 rep("Month",2),
+                 rep("Income",2),
+                 rep("Race/Ethnicity",8),
+                 rep("Health Region",3),
+                 rep("Income and\nRace/Ethnicity",16),
+                 rep("Race/Ethnicity\nand\nHealth Region",24)
+                 )
 
-modelplot(m2)+
-  aes(color=ifelse(p.value<0.05, "Significant","Non-significant"))+
-  scale_color_manual(values=c("black","red"))
+#order factors for plot
+#mplot1$term_ord <- factor(mplot1$term,ordered=TRUE,levels=mplot1$term)
 
+mplot1$factor <- factor(mplot1$factor,ordered=TRUE,levels=c("Age","Month","Income","Race/Ethnicity","Health Region","Income and\nRace/Ethnicity","Race/Ethnicity\nand\nHealth Region"))
 
-# t1<-m1 %>%
-#   tbl_regression(exponentiate = TRUE,
-#                  label=list(Health_Region ~ "Health Region",
-#                             Age_group_ord ~ "Age Group",
-#                             income_ord="Income")) %>%
-#   bold_labels()
+# remove non-significant interaction factors
 
-t2<-m2 %>%
-  tbl_regression(exponentiate = TRUE,
-                 label=list(Health_Region ~ "Health Region",
-                            Age_group_ord ~ "Age Group",
-                            income_ord="Income (CAD)")) %>%
-  bold_labels()
+test<-mplot1%>%
+  filter(str_detect(term,':') & p.value>0.05)
 
-# ggplot(data=clean_data,aes(y=first_dose))+
-#   geom_bar()+facet_wrap(~Month)
+#remove non-significant interactions from dataframe
+mplot1<-anti_join(mplot1,test)
 
-tbl_merge <-
-  tbl_merge(
-    tbls = list(t0, t2),
-    tab_spanner = c("**Uncorrected**", "**Corrected**")
-  )%>%
-  bold_labels()%>%
-  as_kable_extra(booktabs = TRUE, longtable=T, linesep="") %>%
-  # reduce font size to make table fit. 
-  # you may also use the `latex_options = "scale_down" argument here.
-  kableExtra::kable_styling(latex_options = "repeat_header")
+mplot1<-mplot1%>%
+mutate(term=str_replace_all(term,':'," and "))
 
-tbl_merge
-
-
-# m1 %>%
-#   tbl_regression(exponentiate = TRUE,
-#                  label=list(Health_Region ~ "Health Region",
-#                  Age_group_ord ~ "Age Group",
-#                  income_ord="Income")) %>%
-#     bold_labels()%>%
-#   as_kable_extra(booktabs = TRUE, longtable=T, linesep="") %>%
-#   # reduce font size to make table fit. 
-#   # you may also use the `latex_options = "scale_down" argument here.
-#   kableExtra::kable_styling(latex_options = "repeat_header")
+#make plot
+mplot1 %>% 
+ggplot(aes(y=term))+
+  geom_vline(xintercept = 0, linetype="dashed",color="red") +
+  geom_point(aes(x=estimate))+
+  geom_linerange(aes(xmin=conf.low,xmax=conf.high))+
+  scale_y_discrete(limits=rev)+
+  xlab("Coefficient estimates and 95% confidence intervals")+
+  ylab("")+
+  facet_wrap(~factor,ncol=1,strip.position = "right",scales = "free_y",labeller = label_wrap_gen(multi_line = TRUE))+
+  theme_classic()
 ```
 
-\normalsize
+
+
+```{r,model-corr-fig}
+#| message: false
+#| warning: false
+#| echo: false
+#| fig-align: left
+#| fig-width: 7
+#| fig-height: 7
+#| label: fig-model-corr
+#| fig-cap: "Coefficient estimates and confidence intervals for the corrected model. For the interaction terms, only those with a statistically significant values are shown."
+
+#create dataframe from modelplot, remove names of factors, drop the intercept
+
+mplot2<-modelplot(m2,draw=FALSE,coef_omit = "Intercept") %>%
+  mutate(term=str_remove_all(term,"Race|Age_group_ord|Month|Health_Region|income_ord"))
+
+#add column by factor 
+mplot2$factor<-c(rep("Age",2),
+                 rep("Month",2),
+                 rep("Income",2),
+                 rep("Race/Ethnicity",8),
+                 rep("Health Region",3),
+                 rep("Income and\nRace/Ethnicity",16),
+                 rep("Race/Ethnicity\nand\nHealth Region",24)
+                 )
+
+#order factors for plot
+#mplot2$term_ord <- factor(mplot2$term,ordered=TRUE,levels=mplot2$term)
+
+mplot2$factor <- factor(mplot2$factor,ordered=TRUE,levels=c("Age","Month","Income","Race/Ethnicity","Health Region","Income and\nRace/Ethnicity","Race/Ethnicity\nand\nHealth Region"))
+
+# remove non-significant interaction factors
+
+test<-mplot2%>%
+  filter(str_detect(term,':') & p.value>0.05)
+
+mplot2<-anti_join(mplot2,test)
+
+mplot2<-mplot2%>%
+mutate(term=str_replace_all(term,':'," and "))
+
+
+mplot2 %>% 
+ggplot(aes(y=term))+
+  geom_vline(xintercept = 0, linetype="dashed",color="red") +
+  geom_point(aes(x=estimate))+
+  geom_linerange(aes(xmin=conf.low,xmax=conf.high))+
+  scale_y_discrete(limits=rev)+
+  xlab("Coefficient estimates and 95% confidence intervals")+
+  ylab("")+
+  facet_wrap(~factor,ncol=1,strip.position = "right",scales = "free_y")+
+  theme_classic()
+```

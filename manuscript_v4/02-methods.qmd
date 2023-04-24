@@ -6,15 +6,6 @@ We used data from the *Survey of COVID-19 related Behaviours and Attitudes*, a r
 
 This dataset was cleaned to remove outliers that were identified during preliminary analyses, and the geographical information in the survey (city where the survey was responded) was used to match each city to its correspondent Health Region.
 
-
-| Variable             | Levels                                            |            
-|:---------------------|---------------------------------------------------|
-| Age group            | 16-34,35-54,55 and over                           |
-| Income bracket (CAD) | under 25,000, 25,000-59,999, 60,000 and above     |
-| Race/ethnicity       | Arab/Middle Eastern, Black, East Asian/Pacific Islander, Indigenous, Latin American, Mixed, South Asian, White Caucasian, Other |
-                                                                                                                   
-: Socio-economic factors from the Fields COVID-19 survey {#tbl-covariates}
-
 The clean dataset contained responses from more than 200 different municipalities within Ontario (@fig-map). Because of the lack of a publicly available list of all municipalities within each Health Region, we used a dataset of long-term care homes and LHINs to match each city to LHIN, followed by matching each LHIN to a Health Region following the information provided on the Ontario Health Website, where the list of LHINs and corresponding Health Regions is available. In the case of municipalities that did not appear in the long-term care home dataset, we manually searched each city in the LHINs websites in order to provide geographical information. The original dataset, clean dataset, and details on the data cleaning process are described in detail in the GitHub repository for this paper, which can be found at [https://github.com/aimundo/Fields_COVID-19/](https://github.com/aimundo/Fields_COVID-19/).
 
 Following an assessment of the number of entries corresponding to each Health Region in the final dataset, only 107 observations (4.3% of the total) corresponded to cities located in the North West and North East Health Regions. The low representation of these Health Regions in the dataset is noticeable in @fig-map, which shows that responses from these areas came from a relatively low number of cities when compared to the most populated Health Regions, such as the Toronto or Central Regions. We omitted the North East and North East Health Regions from further analyses due to the low number of entries. Therefore, the total number of unique entries used for analysis was 3,549 which included the East, Central, Toronto, and West Health Regions covering the period between October 1st,2021 and December 12th, 2021.
