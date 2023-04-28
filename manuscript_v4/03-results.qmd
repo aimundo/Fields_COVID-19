@@ -28,15 +28,24 @@ data_summary<-clean_data %>%
                  Age_group_ord ~ "Age Group",
                  income_ord="Income (CAD)")
   ) %>% add_p(test = everything () ~ "chisq.test")%>%
-  bold_labels()
+  bold_labels() %>%
+  modify_table_styling(
+    columns=label,
+    rows=label=="Other",
+    footnote="Southeast Asian, Filipino, West Asian, \nand minorities not identified elsewhere according to the Census."
+  )
 
+
+# data_summary %>%
+#   modify_header(label = "**Variable**") %>%
+#   as_kable_extra(booktabs = TRUE,linesep="") %>%
+#   # reduce font size to make table fit. 
+#   # you may also use the `latex_options = "scale_down"` argument here.
+#   kableExtra::kable_styling(latex_options = "repeat_header",font_size = 9)
 
 data_summary %>%
   modify_header(label = "**Variable**") %>%
-  as_kable_extra(booktabs = TRUE,linesep="") %>%
-  # reduce font size to make table fit. 
-  # you may also use the `latex_options = "scale_down"` argument here.
-  kableExtra::kable_styling(latex_options = "repeat_header",font_size = 9)
+  as_gt()
 
 # test<-apply(xtabs(~first_dose_m + Race,clean_data), 2, chisq.test)
 # 
@@ -67,13 +76,7 @@ data_summary %>%
 
 ## Multivariate Regression
 
-@fig-model-uncorr shows the estimates from the logistic regression model of vaccination status for the uncorrected data, whereas the estimated obtained from the corrected data appear in @fig-model-corr. The results show significantly higher odds of vaccination in individuals with a high household income, and those that identified as White or Caucasian when compared with individuals in lower income brackets or that identified as part of equity-deserving groups. 
-
-Specifically, significantly lower odds of vaccination were identified for those with a household income under CAD 25,000 (OR=0.374, CI=[0.251,0.559]) and those with an income between CAD 25,000 and 59,999 (OR=0.586, CI=[0.390,0.882]).  Additionally, individuals who identified as Arab/Middle Eastern, Black, or Latin American, or that belonged to "Other" racial groups, which included the Southeast Asian, Filipino, West Asian, and Minorities Not Identified Elsewhere groups according to the Census, had significantly lower odds of vaccination than those in the White/Caucasian group (ORs=0.31, 0.32, 0.27, 0.22, and CIs=[0.14,0.68], [0.17,0.60], [0.11,0.66], and [0.12,0.41], respectively). Regarding Health Regions, individuals that reported living in the West Health Region (which includes the regions of Waterloo and Niagara, the counties of Wellington, Essex, and Lambton, and the cities of Hamilton, Haldimand, Brant, and Chatham-Kent) had significantly higher odds of vaccination than those in the Health Region of Toronto (OR=1.54, CI=[1.04,2.29]).
-
-Interestingly, higher odds of vaccination were also estimated in the case of individuals in equity-deserving groups with a household income below CAD 25,000 when compared to those with a household income above CAD 60,000.  This held true in the case of Arab/Middle Eastern (OR=3.08, _p_=0.013), Black (OR=3.15, _p_=0.004), and Latin American (OR=2.81, _p_=0.041) individuals, as well as respondents who belonged to "Other" minority groups  (OR=4.63, _p_<0.001). Within the CAD 25,000-59,999 income bracket, individuals who identified as belonging to other racial minority groups had significantly higher odds of vaccination (OR=6.96, _p_<0.001).
-
-For the interaction of Health Region and race, significant odds of vaccination were identified for Black individuals in the Central Health Region, which comprises the region of York, counties of Dufferin and Simcoe and the district of Muskoka (OR=0.44, _p_=0.046), and in individuals that identified as part of other racial minorities or South Asian that lived in the West Health Region (ORs=0.41, _p_=0.032 and _p_=0.037, respectively).
+@fig-model-uncorr shows the estimates from the logistic regression model of vaccination status for the uncorrected data, whereas the estimated obtained from the corrected data appear in @fig-model-corr. The results show significantly lower odds of vaccination in individuals with a low household income and those that identified as part of equity-deserving groups when compared to individuals in high income brackets or that identified as White or Caucasian. 
 
 ```{r,model-uncorr-fig}
 #| message: false
@@ -83,7 +86,7 @@ For the interaction of Health Region and race, significant odds of vaccination w
 #| fig-width: 7
 #| fig-height: 7
 #| label: fig-model-uncorr
-#| fig-cap: "Coefficient estimates and confidence intervals for the uncorrected model. Only statistically significant interaction terms are shown. Full estimates can be found in the Appendix."
+#| fig-cap: "Coefficient estimates and confidence intervals for the uncorrected model. Only statistically significant interaction terms are shown. Full interaction terms can be found in Supplementary Figure A-3."
 
 #call the script for raking
 source(here::here("code","raking.R"))
@@ -127,17 +130,19 @@ mutate(term=str_replace_all(term,':'," and "))
 #make plot
 mplot1 %>% 
 ggplot(aes(y=term))+
-  geom_vline(xintercept = 0, linetype="dashed",color="red") +
-  geom_point(aes(x=estimate))+
+  geom_vline(xintercept = 1, linetype="dashed",color="red") +
+  geom_point(aes(x=estimate),size=2)+
   geom_linerange(aes(xmin=conf.low,xmax=conf.high))+
   scale_y_discrete(limits=rev)+
-  xlab("Coefficient estimates and 95% confidence intervals")+
+  xlab("")+
   ylab("")+
   facet_wrap(~factor,ncol=1,strip.position = "right",scales = "free_y",labeller = label_wrap_gen(multi_line = TRUE))+
   theme_classic()
 ```
 
+Specifically, significantly lower odds of vaccination were identified for those with a household income under CAD 25,000 (OR=0.37, CI=[0.25,0.56]) and those with an income between CAD 25,000 and 59,999 (OR=0.59, CI=[0.39,0.88]).  Additionally, individuals who identified as Arab/Middle Eastern, Black, or Latin American, or that belonged to "Other" racial groups, which included the Southeast Asian, Filipino, West Asian, and Minorities Not Identified Elsewhere groups according to the Census, had significantly lower odds of vaccination than those in the White/Caucasian group (ORs=0.31, 0.32, 0.27, 0.22, and CIs=[0.14,0.68], [0.17,0.60], [0.11,0.66], and [0.12,0.41], respectively). Regarding Health Regions, individuals that reported living in the West Health Region (which includes the regions of Waterloo and Niagara, the counties of Wellington, Essex, and Lambton, and the cities of Hamilton, Haldimand, Brant, and Chatham-Kent) had significantly higher odds of vaccination than those in the Health Region of Toronto (OR=1.54, CI=[1.04,2.29]).
 
+Interestingly, individuals in equity-deserving groups with a household income below CAD 25,000 had higher odds of vaccination (when compared to those with a household income above CAD 60,000).  This held true in the case of Arab/Middle Eastern (OR=3.08, CI=[1.27,7.47]), Black (OR=3.15, CI=[1.43,6.92]), and Latin American (OR=2.81, CI=[1.04,7.59]) individuals, as well as respondents who belonged to "Other" minority groups  (OR=4.63, CI=[2.34,9.13]), who also had higher odds of vaccination in the CAD 25,000-59,999 income bracket (OR=6.96, CI=[2.67,18.16]). Finally, significantly lower odds of vaccination were identified (when compared to the Toronto Health Region) for Black individuals in the Central Health Region, which comprises the region of York, counties of Dufferin and Simcoe and the district of Muskoka (OR=0.44, CI=[0.19,0.99]), and in individuals that identified as part of other racial minorities or South Asian that lived in the West Health Region (ORs=0.41, and CIs=[0.18,0.92] and [0.18,0.95], respectively).
 
 ```{r,model-corr-fig}
 #| message: false
@@ -147,7 +152,7 @@ ggplot(aes(y=term))+
 #| fig-width: 7
 #| fig-height: 7
 #| label: fig-model-corr
-#| fig-cap: "Coefficient estimates and confidence intervals for the corrected model. Only statistically significant interaction terms are shown. Full estimates can be found in the Appendix."
+#| fig-cap: "Coefficient estimates and confidence intervals for the corrected model. Only statistically significant interaction terms are shown. Full interaction terms can be found in Supplementary Figure A-4."
 
 #create dataframe from modelplot, remove names of factors, drop the intercept
 
@@ -182,11 +187,11 @@ mutate(term=str_replace_all(term,':'," and "))
 
 mplot2 %>% 
 ggplot(aes(y=term))+
-  geom_vline(xintercept = 5.73, linetype="dashed",color="red") +
-  geom_point(aes(x=estimate))+
+  geom_vline(xintercept = 1, linetype="dashed",color="red") +
+  geom_point(aes(x=estimate),size=2)+
   geom_linerange(aes(xmin=conf.low,xmax=conf.high))+
   scale_y_discrete(limits=rev)+
-  xlab("Coefficient estimates and 95% confidence intervals")+
+  xlab("")+
   ylab("")+
   facet_wrap(~factor,ncol=1,strip.position = "right",scales = "free_y")+
   theme_classic()

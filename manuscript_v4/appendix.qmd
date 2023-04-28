@@ -23,8 +23,11 @@ filters:
   - authors-block
 format: 
   pdf:
-    #mainfont: "Palatino Linotype"
-    include-before-body: latex/appendix_preamble.sty
+    include-in-header:
+      - text: |
+         \usepackage{placeins}
+    include-before-body: 
+      - file: latex/appendix_preamble.sty
 linestretch: 2
 keep-tex: true
 ---
@@ -39,6 +42,7 @@ library(patchwork)
 library(gt)
 library(lubridate)
 library(gtsummary)
+library(modelsummary)
 library(survey)
 library(emmeans)
 library(scico)
@@ -245,34 +249,124 @@ Note that as indicated in the paper, we excluded observations from the North Eas
 
 We used the iterative proportional fitting procedure (_raking_) in order to account for the differences in income, age groups, race/ethnicity and the population from the Health Regions. Details of the implementation can be found in the R Script `raking.R` in the `code` directory.
 
-# Vaccination rates by Age
+# Complete Model Estimates
 
-The table below provides the percentages of vaccination from the survey data.
+The figures below present the complete estimates from the regression models.
 
-```{r,vacc-table}
-#| label: tbl-vaccination
-#| tbl-cap: "Vaccination Status by Age from the Survey Data"
+```{r,mod-uncorr-appendix}
 #| message: false
+#| warning: false
 #| echo: false
+#| fig-align: left
+#| fig-width: 7
+#| fig-height: 9
+#| label: fig-model-uncorr-appendix
+#| fig-cap: "Full coefficient estimates and confidence intervals for the uncorrected model."
 
-clean_data$test<-as.factor(clean_data$age)
 
-tvac<-clean_data %>%
-  tbl_summary(percent="row",
-              by= first_dose,
-              include=test,
-              label=test~"Age")%>%
-  bold_labels()%>%
-as_kable_extra(booktabs = TRUE,linesep="",longtable=T) %>%
-  kableExtra::kable_styling(latex_options = "repeat_header")
+#create dataframe from modelplot, remove names of factors, drop the intercept
 
-tvac
+mplot1<-modelplot(m0,draw=FALSE,
+                  coef_omit = "Intercept", exponentiate = TRUE) %>%
+  mutate(term=str_remove_all(term,"Race|Age_group_ord|Month|Health_Region|income_ord"))
+
+#add column by factor 
+mplot1$factor<-c(rep("Age",2),
+                 rep("Month",2),
+                 rep("Income",2),
+                 rep("Race/Ethnicity",8),
+                 rep("Health Region",3),
+                 rep("Income and\nRace/Ethnicity",16),
+                 rep("Race/Ethnicity\nand\nHealth Region",24)
+                 )
+
+#order factors for plot
+#mplot1$term_ord <- factor(mplot1$term,ordered=TRUE,levels=mplot1$term)
+
+mplot1$factor <- factor(mplot1$factor,ordered=TRUE,levels=c("Age","Month","Income","Race/Ethnicity","Health Region","Income and\nRace/Ethnicity","Race/Ethnicity\nand\nHealth Region"))
+
+#remove non-interaction terms
+
+mplot1<-mplot1%>%
+ subset(str_detect(term,':'))
+
+#remove non-significant interactions from dataframe
+#mplot1<-anti_join(mplot1,test)
+
+mplot1<-mplot1%>%
+mutate(term=str_replace_all(term,':'," and "))
+
+#make plot
+mplot1 %>% 
+ggplot(aes(y=term))+
+  geom_vline(xintercept = 1, linetype="dashed",color="red") +
+  geom_point(aes(x=estimate),size=2)+
+  geom_linerange(aes(xmin=conf.low,xmax=conf.high))+
+  scale_y_discrete(limits=rev)+
+  xlab("")+
+  ylab("")+
+  facet_wrap(~factor,ncol=1,strip.position = "right",scales = "free_y",labeller = label_wrap_gen(multi_line = TRUE))+
+  theme_classic()
 ```
 
+\FloatBarrier
+
+```{r,model-corr-appendix}
+#| message: false
+#| warning: false
+#| echo: false
+#| fig-align: left
+#| fig-width: 7
+#| fig-height: 9
+#| label: fig-model-corr-appendix
+#| fig-cap: "Full coefficient estimates and confidence intervals for the corrected model."
+
+#create dataframe from modelplot, remove names of factors, drop the intercept
+
+mplot2<-modelplot(m2,draw=FALSE,coef_omit = "Intercept",exponentiate = TRUE) %>%
+  mutate(term=str_remove_all(term,"Race|Age_group_ord|Month|Health_Region|income_ord"))
+
+#add column by factor 
+mplot2$factor<-c(rep("Age",2),
+                 rep("Month",2),
+                 rep("Income",2),
+                 rep("Race/Ethnicity",8),
+                 rep("Health Region",3),
+                 rep("Income and\nRace/Ethnicity",16),
+                 rep("Race/Ethnicity\nand\nHealth Region",24)
+                 )
+
+#order factors for plot
+#mplot2$term_ord <- factor(mplot2$term,ordered=TRUE,levels=mplot2$term)
+
+mplot2$factor <- factor(mplot2$factor,ordered=TRUE,levels=c("Age","Month","Income","Race/Ethnicity","Health Region","Income and\nRace/Ethnicity","Race/Ethnicity\nand\nHealth Region"))
+
+#remove non-interaction terms
+
+mplot2<-mplot2%>%
+ subset(str_detect(term,':'))
+
+mplot2<-mplot2%>%
+mutate(term=str_replace_all(term,':'," and "))
+
+
+mplot2 %>% 
+ggplot(aes(y=term))+
+  geom_vline(xintercept = 1, linetype="dashed",color="red") +
+  geom_point(aes(x=estimate),size=2)+
+  geom_linerange(aes(xmin=conf.low,xmax=conf.high))+
+  scale_y_discrete(limits=rev)+
+  xlab("")+
+  ylab("")+
+  facet_wrap(~factor,ncol=1,strip.position = "right",scales = "free_y")+
+  theme_classic()
+```
+
+\FloatBarrier
 
 # Interactions from the Regression Model
 
-The plots below show the interactions for Race and Income and Race and Health Region based on the regression model presented in the main paper.
+The plots below show the interactions for Race and Income and Race and Health Region based on the corrected regression model presented in the main paper.
 
 ```{r,interaction-race-income}
 #| echo: false
@@ -288,6 +382,7 @@ ggplot(data=race_income,aes(x=income_ord,group=Race,color=Race,fill=Race))+
   geom_line(aes(group=Race,y=yvar),show.legend = FALSE)+
   facet_wrap(~Race)+
   ylab("Linear predictor")+
+  xlab("Income")+
   theme_classic()+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   thm5
@@ -308,7 +403,9 @@ ggplot(data=race_hr,aes(x=Health_Region,group=Race,color=Race,fill=Race))+
   geom_line(aes(group=Race,y=yvar),show.legend = FALSE)+
   facet_wrap(~Race)+
   ylab("Linear predictor")+
-  theme_classic()+thm4
+  xlab("Health Region")+
+  theme_classic()+
+  thm4
 
 ```
 
@@ -332,7 +429,6 @@ clean_data %>% subset (Race=="White/Caucasian")%>%
   ) %>% bold_labels()%>%
   as_kable_extra(booktabs = TRUE,linesep="")
 ```
-
 
 
 ```{r,West-HR-LHIN}

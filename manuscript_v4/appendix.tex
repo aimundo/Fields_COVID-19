@@ -92,6 +92,7 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\usepackage{placeins}
 \KOMAoption{captions}{tableheading}
 \makeatletter
 \makeatother
@@ -184,7 +185,7 @@ Nasri\textsuperscript{1,2,*}}
 \renewcommand\thefigure{\thesection-\arabic{figure}}
 
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, interior hidden, enhanced, breakable, frame hidden, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, sharp corners, breakable, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, enhanced, interior hidden]}{\end{tcolorbox}}\fi
 
 \setstretch{2}
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
@@ -441,99 +442,41 @@ race/ethnicity and the population from the Health Regions. Details of
 the implementation can be found in the R Script \texttt{raking.R} in the
 \texttt{code} directory.
 
-\hypertarget{vaccination-rates-by-age}{%
-\section{Vaccination rates by Age}\label{vaccination-rates-by-age}}
+\hypertarget{complete-model-estimates}{%
+\section{Complete Model Estimates}\label{complete-model-estimates}}
 
-The table below provides the percentages of vaccination from the survey
-data.
+The figures below present the complete estimates from the regression
+models.
 
-\hypertarget{tbl-vaccination}{}
-\begin{longtable}{lcc}
-\caption{\label{tbl-vaccination}Vaccination Status by Age from the Survey Data }\tabularnewline
+\begin{figure}
 
-\toprule
-\textbf{Characteristic} & \textbf{no}, N = 958 & \textbf{yes}, N = 2,591\\
-\midrule
-\endfirsthead
-\multicolumn{3}{@{}l}{\textit{(continued)}}\\
-\toprule
-\textbf{Characteristic} & \textbf{no}, N = 958 & \textbf{yes}, N = 2,591\\
-\midrule
-\endhead
+\includegraphics{appendix_files/figure-pdf/fig-model-uncorr-appendix-1.pdf} \hfill{}
 
-\endfoot
-\bottomrule
-\endlastfoot
-\textbf{Age} &  & \\
-\hspace{1em}16 & 11 (21\%) & 41 (79\%)\\
-\hspace{1em}17 & 15 (25\%) & 45 (75\%)\\
-\hspace{1em}18 & 53 (36\%) & 93 (64\%)\\
-\hspace{1em}19 & 33 (31\%) & 74 (69\%)\\
-\hspace{1em}20 & 18 (17\%) & 85 (83\%)\\
-\hspace{1em}21 & 30 (25\%) & 92 (75\%)\\
-\hspace{1em}22 & 19 (23\%) & 62 (77\%)\\
-\hspace{1em}23 & 21 (24\%) & 67 (76\%)\\
-\hspace{1em}24 & 23 (29\%) & 55 (71\%)\\
-\hspace{1em}25 & 25 (24\%) & 80 (76\%)\\
-\hspace{1em}26 & 23 (31\%) & 52 (69\%)\\
-\hspace{1em}27 & 16 (25\%) & 49 (75\%)\\
-\hspace{1em}28 & 13 (20\%) & 52 (80\%)\\
-\hspace{1em}29 & 13 (26\%) & 37 (74\%)\\
-\hspace{1em}30 & 12 (21\%) & 44 (79\%)\\
-\hspace{1em}31 & 17 (38\%) & 28 (62\%)\\
-\hspace{1em}32 & 17 (27\%) & 47 (73\%)\\
-\hspace{1em}33 & 17 (26\%) & 48 (74\%)\\
-\hspace{1em}34 & 33 (35\%) & 60 (65\%)\\
-\hspace{1em}35 & 31 (34\%) & 59 (66\%)\\
-\hspace{1em}36 & 16 (25\%) & 49 (75\%)\\
-\hspace{1em}37 & 15 (30\%) & 35 (70\%)\\
-\hspace{1em}38 & 10 (28\%) & 26 (72\%)\\
-\hspace{1em}39 & 5 (16\%) & 26 (84\%)\\
-\hspace{1em}40 & 7 (16\%) & 36 (84\%)\\
-\hspace{1em}41 & 5 (14\%) & 31 (86\%)\\
-\hspace{1em}42 & 7 (19\%) & 30 (81\%)\\
-\hspace{1em}43 & 9 (17\%) & 45 (83\%)\\
-\hspace{1em}44 & 24 (33\%) & 48 (67\%)\\
-\hspace{1em}45 & 23 (30\%) & 53 (70\%)\\
-\hspace{1em}46 & 13 (24\%) & 41 (76\%)\\
-\hspace{1em}47 & 18 (37\%) & 31 (63\%)\\
-\hspace{1em}48 & 10 (33\%) & 20 (67\%)\\
-\hspace{1em}49 & 8 (28\%) & 21 (72\%)\\
-\hspace{1em}50 & 7 (16\%) & 38 (84\%)\\
-\hspace{1em}51 & 7 (23\%) & 23 (77\%)\\
-\hspace{1em}52 & 9 (20\%) & 36 (80\%)\\
-\hspace{1em}53 & 9 (22\%) & 31 (78\%)\\
-\hspace{1em}54 & 19 (37\%) & 33 (63\%)\\
-\hspace{1em}55 & 12 (23\%) & 41 (77\%)\\
-\hspace{1em}56 & 13 (26\%) & 37 (74\%)\\
-\hspace{1em}57 & 12 (22\%) & 43 (78\%)\\
-\hspace{1em}58 & 6 (14\%) & 37 (86\%)\\
-\hspace{1em}59 & 4 (12\%) & 28 (88\%)\\
-\hspace{1em}60 & 3 (11\%) & 25 (89\%)\\
-\hspace{1em}61 & 1 (4.5\%) & 21 (95\%)\\
-\hspace{1em}62 & 8 (26\%) & 23 (74\%)\\
-\hspace{1em}63 & 5 (19\%) & 21 (81\%)\\
-\hspace{1em}64 & 11 (33\%) & 22 (67\%)\\
-\hspace{1em}65 & 11 (20\%) & 45 (80\%)\\
-\hspace{1em}66 & 11 (28\%) & 28 (72\%)\\
-\hspace{1em}67 & 8 (22\%) & 28 (78\%)\\
-\hspace{1em}68 & 5 (19\%) & 21 (81\%)\\
-\hspace{1em}69 & 17 (39\%) & 27 (61\%)\\
-\hspace{1em}70 & 4 (14\%) & 24 (86\%)\\
-\hspace{1em}71 & 1 (3.8\%) & 25 (96\%)\\
-\hspace{1em}72 & 2 (9.1\%) & 20 (91\%)\\
-\hspace{1em}73 & 3 (12\%) & 22 (88\%)\\
-\hspace{1em}74 & 13 (31\%) & 29 (69\%)\\
-\hspace{1em}98 & 147 (42\%) & 201 (58\%)\\*
-\multicolumn{3}{l}{\rule{0pt}{1em}\textsuperscript{1} n (\%)}\\
-\end{longtable}
+\caption{\label{fig-model-uncorr-appendix}Full coefficient estimates and
+confidence intervals for the uncorrected model.}
+
+\end{figure}
+
+\FloatBarrier
+
+\begin{figure}
+
+\includegraphics{appendix_files/figure-pdf/fig-model-corr-appendix-1.pdf} \hfill{}
+
+\caption{\label{fig-model-corr-appendix}Full coefficient estimates and
+confidence intervals for the corrected model.}
+
+\end{figure}
+
+\FloatBarrier
 
 \hypertarget{interactions-from-the-regression-model}{%
 \section{Interactions from the Regression
 Model}\label{interactions-from-the-regression-model}}
 
 The plots below show the interactions for Race and Income and Race and
-Health Region based on the regression model presented in the main paper.
+Health Region based on the corrected regression model presented in the
+main paper.
 
 \begin{figure}
 
