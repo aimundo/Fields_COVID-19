@@ -193,7 +193,7 @@ Nasri\textsuperscript{1,2,*}}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, frame hidden, enhanced, breakable, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, frame hidden, enhanced, breakable, sharp corners, interior hidden]}{\end{tcolorbox}}\fi
 
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
 Montreal, Montréal, Canada\\
@@ -400,9 +400,10 @@ Regions.}
 \hypertarget{statistical-analyses}{%
 \subsection{Statistical analyses}\label{statistical-analyses}}
 
-We used a logistic regression model to examine the impact of the Health
-Regions in vaccination rates while considering the socio-economic
-factors and and months covered by the survey
+Comparisons between the variables of the survey were performed using the
+\(\chi^2\) test. We used a logistic regression model to examine the
+impact of the Health Regions in vaccination rates while considering the
+socio-economic factors and and months covered by the survey
 (Table~\ref{tbl-descriptive-stats}) and certain interactions (Race and
 Health Region and Race and income), as previous studies have shown that
 socio-economic factors and their interactions are significant predictors
@@ -413,9 +414,12 @@ data and the estimates from the Census, we used an iterative
 proportional fitting procedure
 (\emph{raking})\textsuperscript{\protect\hyperlink{ref-deming1940}{35}}
 to correct the data using data from the Census and Health Region
-population totals;and fitted the regression model to the uncorrected and
-corrected data. Details regarding the correction can be found in the
-Appendix. All analyses were conducted in R 4.2.2 using the packages
+population totals; and fitted the regression model to the uncorrected
+and corrected data. The reference groups in the model were: 16-34 years
+(age group), October(Month), CAD 60,000 and above (income),
+White/Caucasian (Race), Toronto (Health Region). Details regarding the
+correction can be found in the Appendix. All analyses were conducted in
+R 4.2.2 using the packages
 \texttt{survey}\textsuperscript{\protect\hyperlink{ref-lumley2011}{36}},\texttt{tidyverse}\textsuperscript{\protect\hyperlink{ref-wickham2019}{37}},
 \texttt{quarto}\textsuperscript{\protect\hyperlink{ref-quarto}{38}},
 \texttt{modelsummary}\textsuperscript{\protect\hyperlink{ref-modelsummary}{39}},
@@ -425,44 +429,22 @@ and
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
-\hypertarget{survey-results}{%
-\subsection{Survey Results}\label{survey-results}}
+\hypertarget{sample-characteristics}{%
+\subsection{Sample Characteristics}\label{sample-characteristics}}
 
-Table~\ref{tbl-descriptive-stats} shows the descriptive statistics from
-the Fields COVID-19 survey data for vaccination status and each of the
-covariates analyzed. The total number of entries analyzed was 3,549.
-Overall, 27\% (958) of survey respondents reported not having received
-the first dose of the vaccine, whereas 73\% (2,591) reported having
-received it. Within each socio-economic factor, respondents who reported
-living in a household with an income under CAD 25,000 represented 37\%
-(1307) of the number of entries, those within the CAD 25,000-59,999
-income bracket represented 25\% (889) of the total sample, and those
-with an income above CAD 60,000 represented 38 \% (1353) of the sample.
-Between the three income brackets, the lower vaccination rate
-corresponded to the under CAD 25,000 group, with 69\% .
-
-Within the age groups of survey respondents, the age group between 16-34
-years had the highest representation in the survey responses (1,520 or
-42.8\% of all responses). Within this age bracket, 73\% of respondents
-indicated having received the vaccine, whereas the lowest vaccination
-rate was in the bracket of those 55 years of age and above, with 72\%.
-The Health Region with highest representation in the survey was Toronto,
-accounting for 1,323 entries (37.3\% of the total), with a vaccination
-rate of 72\%. Across the three months covered by the survey, the highest
-number of entries was in October of 2021, with a total of 1,732
-respondents, which corresponded to 49\% of all the survey entries.
-Additionally, the proportion of respondents who reported being
-vaccinated was similar in all months, ranging between 72\% and 75\%,
-with the highest value corresponding to December of 2021.
-
-Regarding race/ethnicity, individuals that identified as White/Caucasian
-represented 37\% of all entries (1,312) and had the highest vaccination
-uptake with 82\% of them indicating to have received the COVID-19
-vaccine. On the other hand, the ethnic group with the lowest number of
-entries in the survey was Latin American, with a total of 180, or 5\% of
-all entries. Vaccination rates across all minority groups were below the
-value reported by White/Caucasians, with the lowest vaccination rate
-(60\%) being reported by individuals that identified as Indigenous.
+Table~\ref{tbl-descriptive-stats} shows the characteristics of the data
+from the Fields COVID-19 survey used for analysis with regard to
+vaccination status. A total of 3,549 observations were used for
+analysis, from which 27\% (958) corresponded to individuals that
+reported not having received the first dose of the vaccine. Respondents
+between 16 and 34 years of age, and those that lived within the Health
+Region of Toronto had the highest number of observations in the data
+(42.8\% and 37.3\% of the total, respectively). Moreover, individuals
+who identified as White or Caucasian reported the highest vaccination
+uptake (82\%), in contrast to respondents who identified as which had
+had the lowest vaccination uptake rate (60\%) across all groups. From
+all the covariates, significant associations were identified between
+income, race, and vaccination rate.
 
 \hypertarget{tbl-descriptive-stats}{}
 \begin{table}
@@ -512,19 +494,19 @@ Status) }\tabularnewline
 \hypertarget{multivariate-regression}{%
 \subsection{Multivariate Regression}\label{multivariate-regression}}
 
-\textbf{?@tbl-model} shows the results of the logistic regression models
-(for the uncorrected and corrected data) on vaccination status using
-socio-economic factors (age group, income, race), months covered by the
-survey (October, November, and December), geographical areas (Health
-Regions) and the interactions between income and race and Health Region
-and race. The corrected results show that there were no statistically
-significant differences in vaccination rate between the age groups or
-across the months covered by the survey as in both cases the odd ratios
-were similar. However, between the different household income brackets,
-individuals with an income under CAD 25,000 or between CAD 25,000-59,999
-had significantly lower odds of vaccination than those with an income
-above CAD 60,000 (ORs=0.37 and 0.59, \emph{p}\textless0.001 and
-\emph{p}=0.010, respectively). Within Race/Ethnicity, individuals who
+Figure~\ref{fig-model-uncorr} shows the estimates from the logistic
+regression model of vaccination status for the uncorrected data, whereas
+the estimated obtained from the corrected data appear in
+Figure~\ref{fig-model-corr}. The results show significantly higher odds
+of vaccination in individuals with a high household income, and those
+that identified as White or Caucasian when compared with individuals in
+lower income brackets or that identified as part of equity-deserving
+groups.
+
+Specifically, significantly lower odds of vaccination were identified
+for those with a household income under CAD 25,000 (OR=0.374,
+CI={[}0.251,0.559{]}) and those with an income between CAD 25,000 and
+59,999 (OR=0.586, CI={[}0.390,0.882{]}). Additionally, individuals who
 identified as Arab/Middle Eastern, Black, or Latin American, had
 significantly lower odds of vaccination than those in the
 White/Caucasian group (ORs=0.32, 0.32, 0.27, and \emph{p}=0.003,
@@ -563,8 +545,9 @@ Asian that lived in the West Health Region (ORs=0.41, \emph{p}=0.032 and
 \includegraphics{main_files/figure-pdf/fig-model-uncorr-1.pdf} \hfill{}
 
 \caption{\label{fig-model-uncorr}Coefficient estimates and confidence
-intervals for the uncorrected model. For the interaction terms, only
-those with a statistically significant values are shown.}
+intervals for the uncorrected model. Only statistically significant
+interaction terms are shown. Full estimates can be found in the
+Appendix.}
 
 \end{figure}
 
@@ -573,8 +556,9 @@ those with a statistically significant values are shown.}
 \includegraphics{main_files/figure-pdf/fig-model-corr-1.pdf} \hfill{}
 
 \caption{\label{fig-model-corr}Coefficient estimates and confidence
-intervals for the corrected model. For the interaction terms, only those
-with a statistically significant values are shown.}
+intervals for the corrected model. Only statistically significant
+interaction terms are shown. Full estimates can be found in the
+Appendix.}
 
 \end{figure}
 
