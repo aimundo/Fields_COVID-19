@@ -1,8 +1,13 @@
 library(here)
 library(tidyverse)
 library(naniar)
+library(survey)
 library(gtsummary)
 library(lubridate)
+library(modelsummary)
+
+# for reference, the dataset used in the last version the manuscript had 3,549 obs.
+
 
 rawdata<-read.csv(here("data","Fields_data.csv"),na.strings = c(""))
 clean_data <-read.csv(here("data","clean_dataset.csv"))
@@ -19,6 +24,13 @@ rawdata <- rawdata %>%
 
 test<-rawdata %>%
   subset(complete=="complete") 
+
+# remove cities entered as "None"
+
+test<-test %>%
+  subset(city!="None")
+
+#recode variable names
 
 test <- test %>%
   rename(date=time_date_code,
@@ -88,12 +100,8 @@ municipalities$city<-as.factor(municipalities$city)
 
 test<-left_join(test,municipalities,by="city")
 
-test %>%
-  filter(is.na(Geographic.area))%>%
-  distinct(city)
 
-
-missing_municipalities<-read.csv(here("data","missing_municipalities_updated.csv"))
+missing_municipalities<-read.csv(here("data","missing_municipalities_updated_May_05_2023.csv"))
 
 
 #combining geographical regions
@@ -104,6 +112,13 @@ test<-test %>%
   select(-c(Geographic.area.x,Geographic.area.y))
 
 test$Geographic.area<-as.factor(test$Geographic.area)
+
+## what cities are missing geographical region
+
+t1<-test %>%
+  filter(is.na(Geographic.area))
+
+## no areas missing, good!
 
 # load the the titles for each region
 
@@ -172,9 +187,9 @@ missing_health_regions<-test %>% filter(is.na(LHIN)) %>%
   distinct(city,.keep_all = TRUE)%>%
   select(city,Geographic.area,Geographic_area_title,LHIN,Health_Region)
 
+## keep in mind that Mitchell was coded as Mitchell/Ontario in the dataset, might need to be chagned
 
-
-mhru<-read.csv(here("data","missing_health_regions_updated.csv"))
+mhru<-read.csv(here("data","missing_health_regions_updated_May_05_2023.csv"))
 
 #rename columns
 mhru <- mhru %>%
@@ -202,6 +217,14 @@ test<-test %>%
                      LHIN=="Erie St. Clair"~"West"
            ))%>%
   rename(Geographic_area=Geographic.area.x,Geographic_area_title=Geographic_area_title.x)
+
+## find cities with missing Health Region
+
+t1<-test %>%
+  filter(is.na(Health_Region))%>%
+  select(city,Geographic_area,Geographic_area_title,LHIN)
+
+# great, no missing obs!
 
 # recode the response of interest for categorical analysis
 test<-test %>%
@@ -234,7 +257,9 @@ test <- test%>%
 test$Month <- fct_relevel(test$Month,levels=c("October","November","December","January"))
 
 
-# Remove certain Health REgions due to low number of obs
+# Remove certain Health REgions due to low number of obs: only 254 in North East
+# and North West Regions at this poing, in contrast with about a thousand from each 
+# othe region
 
 #get health regions to eliminate
 test <-test %>%
@@ -242,10 +267,14 @@ test <-test %>%
 
 test<-droplevels(test)
 
-# remove for the time being, obs with missing race or missing HR
+# remove for the time being, obs with missing race or missing HR.
+# 262 obs without race, they are from Central, East, Toronto, and West Health Regions
+
 
 test<-test %>%
   drop_na(Race,Health_Region)
+
+# 6,255 obs
 
 test$Health_Region <-as.factor(test$Health_Region)
 
@@ -379,9 +408,11 @@ m2<-svyglm(first_dose_m~Age_group_ord+Month+income_ord+Race+Health_Region+Race*i
 modelplot(m0,exponentiate = TRUE,coef_omit = "Intercept")+ geom_vline(xintercept = 1, linetype="dashed",color="red")
 modelplot(m2,exponentiate = TRUE,coef_omit = "Intercept")+geom_vline(xintercept = 1, linetype="dashed",color="red")
 
-tbl_regression(m0,exponentiate=TRUE) %>% 
+a1<-tbl_regression(m0,exponentiate=TRUE) %>% 
   bold_labels()
 
 
-tbl_regression(m2,exponentiate = TRUE) %>% 
+a2<-tbl_regression(m2,exponentiate = TRUE) %>% 
   bold_labels()
+
+tbl_merge(tbls=list(a1,a2), tab_spanner = c("Uncorrected","Corrected")) 
