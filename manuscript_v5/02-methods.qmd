@@ -1,0 +1,25 @@
+# Methods
+
+## Data and Methods {#sec-data}
+
+We used data from the *Survey of COVID-19 related Behaviours and Attitudes*, a repeated cross sectional survey focused on the Canadian province of Ontario that was commissioned by the Fields Institute for Research in Mathematical Sciences and the  Mathematical Modelling of COVID-19 Task Force under ethical guidance from the University of Toronto, and which ran between September 30th, 2021 and January 17th,2022. The survey collected socio-economic information from participants (@tbl-descriptive-stats), their location (nearest municipality,  as shown in @fig-map), the date of access to the survey, and asked information on vaccination status by using the question "Have you received the first dose of the COVID vaccine?", with possible answers "yes" and "no". The original dataset contained 39,029 observations (where each observation corresponded to a unique respondent).
+
+Preliminary analyses of the data included the removal of outliers (**should we still do this? it's only 19 observations with income >110k and household of 1, but we are not even using such income bracket in the analysis because we re-grouped the data, and the household size variable has 90% missing rate**), of observations where respondents did not provide answers in all the covariates of interest, matching the city of each observations with its corresponding LHIN and Health Region, and removing observations from areas with low representation (107 observations corresponding to the North West and North East Health Regions). After all the preliminary analyses indicated above, the total number of observations used for analysis was 3,549 which included the East, Central, Toronto, and West Health Regions covering the period between October 1st,2021 and December 12th, 2021. The original dataset, clean dataset, and details on the data cleaning process are described in detail in the [GitHub repository](https://github.com/aimundo/Fields_COVID-19/) for this paper.
+
+```{r,map}
+#| label: fig-map
+#| fig-cap: "Geographic representation of the data collected by the _Survey of COVID-19 related Behaviours and Attitudes_, collected by the Fields Institute in Ontario. The municipalities (cities) from where survey participants provided answers (in the clean dataset) appear as points. The Health six Regions are color-coded. Internal boundaries within certain Health Regions indicate areas that belonged to the Local Integrated Health Networks (LHINs), the geographic areas for healthcare in Ontario before the adoption of the Health Regions."
+#| message: false
+#| echo: false
+#| fig-height: 3
+#| figh-width: 2
+
+knitr::include_graphics(here("data","map_data","map.pdf"))
+
+```
+
+
+## Statistical analyses
+
+We used a logistic regression model to examine the impact of the Health Regions in vaccination rates while considering the socio-economic factors and and months covered by the survey (@tbl-descriptive-stats) and certain interactions (Race and Health Region and Race and income), as previous studies have shown that socio-economic factors and their interactions are significant predictors of intent of vaccination and vaccination status [@nguyen2022; @shih2021; @cnat2022a]. Because we identified differences in representativity between the survey data and the estimates from the Census, we used an iterative proportional fitting procedure (_raking_) [@deming1940] to correct the data using data from the Census and Health Region population totals; and fitted the regression model to the uncorrected and corrected data. Details regarding the correction can be found in the Appendix. All analyses were conducted in R 4.2.2 using the packages `survey` [@lumley2011],`tidyverse` [@wickham2019], `quarto` [@quarto], `modelsummary` [@modelsummary], and `gtsummary` [@gtsummary].
+

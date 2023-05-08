@@ -1,13 +1,5 @@
-library(here)
-library(tidyverse)
-library(naniar)
-library(survey)
-library(gtsummary)
-library(lubridate)
-library(modelsummary)
-
-# for reference, the dataset used in the last version the manuscript had 3,549 obs.
-
+## Script to clean and prepare the raw dataset for analysis
+## Upated on May 8, 2023
 
 rawdata<-read.csv(here("data","Fields_data.csv"),na.strings = c(""))
 #clean_data <-read.csv(here("data","clean_dataset.csv"))
@@ -45,7 +37,7 @@ clean_data<-rawdata %>%
 miss_var_summary(clean_data,show_pct=TRUE) %>%
   kableExtra::kbl() %>%
   kableExtra::kable_styling()
-  
+
 # remove cities entered as "None"
 
 clean_data<-clean_data %>%
@@ -55,7 +47,7 @@ clean_data<-clean_data %>%
 
 clean_data <- clean_data %>%
   rename(date=time_date_code,
-    first_dose=q02_first_dose,
+         first_dose=q02_first_dose,
          income=q09_hh_income,
          race=q16_race,
   )%>%
@@ -314,136 +306,3 @@ clean_data<- within(clean_data, Race <- relevel(Race, ref = "White/Caucasian"))
 clean_data<- within(clean_data, Health_Region <- relevel(Health_Region, ref = "Toronto"))
 clean_data<- within(clean_data, income_ord <- relevel(income_ord, ref = "60000 and above"))
 clean_data<- within(clean_data, Month <- relevel(Month, ref = "October"))
-
-clean_data %>%
-  tbl_summary(percent="row",
-              by= first_dose,
-              include=c(income_ord,
-                        Age_group_ord,
-                        Health_Region,
-                        Month,
-                        Race),
-              label=list(Health_Region ~ "Health Region",
-                         Age_group_ord ~ "Age Group",
-                         income_ord~"Income (CAD)")
-  ) %>% add_p(test = everything () ~ "chisq.test")%>%
-  bold_labels() %>%
-  modify_table_styling(
-    columns=label,
-    rows=label=="Other",
-    footnote="Southeast Asian, Filipino, West Asian, \nand minorities not identified elsewhere according to the Census."
-  )
-
-
-# raking
-#Each of these dataframes provides the population totals for the different variables and their categories
-
-
-Ages<-data.frame(Age_group_ord=c("16-34",
-                                 "35-54",
-                                 "55 and over"),
-                 Freq=c(3442815,
-                        3725233,
-                        4088342))
-
-
-
-Races<-data.frame(Race=c("Arab/Middle Eastern",
-                         "Black",
-                         "East Asian/Pacific Islander",
-                         "Indigenous",
-                         "Latin American",
-                         "Mixed",
-                         "Other",
-                         "South Asian",
-                         "White/Caucasian"),
-                  Freq=c(212782,
-                         638346,
-                         886592,
-                         376558,
-                         197020,
-                         130033,
-                         705333,
-                         1166361,
-                         9118079 ))
-
-Incomes<-data.frame(income_ord=c("under 25000",
-                                 "25000-59999",
-                                 "60000 and above"),
-                    Freq=c(682331,
-                           1395676,
-                           3091164
-                    ))
-
-
-# corrections for Health Regions, without the North East and North West regions
-
-Health_Regions<-data.frame(Health_Region=c(
-  #"North West",
-  #"North East",
-  "West",
-  "East",
-  "Central",
-  "Toronto"),
-  Freq=c(#232299,
-    #557000,
-    4095589,
-    3742520,
-    5032410,
-    1440644
-  )
-)
-
-## number of observations to be used: 6,236
-
-### Raking ####
-
-## First, provide a survey design object. This is done using the dataset. The syntax
-## means that there is no stratification (id=~1). When the line below is run it will throw
-## a warning because we do not have "design" weights in the dataset (other datasets do have this).
-
-
-a1<-svydesign(id=~1,data=clean_data)
-
-## because there are no sampling weights, each observation as a probability of 1 of being sampled at this stage. 
-
-
-## The next line uses the survey design object a1, and the variables we will adjust for, with the population corrections
-## from the data frames from above.
-
-a1_rake<-rake(a1,
-              sample=list(~Age_group_ord,
-                          ~Race,
-                          ~income_ord,
-                          ~Health_Region),
-              population=list(Ages,
-                              Races,
-                              Incomes,
-                              Health_Regions))
-
-
-m0<-svyglm(first_dose_m~Age_group_ord+Month+income_ord+Race+Health_Region+Race*income_ord+Race*Health_Region,
-           design=a1,
-           family = quasibinomial(), 
-           control= list(maxit=25))
-
-
-# model for corrected data
-
-m2<-svyglm(first_dose_m~Age_group_ord+Month+income_ord+Race+Health_Region+Race*income_ord+Race*Health_Region,
-           design=a1_rake,
-           family = quasibinomial(), 
-           control= list(maxit=25))
-
-
-modelplot(m0,exponentiate = TRUE,coef_omit = "Intercept")+ geom_vline(xintercept = 1, linetype="dashed",color="red")
-modelplot(m2,exponentiate = TRUE,coef_omit = "Intercept")+geom_vline(xintercept = 1, linetype="dashed",color="red")
-
-a1<-tbl_regression(m0,exponentiate=TRUE) %>% 
-  bold_labels()
-
-
-a2<-tbl_regression(m2,exponentiate = TRUE) %>% 
-  bold_labels()
-
-tbl_merge(tbls=list(a1,a2), tab_spanner = c("Uncorrected","Corrected")) 

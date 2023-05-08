@@ -1,0 +1,92 @@
+# Results
+
+## Sample Characteristics
+
+@tbl-descriptive-stats shows the characteristics of the data from the Fields COVID-19 survey used for analysis with regard to vaccination status. A total of **6,236** observations were used for analysis, from which 24\% (1,547) corresponded to individuals that reported not having received the first dose of the vaccine. Across the socio-demographic characteristics collected by the survey, higher vaccination uptake was reported by individuals in the highest income bracket considered, those between 16 and 34 years of age, individuals that lived in the East Health Region, and individuals that identified as White or Caucasian. During the months covered by the survey, the highest vaccination uptake was observed in January of 2022.
+
+
+```{r,summary-table}
+#| label: tbl-descriptive-stats
+#| tbl-cap: "Descriptive Statistics of the Fields COVID-19 Survey (by Vaccination Status)"
+#| message: false
+#| warning: false
+#| echo: false
+
+source(here::here("code","data_preparation_May_08.R"))
+
+#create summary table
+
+data_summary<-clean_data %>%
+  tbl_summary(percent="row",
+              by= first_dose,
+              include=c(income_ord,
+                        Age_group_ord,
+                        Health_Region,
+                        Month,
+                        Race),
+              label=list(Health_Region ~ "Health Region",
+                 Age_group_ord ~ "Age Group",
+                 income_ord="Income (CAD)")
+  ) %>% add_p(test = everything () ~ "chisq.test")%>%
+  bold_labels() %>%
+  modify_table_styling(
+    columns=label,
+    rows=label=="Other",
+    footnote="Southeast Asian, Filipino, West Asian, \nand minorities not identified elsewhere according to the Census."
+  ) %>%
+  modify_header(label = "**Variable**") %>%
+  as_gt()
+
+data_summary
+
+```
+
+## Multivariate Regression
+
+@fig-model-uncorr shows the estimates from the logistic regression model of vaccination status for the uncorrected data, whereas the estimated obtained from the corrected data appear in @fig-model-corr. The results show significantly lower odds of vaccination in individuals with a low household income and those that identified as part of equity-deserving groups when compared to individuals in high income brackets or that identified as White or Caucasian. 
+
+```{r,model-uncorr-fig}
+#| message: false
+#| warning: false
+#| echo: false
+#| fig-align: left
+#| fig-width: 7
+#| fig-height: 7
+#| label: fig-model-uncorr
+#| fig-cap: "Coefficient estimates and confidence intervals for the uncorrected model. Only statistically significant interaction terms are shown. Full interaction terms can be found in Supplementary Figure A-3."
+
+#call the script for raking
+source(here("code","raking.R"))
+
+#logistic regression
+source(here("code","regression.R"))
+
+# call script that creates figure for model
+
+source(here("code","uncorr_model.R"))
+
+#call figure created in the script above
+uncorr_mod
+
+```
+
+Specifically, significantly lower odds of vaccination were identified for those with a household income under CAD 25,000 (OR=0.37, CI=[0.25,0.56]) and those with an income between CAD 25,000 and 59,999 (OR=0.59, CI=[0.39,0.88]).  Additionally, individuals who identified as Arab/Middle Eastern, Black, or Latin American, or that belonged to "Other" racial groups, which included the Southeast Asian, Filipino, West Asian, and Minorities Not Identified Elsewhere groups according to the Census, had significantly lower odds of vaccination than those in the White/Caucasian group (ORs=0.31, 0.32, 0.27, 0.22, and CIs=[0.14,0.68], [0.17,0.60], [0.11,0.66], and [0.12,0.41], respectively). Regarding Health Regions, individuals that reported living in the West Health Region (which includes the regions of Waterloo and Niagara, the counties of Wellington, Essex, and Lambton, and the cities of Hamilton, Haldimand, Brant, and Chatham-Kent) had significantly higher odds of vaccination than those in the Health Region of Toronto (OR=1.54, CI=[1.04,2.29]).
+
+Interestingly, individuals in equity-deserving groups with a household income below CAD 25,000 had higher odds of vaccination (when compared to those with a household income above CAD 60,000).  This held true in the case of Arab/Middle Eastern (OR=3.08, CI=[1.27,7.47]), Black (OR=3.15, CI=[1.43,6.92]), and Latin American (OR=2.81, CI=[1.04,7.59]) individuals, as well as respondents who belonged to "Other" minority groups  (OR=4.63, CI=[2.34,9.13]), who also had higher odds of vaccination in the CAD 25,000-59,999 income bracket (OR=6.96, CI=[2.67,18.16]). Finally, significantly lower odds of vaccination were identified (when compared to the Toronto Health Region) for Black individuals in the Central Health Region, which comprises the region of York, counties of Dufferin and Simcoe and the district of Muskoka (OR=0.44, CI=[0.19,0.99]), and in individuals that identified as part of other racial minorities or South Asian that lived in the West Health Region (ORs=0.41, and CIs=[0.18,0.92] and [0.18,0.95], respectively).
+
+```{r,model-corr-fig}
+#| message: false
+#| warning: false
+#| echo: false
+#| fig-align: left
+#| fig-width: 7
+#| fig-height: 7
+#| label: fig-model-corr
+#| fig-cap: "Coefficient estimates and confidence intervals for the corrected model. Only statistically significant interaction terms are shown. Full interaction terms can be found in Supplementary Figure A-4."
+
+#call script with code for figure
+source(here("code","corr_model.R"))
+
+#call figure
+corr_mod
+```
