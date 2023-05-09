@@ -22,7 +22,10 @@ filters:
   - authors-block
 format: 
   pdf:
-    include-in-header: latex/preamble.sty
+    include-in-header:
+      - text: |
+          \usepackage{pdflscape}
+      - file: latex/preamble.sty
     #mainfont: "Palatino Linotype"
     keep-tex: true
 #linestretch: 1
@@ -53,6 +56,7 @@ library(tidyverse)
 library(naniar)
 library(lme4)
 library(lubridate)
+library(grid)
 library(kableExtra)
 library(modelsummary)
 library(gtsummary)
