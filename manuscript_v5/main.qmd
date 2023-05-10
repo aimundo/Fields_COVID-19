@@ -24,14 +24,15 @@ format:
   pdf:
     include-in-header:
       - text: |
-          \usepackage{pdflscape}
+          \usepackage{rotfloat}
       - file: latex/preamble.sty
     #mainfont: "Palatino Linotype"
     keep-tex: true
+    link-citations: true #adds links to the citations
 #linestretch: 1
 bibliography: references/refs.bib
 csl: references/jama.csl
-link-citations: yes #adds links to the citations
+
 ---
 
 

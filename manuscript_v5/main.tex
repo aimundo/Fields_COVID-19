@@ -9,7 +9,6 @@
   numbers=noendperiod]{scrartcl}
 
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -19,6 +18,10 @@
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -120,7 +123,7 @@
 \usepackage{lineno}
 \linenumbers
 
-\usepackage{pdflscape}
+\usepackage{rotfloat}
 \KOMAoption{captions}{tableheading}
 \makeatletter
 \makeatother
@@ -166,10 +169,12 @@
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
 \makeatletter
-\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
 \makeatother
 \makeatletter
 \@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
 \makeatother
 \makeatletter
 \makeatother
@@ -191,13 +196,12 @@
 
 \title{\textbf{Differences in COVID-19 vaccination in the province of
 Ontario across Health Regions and socio-economic strata}}
-\author{Ariel Mundo Ortiz\textsuperscript{1,2} \and Bouchra
-Nasri\textsuperscript{1,2,*}}
+\author{}
 \date{}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, boxrule=0pt, breakable, frame hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, frame hidden, interior hidden, breakable, enhanced, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
 Montreal, Montréal, Canada\\
@@ -437,22 +441,22 @@ and
 \subsection{Sample Characteristics}\label{sample-characteristics}}
 
 Table~\ref{tbl-descriptive-stats} shows the characteristics of the data
-from the Fields COVID-19 survey used for analysis with regard to
-vaccination status. A total of \textbf{6,236} observations were used for
-analysis, from which 24.8\% (1,547) corresponded to individuals that
-reported not having received the first dose of the vaccine. Vaccination
-rates ranged between 71-79\% across household income brackets, age
-groups, Health Regions, and the months considered in the survey.
-However, the highest vaccination rates in each category were reported by
-individuals in the highest income bracket (79\%), those between 16 and
-34 years of age (77\%), individuals that lived in the East Health Region
-(77\%), and during January of 2022 (78\%). Differences were higher
-between racial/ethnic groups, where the higher vaccination rate was
-reported by White/Caucasian individuals (84\%), against vaccination
-rates between 63-66\% reported in the case of Arab/Middle Eastern,
-Black, Indigenous, Latin American individuals, and those that reported
-belonging to ``Other'' racial groups, which included Southeast Asian,
-Filipino, West Asian, and minorities not identified elsewhere.
+from the Fields COVID-19 survey used for analysis. The sample contained
+\textbf{6,236} observations, from which 24.8\% (1,547) corresponded to
+individuals that reported not having received the first dose of the
+vaccine. Vaccination rates ranged between 71-79\% across household
+income brackets, age groups, Health Regions, and the months considered
+in the survey. However, the highest vaccination rates in each category
+were reported by individuals in the highest income bracket (79\%), those
+between 16 and 34 years of age (77\%), individuals that lived in the
+East Health Region (77\%), and during January of 2022 (78\%).
+Differences were higher between racial/ethnic groups, where the higher
+vaccination rate was reported by White/Caucasian individuals (84\%),
+against vaccination rates between 63-66\% reported in the case of
+Arab/Middle Eastern, Black, Indigenous, Latin American individuals, and
+those that reported belonging to ``Other'' racial groups, which included
+Southeast Asian, Filipino, West Asian, and minorities not identified
+elsewhere.
 
 \hypertarget{tbl-descriptive-stats}{}
 \setlength{\LTpost}{0mm}
