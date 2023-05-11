@@ -9,7 +9,6 @@
   numbers=noendperiod]{scrartcl}
 
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
 \usepackage{setspace}
 \usepackage{iftex}
 \ifPDFTeX
@@ -20,6 +19,10 @@
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -76,9 +79,7 @@
 \def\fps@figure{htbp}
 \makeatother
 
-\usepackage{amsmath}
 \usepackage{booktabs}
-\usepackage{caption}
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{multirow}
@@ -92,6 +93,8 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{caption}
 \usepackage{placeins}
 \KOMAoption{captions}{tableheading}
 \makeatletter
@@ -138,10 +141,12 @@
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
 \makeatletter
-\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
 \makeatother
 \makeatletter
 \@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
 \makeatother
 \makeatletter
 \makeatother
@@ -170,8 +175,7 @@ Ontario across Health Regions and socio-economic strata}}
 }
 \makeatother
 \subtitle{Appendix}
-\author{Ariel Mundo Ortiz\textsuperscript{1,2} \and Bouchra
-Nasri\textsuperscript{1,2,*}}
+\author{}
 \date{}
 
 \begin{document}
@@ -185,7 +189,7 @@ Nasri\textsuperscript{1,2,*}}
 \renewcommand\thefigure{\thesection-\arabic{figure}}
 
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, sharp corners, breakable, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, enhanced, interior hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, enhanced, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, breakable, interior hidden, sharp corners]}{\end{tcolorbox}}\fi
 
 \setstretch{2}
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
@@ -221,15 +225,15 @@ following chunk creates a summary table for the Race variable.
 \toprule
 Race & observations & percentage \\ 
 \midrule
-White/Caucasian & 1312 & $37.0\%$ \\ 
-Arab/Middle Eastern & 214 & $6.0\%$ \\ 
-Black & 298 & $8.4\%$ \\ 
-East Asian/Pacific Islander & 303 & $8.5\%$ \\ 
-Indigenous & 191 & $5.4\%$ \\ 
-Latin American & 180 & $5.1\%$ \\ 
-Mixed & 310 & $8.7\%$ \\ 
-Other & 367 & $10.3\%$ \\ 
-South Asian & 374 & $10.5\%$ \\ 
+White/Caucasian & 2225 & $35.7\%$ \\ 
+Arab/Middle Eastern & 331 & $5.3\%$ \\ 
+Black & 462 & $7.4\%$ \\ 
+East Asian/Pacific Islander & 498 & $8.0\%$ \\ 
+Indigenous & 306 & $4.9\%$ \\ 
+Latin American & 294 & $4.7\%$ \\ 
+Mixed & 588 & $9.4\%$ \\ 
+Other & 921 & $14.8\%$ \\ 
+South Asian & 611 & $9.8\%$ \\ 
 \bottomrule
 \end{longtable}
 
@@ -270,14 +274,16 @@ survey.The data sources were:
 \begin{longtable}[]{@{}lll@{}}
 \caption{\label{tbl-races}Reference Data from the 2016 Census from
 Race/Ethnicity in Ontario}\tabularnewline
-\toprule()
+\toprule\noalign{}
 Ethnicity/Race & Percentage & Population totals \\
-\midrule()
+\midrule\noalign{}
 \endfirsthead
-\toprule()
+\toprule\noalign{}
 Ethnicity/Race & Percentage & Population totals \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Arab & 1.6\% & 212782 \\
 Black & 4.7\% & 638346 \\
 East Asian/Pacific Islander & 6.6\% & 886592 \\
@@ -288,7 +294,6 @@ Other & 5.2\% & 705333 \\
 South Asian & 8.7\% & 1166361 \\
 White Caucasian & 67.8\% & 9118079 \\
 \textbf{Total} & 99.9\% & 13431105 \\
-\bottomrule()
 \end{longtable}
 
 Visible Minorities: 29.3\% Not a Visible Minority: 70.7\% (Aboriginal
@@ -309,21 +314,22 @@ groups for the province of Ontario are as follows:
 \begin{longtable}[]{@{}lll@{}}
 \caption{Age distributions from the 2016 Census for
 Ontario}\tabularnewline
-\toprule()
+\toprule\noalign{}
 Group age & Percentage & Population Totals \\
-\midrule()
+\midrule\noalign{}
 \endfirsthead
-\toprule()
+\toprule\noalign{}
 Group age & Percentage & Population Totals \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 15-24 & 12.7\% & 1707959 \\
 25-34 & 12.9\% & 1734856 \\
 35-44 & 12.8\% & 1721407 \\
 45-54 & 14.9\% & 2003826 \\
 55-64 & 13.7\% & 1842444 \\
 65 and over & 16.7\% & 2245898 \\
-\bottomrule()
 \end{longtable}
 
 To compare the survey data to the Census, the next chunk creates a
@@ -354,21 +360,22 @@ income groups in 2015 for private households'' from the Census data
 \begin{longtable}[]{@{}lll@{}}
 \caption{Income percentages from the 2016 Census for
 Ontario}\tabularnewline
-\toprule()
+\toprule\noalign{}
 Household income range (CAD) & Percentage & Population Totals \\
-\midrule()
+\midrule\noalign{}
 \endfirsthead
-\toprule()
+\toprule\noalign{}
 Household income range (CAD) & Percentage & Population Totals \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \textless{} 15,000 & 5.7\% & 294643 \\
 15,000 - 24,999 & 7.5\% & 387688 \\
 25,000 - 39,999 & 11.6\% & 599624 \\
 40,000- 59,999 & 15.4\% & 796052 \\
 60,000 - 89,999 & 19.5\% & 1007988 \\
 \textgreater90,000 & 40.3\% & 2083176 \\
-\bottomrule()
 \end{longtable}
 
 One difference that is noticeable is that the brackets for income in the
@@ -412,21 +419,22 @@ The population totals are presented in Table~\ref{tbl-health-regions}.
 \begin{longtable}[]{@{}ll@{}}
 \caption{\label{tbl-health-regions}Population Totals for the Health
 Regions in Ontario}\tabularnewline
-\toprule()
+\toprule\noalign{}
 Health Region & Population Totals \\
-\midrule()
+\midrule\noalign{}
 \endfirsthead
-\toprule()
+\toprule\noalign{}
 Health Region & Population Totals \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 North East & 232299 \\
 North West & 557000 \\
 West & 4095589 \\
 East & 3742520 \\
 Central & 5032410 \\
 Toronto & 1440644 \\
-\bottomrule()
 \end{longtable}
 
 Note that as indicated in the paper, we excluded observations from the
@@ -517,13 +525,13 @@ Individuals by Health Region }\tabularnewline
 \centering
 \begin{tabular}{lcc}
 \toprule
-\textbf{Characteristic} & \textbf{no}, N = 233 & \textbf{yes}, N = 1,079\\
+\textbf{Characteristic} & \textbf{no}, N = 354 & \textbf{yes}, N = 1,871\\
 \midrule
 \textbf{Health\_Region} &  & \\
-\hspace{1em}Toronto & 85 (21\%) & 321 (79\%)\\
-\hspace{1em}West & 69 (17\%) & 329 (83\%)\\
-\hspace{1em}East & 41 (15\%) & 236 (85\%)\\
-\hspace{1em}Central & 38 (16\%) & 193 (84\%)\\
+\hspace{1em}West & 105 (15\%) & 582 (85\%)\\
+\hspace{1em}Toronto & 127 (19\%) & 533 (81\%)\\
+\hspace{1em}East & 66 (14\%) & 396 (86\%)\\
+\hspace{1em}Central & 56 (13\%) & 360 (87\%)\\
 \bottomrule
 \multicolumn{3}{l}{\rule{0pt}{1em}\textsuperscript{1} n (\%)}\\
 \end{tabular}
@@ -536,13 +544,13 @@ Individuals by Health Region }\tabularnewline
 \centering
 \begin{tabular}{lc}
 \toprule
-\textbf{Characteristic} & \textbf{N = 839}\\
+\textbf{Characteristic} & \textbf{N = 1,460}\\
 \midrule
 \textbf{LHIN} & \\
-\hspace{1em}Hamilton Niagara Haldimand Brant (Hnhb) & 271 (32\%)\\
-\hspace{1em}Waterloo Wellington & 227 (27\%)\\
-\hspace{1em}South West & 187 (22\%)\\
-\hspace{1em}Erie St. Clair & 154 (18\%)\\
+\hspace{1em}Hamilton Niagara Haldimand Brant (Hnhb) & 470 (32\%)\\
+\hspace{1em}Waterloo Wellington & 400 (27\%)\\
+\hspace{1em}South West & 345 (24\%)\\
+\hspace{1em}Erie St. Clair & 245 (17\%)\\
 \bottomrule
 \multicolumn{2}{l}{\rule{0pt}{1em}\textsuperscript{1} n (\%)}\\
 \end{tabular}

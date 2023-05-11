@@ -41,6 +41,7 @@ library(here)
 library(patchwork)
 library(gt)
 library(lubridate)
+library(naniar)
 library(gtsummary)
 library(modelsummary)
 library(survey)
@@ -58,7 +59,7 @@ thm4<-scale_fill_scico_d(palette="tokyo",begin=0.3, end=0.8, direction = -1, aes
 thm5<-scale_fill_scico_d(palette="imola",begin=0.3, end=0.8, direction = -1, aesthetics = c("colour","fill"))
 
 #call scripts for data preparation and regression
-source(here::here("code","data_preparation.R"))
+source(here::here("code","data_preparation_May_08.R"))
 source(here::here("code","raking.R"))
 source(here::here("code","regression.R"))
 ```
@@ -138,8 +139,8 @@ To compare the survey data to the Census, the next chunk creates a barplot of th
 #| fig-cap: Age group distributions from the dataset
 
 p2<-clean_data%>%
-  select(Age_group)%>%
-   mutate(Age_group_ord = fct_relevel(Age_group,
+  select(age_group)%>%
+   mutate(age_group_ord = fct_relevel(age_group,
                                       "16_24",
                                       "25_34",
                                       "35_44",
@@ -148,10 +149,10 @@ p2<-clean_data%>%
                                   "65_and_over"
                                           ))
 
-  ggplot(p2%>%count(Age_group_ord) %>%    # G count number in each group
+  ggplot(p2%>%count(age_group_ord) %>%    # G count number in each group
          mutate(pct=n/sum(n),               # Calculate percent within each group
                 ypos = 200),  # Calculate label positions
-       aes(Age_group_ord, n, fill=Age_group_ord)) +
+       aes(age_group_ord, n, fill=age_group_ord)) +
   geom_bar(stat="identity") +
     xlab("Age group")+
   geom_text(aes(label=paste0(sprintf("%1.1f", pct*100),"%"), y=ypos))+
@@ -191,18 +192,18 @@ Therefore, in the following code chunk, we created an additional category for in
 
 
 clean_data<-clean_data%>%
-    mutate(income_ord = case_when(
+    mutate(income_ord_a = case_when(
                                   income %in% "90000_109999" ~ "over_90000",
                                   income %in%"over_110000" ~ "over_90000",
                                   TRUE ~ as.character(income)
                                 ))%>%
-  mutate(income_ord=as.factor(income_ord))
+  mutate(income_ord_a=as.factor(income_ord_a))
 
 
 
 
 p3<-clean_data%>%
-  mutate(income_ord = fct_relevel(income_ord,
+  mutate(income_ord_a = fct_relevel(income_ord_a,
                                   "under_15000",
                                   "15000_24999",
                                   "25000_39999",
@@ -212,10 +213,10 @@ p3<-clean_data%>%
                                 ))
 
 
-ggplot(p3%>% count(income_ord)%>%  # count number in each group
+ggplot(p3%>% count(income_ord_a)%>%  # count number in each group
          mutate(pct=n/sum(n),               # Calculate percent within each group
                 ypos = 200),  # Calculate label positions
-       aes(income_ord, n, fill=income_ord)) +
+       aes(income_ord_a, n, fill=income_ord_a)) +
   geom_bar(stat="identity") +
   geom_text(aes(label=paste0(sprintf("%1.1f", pct*100),"%"), y=ypos))+
   xlab("Income")+
@@ -272,7 +273,7 @@ mplot1<-modelplot(m0,draw=FALSE,
 
 #add column by factor 
 mplot1$factor<-c(rep("Age",2),
-                 rep("Month",2),
+                 rep("Month",3),
                  rep("Income",2),
                  rep("Race/Ethnicity",8),
                  rep("Health Region",3),
@@ -328,7 +329,7 @@ mplot2<-modelplot(m2,draw=FALSE,coef_omit = "Intercept",exponentiate = TRUE) %>%
 
 #add column by factor 
 mplot2$factor<-c(rep("Age",2),
-                 rep("Month",2),
+                 rep("Month",3),
                  rep("Income",2),
                  rep("Race/Ethnicity",8),
                  rep("Health Region",3),
@@ -375,7 +376,7 @@ The plots below show the interactions for Race and Income and Race and Health Re
 #| fig-width: 6
 #| fig-cap: Estimated marginal means for the interaction between Race and Income in the regression model.
 
-race_income<-emmip(m2, Race ~ income_ord, CIs=TRUE,plotit = FALSE)
+race_income<-emmip(m2, Race ~ income_ord, CIs=TRUE,plotit = FALSE, type="response")
 
 ggplot(data=race_income,aes(x=income_ord,group=Race,color=Race,fill=Race))+
   geom_ribbon(aes(ymin=LCL,ymax=UCL),alpha=0.5,show.legend = FALSE)+
@@ -396,13 +397,13 @@ ggplot(data=race_income,aes(x=income_ord,group=Race,color=Race,fill=Race))+
 #| fig-width: 6
 #| fig-cap: Estimated marginal means for the interaction between Race and Health Region in the regression model.
 
-race_hr<-emmip(m2, Race ~ Health_Region, CIs=TRUE,plotit = FALSE)
+race_hr<-emmip(m2, Race ~ Health_Region, CIs=TRUE,plotit = FALSE, type="response")
 
 ggplot(data=race_hr,aes(x=Health_Region,group=Race,color=Race,fill=Race))+
   geom_ribbon(aes(ymin=LCL,ymax=UCL),alpha=0.5,show.legend = FALSE)+
   geom_line(aes(group=Race,y=yvar),show.legend = FALSE)+
   facet_wrap(~Race)+
-  ylab("Linear predictor")+
+  #ylab("Linear predictor")+
   xlab("Health Region")+
   theme_classic()+
   thm4

@@ -201,7 +201,7 @@ Ontario across Health Regions and socio-economic strata}}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, frame hidden, interior hidden, breakable, enhanced, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, interior hidden, enhanced, boxrule=0pt, breakable, frame hidden, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
 Montreal, Montréal, Canada\\
@@ -248,109 +248,104 @@ minorities.
 \hypertarget{background}{%
 \section{Background}\label{background}}
 
-The vaccines against COVID-19 have been considered a major achievement
-of modern medicine as their rapid development allowed the start of broad
-vaccination campaigns towards the end of 2020 in certain countries, such
-as the US and
-Canada\textsuperscript{\protect\hyperlink{ref-davis2022}{1}--\protect\hyperlink{ref-tanne2020}{3}}.
-This made some believe that vaccines were destined to be a determinant
-factor in a rapid ending of the
-pandemic\textsuperscript{\protect\hyperlink{ref-thelancet2021}{4}}.
-However, although it has been estimated that COVID-19 vaccines have
-prevented around 14 million of deaths
-worldwide\textsuperscript{\protect\hyperlink{ref-watson2022}{5}}, their
-implementation has been far from being equal to that of the smallpox and
-polio vaccines, which were implemented on a global scale and that were
-crucial to control these
-diseases\textsuperscript{\protect\hyperlink{ref-kayser2021}{6}}. In
-fact, the rollout of COVID-19 vaccines has faced multiple challenges
-since its inception which ultimately have hampered their use to achieve
-the ultimate goal of global immunity.
+As of May of 2023 there have been 765 million confirmed cases of
+COVID-19 around the world, including 6.8 million
+deaths\textsuperscript{\protect\hyperlink{ref-WHO-Covid}{1}}. Although
+this disease is no longer categorized as a global health emergency by
+the World Health Organization
+(WHO)\textsuperscript{\protect\hyperlink{ref-rigby2023}{2}}, there is
+ongoing concern due to continued transmission, surges in cases and
+deaths due to new
+variants\textsuperscript{\protect\hyperlink{ref-un2023}{3}}, and
+weaknesses in health systems around the world that could be exploited by
+a novel virus or another public health emergency in the
+future\textsuperscript{\protect\hyperlink{ref-mackey2021}{4}}.
 
-This problematic in the rollout of the COVID-19 vaccines is a
-multifaceted issue resulting from, among other things, the development
-of new variants due to inadequate public health
-measures\textsuperscript{\protect\hyperlink{ref-li2021}{7}}, inequality
-in vaccine access between high- and low-income
-countries\textsuperscript{\protect\hyperlink{ref-gerretsen2021}{8},\protect\hyperlink{ref-tamey2022}{9}},
-vaccine
-hesitancy\textsuperscript{\protect\hyperlink{ref-nafilyan2021}{10}}, and
-differences in vaccination uptake across different segments of the
-population\textsuperscript{\protect\hyperlink{ref-malik2020}{11}}. In
-particular, it is well established that differences in vaccination
-uptake have been present even in countries that have had ample access to
-vaccines since 2020 (such as the US, the UK, and Canada), where lower
-vaccine uptake has been observed within certain racial groups (i.e.,
-individuals that identify as Black, Asian, or Indigenous), and in
-individuals within low income
-brackets\textsuperscript{\protect\hyperlink{ref-willis2021}{12}--\protect\hyperlink{ref-khubchandani2021}{15}}.
-Reasons given for lower vaccine uptake in these cases have included
-medical mistrust due to systemic medical
-racism\textsuperscript{\protect\hyperlink{ref-stoler2021}{14}}, mistrust
-in vaccines\textsuperscript{\protect\hyperlink{ref-willis2021}{12}}, and
+In particular, a major weakness that has received attention during the
+pandemic has been related to vaccine uptake. The rapid development of
+vaccines against COVID-19 initially brought the hope of a rapid end to
+the pandemic due to the start of vaccination campaigns in certain parts
+of the world toward the end of
+2020\textsuperscript{\protect\hyperlink{ref-thelancet2021}{5}--\protect\hyperlink{ref-tanne2020}{8}})
+but inequalities in vaccine uptake made these pharmaceutical
+interventions ultimately unable to replicate the experience of smallpox,
+where vaccination on a global scale and was crucial to control this
+disease\textsuperscript{\protect\hyperlink{ref-kayser2021}{9}}.
+
+Although the problematic on vaccine uptake is a multifaceted issue
+resulting from a combination of factors, among which are failed public
+health measures\textsuperscript{\protect\hyperlink{ref-li2021}{10}},
+inequality in vaccine access between high- and low-income
+countries\textsuperscript{\protect\hyperlink{ref-gerretsen2021}{11},\protect\hyperlink{ref-tamey2022}{12}},
+and vaccine
+hesitancy\textsuperscript{\protect\hyperlink{ref-nafilyan2021}{13}}, it
+is well established that individuals in certain equity-deserving groups
+(e.g., Black, Asian, or Indigenous) as well as individuals with
+socio-economic disadvantages have been disproportionately impacted by
+it, as indicated by the low vaccine uptake observed in these
+groups\textsuperscript{\protect\hyperlink{ref-willis2021}{14}--\protect\hyperlink{ref-hussain2022}{20}}.
+
+Reasons given for this problematic have included medical mistrust due to
+systemic medical
+racism\textsuperscript{\protect\hyperlink{ref-stoler2021}{16}}, mistrust
+in vaccines\textsuperscript{\protect\hyperlink{ref-willis2021}{14}}, and
 the influence of conspiracy
-theories\textsuperscript{\protect\hyperlink{ref-bogart2021}{16}--\protect\hyperlink{ref-freeman2020}{18}}.
-Moreover, in the case of Canada, lower vaccine uptake has been observed
-in young individuals, those with a low educational level, households
-with children, those without a regular healthcare provider, individuals
-that identify as part of certain equity-deserving groups, and those with
-a low household
-income\textsuperscript{\protect\hyperlink{ref-guay2022}{19}--\protect\hyperlink{ref-hussain2022}{21}}.
-
-However, it is important to consider that vaccination uptake can also be
+theories\textsuperscript{\protect\hyperlink{ref-bogart2021}{21}--\protect\hyperlink{ref-freeman2020}{23}}.
+However, it is important to also consider that vaccination uptake can be
 influenced by geographical (spatial) factors. In this regard,
 differences in COVID-19 vaccination rates have been associated with
 varied regional attitudes towards
-vaccination\textsuperscript{\protect\hyperlink{ref-malik2020}{11}},
+vaccination\textsuperscript{\protect\hyperlink{ref-malik2020}{24}},
 spatial differences in vaccine access and supply, vaccination location
 availability, and lack of prioritization of areas where vulnerable
 groups
-reside\textsuperscript{\protect\hyperlink{ref-bogoch2022}{2},\protect\hyperlink{ref-nguyen2021}{22}}.
+reside\textsuperscript{\protect\hyperlink{ref-bogoch2022}{7},\protect\hyperlink{ref-nguyen2021}{25}}.
 Other studies have also shown heterogeneity in vaccine uptake within
 small governmental administrative units such as
-counties\textsuperscript{\protect\hyperlink{ref-mollalo2021}{23}--\protect\hyperlink{ref-bhuiyan2022}{26}},
-and that and that accounting for geographical differences in vaccination
-can help predict patterns of booster
-uptake\textsuperscript{\protect\hyperlink{ref-wood2022}{27}}. Overall,
-the evidence provided by the literature demonstrates the existence of
-spatially-driven heterogeneities in vaccine uptake that be used by
-decision-makers in the development of public health policies that are
-focused on addressing these disparities within specific administrative
-or geographical areas.
+counties\textsuperscript{\protect\hyperlink{ref-mollalo2021}{26}--\protect\hyperlink{ref-bhuiyan2022}{29}},
+and that accounting for geographical differences in vaccination can help
+predict patterns of booster
+uptake\textsuperscript{\protect\hyperlink{ref-wood2022}{30}}.
 
 However, such analyses have been carried mostly in territories outside
 of Canada, where available studies have been focused in certain cities
-(such as Toronto\textsuperscript{\protect\hyperlink{ref-choi2021}{28}},
-or Montreal\textsuperscript{\protect\hyperlink{ref-mckinnon2021}{29}}),
+(such as Toronto\textsuperscript{\protect\hyperlink{ref-choi2021}{31}},
+or Montreal\textsuperscript{\protect\hyperlink{ref-mckinnon2021}{32}}),
 or have explored differences at a province-wide
-level\textsuperscript{\protect\hyperlink{ref-guay2022}{19}}. Thus, there
-is a need for studies that explore spatial differences in vaccination
-within the Canadian territory and that consequently, can help identify
-disparities that need to be addressed within specific areas in each
-province.
+level\textsuperscript{\protect\hyperlink{ref-guay2022}{18}}. Therefore,
+there is a need for studies that explore spatial differences in
+vaccination within the Canadian territory and that consequently, can
+help identify disparities that need to be addressed within specific
+areas in each province.
 
-This need is particularly important in the case of Ontario, the most
+This is particularly important in the case of Ontario, the most
 populated province in Canada. Between 2006 and 2019, Ontario provided
 healthcare access to its inhabitants using 14 intra-provincial divisions
-called the Local Health Integrated Networks (LHINs). However, this
-approach was complex, bureaucratic, and led to systemic
-inequalities\textsuperscript{\protect\hyperlink{ref-tsasis2012}{30}}. In
-late 2019, the 14 LHINs were phased out and the areas they covered were
+called the Local Health Integrated Networks (LHINs). However, due to is
+complexity, bureaucratic burden, and lack of collaborative work this
+approach resulted in disparities such as excessive expenditures and
+differences in mortality
+rates\textsuperscript{\protect\hyperlink{ref-tsasis2012}{33},\protect\hyperlink{ref-muratov2018}{34}}.
+In an effort to improve the healthcare system of the province, in late
+2019 the 14 LHINs were phased out and the areas they covered were
 incorporated into 6 Health Regions (North East, North West, Central,
-Toronto, West, and East) in an effort to improve the healthcare system
-of the province\textsuperscript{\protect\hyperlink{ref-dong2022}{31}}.
-Because the adoption of the Health Regions is relatively recent, there
-is an ongoing need to analyze the impact of this measure and identify
-disparities in health access that might exist across the Health Regions,
-which can be specially important in the context of the COVID-19
-pandemic.
+Toronto, West, and
+East)\textsuperscript{\protect\hyperlink{ref-dong2022}{35}}. Due to the
+relatively recent adoption of the Health Region model and its alignment
+with the onset of the COVID-19 pandemic, there is a need to analyze if
+there are ongoing disparities in health access under this approach that
+need to be addressed before they are exploited by a new disease or
+public health threat. In this regard, analyzing differences in
+vaccination uptake within the Health Regions and can help identify which
+socio-demographic groups are the most vulnerable and what areas of the
+province deserve special attention by decision-makers.
 
 Therefore, in this study we hypothesized that there were differences in
 vaccination uptake between the different Health Regions of Ontario
-during the last quarter of 2021. By including socio-economic factors in
-our analysis, we aimed at identifying in which groups these differences
-were significant in order to provide an assessment of the current state
-of healthcare access in Ontario.
+between October of 2021 and January of 2022. By including socio-economic
+factors in our analysis, we aimed at identifying in which groups these
+differences were significant in order to provide an assessment of the
+current state of healthcare access in Ontario.
 
 \hypertarget{methods}{%
 \section{Methods}\label{methods}}
@@ -419,20 +414,20 @@ factors and and months covered by the survey
 Health Region and Race and income), as previous studies have shown that
 socio-economic factors and their interactions are significant predictors
 of intent of vaccination and vaccination
-status\textsuperscript{\protect\hyperlink{ref-nguyen2022}{32}--\protect\hyperlink{ref-cnat2022a}{34}}.
+status\textsuperscript{\protect\hyperlink{ref-nguyen2022}{36}--\protect\hyperlink{ref-cnat2022a}{38}}.
 Because we identified differences in representativity between the survey
 data and the estimates from the Census, we used an iterative
 proportional fitting procedure
-(\emph{raking})\textsuperscript{\protect\hyperlink{ref-deming1940}{35}}
+(\emph{raking})\textsuperscript{\protect\hyperlink{ref-deming1940}{39}}
 to correct the data using data from the Census and Health Region
 population totals; and fitted the regression model to the uncorrected
 and corrected data. Details regarding the correction can be found in the
 Appendix. All analyses were conducted in R 4.2.2 using the packages
-\texttt{survey}\textsuperscript{\protect\hyperlink{ref-lumley2011}{36}},\texttt{tidyverse}\textsuperscript{\protect\hyperlink{ref-wickham2019}{37}},
-\texttt{quarto}\textsuperscript{\protect\hyperlink{ref-quarto}{38}},
-\texttt{modelsummary}\textsuperscript{\protect\hyperlink{ref-modelsummary}{39}},
+\texttt{survey}\textsuperscript{\protect\hyperlink{ref-lumley2011}{40}},\texttt{tidyverse}\textsuperscript{\protect\hyperlink{ref-wickham2019}{41}},
+\texttt{quarto}\textsuperscript{\protect\hyperlink{ref-quarto}{42}},
+\texttt{modelsummary}\textsuperscript{\protect\hyperlink{ref-modelsummary}{43}},
 and
-\texttt{gtsummary}\textsuperscript{\protect\hyperlink{ref-gtsummary}{40}}.
+\texttt{gtsummary}\textsuperscript{\protect\hyperlink{ref-gtsummary}{44}}.
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
@@ -507,14 +502,20 @@ and minorities not identified elsewhere according to the Census.\\
 \hypertarget{multivariate-regression}{%
 \subsection{Multivariate Regression}\label{multivariate-regression}}
 
-Figure~\ref{fig-model-uncorr} shows the estimates from the logistic
-regression model of vaccination status for the uncorrected data, whereas
-the estimated obtained from the corrected data appear in
-Figure~\ref{fig-model-corr}. The results show significantly lower odds
-of vaccination in individuals with a low household income and those that
-identified as part of equity-deserving groups when compared to
-individuals in high income brackets or that identified as White or
-Caucasian.
+Figure~\ref{fig-model-uncorr} presents the estimates (as odd ratios)
+from the logistic regression models for vaccination status using the
+socio-demographic factors collected by the survey, and their
+interactions. Generally speaking, lower odds of vaccination were
+identified in both cases in individuals characterized by a low household
+income, or that identified as part of equity-deserving groups. However,
+the magnitude of the estimates differed between the uncorrected and
+corrected models and more importantly, certain estimates were not deemed
+to be statistically-significant after the correction, in contrast to the
+estimates from the uncorrected model. Specifically, the corrected model
+showed no significant differences in vaccination odds between the age
+groups considered, the East Health Region, Latin American individuals
+with a household income under CAD 25,000, and Indigenous individuals
+living in the Central Health Region (Figure~\ref{fig-model-uncorr},B).
 
 \begin{figure}
 
@@ -527,39 +528,37 @@ Supplementary Figure A-3.}
 
 \end{figure}
 
-Specifically, significantly lower odds of vaccination were identified
-for those with a household income under CAD 25,000 (OR=0.37,
-CI={[}0.25,0.56{]}) and those with an income between CAD 25,000 and
-59,999 (OR=0.59, CI={[}0.39,0.88{]}). Additionally, individuals who
-identified as Arab/Middle Eastern, Black, or Latin American, or that
-belonged to ``Other'' racial groups, which included the Southeast Asian,
-Filipino, West Asian, and Minorities Not Identified Elsewhere groups
-according to the Census, had significantly lower odds of vaccination
-than those in the White/Caucasian group (ORs=0.31, 0.32, 0.27, 0.22, and
-CIs={[}0.14,0.68{]}, {[}0.17,0.60{]}, {[}0.11,0.66{]}, and
-{[}0.12,0.41{]}, respectively). Regarding Health Regions, individuals
-that reported living in the West Health Region (which includes the
-regions of Waterloo and Niagara, the counties of Wellington, Essex, and
-Lambton, and the cities of Hamilton, Haldimand, Brant, and Chatham-Kent)
-had significantly higher odds of vaccination than those in the Health
-Region of Toronto (OR=1.54, CI={[}1.04,2.29{]}).
+However, significantly lower odds of vaccination were identified in the
+corrected model for those with a household income under CAD 25,000
+(OR=0.37, CI={[}0.27,0.51{]}) and those with an income between CAD
+25,000 and 59,999 (OR=0.58, CI={[}0.42,0.81{]}). Additionally,
+individuals who identified as Arab/Middle Eastern, Black, Latin
+American, of mixed background, or that belonged to other racial groups
+(a category that included Southeast Asian, Filipino, West Asian, and
+minorities not identified elsewhere), had significantly lower odds of
+vaccination than those in the White/Caucasian group (ORs and CIs=0.28
+{[}0.16,0.51{]}, 0.27 {[}0.16,0.45{]}, 0.40 {[}0.21,0.76{]}, 0.53
+{[}0.30,0.92{]}, 0.23 {[}0.15,0.36{]}). Additionally, individuals that
+reported living in the Central and West Health Regions had higher odds
+of vaccination than those in the Health Region of Toronto (ORs and
+CIs=1.61 {[}1.10,2.34{]}, and 1.59 {[}1.16,2.19{]}, respectively).
 
 Interestingly, individuals in equity-deserving groups with a household
 income below CAD 25,000 had higher odds of vaccination (when compared to
 those with a household income above CAD 60,000). This held true in the
-case of Arab/Middle Eastern (OR=3.08, CI={[}1.27,7.47{]}), Black
-(OR=3.15, CI={[}1.43,6.92{]}), and Latin American (OR=2.81,
-CI={[}1.04,7.59{]}) individuals, as well as respondents who belonged to
-``Other'' minority groups (OR=4.63, CI={[}2.34,9.13{]}), who also had
-higher odds of vaccination in the CAD 25,000-59,999 income bracket
-(OR=6.96, CI={[}2.67,18.16{]}). Finally, significantly lower odds of
-vaccination were identified (when compared to the Toronto Health Region)
-for Black individuals in the Central Health Region, which comprises the
-region of York, counties of Dufferin and Simcoe and the district of
-Muskoka (OR=0.44, CI={[}0.19,0.99{]}), and in individuals that
-identified as part of other racial minorities or South Asian that lived
-in the West Health Region (ORs=0.41, and CIs={[}0.18,0.92{]} and
-{[}0.18,0.95{]}, respectively).
+case of Arab/Middle Eastern (OR=34, CI={[}1.70,6.79{]}), Black
+individuals (OR=3.81, CI={[}2.05, 7.09{]}), or those in other racial or
+ethnic groups (OR=3.19, CI={[}2.00,5.09{]}). Additionally, individuals
+with an income between CAD 25,000 and 59,999 in the Arab/Middle Eastern
+and other racial ethnic groups had higher odds of vaccination (ORs and
+CIs=6.96 {[}2.67,18.16{]}, and 3.5 {[}1.85,6.62{]}).
+
+Finally, significantly lower odds of vaccination were identified (when
+compared to the Toronto Health Region) for Black individuals in the
+Central Health Region (OR=0.39, CI={[}0.2,0.75{]}), Arab/Middle Eastern
+individuals in the East Health Region (OR=0.41 {[}0.17, 0.98{]}), and in
+the Indigenous and mixed groups in the West Health Region (ORs and
+CIs={[}0.31 {[}0.14, 0.7{]} and 0.38 {[}0.19, 0.76{]}, respectively).
 
 \begin{figure}
 
@@ -575,10 +574,20 @@ Supplementary Figure A-4.}
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
 
+West Health Region includes the regions of Waterloo and Niagara, the
+counties of Wellington, Essex, and Lambton, and the cities of Hamilton,
+Haldimand, Brant, and Chatham-Kent. The Central Health Region includes
+the regions of Peel and Halton, the regional municipality of York, the
+district of Muskoka, the counties of Dufferin, Simcoe, Grey, and the
+city of Etobicoke.
+
+had significantly higher odds of vaccination than those in the Health
+Region of Toronto
+
 The existence of healthcare disparities in Ontario motivated the recent
 change in the healthcare system of the province, which switched from the
 LHIN model to the Health Region model in late
-2019\textsuperscript{\protect\hyperlink{ref-tsasis2012}{30},\protect\hyperlink{ref-dong2022}{31}}.
+2019\textsuperscript{\protect\hyperlink{ref-tsasis2012}{33},\protect\hyperlink{ref-dong2022}{35}}.
 This change is relatively recent, and because of this, is likely that
 there are ongoing differences in healthcare access across the province.
 In this study we hypothesized that differences in COVID-19 vaccination
@@ -607,15 +616,15 @@ individuals that identified as White/Caucasian
 (Figure~\ref{fig-model-corr}). These results are consistent with other
 studies that have shown lower vaccination rates in individuals that
 identify as part of a racial minority, or that have a low household
-income\textsuperscript{\protect\hyperlink{ref-guay2022}{19}--\protect\hyperlink{ref-hussain2022}{21},\protect\hyperlink{ref-carter2022}{41}}.
+income\textsuperscript{\protect\hyperlink{ref-guay2022}{18}--\protect\hyperlink{ref-hussain2022}{20},\protect\hyperlink{ref-carter2022}{45}}.
 In the case of Ontario, a possible rationale for this difference is
 vaccine access, which has been identified as an important contributing
 factor of disparities in vaccination for equity-deserving
-groups\textsuperscript{\protect\hyperlink{ref-njoku2021}{42}}, and that
+groups\textsuperscript{\protect\hyperlink{ref-njoku2021}{46}}, and that
 occurred in Toronto earlier in 2021, where it has been shown that
 vaccination venues were scarce in low socio-economic areas that had the
 highest burden of COVID-19 at the
-time\textsuperscript{\protect\hyperlink{ref-bogoch2022}{2}}.
+time\textsuperscript{\protect\hyperlink{ref-bogoch2022}{7}}.
 
 It is interesting to note that although overall self-reported
 vaccination rates were found to be statistically significantly lower in
@@ -634,13 +643,13 @@ individuals in other racial minority groups with an income between CAD
 This result is likely due in part to the fact that individuals that
 belong racial minority groups tend to perform occupations that have been
 deemed as ``essential'' in the context of the
-pandemic\textsuperscript{\protect\hyperlink{ref-hawkins2020}{43},\protect\hyperlink{ref-ct2021}{44}},
+pandemic\textsuperscript{\protect\hyperlink{ref-hawkins2020}{47},\protect\hyperlink{ref-ct2021}{48}},
 which include grocery store workers, gas station, warehouse,
 distribution, and manufacturing workers, all being occupations for which
 an income within the significant brackets identified in the analysis is
 to be expected. In the case of Ontario, essential workers had priority
 for COVID-19
-vaccination\textsuperscript{\protect\hyperlink{ref-mishra2021}{45}},
+vaccination\textsuperscript{\protect\hyperlink{ref-mishra2021}{49}},
 which would explain the higher odds of vaccination for these
 individuals. In other words, it is possible that the type of occupation
 from individuals in equity-deserving groups played an important role in
@@ -665,18 +674,18 @@ Region decreased when compared to the other Health Regions
 
 According to Ontario Health, 13.2\% of the population in the West Health
 Region identifies as a visible minority, whereas 2.5\% identifies as
-Indigenous\textsuperscript{\protect\hyperlink{ref-ontariohealth}{46}}.
+Indigenous\textsuperscript{\protect\hyperlink{ref-ontariohealth}{50}}.
 Therefore, the estimated lower odds are likely to be explained from a
 socio-economic perspective. In fact, 50\% of the answers from this
 region in the survey came from the former LHINs of Hamilton Niagara
 Haldimand Brant, and Erie St.~Clair, both which are among the regions of
 Ontario with the highest proportion of their population (more than 20\%)
 in the lowest income
-quintile\textsuperscript{\protect\hyperlink{ref-buajitti2018}{47}}
+quintile\textsuperscript{\protect\hyperlink{ref-buajitti2018}{51}}
 (Supplementary Table A-7). Interestingly, a disproportionate number of
 COVID-19 cases and low vaccination rate (under 50\%) have been also
 reported in the South Asian community of
-Ontario\textsuperscript{\protect\hyperlink{ref-anand2022}{48}}. These
+Ontario\textsuperscript{\protect\hyperlink{ref-anand2022}{52}}. These
 results provide context to the observed differences in vaccination among
 the Health Regions of the province, showing which equity-deserving and
 socio-demographic groups in certain regions need to be prioritized in
@@ -703,10 +712,10 @@ these areas in the survey (Figure~\ref{fig-map}). Although low
 representation from these areas is based on the fact that these regions
 only account for 5\% of the total population of Ontario, these regions
 are the home to more than 100,000 individuals that identify as
-Indigenous\textsuperscript{\protect\hyperlink{ref-ontariohealth}{46}}, a
+Indigenous\textsuperscript{\protect\hyperlink{ref-ontariohealth}{50}}, a
 minority group that has historically suffered from reduced access to
 health care and
-discrimination\textsuperscript{\protect\hyperlink{ref-mosby2021}{17}}.
+discrimination\textsuperscript{\protect\hyperlink{ref-mosby2021}{22}}.
 Therefore, there is a need for additional studies that focus on these
 low-populated Health Regions in Ontario where disparities in vaccination
 might be significant and understudied.
@@ -717,14 +726,14 @@ particularly in the case of those 55 years of age and older, which in
 the survey had a vaccination rate of 72\%, against a rate of 88.4\%
 reported for the closest age bracket (50 years of age and older)
 reported by Public Health Ontario at the start of the period covered by
-the data\textsuperscript{\protect\hyperlink{ref-ontario-covid}{49}}.
+the data\textsuperscript{\protect\hyperlink{ref-ontario-covid}{53}}.
 However, we found good agreement between the estimates from the model
 and overall vaccination rates reported for Canada, which have been
 relatively higher when compared to other high income
-countries\textsuperscript{\protect\hyperlink{ref-dube2022}{50}}, and
+countries\textsuperscript{\protect\hyperlink{ref-dube2022}{54}}, and
 with vaccination uptake rates across different age groups presented in
 other
-studies\textsuperscript{\protect\hyperlink{ref-guay2022}{19},\protect\hyperlink{ref-macdonald2021}{51}}.
+studies\textsuperscript{\protect\hyperlink{ref-guay2022}{18},\protect\hyperlink{ref-macdonald2021}{55}}.
 
 In other words, although vaccination rates obtained from the survey were
 slightly lower than the provincial estimates, these values still
@@ -736,11 +745,11 @@ which closely match the vaccination rates from Public Health Ontario and
 which indicate that due to the relatively high coverage achieved in the
 population at that point, vaccination rates increased by around 3\%
 across all age groups during the three months covered by the
-survey\textsuperscript{\protect\hyperlink{ref-ontario-covid}{49}}. It is
+survey\textsuperscript{\protect\hyperlink{ref-ontario-covid}{53}}. It is
 also important to mention that to this day, differences in vaccination
 rates within the province continue. As of March of 2023 some regions
 still have less than 75\% vaccination
-rate\textsuperscript{\protect\hyperlink{ref-ontario-covid-map}{52}}, and
+rate\textsuperscript{\protect\hyperlink{ref-ontario-covid-map}{56}}, and
 although data for the period analyzed in this study is not
 publicly-available, it is likely that differences in vaccination rates
 were higher at the time, being partially captured by the survey.
@@ -749,7 +758,7 @@ The results in this study are based on self-reported data, where bias
 might be present. However, because in the context of COVID-19 it has
 been shown that good agreement exists between self-reported and
 documented vaccination
-status\textsuperscript{\protect\hyperlink{ref-stephenson2022}{53}}, we
+status\textsuperscript{\protect\hyperlink{ref-stephenson2022}{57}}, we
 believe that our data was able to provide a valid assessment of
 vaccination in the province. Finally, this study focused on first-dose
 vaccination status within a relatively short time window, and therefore
@@ -784,15 +793,48 @@ successful.
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{0}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-davis2022}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-WHO-Covid}{}}%
 \CSLLeftMargin{1. }%
+\CSLRightInline{{World Health Organization Coronavirus (COVID-19)
+Dashboard}. Accessed May 11, 2023. \url{https://covid19.who.int/}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-rigby2023}{}}%
+\CSLLeftMargin{2. }%
+\CSLRightInline{Rigby J, Satija B. {WHO} declares end to COVID global
+health emergency. \emph{Reuters}. Published online May 8, 2023. Accessed
+May 11, 2022.
+\url{https://www.reuters.com/business/healthcare-pharmaceuticals/covid-is-no-longer-global-health-emergency-who-2023-05-05/}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-un2023}{}}%
+\CSLLeftMargin{3. }%
+\CSLRightInline{Nations U. {WHO} chief declares end to COVID-19 as a
+global health emergency. \emph{UN News}. Published online May 5, 2023.
+Accessed May 11, 2022.
+\url{https://news.un.org/en/story/2023/05/1136367}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-mackey2021}{}}%
+\CSLLeftMargin{4. }%
+\CSLRightInline{Mackey K, Ayers CK, Kondo KK, et al. Racial and ethnic
+disparities in {COVID}-19{\textendash}related infections,
+hospitalizations, and deaths. \emph{Annals of Internal Medicine}.
+2021;174(3):362-373.
+doi:\href{https://doi.org/10.7326/m20-6306}{10.7326/m20-6306}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-thelancet2021}{}}%
+\CSLLeftMargin{5. }%
+\CSLRightInline{Microbe TL. {COVID}-19 vaccines: The pandemic will not
+end overnight. \emph{The Lancet Microbe}. 2021;2(1):e1.
+doi:\href{https://doi.org/10.1016/s2666-5247(20)30226-3}{10.1016/s2666-5247(20)30226-3}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-davis2022}{}}%
+\CSLLeftMargin{6. }%
 \CSLRightInline{Davis CJ, Golding M, McKay R. Efficacy information
 influences intention to take COVID-19 vaccine. \emph{British Journal of
 Health Psychology}. 2022;27(2):300-319.
 doi:\url{https://doi.org/10.1111/bjhp.12546}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-bogoch2022}{}}%
-\CSLLeftMargin{2. }%
+\CSLLeftMargin{7. }%
 \CSLRightInline{Bogoch II, Halani S. {COVID}-19 vaccines: A geographic,
 social and policy view of vaccination efforts in ontario, canada.
 \emph{Cambridge Journal of Regions, Economy and Society}. Published
@@ -800,35 +842,21 @@ online November 2022.
 doi:\href{https://doi.org/10.1093/cjres/rsac043}{10.1093/cjres/rsac043}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-tanne2020}{}}%
-\CSLLeftMargin{3. }%
+\CSLLeftMargin{8. }%
 \CSLRightInline{Tanne JH. Covid-19: {FDA} panel votes to authorise
 pfizer {BioNTech} vaccine. \emph{{BMJ}}. Published online December
 2020:m4799.
 doi:\href{https://doi.org/10.1136/bmj.m4799}{10.1136/bmj.m4799}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-thelancet2021}{}}%
-\CSLLeftMargin{4. }%
-\CSLRightInline{Microbe TL. {COVID}-19 vaccines: The pandemic will not
-end overnight. \emph{The Lancet Microbe}. 2021;2(1):e1.
-doi:\href{https://doi.org/10.1016/s2666-5247(20)30226-3}{10.1016/s2666-5247(20)30226-3}}
-
-\leavevmode\vadjust pre{\hypertarget{ref-watson2022}{}}%
-\CSLLeftMargin{5. }%
-\CSLRightInline{Watson OJ, Barnsley G, Toor J, Hogan AB, Winskill P,
-Ghani AC. Global impact of the first year of {COVID}-19 vaccination: A
-mathematical modelling study. \emph{The Lancet Infectious Diseases}.
-2022;22(9):1293-1302.
-doi:\href{https://doi.org/10.1016/s1473-3099(22)00320-6}{10.1016/s1473-3099(22)00320-6}}
-
 \leavevmode\vadjust pre{\hypertarget{ref-kayser2021}{}}%
-\CSLLeftMargin{6. }%
+\CSLLeftMargin{9. }%
 \CSLRightInline{Kayser V, Ramzan I. Vaccines and vaccination: History
 and emerging issues. \emph{Human Vaccines {\&}amp\(\mathsemicolon\)
 Immunotherapeutics}. 2021;17(12):5255-5268.
 doi:\href{https://doi.org/10.1080/21645515.2021.1977057}{10.1080/21645515.2021.1977057}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-li2021}{}}%
-\CSLLeftMargin{7. }%
+\CSLLeftMargin{10. }%
 \CSLRightInline{Li Q, Wang J, Tang Y, Lu H. Next-generation COVID-19
 vaccines: Opportunities for vaccine development and challenges in
 tackling COVID-19. \emph{Drug Discoveries \& Therapeutics}.
@@ -836,43 +864,36 @@ tackling COVID-19. \emph{Drug Discoveries \& Therapeutics}.
 doi:\href{https://doi.org/10.5582/ddt.2021.0105}{10.5582/ddt.2021.0105}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-gerretsen2021}{}}%
-\CSLLeftMargin{8. }%
+\CSLLeftMargin{11. }%
 \CSLRightInline{Gerretsen P, Kim J, Caravaggio F, et al. Individual
 determinants of {COVID}-19 vaccine hesitancy. Inbaraj LR, ed.
 \emph{{PLOS} {ONE}}. 2021;16(11):e0258462.
 doi:\href{https://doi.org/10.1371/journal.pone.0258462}{10.1371/journal.pone.0258462}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-tamey2022}{}}%
-\CSLLeftMargin{9. }%
+\CSLLeftMargin{12. }%
 \CSLRightInline{Yamey G, Garcia P, Hassan F, et al. It is not too late
 to achieve global covid-19 vaccine equity. \emph{{BMJ}}. Published
 online March 2022:e070650.
 doi:\href{https://doi.org/10.1136/bmj-2022-070650}{10.1136/bmj-2022-070650}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-nafilyan2021}{}}%
-\CSLLeftMargin{10. }%
+\CSLLeftMargin{13. }%
 \CSLRightInline{Nafilyan V, Dolby T, Razieh C, et al. Sociodemographic
 inequality in {COVID}-19 vaccination coverage among elderly adults in
 england: A national linked data study. \emph{{BMJ} Open}.
 2021;11(7):e053402.
 doi:\href{https://doi.org/10.1136/bmjopen-2021-053402}{10.1136/bmjopen-2021-053402}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-malik2020}{}}%
-\CSLLeftMargin{11. }%
-\CSLRightInline{Malik AA, McFadden SM, Elharake J, Omer SB. Determinants
-of {COVID}-19 vaccine acceptance in the {US}.
-\emph{{EClinicalMedicine}}. 2020;26:100495.
-doi:\href{https://doi.org/10.1016/j.eclinm.2020.100495}{10.1016/j.eclinm.2020.100495}}
-
 \leavevmode\vadjust pre{\hypertarget{ref-willis2021}{}}%
-\CSLLeftMargin{12. }%
+\CSLLeftMargin{14. }%
 \CSLRightInline{Willis DE, Andersen JA, Bryant-Moore K, et al.
 {COVID}-19 vaccine hesitancy: Race/ethnicity, trust, and fear.
 \emph{Clinical and Translational Science}. 2021;14(6):2200-2207.
 doi:\href{https://doi.org/10.1111/cts.13077}{10.1111/cts.13077}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-skirrow2022}{}}%
-\CSLLeftMargin{13. }%
+\CSLLeftMargin{15. }%
 \CSLRightInline{Skirrow H, Barnett S, Bell S, et al. Women's views on
 accepting {COVID}-19 vaccination during and after pregnancy, and for
 their babies: A multi-methods study in the {UK}. \emph{{BMC} Pregnancy
@@ -880,7 +901,7 @@ and Childbirth}. 2022;22(1).
 doi:\href{https://doi.org/10.1186/s12884-021-04321-3}{10.1186/s12884-021-04321-3}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-stoler2021}{}}%
-\CSLLeftMargin{14. }%
+\CSLLeftMargin{16. }%
 \CSLRightInline{Stoler J, Enders AM, Klofstad CA, Uscinski JE. The
 limits of medical trust in mitigating {COVID}-19 vaccine hesitancy among
 black americans. \emph{Journal of General Internal Medicine}.
@@ -888,39 +909,15 @@ black americans. \emph{Journal of General Internal Medicine}.
 doi:\href{https://doi.org/10.1007/s11606-021-06743-3}{10.1007/s11606-021-06743-3}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-khubchandani2021}{}}%
-\CSLLeftMargin{15. }%
+\CSLLeftMargin{17. }%
 \CSLRightInline{Khubchandani J, Sharma S, Price JH, Wiblishauser MJ,
 Sharma M, Webb FJ. {COVID}-19 vaccination hesitancy in the united
 states: A rapid national assessment. \emph{Journal of Community Health}.
 2021;46(2):270-277.
 doi:\href{https://doi.org/10.1007/s10900-020-00958-x}{10.1007/s10900-020-00958-x}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-bogart2021}{}}%
-\CSLLeftMargin{16. }%
-\CSLRightInline{Bogart LM, Ojikutu BO, Tyagi K, et al. {COVID}-19
-related medical mistrust, health impacts, and potential vaccine
-hesitancy among black americans living with {HIV}. \emph{{JAIDS} Journal
-of Acquired Immune Deficiency Syndromes}. 2021;86(2):200-207.
-doi:\href{https://doi.org/10.1097/qai.0000000000002570}{10.1097/qai.0000000000002570}}
-
-\leavevmode\vadjust pre{\hypertarget{ref-mosby2021}{}}%
-\CSLLeftMargin{17. }%
-\CSLRightInline{Mosby I, Swidrovich J. Medical experimentation and the
-roots of {COVID}-19 vaccine hesitancy among indigenous peoples in
-canada. \emph{Canadian Medical Association Journal}.
-2021;193(11):E381-E383.
-doi:\href{https://doi.org/10.1503/cmaj.210112}{10.1503/cmaj.210112}}
-
-\leavevmode\vadjust pre{\hypertarget{ref-freeman2020}{}}%
-\CSLLeftMargin{18. }%
-\CSLRightInline{Freeman D, Loe BS, Chadwick A, et al. {COVID}-19 vaccine
-hesitancy in the {UK}: The oxford coronavirus explanations, attitudes,
-and narratives survey (oceans) {II}. \emph{Psychological Medicine}.
-2020;52(14):3127-3141.
-doi:\href{https://doi.org/10.1017/s0033291720005188}{10.1017/s0033291720005188}}
-
 \leavevmode\vadjust pre{\hypertarget{ref-guay2022}{}}%
-\CSLLeftMargin{19. }%
+\CSLLeftMargin{18. }%
 \CSLRightInline{Guay M, Maquiling A, Chen R, et al. Measuring
 inequalities in {COVID}-19 vaccination uptake and intent: Results from
 the canadian community health survey 2021. \emph{{BMC} Public Health}.
@@ -928,7 +925,7 @@ the canadian community health survey 2021. \emph{{BMC} Public Health}.
 doi:\href{https://doi.org/10.1186/s12889-022-14090-z}{10.1186/s12889-022-14090-z}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-muhajarine2021}{}}%
-\CSLLeftMargin{20. }%
+\CSLLeftMargin{19. }%
 \CSLRightInline{Muhajarine N, Adeyinka DA, McCutcheon J, Green KL,
 Fahlman M, Kallio N. {COVID}-19 vaccine hesitancy and refusal and
 associated factors in an adult population in saskatchewan, canada:
@@ -937,15 +934,46 @@ Evidence from predictive modelling. Gesser-Edelsburg A, ed. \emph{{PLOS}
 doi:\href{https://doi.org/10.1371/journal.pone.0259513}{10.1371/journal.pone.0259513}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-hussain2022}{}}%
-\CSLLeftMargin{21. }%
+\CSLLeftMargin{20. }%
 \CSLRightInline{Hussain B, Latif A, Timmons S, Nkhoma K, Nellums LB.
 Overcoming {COVID}-19 vaccine hesitancy among ethnic minorities: A
 systematic review of {UK} studies. \emph{Vaccine}.
 2022;40(25):3413-3432.
 doi:\href{https://doi.org/10.1016/j.vaccine.2022.04.030}{10.1016/j.vaccine.2022.04.030}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-nguyen2021}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-bogart2021}{}}%
+\CSLLeftMargin{21. }%
+\CSLRightInline{Bogart LM, Ojikutu BO, Tyagi K, et al. {COVID}-19
+related medical mistrust, health impacts, and potential vaccine
+hesitancy among black americans living with {HIV}. \emph{{JAIDS} Journal
+of Acquired Immune Deficiency Syndromes}. 2021;86(2):200-207.
+doi:\href{https://doi.org/10.1097/qai.0000000000002570}{10.1097/qai.0000000000002570}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-mosby2021}{}}%
 \CSLLeftMargin{22. }%
+\CSLRightInline{Mosby I, Swidrovich J. Medical experimentation and the
+roots of {COVID}-19 vaccine hesitancy among indigenous peoples in
+canada. \emph{Canadian Medical Association Journal}.
+2021;193(11):E381-E383.
+doi:\href{https://doi.org/10.1503/cmaj.210112}{10.1503/cmaj.210112}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-freeman2020}{}}%
+\CSLLeftMargin{23. }%
+\CSLRightInline{Freeman D, Loe BS, Chadwick A, et al. {COVID}-19 vaccine
+hesitancy in the {UK}: The oxford coronavirus explanations, attitudes,
+and narratives survey (oceans) {II}. \emph{Psychological Medicine}.
+2020;52(14):3127-3141.
+doi:\href{https://doi.org/10.1017/s0033291720005188}{10.1017/s0033291720005188}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-malik2020}{}}%
+\CSLLeftMargin{24. }%
+\CSLRightInline{Malik AA, McFadden SM, Elharake J, Omer SB. Determinants
+of {COVID}-19 vaccine acceptance in the {US}.
+\emph{{EClinicalMedicine}}. 2020;26:100495.
+doi:\href{https://doi.org/10.1016/j.eclinm.2020.100495}{10.1016/j.eclinm.2020.100495}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-nguyen2021}{}}%
+\CSLLeftMargin{25. }%
 \CSLRightInline{Nguyen KH, Nguyen K, Corlin L, Allen JD, Chung M.
 Changes in {COVID}-19 vaccination receipt and intention to vaccinate by
 socioeconomic characteristics and geographic area, united states,
@@ -954,21 +982,21 @@ january 6 {\textendash} march 29, 2021. \emph{Annals of Medicine}.
 doi:\href{https://doi.org/10.1080/07853890.2021.1957998}{10.1080/07853890.2021.1957998}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-mollalo2021}{}}%
-\CSLLeftMargin{23. }%
+\CSLLeftMargin{26. }%
 \CSLRightInline{Mollalo A, Tatar M. Spatial modeling of {COVID}-19
 vaccine hesitancy in the united states. \emph{International Journal of
 Environmental Research and Public Health}. 2021;18(18):9488.
 doi:\href{https://doi.org/10.3390/ijerph18189488}{10.3390/ijerph18189488}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-yang2022}{}}%
-\CSLLeftMargin{24. }%
+\CSLLeftMargin{27. }%
 \CSLRightInline{Yang TC, Matthews SA, Sun F. Multiscale dimensions of
 spatial process: {COVID}-19 fully vaccinated rates in u.s. counties.
 \emph{American Journal of Preventive Medicine}. 2022;63(6):954-961.
 doi:\href{https://doi.org/10.1016/j.amepre.2022.06.006}{10.1016/j.amepre.2022.06.006}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-tiu2022}{}}%
-\CSLLeftMargin{25. }%
+\CSLLeftMargin{28. }%
 \CSLRightInline{Tiu A, Susswein Z, Merritt A, Bansal S. Characterizing
 the spatiotemporal heterogeneity of the {COVID}-19 vaccination
 landscape. \emph{American Journal of Epidemiology}.
@@ -976,28 +1004,28 @@ landscape. \emph{American Journal of Epidemiology}.
 doi:\href{https://doi.org/10.1093/aje/kwac080}{10.1093/aje/kwac080}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-bhuiyan2022}{}}%
-\CSLLeftMargin{26. }%
+\CSLLeftMargin{29. }%
 \CSLRightInline{Bhuiyan MAN, Davis TC, Arnold CL, et al. Using the
 social vulnerability index to assess {COVID}-19 vaccine uptake in
 louisiana. \emph{{GeoJournal}}. Published online December 2022.
 doi:\href{https://doi.org/10.1007/s10708-022-10802-5}{10.1007/s10708-022-10802-5}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-wood2022}{}}%
-\CSLLeftMargin{27. }%
+\CSLLeftMargin{30. }%
 \CSLRightInline{Wood AJ, MacKintosh AM, Stead M, Kao RR. Predicting
 future spatial patterns in {COVID}-19 booster vaccine uptake. Published
 online September 2022.
 doi:\href{https://doi.org/10.1101/2022.08.30.22279415}{10.1101/2022.08.30.22279415}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-choi2021}{}}%
-\CSLLeftMargin{28. }%
+\CSLLeftMargin{31. }%
 \CSLRightInline{Choi KH, Denice PA, Ramaj S. Vaccine and {COVID}-19
 trajectories. \emph{Socius: Sociological Research for a Dynamic World}.
 2021;7:237802312110529.
 doi:\href{https://doi.org/10.1177/23780231211052946}{10.1177/23780231211052946}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-mckinnon2021}{}}%
-\CSLLeftMargin{29. }%
+\CSLLeftMargin{32. }%
 \CSLRightInline{McKinnon B, Quach C, Dubé Ève, Nguyen CT, Zinszer K.
 Social inequalities in {COVID}-19 vaccine acceptance and uptake for
 children and adolescents in montreal, canada. \emph{Vaccine}.
@@ -1005,14 +1033,22 @@ children and adolescents in montreal, canada. \emph{Vaccine}.
 doi:\href{https://doi.org/10.1016/j.vaccine.2021.10.077}{10.1016/j.vaccine.2021.10.077}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-tsasis2012}{}}%
-\CSLLeftMargin{30. }%
+\CSLLeftMargin{33. }%
 \CSLRightInline{Tsasis P, Evans JM, Owen S. Reframing the challenges to
 integrated care: A complex-adaptive systems perspective.
 \emph{International Journal of Integrated Care}. 2012;12(5).
 doi:\href{https://doi.org/10.5334/ijic.843}{10.5334/ijic.843}}
 
+\leavevmode\vadjust pre{\hypertarget{ref-muratov2018}{}}%
+\CSLLeftMargin{34. }%
+\CSLRightInline{Muratov S, Lee J, Holbrook A, et al. Regional variation
+in healthcare spending and mortality among senior high-cost healthcare
+users in ontario, canada: A retrospective matched cohort study.
+\emph{{BMC} Geriatrics}. 2018;18(1).
+doi:\href{https://doi.org/10.1186/s12877-018-0952-7}{10.1186/s12877-018-0952-7}}
+
 \leavevmode\vadjust pre{\hypertarget{ref-dong2022}{}}%
-\CSLLeftMargin{31. }%
+\CSLLeftMargin{35. }%
 \CSLRightInline{Dong L, Sahu R, Black R. Governance in the
 transformational journey toward integrated healthcare: The case of
 ontario. \emph{Journal of Information Technology Teaching Cases}.
@@ -1020,7 +1056,7 @@ Published online December 2022:204388692211473.
 doi:\href{https://doi.org/10.1177/20438869221147313}{10.1177/20438869221147313}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-nguyen2022}{}}%
-\CSLLeftMargin{32. }%
+\CSLLeftMargin{36. }%
 \CSLRightInline{Nguyen KH, Anneser E, Toppo A, Allen JD, Parott JS,
 Corlin L. Disparities in national and state estimates of {COVID}-19
 vaccination receipt and intent to vaccinate by race/ethnicity, income,
@@ -1029,7 +1065,7 @@ and age group among adults~\(\geq\)~18~years, united states.
 doi:\href{https://doi.org/10.1016/j.vaccine.2021.11.040}{10.1016/j.vaccine.2021.11.040}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-shih2021}{}}%
-\CSLLeftMargin{33. }%
+\CSLLeftMargin{37. }%
 \CSLRightInline{Shih SF, Wagner AL, Masters NB, Prosser LA, Lu Y,
 Zikmund-Fisher BJ. Vaccine hesitancy and rejection of a vaccine for the
 novel coronavirus in the united states. \emph{Frontiers in Immunology}.
@@ -1037,7 +1073,7 @@ novel coronavirus in the united states. \emph{Frontiers in Immunology}.
 doi:\href{https://doi.org/10.3389/fimmu.2021.558270}{10.3389/fimmu.2021.558270}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-cnat2022a}{}}%
-\CSLLeftMargin{34. }%
+\CSLLeftMargin{38. }%
 \CSLRightInline{Cénat JM, Noorishad PG, Farahi SMMM, et al. Prevalence
 and factors related to {COVID}-19 vaccine hesitancy and unwillingness in
 canada: A systematic review and meta-analysis. \emph{Journal of Medical
@@ -1045,44 +1081,44 @@ Virology}. 2022;95(1).
 doi:\href{https://doi.org/10.1002/jmv.28156}{10.1002/jmv.28156}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-deming1940}{}}%
-\CSLLeftMargin{35. }%
+\CSLLeftMargin{39. }%
 \CSLRightInline{Deming WE, Stephan FF. On a least squares adjustment of
 a sampled frequency table when the expected marginal totals are known.
 \emph{The Annals of Mathematical Statistics}. 1940;11(4):427-444.
 doi:\href{https://doi.org/10.1214/aoms/1177731829}{10.1214/aoms/1177731829}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-lumley2011}{}}%
-\CSLLeftMargin{36. }%
+\CSLLeftMargin{40. }%
 \CSLRightInline{Lumley T. \emph{Complex Surveys}. John Wiley \& Sons;
 2011.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-wickham2019}{}}%
-\CSLLeftMargin{37. }%
+\CSLLeftMargin{41. }%
 \CSLRightInline{Wickham H, Averick M, Bryan J, et al. Welcome to the
 {tidyverse}. \emph{Journal of Open Source Software}. 2019;4(43):1686.
 doi:\href{https://doi.org/10.21105/joss.01686}{10.21105/joss.01686}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-quarto}{}}%
-\CSLLeftMargin{38. }%
+\CSLLeftMargin{42. }%
 \CSLRightInline{Allaire J. \emph{Quarto: R Interface to 'Quarto'
 Markdown Publishing System}.; 2022.
 \url{https://CRAN.R-project.org/package=quarto}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-modelsummary}{}}%
-\CSLLeftMargin{39. }%
+\CSLLeftMargin{43. }%
 \CSLRightInline{Arel-Bundock V. {modelsummary}: Data and model summaries
 in {R}. \emph{Journal of Statistical Software}. 2022;103(1):1-23.
 doi:\href{https://doi.org/10.18637/jss.v103.i01}{10.18637/jss.v103.i01}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-gtsummary}{}}%
-\CSLLeftMargin{40. }%
+\CSLLeftMargin{44. }%
 \CSLRightInline{Sjoberg DD, Whiting K, Curry M, Lavery JA, Larmarange J.
 Reproducible summary tables with the gtsummary package. \emph{{The R
 Journal}}. 2021;13:570-580.
 doi:\href{https://doi.org/10.32614/RJ-2021-053}{10.32614/RJ-2021-053}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-carter2022}{}}%
-\CSLLeftMargin{41. }%
+\CSLLeftMargin{45. }%
 \CSLRightInline{Carter MA, Biro S, Maier A, Shingler C, Guan TH.
 {COVID}-19 vaccine uptake in southeastern ontario, canada: Monitoring
 and addressing health inequities. \emph{Journal of Public Health
@@ -1090,7 +1126,7 @@ Management and Practice}. 2022;28(6):615-623.
 doi:\href{https://doi.org/10.1097/phh.0000000000001565}{10.1097/phh.0000000000001565}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-njoku2021}{}}%
-\CSLLeftMargin{42. }%
+\CSLLeftMargin{46. }%
 \CSLRightInline{Njoku A, Joseph M, Felix R. Changing the narrative:
 Structural barriers and racial and ethnic inequities in {COVID}-19
 vaccination. \emph{International Journal of Environmental Research and
@@ -1098,14 +1134,14 @@ Public Health}. 2021;18(18):9904.
 doi:\href{https://doi.org/10.3390/ijerph18189904}{10.3390/ijerph18189904}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-hawkins2020}{}}%
-\CSLLeftMargin{43. }%
+\CSLLeftMargin{47. }%
 \CSLRightInline{Hawkins D. Differential occupational risk for {COVID}-19
 and other infection exposure according to race and ethnicity.
 \emph{American Journal of Industrial Medicine}. 2020;63(9):817-820.
 doi:\href{https://doi.org/10.1002/ajim.23145}{10.1002/ajim.23145}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-ct2021}{}}%
-\CSLLeftMargin{44. }%
+\CSLLeftMargin{48. }%
 \CSLRightInline{Côté D, Durant S, MacEachen E, et al. A rapid scoping
 review of {COVID}-19 and vulnerable workers: Intersecting occupational
 and public health issues. \emph{American Journal of Industrial
@@ -1113,28 +1149,28 @@ Medicine}. 2021;64(7):551-566.
 doi:\href{https://doi.org/10.1002/ajim.23256}{10.1002/ajim.23256}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-mishra2021}{}}%
-\CSLLeftMargin{45. }%
+\CSLLeftMargin{49. }%
 \CSLRightInline{Mishra S, Stall NM, Ma H, et al. \emph{A Vaccination
 Strategy for Ontario {COVID}-19 Hotspots and Essential Workers}. Ontario
 {COVID}-19 Science Advisory Table; 2021.
 doi:\href{https://doi.org/10.47326/ocsat.2021.02.26.1.0}{10.47326/ocsat.2021.02.26.1.0}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-ontariohealth}{}}%
-\CSLLeftMargin{46. }%
+\CSLLeftMargin{50. }%
 \CSLRightInline{\emph{{A}nnual {B}usiness {P}lan 2022/23}. Ontario
 Health;
 \url{https://www.ontariohealth.ca/sites/ontariohealth/files/2022-05/OHBusinessPlan22_23.pdf};
 2022.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-buajitti2018}{}}%
-\CSLLeftMargin{47. }%
+\CSLLeftMargin{51. }%
 \CSLRightInline{Buajitti E, Watson T, Kornas K, Bornbaum C, Henry D,
 Rosella LC. Ontario atlas of adult mortality, 1992-2015: Trends in
 {L}ocal {H}ealth {I}ntegration {N}etworks. Published online 2018.
 \url{https://tspace.library.utoronto.ca/handle/1807/82836}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-anand2022}{}}%
-\CSLLeftMargin{48. }%
+\CSLLeftMargin{52. }%
 \CSLRightInline{Anand SS, Arnold C, Bangdiwala SI, et al. Seropositivity
 and risk factors for {SARS}-{CoV}-2 infection in a south asian community
 in ontario: A cross-sectional analysis of a prospective cohort study.
@@ -1142,32 +1178,32 @@ in ontario: A cross-sectional analysis of a prospective cohort study.
 doi:\href{https://doi.org/10.9778/cmajo.20220031}{10.9778/cmajo.20220031}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-ontario-covid}{}}%
-\CSLLeftMargin{49. }%
+\CSLLeftMargin{53. }%
 \CSLRightInline{{Ontario COVID-19 Data Tool}. Accessed February 27,
 2023.
 \url{https://www.publichealthontario.ca/en/data-and-analysis/infectious-disease/covid-19-data-surveillance/covid-19-data-tool?tab=vaccine}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-dube2022}{}}%
-\CSLLeftMargin{50. }%
+\CSLLeftMargin{54. }%
 \CSLRightInline{Dubé E, Gagnon D, MacDonald N. Between persuasion and
 compulsion: The case of {COVID}-19 vaccination in canada.
 \emph{Vaccine}. 2022;40(29):3923-3926.
 doi:\href{https://doi.org/10.1016/j.vaccine.2022.05.053}{10.1016/j.vaccine.2022.05.053}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-macdonald2021}{}}%
-\CSLLeftMargin{51. }%
+\CSLLeftMargin{55. }%
 \CSLRightInline{MacDonald NE, Comeau J, Dubé Ève, et al. Royal society
 of canada {COVID}-19 report: Enhancing {COVID}-19 vaccine acceptance in
 canada. Blais JM, ed. \emph{{FACETS}}. 2021;6:1184-1246.
 doi:\href{https://doi.org/10.1139/facets-2021-0037}{10.1139/facets-2021-0037}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-ontario-covid-map}{}}%
-\CSLLeftMargin{52. }%
+\CSLLeftMargin{56. }%
 \CSLRightInline{{Ontario COVID-19 Data Tool}. Accessed March 24, 2023.
 \url{https://www.publichealthontario.ca/en/data-and-analysis/infectious-disease/covid-19-data-surveillance/covid-19-data-tool?tab=maps}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-stephenson2022}{}}%
-\CSLLeftMargin{53. }%
+\CSLLeftMargin{57. }%
 \CSLRightInline{Stephenson M, Olson SM, Self WH, et al. Ascertainment of
 vaccination status by self-report versus source documentation: Impact on
 measuring {COVID}-19 vaccine effectiveness. \emph{Influenza and Other
