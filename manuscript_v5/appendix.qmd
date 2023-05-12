@@ -413,7 +413,7 @@ ggplot(data=race_hr,aes(x=Health_Region,group=Race,color=Race,fill=Race))+
 
 # Socio-economic Information from the Survey Data
 
-Tables A-7 and A-8 present summaries of information from the Fields survey (from the clean dataset analyzed in the main paper), showing responses by White/Caucasian individuals by Health Region and proportion of answers by LHIN in the West Health Region.
+Tables A-7 and A-8 present summaries of information from the Fields survey (from the dataset analyzed in the main paper), showing responses by White/Caucasian individuals by Health Region and proportion of answers by LHIN in the West Health Region.
 
 ```{r,health-region}
 #| label: tbl-hr-percentages
@@ -429,6 +429,18 @@ clean_data %>% subset (Race=="White/Caucasian")%>%
     sort = all_categorical() ~ "frequency"
   ) %>% bold_labels()%>%
   as_kable_extra(booktabs = TRUE,linesep="")
+
+
+  clean_data %>%
+  select(Race,Health_Region,first_dose) %>%
+  tbl_strata(
+    strata = Health_Region,
+    .tbl_fun =
+      ~ .x %>%
+        tbl_summary(by = first_dose, missing = "no",percent="row") %>%
+        add_n(),
+    .header = "**{strata}**, N = {n}"
+  )
 ```
 
 
@@ -439,6 +451,21 @@ clean_data %>% subset (Race=="White/Caucasian")%>%
 #| echo: false
 
 clean_data %>% subset (Health_Region=="West")%>%
+tbl_summary(include=c(LHIN),
+            sort = all_categorical() ~ "frequency") %>% 
+  bold_labels()%>%
+  as_kable_extra(booktabs = TRUE,linesep="")
+
+```
+
+
+```{r,Central-HR-LHIN}
+#| label: tbl-central-hr-lhin
+#| tbl-cap: "Proportion of answers by LHIN (Central Health Region)"
+#| message: false
+#| echo: false
+
+clean_data %>% subset (Health_Region=="Central")%>%
 tbl_summary(include=c(LHIN),
             sort = all_categorical() ~ "frequency") %>% 
   bold_labels()%>%

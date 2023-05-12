@@ -189,7 +189,7 @@ Ontario across Health Regions and socio-economic strata}}
 \renewcommand\thefigure{\thesection-\arabic{figure}}
 
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, enhanced, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, breakable, interior hidden, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, interior hidden, frame hidden, breakable, enhanced, sharp corners]}{\end{tcolorbox}}\fi
 
 \setstretch{2}
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
@@ -513,9 +513,9 @@ Health Region in the regression model.}
 Data}\label{socio-economic-information-from-the-survey-data}}
 
 Tables A-7 and A-8 present summaries of information from the Fields
-survey (from the clean dataset analyzed in the main paper), showing
-responses by White/Caucasian individuals by Health Region and proportion
-of answers by LHIN in the West Health Region.
+survey (from the dataset analyzed in the main paper), showing responses
+by White/Caucasian individuals by Health Region and proportion of
+answers by LHIN in the West Health Region.
 
 \hypertarget{tbl-hr-percentages}{}
 \begin{table}
@@ -551,6 +551,25 @@ Individuals by Health Region }\tabularnewline
 \hspace{1em}Waterloo Wellington & 400 (27\%)\\
 \hspace{1em}South West & 345 (24\%)\\
 \hspace{1em}Erie St. Clair & 245 (17\%)\\
+\bottomrule
+\multicolumn{2}{l}{\rule{0pt}{1em}\textsuperscript{1} n (\%)}\\
+\end{tabular}
+\end{table}
+
+\hypertarget{tbl-central-hr-lhin}{}
+\begin{table}
+\caption{\label{tbl-central-hr-lhin}Proportion of answers by LHIN (Central Health Region) }\tabularnewline
+
+\centering
+\begin{tabular}{lc}
+\toprule
+\textbf{Characteristic} & \textbf{N = 1,455}\\
+\midrule
+\textbf{LHIN} & \\
+\hspace{1em}Mississauga Halton & 495 (34\%)\\
+\hspace{1em}Central & 428 (29\%)\\
+\hspace{1em}Central West & 362 (25\%)\\
+\hspace{1em}North Simcoe Muskoka & 170 (12\%)\\
 \bottomrule
 \multicolumn{2}{l}{\rule{0pt}{1em}\textsuperscript{1} n (\%)}\\
 \end{tabular}

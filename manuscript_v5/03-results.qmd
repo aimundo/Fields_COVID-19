@@ -38,11 +38,35 @@ data_summary<-clean_data %>%
 
 data_summary
 
+# test<-a1_rake$variables
+# 
+# a1_rake %>%
+# tbl_svysummary(percent="row",
+#               by= first_dose,
+#               include=c(income_ord,
+#                         Age_group_ord,
+#                         Health_Region,
+#                         Month,
+#                         Race),
+#               label=list(Health_Region ~ "Health Region",
+#                  Age_group_ord ~ "Age Group",
+#                  income_ord="Income (CAD)")
+#   ) %>% add_p(test = everything () ~ "chisq.test")%>%
+#   bold_labels() %>%
+#   modify_table_styling(
+#     columns=label,
+#     rows=label=="Other",
+#     footnote="Southeast Asian, Filipino, West Asian, \nand minorities not identified elsewhere according to the Census."
+#   ) %>%
+#   modify_header(label = "**Variable**") %>%
+#   as_gt()
+# 
+
 ```
 
 ## Multivariate Regression
 
-@fig-model-uncorr presents the estimates (as odd ratios) from the logistic regression models for vaccination status using the socio-demographic factors collected by the survey, and their interactions. Generally speaking, lower odds of vaccination were identified in both cases in individuals characterized by a low household income, or that identified as part of equity-deserving groups. However, the magnitude of the estimates differed between the uncorrected and corrected models and more importantly, certain estimates were not deemed to be statistically-significant after the correction, in contrast to the estimates from the uncorrected model. Specifically, the corrected model showed no significant differences in vaccination odds between the age groups considered, the East Health Region, Latin American individuals with a household income under CAD 25,000, and Indigenous individuals living in the Central Health Region (@fig-model-uncorr,B).
+@fig-models presents the estimates (as odd ratios) from the logistic regression models for vaccination status using the socio-demographic factors collected by the survey, and their interactions. Generally speaking, lower odds of vaccination were identified in both cases in individuals characterized by a low household income, or that identified as part of equity-deserving groups. However, the magnitude of the estimates differed between the uncorrected and corrected models and more importantly, certain estimates were not deemed to be statistically-significant after the correction, in contrast to the estimates from the uncorrected model. Specifically, the corrected model showed no significant differences in vaccination odds between the age groups considered, the East Health Region, Latin American individuals with a household income under CAD 25,000, and Indigenous individuals living in the Central Health Region (@fig-models,B).
 <!-- \newpage -->
 
 <!-- \begin{sidewaysfigure} -->
@@ -54,7 +78,7 @@ data_summary
 #| fig-align: left
 #| fig-width: 15
 #| fig-height: 12
-#| label: fig-model-uncorr
+#| label: fig-models
 #| fig-cap: "Coefficient estimates and confidence intervals for the uncorrected model. Only statistically significant interaction terms are shown. Full interaction terms can be found in Supplementary Figure A-3."
 
 #call the script for raking
@@ -75,9 +99,10 @@ fig_mod<-uncorr_mod+corr_mod+plot_layout(guides = "collect")+plot_annotation(tag
           axis.text = element_text(size=12),
           strip.text=element_text(size=12))
 
-#print(fig_mod, vp=viewport(angle=90,height = 0.5,clip="off"))
 fig_mod
 
+#table for comparison
+#tbl_merge(tbls = list(tbl_regression(m0,exponentiate=TRUE),tbl_regression(m2,exponentiate = TRUE)))
 ```
 
 <!-- \end{sidewaysfigure} -->
