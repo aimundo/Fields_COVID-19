@@ -267,7 +267,7 @@ clean_data$Month <- as.factor(clean_data$Month)
 clean_data <- clean_data%>%
   subset(Month!="September")
 
-clean_data$Month <- fct_relevel(clean_data$Month,levels=c("October","November","December","January"))
+clean_data$Month <- fct_relevel(clean_data$Month,"October","November","December","January")
 
 
 # Remove certain Health REgions due to low number of obs: only 254 in North East

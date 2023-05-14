@@ -40,8 +40,9 @@ data_summary
 
 # test<-a1_rake$variables
 # 
-# a1_rake %>%
-# tbl_svysummary(percent="row",
+
+# ds2<- a1_rake %>%
+#   tbl_svysummary(percent="row",
 #               by= first_dose,
 #               include=c(income_ord,
 #                         Age_group_ord,
@@ -58,9 +59,31 @@ data_summary
 #     rows=label=="Other",
 #     footnote="Southeast Asian, Filipino, West Asian, \nand minorities not identified elsewhere according to the Census."
 #   ) %>%
-#   modify_header(label = "**Variable**") %>%
-#   as_gt()
+#   modify_header(label = "**Variable**")
 # 
+# ds1<- a1 %>%
+#   tbl_svysummary(percent="row",
+#               by= first_dose,
+#               include=c(income_ord,
+#                         Age_group_ord,
+#                         Health_Region,
+#                         Month,
+#                         Race),
+#               label=list(Health_Region ~ "Health Region",
+#                  Age_group_ord ~ "Age Group",
+#                  income_ord="Income (CAD)")
+#   ) %>% add_p(test = everything () ~ "chisq.test")%>%
+#   bold_labels() %>%
+#   modify_table_styling(
+#     columns=label,
+#     rows=label=="Other",
+#     footnote="Southeast Asian, Filipino, West Asian, \nand minorities not identified elsewhere according to the Census."
+#   ) %>%
+#   modify_header(label = "**Variable**") 
+# 
+# 
+# tbl_merge(tbls=list(ds1,ds2)) %>%
+#   as_gt()
 
 ```
 
@@ -77,7 +100,7 @@ data_summary
 #| echo: false
 #| fig-align: left
 #| fig-width: 15
-#| fig-height: 12
+#| fig-height: 14
 #| label: fig-models
 #| fig-cap: "Coefficient estimates and confidence intervals for the uncorrected model. Only statistically significant interaction terms are shown. Full interaction terms can be found in Supplementary Figure A-3."
 
@@ -94,10 +117,10 @@ source(here("code","uncorr_model.R"))
 source(here("code","corr_model.R"))
 
 fig_mod<-uncorr_mod+corr_mod+plot_layout(guides = "collect")+plot_annotation(tag_levels = "A")&
-    theme(plot.tag = element_text(size=18,face='bold'),
+    theme(plot.tag = element_text(size=22,face='bold'),
           #axis.title = element_text(size=11),
-          axis.text = element_text(size=12),
-          strip.text=element_text(size=12))
+          axis.text = element_text(size=18),
+          strip.text=element_text(size=18))
 
 fig_mod
 
@@ -124,8 +147,8 @@ Finally, significantly lower odds of vaccination were identified (when compared 
 #| fig-cap: "Coefficient estimates and confidence intervals for the corrected model. Only statistically significant interaction terms are shown. Full interaction terms can be found in Supplementary Figure A-4."
 
 #call script with code for figure
-source(here("code","corr_model.R"))
+#source(here("code","corr_model.R"))
 
 #call figure
-corr_mod
+#corr_mod
 ```
