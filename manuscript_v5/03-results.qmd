@@ -38,53 +38,6 @@ data_summary<-clean_data %>%
 
 data_summary
 
-# test<-a1_rake$variables
-# 
-
-# ds2<- a1_rake %>%
-#   tbl_svysummary(percent="row",
-#               by= first_dose,
-#               include=c(income_ord,
-#                         Age_group_ord,
-#                         Health_Region,
-#                         Month,
-#                         Race),
-#               label=list(Health_Region ~ "Health Region",
-#                  Age_group_ord ~ "Age Group",
-#                  income_ord="Income (CAD)")
-#   ) %>% add_p(test = everything () ~ "chisq.test")%>%
-#   bold_labels() %>%
-#   modify_table_styling(
-#     columns=label,
-#     rows=label=="Other",
-#     footnote="Southeast Asian, Filipino, West Asian, \nand minorities not identified elsewhere according to the Census."
-#   ) %>%
-#   modify_header(label = "**Variable**")
-# 
-# ds1<- a1 %>%
-#   tbl_svysummary(percent="row",
-#               by= first_dose,
-#               include=c(income_ord,
-#                         Age_group_ord,
-#                         Health_Region,
-#                         Month,
-#                         Race),
-#               label=list(Health_Region ~ "Health Region",
-#                  Age_group_ord ~ "Age Group",
-#                  income_ord="Income (CAD)")
-#   ) %>% add_p(test = everything () ~ "chisq.test")%>%
-#   bold_labels() %>%
-#   modify_table_styling(
-#     columns=label,
-#     rows=label=="Other",
-#     footnote="Southeast Asian, Filipino, West Asian, \nand minorities not identified elsewhere according to the Census."
-#   ) %>%
-#   modify_header(label = "**Variable**") 
-# 
-# 
-# tbl_merge(tbls=list(ds1,ds2)) %>%
-#   as_gt()
-
 ```
 
 ## Multivariate Regression
@@ -125,7 +78,52 @@ fig_mod<-uncorr_mod+corr_mod+plot_layout(guides = "collect")+plot_annotation(tag
 fig_mod
 
 #table for comparison
-#tbl_merge(tbls = list(tbl_regression(m0,exponentiate=TRUE),tbl_regression(m2,exponentiate = TRUE)))
+# tbl_merge(tbls = list(tbl_regression(m0,exponentiate=TRUE),tbl_regression(m2,exponentiate = TRUE)))
+# 
+#  ds2<- a1_rake %>%
+#    tbl_svysummary(percent="row",
+#               by= first_dose,
+#               include=c(income_ord,
+#                          Age_group_ord,
+#                          Health_Region,
+#                          Month,
+#                         Race),
+#               label=list(Health_Region ~ "Health Region",                  Age_group_ord ~ "Age Group",
+#                   income_ord="Income (CAD)")
+#    ) %>% add_p(test = everything () ~ "chisq.test")%>%
+#   bold_labels() %>%
+#   modify_table_styling(
+#     columns=label,
+#      rows=label=="Other",
+#      footnote="Southeast Asian, Filipino, West Asian, \nand minorities not identified elsewhere according to the Census."
+#    ) %>%
+#   modify_header(label = "**Variable**")
+# 
+#  ds1<- a1 %>%
+#   tbl_svysummary(percent="row",
+#                by= first_dose,
+#               include=c(income_ord,
+#                          Age_group_ord,
+#                          Health_Region,
+#                          Month,
+#                          Race),
+#                label=list(Health_Region ~ "Health Region",
+#                   Age_group_ord ~ "Age Group",
+#                   income_ord="Income (CAD)")
+#   ) %>% add_p(test = everything () ~ "chisq.test")%>%
+#    bold_labels() %>%
+#    modify_table_styling(
+#      columns=label,
+#     rows=label=="Other",
+#      footnote="Southeast Asian, Filipino, West Asian, \nand minorities not identified elsewhere according to the Census."
+#    ) %>%
+#    modify_header(label = "**Variable**")
+# 
+# 
+#  tbl_merge(tbls=list(ds1,ds2)) %>%
+#    as_gt()
+# 
+
 ```
 
 <!-- \end{sidewaysfigure} -->

@@ -446,4 +446,41 @@ a1<-tbl_regression(m0,exponentiate=TRUE) %>%
 a2<-tbl_regression(m2,exponentiate = TRUE) %>% 
   bold_labels()
 
-tbl_merge(tbls=list(a1,a2), tab_spanner = c("Uncorrected","Corrected")) 
+tbl_merge(tbls=list(a1,a2), tab_spanner = c("Uncorrected","Corrected"))
+
+
+clean_data %>%
+  subset(Health_Region=="West" & Race=="Mixed")%>%
+  droplevels()%>%
+  tbl_summary(by= first_dose,
+              percent = "row",
+                 missing="no",
+                 sort = list(everything() ~ "frequency"),
+              include=c(income_ord,
+                        Age_group_ord,
+                        Health_Region,
+                        Month,
+                        Race,
+                        LHIN,
+                        city),
+              label=list(Health_Region ~ "Health Region",
+                         Age_group_ord ~ "Age Group",
+                         income_ord="Income (CAD)")
+  ) 
+
+a1_rake %>%
+  subset(Health_Region=="West" & Race=="Indigenous")%>%
+  tbl_svysummary(by= first_dose,
+              #missing="no",
+              sort = list(everything() ~ "frequency"),
+              include=c(income_ord,
+                        Age_group_ord,
+                        Health_Region,
+                        Month,
+                        Race,
+                        LHIN,
+                        city),
+              label=list(Health_Region ~ "Health Region",
+                         Age_group_ord ~ "Age Group",
+                         income_ord="Income (CAD)")
+  ) 
