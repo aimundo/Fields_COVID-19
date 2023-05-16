@@ -450,7 +450,7 @@ tbl_merge(tbls=list(a1,a2), tab_spanner = c("Uncorrected","Corrected"))
 
 
 clean_data %>%
-  subset(Health_Region=="West" & Race=="Mixed")%>%
+  subset(Health_Region=="Central" & Race=="Black")%>%
   droplevels()%>%
   tbl_summary(by= first_dose,
               percent = "row",
