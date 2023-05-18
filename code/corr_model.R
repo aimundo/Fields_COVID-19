@@ -16,7 +16,13 @@ mplot2$factor<-c(rep("Age",2),
 #order factors for plot
 #mplot2$term_ord <- factor(mplot2$term,ordered=TRUE,levels=mplot2$term)
 
-mplot2$factor <- factor(mplot2$factor,ordered=TRUE,levels=c("Age","Month","Income","Race/Ethnicity","Health Region","Income and\nRace/Ethnicity","Race/Ethnicity\nand\nHealth Region"))
+mplot2$factor <- factor(mplot2$factor,ordered=TRUE,levels=c("Age",
+                                                            "Month",
+                                                            "Income",
+                                                            "Race/Ethnicity",
+                                                            "Health Region",
+                                                            "Income and\nRace/Ethnicity",
+                                                            "Race/Ethnicity\nand\nHealth Region"))
 
 # remove non-significant interaction factors
 

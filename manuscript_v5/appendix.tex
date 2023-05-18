@@ -93,7 +93,6 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
-\usepackage{amsmath}
 \usepackage{caption}
 \usepackage{placeins}
 \KOMAoption{captions}{tableheading}
@@ -189,7 +188,7 @@ Ontario across Health Regions and socio-economic strata}}
 \renewcommand\thefigure{\thesection-\arabic{figure}}
 
 
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, interior hidden, frame hidden, breakable, enhanced, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, interior hidden, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, enhanced, breakable, frame hidden]}{\end{tcolorbox}}\fi
 
 \setstretch{2}
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
@@ -556,22 +555,71 @@ Individuals by Health Region }\tabularnewline
 \end{tabular}
 \end{table}
 
-\hypertarget{tbl-central-hr-lhin}{}
+\hypertarget{tbl-west-region-indigenous}{}
 \begin{table}
-\caption{\label{tbl-central-hr-lhin}Proportion of answers by LHIN (Central Health Region) }\tabularnewline
+\caption{\label{tbl-west-region-indigenous}Proportion of answers by LHIN in the West Health Region for Indigenous
+Individuals }\tabularnewline
 
 \centering
-\begin{tabular}{lc}
+\begin{tabular}{lcc}
 \toprule
-\textbf{Characteristic} & \textbf{N = 1,455}\\
+\textbf{Characteristic} & \textbf{no}, N = 32 & \textbf{yes}, N = 42\\
 \midrule
-\textbf{LHIN} & \\
-\hspace{1em}Mississauga Halton & 495 (34\%)\\
-\hspace{1em}Central & 428 (29\%)\\
-\hspace{1em}Central West & 362 (25\%)\\
-\hspace{1em}North Simcoe Muskoka & 170 (12\%)\\
+\textbf{LHIN} &  & \\
+\hspace{1em}Hamilton Niagara Haldimand Brant (Hnhb) & 19 (59\%) & 9 (21\%)\\
+\hspace{1em}South West & 4 (13\%) & 18 (43\%)\\
+\hspace{1em}Waterloo Wellington & 7 (22\%) & 11 (26\%)\\
+\hspace{1em}Erie St. Clair & 2 (6.3\%) & 4 (9.5\%)\\
 \bottomrule
-\multicolumn{2}{l}{\rule{0pt}{1em}\textsuperscript{1} n (\%)}\\
+\multicolumn{3}{l}{\rule{0pt}{1em}\textsuperscript{1} n (\%)}\\
+\end{tabular}
+\end{table}
+
+\hypertarget{tbl-west-region-mixed}{}
+\begin{table}
+\caption{\label{tbl-west-region-mixed}Proportion of answers by LHIN in the West Health Region for Mixed
+Individuals }\tabularnewline
+
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Characteristic} & \textbf{no}, N = 41 & \textbf{yes}, N = 76\\
+\midrule
+\textbf{LHIN} &  & \\
+\hspace{1em}Waterloo Wellington & 14 (34\%) & 20 (26\%)\\
+\hspace{1em}Hamilton Niagara Haldimand Brant (Hnhb) & 10 (24\%) & 22 (29\%)\\
+\hspace{1em}South West & 11 (27\%) & 20 (26\%)\\
+\hspace{1em}Erie St. Clair & 6 (15\%) & 14 (18\%)\\
+\bottomrule
+\multicolumn{3}{l}{\rule{0pt}{1em}\textsuperscript{1} n (\%)}\\
+\end{tabular}
+\end{table}
+
+\hypertarget{tbl-East-region-Arab}{}
+\begin{table}
+\caption{\label{tbl-East-region-Arab}Proportion of answers by LHIN in the East Health Region for Arab/Middle
+Eastern Individuals }\tabularnewline
+
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Characteristic} & \textbf{no}, N = 19,716 & \textbf{yes}, N = 23,499\\
+\midrule
+\textbf{LHIN} &  & \\
+\hspace{1em}Toronto \hspace{1em}Central & 0 (0\%) & 0 (0\%)\\
+\hspace{1em}Champlain & 13,173 (67\%) & 19,825 (84\%)\\
+\hspace{1em}Mississauga Halton & 0 (0\%) & 0 (0\%)\\
+\hspace{1em}Hamilton Niagara Haldimand Brant (Hnhb) & 0 (0\%) & 0 (0\%)\\
+Central & 0 (0\%) & 0 (0\%)\\
+\hspace{1em}Waterloo Wellington & 0 (0\%) & 0 (0\%)\\
+\hspace{1em}Central West & 0 (0\%) & 0 (0\%)\\
+\hspace{1em}South West & 0 (0\%) & 0 (0\%)\\
+\hspace{1em}Central East & 6,543 (33\%) & 3,674 (16\%)\\
+\hspace{1em}Erie St. Clair & 0 (0\%) & 0 (0\%)\\
+\hspace{1em}North Simcoe Muskoka & 0 (0\%) & 0 (0\%)\\
+\hspace{1em}South East & 0 (0\%) & 0 (0\%)\\
+\bottomrule
+\multicolumn{3}{l}{\rule{0pt}{1em}\textsuperscript{1} n (\%)}\\
 \end{tabular}
 \end{table}
 

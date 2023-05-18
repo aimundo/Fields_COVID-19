@@ -200,7 +200,7 @@ Ontario across Health Regions and socio-economic strata}}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, boxrule=0pt, sharp corners, interior hidden, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, sharp corners, interior hidden, boxrule=0pt, breakable, frame hidden, enhanced]}{\end{tcolorbox}}\fi
 
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
 Montreal, Montréal, Canada\\
@@ -371,24 +371,22 @@ participants (Table~\ref{tbl-descriptive-stats}), their location
 access to the survey, and asked information on vaccination status by
 using the question ``Have you received the first dose of the COVID
 vaccine?'', with possible answers ``yes'' and ``no''. The original
-dataset contained 39,029 observations (where each observation
-corresponded to a unique respondent).
+dataset contained 39,029 observations.
 
-Preliminary analyses of the data included the removal of outliers
-(\textbf{should we still do this? it's only 19 observations with income
-\textgreater110k and household of 1, but we are not even using such
-income bracket in the analysis because we re-grouped the data, and the
-household size variable has 90\% missing rate}), of observations where
-respondents did not provide answers in all the covariates of interest,
-matching the city of each observations with its corresponding LHIN and
-Health Region, and removing observations from areas with low
-representation (107 observations corresponding to the North West and
-North East Health Regions). After all the preliminary analyses indicated
-above, the total number of observations used for analysis was 3,549
-which included the East, Central, Toronto, and West Health Regions
-covering the period between October 1st,2021 and December 12th, 2021.
-The original dataset, clean dataset, and details on the data cleaning
-process are described in detail in the
+By design, the survey allowed respondents to exit at any time and
+deployed the questions randomly, which resulted in \(\approx\) 84\% of
+the observations having multiple missing answers or being incomplete.
+Therefore, we selected 6,343 observations that were labeled as
+``complete'' and that had complete answers for all covariates considered
+in our analysis. Later, we matched the city of each observation with its
+corresponding LHIN and Health Region, and removed observations from
+areas with low representation (107 observations corresponding to the
+North West and North East Health Regions). After all the preliminary
+analyses indicated above, the total number of observations used for
+analysis was 6,236 which included the East, Central, Toronto, and West
+Health Regions covering the period between October 1st,2021 and January
+17, 2022. The original dataset, clean dataset, and details on the data
+cleaning process are described in detail in the
 \href{https://github.com/aimundo/Fields_COVID-19/}{GitHub repository}
 for this paper.
 
@@ -443,7 +441,7 @@ and
 
 Table~\ref{tbl-descriptive-stats} shows the characteristics of the data
 from the Fields COVID-19 survey used for analysis. The sample contained
-\textbf{6,236} observations, from which 24.8\% (1,547) corresponded to
+6,236 observations, from which 24.8\% (1,547) corresponded to
 individuals that reported not having received the first dose of the
 vaccine. Vaccination rates ranged between 71-79\% across household
 income brackets, age groups, Health Regions, and the months considered
