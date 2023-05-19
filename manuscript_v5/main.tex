@@ -200,7 +200,7 @@ Ontario across Health Regions and socio-economic strata}}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, enhanced, interior hidden, breakable, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, breakable, interior hidden, sharp corners, enhanced, frame hidden]}{\end{tcolorbox}}\fi
 
 \textsuperscript{1} Centre de Recherches Mathématiques, University of
 Montreal, Montréal, Canada\\
@@ -380,31 +380,32 @@ Therefore, we selected 6,343 observations that were labeled as
 ``complete'' in the dataset and that had answers for all covariates
 considered in our analysis. Later, we matched the city of each
 observation with its corresponding LHIN and Health Region, and removed
-observations from areas with low representation (107 observations
-corresponding to the North West and North East Health Regions). After
-all the preliminary analyses indicated above, the total number of
-observations used for analysis was 6,236 and included the East, Central,
-Toronto, and West Health Regions covering the period between October
-1st,2021 and January 17, 2022. The original dataset, clean dataset, and
-details on the data cleaning process are described in detail in the
-\href{https://github.com/aimundo/Fields_COVID-19/}{GitHub repository}
-for this paper.
+observations from areas with low representation (254 observations
+corresponding to the North West and North East Health Regions). Finally,
+we removed outliers from the data (19 observations of individuals with
+household size of 1 and income above 110,000 CAD in the original
+dataset). After all the preliminary analyses indicated above, the total
+number of observations used for analysis was 6,236 and included the
+East, Central, Toronto, and West Health Regions covering the period
+between October 1st,2021 and January 17, 2022. The original dataset,
+clean dataset, and details on the data cleaning process are described in
+detail in the \href{https://github.com/aimundo/Fields_COVID-19/}{GitHub
+repository} for this paper.
 
 \begin{figure}
 
-{\centering \includegraphics{../data/map_data/map.pdf}
+{\centering \includegraphics[width=\textwidth,height=1\textheight]{../data/map_data/map_cairo.pdf}
 
 }
 
 \caption{\label{fig-map}Geographic representation of the data collected
 by the \emph{Survey of COVID-19 related Behaviours and Attitudes},
-collected by the Fields Institute in Ontario. The municipalities
-(cities) from where survey participants provided answers (in the clean
-dataset) appear as points. The Health six Regions are color-coded.
-Internal boundaries within certain Health Regions indicate areas that
-belonged to the Local Integrated Health Networks (LHINs), the geographic
-areas for healthcare in Ontario before the adoption of the Health
-Regions.}
+collected by the Fields Institute in Ontario. The municipalities from
+where survey participants provided answers appear as points. The Health
+six Regions are color-coded. Internal boundaries within certain Health
+Regions indicate areas that belonged to the Local Integrated Health
+Networks (LHINs), the geographic areas for healthcare in Ontario before
+the adoption of the Health Regions.}
 
 \end{figure}
 
@@ -676,16 +677,17 @@ area\textsuperscript{\protect\hyperlink{ref-ontariohealth}{62}}. Lack of
 access to personalized healthcare affects individuals that may mistrust
 the traditional healthcare system due to systemic racism or oppression,
 which is known to be the case for Indigenous and Black individuals in
-Canada. Indeed, these rationales have been associated to observed lower
+Canada, as these rationales have been associated to observed lower
 vaccination rates among these
 groups\textsuperscript{\protect\hyperlink{ref-smylie2022}{63},\protect\hyperlink{ref-eissa2021}{64}}.
 Taken together, this suggests that healthcare disparities specific to
 these equity-deserving groups in certain parts of the province impacted
-vaccination uptake, and highlights the need of policy-makers to invest
-in resources and infrastructure focused on personalized care, such as
-community-led advisors or race-concordant health professionals that have
-been shown to improve trust in vaccination in marginalized
-individuals\textsuperscript{\protect\hyperlink{ref-schafferderoo2020}{65}}.
+vaccination uptake, and highlights the need of investments in the Health
+Regions focused on resources, infrastructure, and specially personnel
+that can deliver personalized care to marginalized communities, as it
+has been shown that such efforts have improved trust in vaccination in
+visible
+minorities\textsuperscript{\protect\hyperlink{ref-schafferderoo2020}{65}}.
 
 There are some limitations to the present study. First, the data
 collection design, which allowed respondents to withdraw from the survey
@@ -745,31 +747,44 @@ disparities in health access.
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
 
-The implementation of the Health Region model in Ontario aimed at
-reducing the bureaucratic complexity and disparities in health
-identified under the LHINs. However, the complex socio-demographic
-landscape of the province poses multiple challenges to the aim of the
-Health Region model of improving healthcare for all Ontarians. In
-particular, because the Health Regions cover larger geographical areas
-with various degrees of rurality and representation of equity-deserving
-groups, there is a need for decision-makers to consider that the
-evidence collected during the COVID-19 indicates a lack of
-infrastructure that can support personalized care for marginalized
-individuals
+The implementation of the Health Regions in Ontario aimed at reducing
+the bureaucratic complexity and health disparities identified under the
+LHIN model. However, there are currently multiple challenges that need
+to be addressed to ensure that the new model is able to improve
+healthcare for the inhabitants of the province. First, the fact that
+each Health Region now covers a large geographical area that was served
+by multiple LHINs in the past creates a complex socio-demographic
+landscape that is different in each case due the different levels of
+rurality and representation of equity-deserving groups that are now
+within each Health Region. So far, the evidence collected during the
+COVID-19 pandemic indicates that differences in vaccination uptake are
+associated to a lack of infrastructure and resources that can adequately
+support personalized care to marginalized individuals. In the near
+future, health decision-makers will need to consider the implementation
+of policies that are focused on addressing this problematic.
 
-This study explored differences in COVID-19 vaccination across the
-province of Ontario during the last quarter of 2021 taking into
-consideration socio-economic factors, such as income and race, their
-interactions, and the Health Regions within the province. Our results
-show that during the period analyzed, differences in vaccination uptake
-existed across multiple equity-deserving groups in the province, and
-that these differences were significant in two of the Health Regions
-analyzed. It is important that future public health policies in Ontario
-take into consideration how to adequately reach individuals from
-equity-deserving groups that might live in areas of the province where
-access to healthcare might be difficult. Only in this way the goal of
-the Health Region model, which aims at reducing disparities, will become
-successful.
+Moreover, the recent nature in the adaption of the Health Region poses a
+challenge for researchers in the acquisition of data and information
+that can be used to analyze the performance of the new system. From one
+side, the Health Regions have not been incorporated as part of Census
+data (LHINs were considered before in the Census), and this impact the
+amount and level of detail of available information. Currently, the only
+demographic information available for each Health Region is provided by
+Ontario Health (the agency that administers the Health Regions) but this
+information only provides general estimates that do not allow for
+detailed analyses on performance indicators (such as hospitalizations,
+readmissions, and trends in chronic disease incidence) between the
+regions. Without open information, it is impossible to assess the level
+of success of the Health Region model, which is critical considering
+that such evaluations have not been part of the Annual Reports of the
+Auditor General of Ontario, which in the past analyzed the performance
+of the LHINs and pointed to ongoing needs and failures in the system.
+
+The Health Region model will only by successful if it ensures that
+healthcare improves across all segments of the population of Ontario,
+particularly in the event of a future public health emergency or
+pandemic where so far, based on the experience of the COVID-19 pandemic,
+equity-deserving individuals have been disproportionately affected.
 
 \hypertarget{references}{%
 \section{References}\label{references}}

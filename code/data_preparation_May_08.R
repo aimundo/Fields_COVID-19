@@ -16,13 +16,13 @@ rawdata<-read.csv(here("data","Fields_data.csv"),na.strings = c(""))
 rawdata <- rawdata %>%
   select(age,age_group,q09_hh_income,q16_race,city,q02_first_dose,complete,time_date_code,q13_hh_size)
 
-miss_raw<-miss_var_summary(rawdata, show_pct = TRUE)
+#miss_raw<-miss_var_summary(rawdata, show_pct = TRUE)
 
 ## summary of missing data in the raw dataset
 
-miss_raw %>%
-  kableExtra::kbl() %>%
-  kableExtra::kable_styling()
+# miss_raw %>%
+#   kableExtra::kbl() %>%
+#   kableExtra::kable_styling()
 
 # rates: first dose 
 
@@ -34,9 +34,9 @@ miss_raw %>%
 clean_data<-rawdata %>%
   subset(complete=="complete") 
 
-miss_var_summary(clean_data,show_pct=TRUE) %>%
-  kableExtra::kbl() %>%
-  kableExtra::kable_styling()
+# miss_var_summary(clean_data,show_pct=TRUE) %>%
+#   kableExtra::kbl() %>%
+#   kableExtra::kable_styling()
 
 # remove cities entered as "None"
 
@@ -270,9 +270,9 @@ clean_data <- clean_data%>%
 clean_data$Month <- fct_relevel(clean_data$Month,"October","November","December","January")
 
 
-# Remove certain Health REgions due to low number of obs: only 254 in North East
-# and North West Regions at this poing, in contrast with about a thousand from each 
-# othe region
+# Remove certain Health Regions due to low number of observations: only 254 in North East
+# and North West Regions at this point, in contrast with about a thousand from each 
+# other region
 
 #get health regions to eliminate
 clean_data <-clean_data %>%

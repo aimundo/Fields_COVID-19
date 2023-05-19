@@ -4,18 +4,17 @@
 
 We used data from the *Survey of COVID-19 related Behaviours and Attitudes*, a repeated cross sectional survey focused on the Canadian province of Ontario that was commissioned by the Fields Institute for Research in Mathematical Sciences and the  Mathematical Modelling of COVID-19 Task Force under ethical guidance from the University of Toronto, and which ran between September 30th, 2021 and January 17th,2022. The survey collected socio-economic information from participants (@tbl-descriptive-stats), their location (nearest municipality,  as shown in @fig-map), the date of access to the survey, and asked information on vaccination status by using the question "Have you received the first dose of the COVID vaccine?", with possible answers "yes" and "no". The original dataset contained 39,029 observations.
 
-By design, the survey allowed respondents to exit at any time and deployed the questions randomly, which resulted in $\approx$ 84\% of the observations having multiple missing answers or being incomplete. Therefore, we selected 6,343 observations that were labeled as "complete" in the dataset and that had answers for all covariates considered in our analysis. Later, we matched the city of each observation with its corresponding LHIN and Health Region, and removed observations from areas with low representation (107 observations corresponding to the North West and North East Health Regions). After all the preliminary analyses indicated above, the total number of observations used for analysis was 6,236 and included the East, Central, Toronto, and West Health Regions covering the period between October 1st,2021 and January 17, 2022. The original dataset, clean dataset, and details on the data cleaning process are described in detail in the [GitHub repository](https://github.com/aimundo/Fields_COVID-19/) for this paper.
+By design, the survey allowed respondents to exit at any time and deployed the questions randomly, which resulted in $\approx$ 84\% of the observations having multiple missing answers or being incomplete. Therefore, we selected 6,343 observations that were labeled as "complete" in the dataset and that had answers for all covariates considered in our analysis. Later, we matched the city of each observation with its corresponding LHIN and Health Region, and removed observations from areas with low representation (254 observations corresponding to the North West and North East Health Regions). Finally, we removed outliers from the data (19 observations of individuals with household size of 1 and income above 110,000 CAD in the original dataset). After all the preliminary analyses indicated above, the total number of observations used for analysis was 6,236 and included the East, Central, Toronto, and West Health Regions covering the period between October 1st,2021 and January 17, 2022. The original dataset, clean dataset, and details on the data cleaning process are described in detail in the [GitHub repository](https://github.com/aimundo/Fields_COVID-19/) for this paper.
 
 
 ```{r,map}
 #| label: fig-map
-#| fig-cap: "Geographic representation of the data collected by the _Survey of COVID-19 related Behaviours and Attitudes_, collected by the Fields Institute in Ontario. The municipalities (cities) from where survey participants provided answers (in the clean dataset) appear as points. The Health six Regions are color-coded. Internal boundaries within certain Health Regions indicate areas that belonged to the Local Integrated Health Networks (LHINs), the geographic areas for healthcare in Ontario before the adoption of the Health Regions."
+#| fig-cap: "Geographic representation of the data collected by the _Survey of COVID-19 related Behaviours and Attitudes_, collected by the Fields Institute in Ontario. The municipalities from where survey participants provided answers appear as points. The Health six Regions are color-coded. Internal boundaries within certain Health Regions indicate areas that belonged to the Local Integrated Health Networks (LHINs), the geographic areas for healthcare in Ontario before the adoption of the Health Regions."
 #| message: false
 #| echo: false
-#| fig-height: 12
-#| figh-width: 10
+#| out-height: 100%
 
-knitr::include_graphics(here("data","map_data","map.pdf"))
+knitr::include_graphics(here("data","map_data","map_cairo.pdf"))
 
 ```
 

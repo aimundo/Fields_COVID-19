@@ -24,13 +24,19 @@ library(sf)
 library(viridis)
 library(here)
 library(tidyverse)
+library(lubridate)
 library(ggspatial)
 library(magrittr)
 library(scico)
+library(RColorBrewer)
 
 thm1<-scale_fill_viridis_d(option="mako",begin=0,end=1,direction = 1)
 
-thm2<-scale_fill_scico_d(palette = "nuuk",begin=0,end=1,direction = -1)
+thm2<-scale_fill_scico_d(palette = "bukavu",begin=0,end=1,direction = -1)
+
+thm3<-c("#e7d4e8","#d9f0d3","#762a83","#af8dc3","#1b7837","#7fbf7b")
+
+thm4<-scale_fill_brewer(palette="PRGn",direction =-1,type="diverging")
 
 mytheme<-theme(axis.line=element_blank(),
                axis.text.x=element_blank(),
@@ -38,7 +44,8 @@ mytheme<-theme(axis.line=element_blank(),
                axis.ticks=element_blank(),
                axis.title.x=element_blank(),
                axis.title.y=element_blank(),
-               legend.position="right",
+               legend.position="bottom",
+               legend.text=element_text(10),
                panel.background=element_blank(),
                panel.border=element_blank(),
                panel.grid.major=element_blank(),
@@ -124,35 +131,59 @@ source(here::here("code","data_preparation_map.R"))
 # get percentage of having received the vaccine by city
 
 
-perc<-clean_data %>% group_by(city,Health_Region) %>% 
+perc<-clean_data %>% 
+  group_by(city,Health_Region) %>% 
   summarise(Percent = sum(first_dose == "yes")/n())
 
-## for plotting the map, fix two names that are different between the clean dataset
-## and the data from Ontario:  Amherstburg(is mispelled Amhertsburg) and Big Trout Lake 
-## (called Kitchenuhmaykoosib Aaki 84 in the dataset)
+## for plotting the map, fix five names that are different between the clean dataset
+## and the data from Ontario:  Amherstburg(is mispelled Amhertsburg), Big Trout Lake 
+## (called Kitchenuhmaykoosib Aaki 84 in the dataset), Orleans (spelled Orléans),
+## Newcastle (appears as New Castle Village), Mitchell/Ontario (appears as "Mitchell"),
+## also, Fallingbrook did not appear in the dataset from Ontario and is not included in the
+## final plot.
 
 perc$city[perc$city=="Amhertsburg"] <- "Amherstburg"
 
 perc$city[perc$city=="Big Trout Lake"] <- "Kitchenuhmaykoosib Aaki 84"
 
+perc$city[perc$city=="Orleans"] <- "Orléans"
+
+perc$city[perc$city=="Newcastle"] <- "Newcastle Village"
+
+perc$city[perc$city=="Mitchell/Ontario"] <- "Mitchell"
+
+
+
 
 #join to get coordinates for each city
 test<-left_join(perc,fort_on, by=c( "city" = "GEONAME"))
 
-  
-m1<-ggplot(data=fort_lhin,aes(x=long, y=lat,group=group,fill=Health_Region))+
-  geom_polygon(color="#808080")+
+## to label Health Regions
+# dff <- fort_lhin %>%
+#   group_by(Health_Region) %>%
+#   summarize(long = mean(long, na.rm = T), lat = mean(lat, na.rm = T), group = group)
+#   
+m1<-ggplot(data=fort_lhin,aes(x=long, 
+                              y=lat,
+                              group=group,
+                              fill=Health_Region))+
+  geom_polygon(color="black",size=0.2)+
   geom_point(data=test,
              inherit.aes = FALSE,
              show.legend = FALSE,
-             color="#f98e09",
-             fill="#fcffa4",
+             color="blue",
+             fill="#e0ff33",
              shape=21,
-             size=0.6,
-             stroke=0.7,
+             size=2.0,
+             stroke=0.5,
              aes(x=long,
                  y=lat,
-                 alpha=0.8))+
+                 alpha=0.9))+
+  # geom_text(
+  #   data=dff,
+  #   aes(long,lat,label=Health_Region,group=group),
+  #   size=2
+  # )+
   annotation_scale(
                    location = "tr",
                    bar_cols = c("grey60", "white"),
@@ -169,8 +200,9 @@ m1<-ggplot(data=fort_lhin,aes(x=long, y=lat,group=group,fill=Health_Region))+
   )+
  guides(fill=guide_legend(title="Health Region"))+
   mytheme+
-  thm1
+  scale_fill_manual(values=thm3)
 
 m1
 
-ggsave(here("data","map_data","map.pdf"))
+## the figure was saved using the Export -> save as pdf option from RStudio with 
+## size 8 x 9 in
