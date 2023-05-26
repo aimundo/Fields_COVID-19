@@ -4,9 +4,7 @@
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
-  letterpaper,
-  DIV=11,
-  numbers=noendperiod]{scrartcl}
+]{article}
 
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -122,8 +120,11 @@
 \usepackage{lineno}
 \linenumbers
 
-\usepackage{rotfloat}
-\KOMAoption{captions}{tableheading}
+\usepackage[noblocks]{authblk}
+\renewcommand*{\Authsep}{, }
+\renewcommand*{\Authand}{, }
+\renewcommand*{\Authands}{, }
+\renewcommand\Affilfont{\small}
 \makeatletter
 \makeatother
 \makeatletter
@@ -185,7 +186,7 @@
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
   pdftitle={Differences in COVID-19 vaccination in the province of Ontario across Health Regions and socio-economic strata},
-  pdfauthor={Ariel Mundo Ortiz1,2; Bouchra Nasri1,2,},
+  pdfauthor={Ariel Mundo Ortiz; Bouchra Nasri},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -195,47 +196,50 @@
 
 \title{\textbf{Differences in COVID-19 vaccination in the province of
 Ontario across Health Regions and socio-economic strata}}
-\author{}
-\date{}
 
+
+\author[1,2,3]{Ariel Mundo Ortiz}
+\author[1,2,3,*]{Bouchra Nasri}
+
+\affil[1]{Centre de Recherches Mathématiques, University of Montreal,
+Montréal, Canada}
+\affil[2]{Department of Social and Preventive Medicine, École de Santé
+Publique, University of Montreal, Montréal, Canada}
+\affil[3]{Centre de recherche en santé publique, University of Montreal,
+Montréal, Canada}
+\affil[*]{Corresponding author, \url{bouchra.nasri@umontreal.ca}}
+
+
+\date{}
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, breakable, interior hidden, sharp corners, enhanced, frame hidden]}{\end{tcolorbox}}\fi
-
-\textsuperscript{1} Centre de Recherches Mathématiques, University of
-Montreal, Montréal, Canada\\
-\textsuperscript{2} Department of Social and Preventive Medicine, École
-de Santé Publique, University of Montreal, Montréal, Canada
-
-\textsuperscript{*} Correspondence:
-\href{mailto:bouchra.nasri@umontreal.ca}{Bouchra Nasri
-\textless{}bouchra.nasri@umontreal.ca\textgreater{}}
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, sharp corners, borderline west={3pt}{0pt}{shadecolor}, frame hidden, boxrule=0pt, enhanced, interior hidden]}{\end{tcolorbox}}\fi
 
 \hypertarget{abstract}{%
 \section{Abstract}\label{abstract}}
 
 The COVID-19 pandemic continues to be a worldwide public health concern.
 Although vaccines against this disease were rapidly developed,
-vaccination uptake has not ben equal across all the segments of the
+vaccination uptake has not been equal across all the segments of the
 population. In particular, it has been shown that there have been
 differences in vaccine uptake across different segments of the
 population. However, there are also differences in vaccination across
 geographical areas, which might be important to consider in the
-development of future public health policies against COVID-19. In this
-study, we examined the relationship between vaccination status (having
-received the first dose of a COVID-19 vaccine), and different
-socio-economic and geographical factors. Our results show that during
-the last three months of 2021, individuals in certain equity-deserving
-groups (visible minorities) were three times less likely to be
-vaccinated than White/Caucasian individuals across the province and that
-in some cases, within these groups individuals in low income brackets
-had significantly higher odds of vaccination when compared to their
-peers in high income brackets. Finally, we identified significantly
-lower odds of vaccination in the West Health Region of Ontario within
-certain equity-deserving groups. This study shows that there is an
-ongoing need to better understand and address differences in vaccination
-uptake across diverse segments of the population of Ontario that have
-been largely impacted by the pandemic.
+development of future public health vaccination policies. In this study,
+we examined the relationship between vaccination status (having received
+the first dose of a COVID-19 vaccine), and different socio-economic and
+geographical factors. Our results show that between October of 2021 and
+January of 2022, individuals from underrepresented communities were
+three times less likely to be vaccinated than White/Caucasian
+individuals across the province of Ontario in Canada, and that in some
+cases, within these groups, individuals in low income brackets had
+significantly higher odds of vaccination when compared to their peers in
+high income brackets. Finally, we identified significantly lower odds of
+vaccination in the Central, East and West Health Regions of Ontario
+within certain underrepresented groups. This study shows that there is
+an ongoing need to better understand and address differences in
+vaccination uptake across diverse segments of the population of Ontario
+that the pandemic has largely impacted.
 
 \hypertarget{keywords}{%
 \section*{Keywords}\label{keywords}}
@@ -247,7 +251,7 @@ minorities.
 \hypertarget{background}{%
 \section{Background}\label{background}}
 
-As of May of 2023 there have been 765 million confirmed cases of
+As of May of 2023, there have been 765 million confirmed cases of
 COVID-19 around the world, including 6.8 million
 deaths\textsuperscript{\protect\hyperlink{ref-WHO-Covid}{1}}. Although
 this disease is no longer categorized as a global health emergency by
@@ -267,8 +271,8 @@ rapid end to the pandemic due to the start of vaccination campaigns in
 certain parts of the world toward the end of
 2020\textsuperscript{\protect\hyperlink{ref-thelancet2021}{5}--\protect\hyperlink{ref-tanne2020}{8}})
 but inequalities in vaccine uptake made these pharmaceutical
-interventions ultimately unable to replicate the experience of smallpox,
-where vaccination on a global scale and was crucial to control this
+interventions ultimately unable to replicate the success of the smallpox
+vaccination program, which was crucial to control this
 disease\textsuperscript{\protect\hyperlink{ref-kayser2021}{9}}.
 
 This problematic is a multifaceted issue resulting from a combination of
@@ -279,7 +283,7 @@ countries\textsuperscript{\protect\hyperlink{ref-gerretsen2021}{11},\protect\hyp
 and vaccine
 hesitancy\textsuperscript{\protect\hyperlink{ref-nafilyan2021}{13}}.
 Furthermore, it is well established that this issue has affected in
-particular individuals in certain equity-deserving groups (e.g., Black,
+particular individuals in certain underrepresented groups (e.g., Black,
 Asian, or Indigenous) as well as individuals with socio-economic
 disadvantages\textsuperscript{\protect\hyperlink{ref-willis2021}{14}--\protect\hyperlink{ref-hussain2022}{20}}.
 
@@ -290,7 +294,7 @@ mistrust in
 vaccines\textsuperscript{\protect\hyperlink{ref-willis2021}{14}}, and
 the influence of conspiracy
 theories\textsuperscript{\protect\hyperlink{ref-mosby2021}{21}--\protect\hyperlink{ref-freeman2020}{23}}.
-However, it is important to also consider that vaccination uptake can be
+However, it is important also to consider that vaccination uptake can be
 influenced by geographical (spatial) factors. In this regard,
 differences in COVID-19 vaccination rates have been associated with
 varied regional attitudes towards
@@ -306,23 +310,24 @@ and that accounting for geographical differences in vaccination can help
 predict patterns of booster
 uptake\textsuperscript{\protect\hyperlink{ref-wood2022}{30}}.
 
-However, such analyses have been carried mostly in territories outside
-of Canada, where available studies have been focused in certain cities
-(such as Toronto\textsuperscript{\protect\hyperlink{ref-choi2021}{31}},
-or Montreal\textsuperscript{\protect\hyperlink{ref-mckinnon2021}{32}}),
-or have explored differences at a province-wide
+However, such analyses have been carried out mostly in territories
+outside of Canada, where available studies have been focused in certain
+cities (such as
+Toronto\textsuperscript{\protect\hyperlink{ref-choi2021}{31}}, or
+Montreal\textsuperscript{\protect\hyperlink{ref-mckinnon2021}{32}}), or
+have explored differences at a province-wide
 level\textsuperscript{\protect\hyperlink{ref-guay2022}{18}}. Therefore,
 there is a need for studies that explore spatial differences in
 vaccination within the Canadian territory and that consequently, can
 help identify disparities that need to be addressed within specific
 areas in each province.
 
-This need is specially important in the case of Ontario, the most
+This need is especially important in the case of Ontario, the most
 populated province of Canada. Between 2007 and 2019, Ontario managed
 healthcare access to its inhabitants using 14 intra-provincial divisions
 called the Local Health Integration Networks (LHINs), which aimed to
 provide an integrated health system for the province. However, this
-approach was complex and bureaucratic, and resulted in excessive
+approach was complex, bureaucratic, and resulted in excessive
 expenditures, disparities in mortality rates, the deterioration of
 certain performance indicators such as wait times and hospital
 readmissions, fragmented electronic health systems, the decline of
@@ -334,7 +339,7 @@ incorporated the areas covered by them into six larger Health Regions
 (North East, North West, Central, Toronto, West, and
 East)\textsuperscript{\protect\hyperlink{ref-dong2022}{35}}.
 
-Because the relatively recent adoption of the Health Region model and
+Because of the relatively recent adoption of the Health Region model and
 its alignment with the onset of the COVID-19 pandemic, there is a need
 to analyze if there are ongoing disparities in health access under this
 approach that need to be addressed before they are exploited by a new
@@ -346,10 +351,10 @@ Regions and can help identify which socio-demographic groups are the
 most vulnerable and what areas of the province deserve special attention
 by decision-makers.
 
-Therefore, in this study we hypothesized that there were differences in
+Therefore, in this study we aim to understand the differences in
 vaccination uptake between the different Health Regions of Ontario
 between October of 2021 and January of 2022. By including socio-economic
-factors in our analysis, we aimed at identifying in which groups these
+factors in our analysis, we aimed to identify in which groups these
 differences were significant in order to provide an assessment of the
 current state of healthcare access in Ontario.
 
@@ -364,33 +369,34 @@ Attitudes}, a repeated cross sectional survey focused on the Canadian
 province of Ontario that was commissioned by the Fields Institute for
 Research in Mathematical Sciences and the Mathematical Modelling of
 COVID-19 Task Force under ethical guidance from the University of
-Toronto, and which ran between September 30th, 2021 and January
-17th,2022. The survey collected socio-economic information from
-participants (Table~\ref{tbl-descriptive-stats}), their location
-(nearest municipality, as shown in Figure~\ref{fig-map}), the date of
-access to the survey, and asked information on vaccination status by
-using the question ``Have you received the first dose of the COVID
-vaccine?'', with possible answers ``yes'' and ``no''. The original
+Toronto (under protocol 00043317), and which ran between September 30th,
+2021 and January 17th,2022. The survey collected socio-economic
+information from participants (Table~\ref{tbl-descriptive-stats}), their
+location (nearest municipality, as shown in Figure~\ref{fig-map}), the
+date of access to the survey, and asked information on vaccination
+status by using the question ``Have you received the first dose of the
+COVID vaccine?'', with possible answers ``yes'' and ``no''. The original
 dataset contained 39,029 observations.
 
 By design, the survey allowed respondents to exit at any time and
 deployed the questions randomly, which resulted in \(\approx\) 84\% of
 the observations having multiple missing answers or being incomplete.
-Therefore, we selected 6,343 observations that were labeled as
+Therefore, we selected 6,343 observations that were labelled as
 ``complete'' in the dataset and that had answers for all covariates
 considered in our analysis. Later, we matched the city of each
 observation with its corresponding LHIN and Health Region, and removed
 observations from areas with low representation (254 observations
 corresponding to the North West and North East Health Regions). Finally,
-we removed outliers from the data (19 observations of individuals with
-household size of 1 and income above 110,000 CAD in the original
-dataset). After all the preliminary analyses indicated above, the total
-number of observations used for analysis was 6,236 and included the
-East, Central, Toronto, and West Health Regions covering the period
-between October 1st,2021 and January 17, 2022. The original dataset,
-clean dataset, and details on the data cleaning process are described in
-detail in the \href{https://github.com/aimundo/Fields_COVID-19/}{GitHub
-repository} for this paper.
+we removed outliers from the data (19 observations of individuals under
+25 years of age with household size of 1 and income above 110,000 CAD in
+the original dataset, that were demeed to lack accuracy). After all the
+preliminary analyses, the total number of observations used for analysis
+was 6,236 and included the East, Central, Toronto, and West Health
+Regions covering between October 1st,2021 and January 17, 2022. The
+original dataset, clean dataset, and details on the data cleaning
+process are described in detail in the
+\href{https://github.com/aimundo/Fields_COVID-19/}{GitHub repository}
+for this paper.
 
 \begin{figure}
 
@@ -414,7 +420,7 @@ the adoption of the Health Regions.}
 
 We used a logistic regression model to examine the impact of the Health
 Regions in vaccination rates while considering the socio-economic
-factors and and months covered by the survey
+factors and months covered by the survey
 (Table~\ref{tbl-descriptive-stats}) and certain interactions (Race and
 Health Region and Race and income), as previous studies have shown that
 socio-economic factors and their interactions are significant predictors
@@ -511,7 +517,7 @@ logistic regression models for vaccination status using the
 socio-demographic factors collected by the survey, and their
 interactions. Generally speaking, lower odds of vaccination were
 identified in both cases in individuals characterized by a low household
-income, or that identified as part of equity-deserving groups. However,
+income, or that identified as part of underrepresented groups. However,
 the magnitude of the estimates differed between the uncorrected and
 corrected models and more importantly, there were differences in the
 statistical significance of certain estimates before and after the
@@ -520,7 +526,7 @@ differences in vaccination odds between the age groups considered, the
 East Health Region, Latin American individuals with a household income
 under CAD 25,000, and Indigenous individuals living in the Central
 Health Region (Figure~\ref{fig-models},B) but these were deemed non
-statistically-significant after the correction.
+statistically significant after the correction.
 
 \begin{figure}
 
@@ -548,35 +554,37 @@ reported living in the Central and West Health Regions had higher odds
 of vaccination than those in the Health Region of Toronto (ORs and
 CIs=1.61 {[}1.10,2.34{]}, and 1.59 {[}1.16,2.19{]}, respectively).
 
-Interestingly, individuals in equity-deserving groups with a household
+Interestingly, individuals in underrepresented groups with a household
 income below CAD 25,000 had higher odds of vaccination (when compared to
 those with a household income above CAD 60,000). This held true in the
 case of Arab/Middle Eastern individuals (OR=34, CI={[}1.70,6.79{]}),
 Black individuals (OR=3.81, CI={[}2.05, 7.09{]}), and those in other
 racial or ethnic groups (OR=3.19, CI={[}2.00,5.09{]}). Additionally,
 individuals with an income between CAD 25,000 and 59,999 in the
-Arab/Middle Eastern and other racial ethnic groups also had higher odds
-of vaccination than their high-income peers (ORs and CIs=6.96
+Arab/Middle Eastern and other racial or ethnic groups also had higher
+odds of vaccination than their high-income peers (ORs and CIs=6.96
 {[}2.67,18.16{]}, and 3.5 {[}1.85,6.62{]}).
 
-Finally, significantly lower odds of vaccination were identified (when
-compared to the Toronto Health Region) for Black individuals in the
-Central Health Region (OR=0.39, CI={[}0.2,0.75{]}), Arab/Middle Eastern
-individuals in the East Health Region (OR=0.41 {[}0.17, 0.98{]}), and in
-the Indigenous and mixed groups in the West Health Region (ORs and
-CIs={[}0.31 {[}0.14, 0.7{]} and 0.38 {[}0.19, 0.76{]}, respectively).
+Finally, \textbf{the place of habitation affected the odds of
+vaccination for certain underrepresented groups, as significantly lower
+odds of vaccination were identified for the interaction between Health
+Region and race} in the case of Black individuals in the Central Health
+Region (OR=0.39, CI={[}0.2,0.75{]}), Arab/Middle Eastern individuals in
+the East Health Region (OR=0.41 {[}0.17, 0.98{]}), and in the Indigenous
+and mixed groups in the West Health Region (ORs and CIs={[}0.31 {[}0.14,
+0.7{]} and 0.38 {[}0.19, 0.76{]}, respectively).
 
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
 
-In this study we hypothesized that differences in COVID-19 vaccination
-uptake were present between the Health Regions during between late 2021
-and early 2022. Our goal was to determine which socio-demographic groups
+In this study, we hypothesized that differences in COVID-19 vaccination
+uptake were present between the Health Regions between late 2021 and
+early 2022. Our goal was to determine which socio-demographic groups
 could be impacted by these disparities in order to provide
 decision-makers with information that could be used to develop policies
 focused on reducing or eliminating these differences and ensure that the
 Health Region model is able to fulfill its mission of improving health
-access for all Ontarians.
+access for all Ontarians. \textbf{making corrections up to this point}
 
 Our results show that indeed, there were differences in vaccination odds
 across Ontario in certain socio-demographic groups. Specifically, those
@@ -592,12 +600,12 @@ characteristics\textsuperscript{\protect\hyperlink{ref-guay2022}{18}--\protect\h
 
 Lower vaccine uptake in the socio-demographic groups indicated above may
 be influenced in part, by vaccine hesitancy and refusal, which have been
-associated in equity-deserving Canadian individuals to concerns on
+associated in underrepresented Canadian individuals with concerns on
 vaccine safety, effectiveness, and experiences of racial discrimination
 in health
 settings\textsuperscript{\protect\hyperlink{ref-cnat2022a}{41},\protect\hyperlink{ref-basta2022}{49}--\protect\hyperlink{ref-cnat2023}{51}}.
 However, it has been shown that structural barriers also play an
-important role in vaccination uptake. In the case of equity-deserving
+important role in vaccination uptake. In the case of underrepresented
 individuals, such barriers include complex scheduling systems, language
 barriers, lack of adequate public transportation, and lack of accessible
 vaccination
@@ -608,26 +616,26 @@ Toronto and other regions of Ontario around the time covered by the
 survey\textsuperscript{\protect\hyperlink{ref-bogoch2022}{7},\protect\hyperlink{ref-iveniuk2021}{53}},
 and that pharmacies in the Peel region (an area identified as a
 ``hotspot'' with high numbers of essential workers and multigenerational
-households) could not keep up with
+households) could not keep up with vaccine
 demand\textsuperscript{\protect\hyperlink{ref-gill2022}{54}}. This
-suggests that the observed differences are associated to disparities in
-vaccine access that were present during the period covered by the
+suggests that the observed differences are associated with disparities
+in vaccine access that were present during the period covered by the
 survey.
 
 Interestingly, whereas overall self-reported vaccination rates were
-found to be statistically significantly lower in various racial minority
-groups when compared to White/Caucasian individuals, the change in odds
-of vaccination within certain racial groups and income strata was
-actually positive, in contrast to the White/Caucasian group, where
-vaccination odds decreased in income brackets below CAD 60,000
-(Supplementary Figure A-5). Specifically, individuals in low income
-brackets that belonged to Arab/Middle Eastern, Black, or other minority
-groups had higher odds of vaccination that their peers with an income
-above 60,000 CAD.
+found to be statistically significantly lower in various
+underrepresented groups when compared to White/Caucasian individuals,
+the change in odds of vaccination within certain racial groups and
+income strata was actually positive, in contrast to the White/Caucasian
+group, where vaccination odds decreased in income brackets below CAD
+60,000 (Supplementary Figure A-5). Specifically, individuals in low
+income brackets that belonged to Arab/Middle Eastern, Black, or other
+minority groups had higher odds of vaccination that their peers with an
+income above 60,000 CAD.
 
 This result is likely reflects in part the fact that individuals in
-racial minority groups tend to perform occupations that have been deemed
-as ``essential'' in the context of the
+underrepresented groups tend to perform occupations that have been
+deemed as ``essential'' in the context of the
 pandemic\textsuperscript{\protect\hyperlink{ref-hawkins2020}{55},\protect\hyperlink{ref-ct2021}{56}},
 which include workers in the areas of grocery stores, gas stations,
 warehouses, distribution, and manufacturing, all being occupations for
@@ -641,11 +649,11 @@ individuals\textsuperscript{\protect\hyperlink{ref-gill2022}{54}}. These
 facts, combined with evidence of increased trends in vaccination in this
 group
 elsewhere\textsuperscript{\protect\hyperlink{ref-nguyen2021b}{58}},
-suggest that the type of occupation in individuals of equity-deserving
+suggest that the type of occupation of individuals in underrepresented
 groups played an important role in increasing the odds of vaccination.
 
 However, the results also indicate that the place of habitation affected
-the odds of vaccination for certain equity-deserving groups (interaction
+the odds of vaccination for certain underrepresented groups (interaction
 term of Health Region and Race, Figure~\ref{fig-models},B).
 Specifically, this held true in the case of individuals identifying as
 Indigenous or with mixed racial background in the West Health Region,
@@ -677,17 +685,17 @@ area\textsuperscript{\protect\hyperlink{ref-ontariohealth}{62}}. Lack of
 access to personalized healthcare affects individuals that may mistrust
 the traditional healthcare system due to systemic racism or oppression,
 which is known to be the case for Indigenous and Black individuals in
-Canada, as these rationales have been associated to observed lower
+Canada, as these rationales have been associated with observed lower
 vaccination rates among these
 groups\textsuperscript{\protect\hyperlink{ref-smylie2022}{63},\protect\hyperlink{ref-eissa2021}{64}}.
 Taken together, this suggests that healthcare disparities specific to
-these equity-deserving groups in certain parts of the province impacted
+these underrepresented groups in certain parts of the province impacted
 vaccination uptake, and highlights the need of investments in the Health
 Regions focused on resources, infrastructure, and specially personnel
 that can deliver personalized care to marginalized communities, as it
 has been shown that such efforts have improved trust in vaccination in
-visible
-minorities\textsuperscript{\protect\hyperlink{ref-schafferderoo2020}{65}}.
+underrepresented groups
+elsewhere\textsuperscript{\protect\hyperlink{ref-schafferderoo2020}{65}}.
 
 There are some limitations to the present study. First, the data
 collection design, which allowed respondents to withdraw from the survey
@@ -700,10 +708,10 @@ Census. More granular corrections would be needed to obtain more
 accurate estimates. For example, our analysis identified higher odds of
 vaccination in the Central and West Health Regions, but in this case
 these differences are likely to be driven by the proportion of
-White/Caucasian individuals, who had higher vaccination rates that other
+White/Caucasian individuals, who had higher vaccination rates than other
 racial groups. Correcting for each racial/ethnic group in each Health
 Region can provide a more accurate estimation of region-wide vaccination
-rates but unfortunately at the moment this correction cannot be
+rates but unfortunately, at the moment this correction cannot be
 implemented as such stratification is has not been implemented in the
 Census.
 
@@ -711,30 +719,30 @@ Additionally, our analysis did not consider the North West and North
 East Health Regions, due to the low number of entries from these areas
 in the survey (Figure~\ref{fig-map}). Low representation is expected as
 these regions as they only account for 5\% of the total population of
-Ontario, but in contrast, they have the highest proportion of Indigenous
+Ontario. However, these areas have the highest proportion of Indigenous
 inhabitants\textsuperscript{\protect\hyperlink{ref-ontariohealth}{62}}.
-In the context of personalized care, there is a need for collecting data
+In the context of personalized care, there is a need to collect data
 that focuses on these Health Regions where additional health disparities
 might be present and possibly understudied.
 
 The results in this study are based on self-reported data, where bias
-might be present. However, because in the context of COVID-19 it has
-been shown that good agreement exists between self-reported and
-documented vaccination
+might be present. However, in the context of COVID-19, it has been shown
+that good agreement exists between self-reported and documented
+vaccination
 status\textsuperscript{\protect\hyperlink{ref-stephenson2022}{66}}, we
 believe that our data was able to provide a valid sample of vaccination
-uptake in the province. This is supported by the
-statistically-significant higher vaccination odds identified for January
-of 2022 in the model, which are consistent with province-wide trends
+uptake in the province. This is supported by the statistically
+significant higher vaccination odds that were identified for January of
+2022 in the model, which are consistent with province-wide trends
 reported by Public Health Ontario (which show a 4\% increase between
 early December and January, in contrast to a 2.5\% increase between
 October and
 November\textsuperscript{\protect\hyperlink{ref-ontario-covid}{67}});
 however, the short time window constitutes essentially a ``snapshot''
 view of the evolution of the disease, and additional data would be
-needed in order to obtain estimates per racial/ethnic group over time
-across all Health Regions that can help inform the existence of other
-health disparities.
+needed to obtain estimates per racial/ethnic group over time across all
+Health Regions that can help inform the existence of other health
+disparities.
 
 Nonetheless, the results presented here can serve as a starting point to
 motivate the collection of robust longitudinal data that can be used to
@@ -750,18 +758,18 @@ disparities in health access.
 The implementation of the Health Regions in Ontario aimed at reducing
 the bureaucratic complexity and health disparities identified under the
 LHIN model. However, there are currently multiple challenges that need
-to be addressed to ensure that the new model is able to improve
-healthcare for the inhabitants of the province. First, the fact that
-each Health Region now covers a large geographical area that was served
-by multiple LHINs in the past creates a complex socio-demographic
-landscape that is different in each case due the different levels of
-rurality and representation of equity-deserving groups that are now
-within each Health Region. So far, the evidence collected during the
-COVID-19 pandemic indicates that differences in vaccination uptake are
-associated to a lack of infrastructure and resources that can adequately
-support personalized care to marginalized individuals. In the near
-future, health decision-makers will need to consider the implementation
-of policies that are focused on addressing this problematic.
+to be addressed to ensure that the new model can improve healthcare for
+the inhabitants of the province. First, the fact that each Health Region
+now covers a large geographical area that was served by multiple LHINs
+in the past creates a complex socio-demographic landscape that is
+different in each case due the different levels of rurality and
+representation of equity-deserving groups that are now within each
+Health Region. So far, the evidence collected during the COVID-19
+pandemic indicates that differences in vaccination uptake are associated
+to a lack of infrastructure and resources that can adequately support
+personalized care to marginalized individuals. In the near future,
+health decision-makers will need to consider the implementation of
+policies that are focused on addressing this problematic.
 
 Moreover, the recent nature in the adaption of the Health Region poses a
 challenge for researchers in the acquisition of data and information
@@ -772,7 +780,7 @@ amount and level of detail of available information. Currently, the only
 demographic information available for each Health Region is provided by
 Ontario Health (the agency that administers the Health Regions) but this
 information only provides general estimates that do not allow for
-detailed analyses on performance indicators (such as hospitalizations,
+detailed analyses of performance indicators (such as hospitalizations,
 readmissions, and trends in chronic disease incidence) between the
 regions. Without open information, it is impossible to assess the level
 of success of the Health Region model, which is critical considering
@@ -784,7 +792,23 @@ The Health Region model will only by successful if it ensures that
 healthcare improves across all segments of the population of Ontario,
 particularly in the event of a future public health emergency or
 pandemic where so far, based on the experience of the COVID-19 pandemic,
-equity-deserving individuals have been disproportionately affected.
+underrepresented individuals have been disproportionately affected.
+
+\hypertarget{acknowledgments}{%
+\section{Acknowledgments}\label{acknowledgments}}
+
+This work was supported by the Fonds de recherche du Québec Scholar
+Program (J1 in Artificial Intelligence and Digital Health, BN), the
+Natural Sciences and Engineering Research Council of Canada through the
+Discovery Grant Program (RGPID-560523-2020, BN), the Mathematics for
+Public Health (MfPH) Emerging Infectious Diseases Modelling Initiative
+(BN, AM), and the OMNI Emerging Infectious Disease Modelling Initiative
+(BN).
+
+\hypertarget{conflicts-of-interest}{%
+\section{Conflicts of Interest}\label{conflicts-of-interest}}
+
+The authors declare no conflict of interest.
 
 \hypertarget{references}{%
 \section{References}\label{references}}

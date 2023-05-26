@@ -29,6 +29,7 @@ library(ggspatial)
 library(magrittr)
 library(scico)
 library(RColorBrewer)
+library(rayshader)
 
 thm1<-scale_fill_viridis_d(option="mako",begin=0,end=1,direction = 1)
 
@@ -158,27 +159,62 @@ perc$city[perc$city=="Mitchell/Ontario"] <- "Mitchell"
 #join to get coordinates for each city
 test<-left_join(perc,fort_on, by=c( "city" = "GEONAME"))
 
+## get centroid coordinates for LHINs
+
+centroids.df <- as.data.frame(coordinates(lhins1))
+
+# add labels and change order so only the ones to be plotted are in sequence
+
+centroids.df$label <- c(0,2,0,0,0,0,1,0,0,4,0,3,5,6)
+
+centroids.df<-centroids.df %>%
+  filter(label!=0)
+
+## add names of Health Regions
+
+centroids.df$names<-c("West","Toronto","East","Central", "North East","North West")
+  
+
+fort_lhin$z<-rep(100,times=nrow(fort_lhin))
 ## to label Health Regions
 # dff <- fort_lhin %>%
 #   group_by(Health_Region) %>%
 #   summarize(long = mean(long, na.rm = T), lat = mean(lat, na.rm = T), group = group)
-#   
+#
+
+#add height to the map
+
 m1<-ggplot(data=fort_lhin,aes(x=long, 
                               y=lat,
                               group=group,
                               fill=Health_Region))+
-  geom_polygon(color="black",size=0.2)+
+  geom_polygon(color="black",size=0.2,show.legend = FALSE)+
   geom_point(data=test,
              inherit.aes = FALSE,
              show.legend = FALSE,
-             color="blue",
-             fill="#e0ff33",
+             color="black",
+             fill="#fde725ff",
              shape=21,
              size=2.0,
              stroke=0.5,
              aes(x=long,
                  y=lat,
-                 alpha=0.9))+
+                 alpha=0.8))+
+  # geom_text(data=centroids.df, 
+  #           aes(label = label, x = V1, y = V2),
+  #           inherit.aes = FALSE,
+  #           size=8,
+  #           color="red") + 
+  geom_path(data=fort_lhin,aes(x=long, 
+                               y=lat,
+                               group=group,
+                               fill=Health_Region),
+            color="black",size=0.2)+
+  geom_contour(data=fort_lhin,
+               inherit.aes = FALSE,
+               aes(x=long, 
+                   y=lat,
+                   z=z))+
   # geom_text(
   #   data=dff,
   #   aes(long,lat,label=Health_Region,group=group),
@@ -204,5 +240,48 @@ m1<-ggplot(data=fort_lhin,aes(x=long,
 
 m1
 
+plot_gg(m1,multicore=TRUE,width=5,height=3,scale=310)
+
 ## the figure was saved using the Export -> save as pdf option from RStudio with 
 ## size 8 x 9 in
+
+# m1<-ggplot(data=test,
+#            #inherit.aes = FALSE,
+#            show.legend = FALSE)+
+#   geom_point(
+#            shape=21,
+#            size=2.0,
+#            show.legend = FALSE,
+#            stroke=0.5,
+#            aes(x=long,
+#                y=lat,
+#                alpha=1),
+#            color="blue",
+#            fill="cyan")+
+#   geom_polygon(data=fort_lhin,aes(x=long, 
+#                                   y=lat,
+#                                   group=group,
+#                                   fill=Health_Region),
+#                color="black",
+#                size=0.2,
+#                alpha=1)+
+#   
+#   annotation_scale(
+#     location = "tr",
+#     bar_cols = c("grey60", "white"),
+#     # text_family = "Calibri"
+#   ) +
+#   annotation_north_arrow(
+#     location = "tr", which_north = "true",
+#     pad_x = unit(0.4, "in"), pad_y = unit(0.4, "in"),
+#     style = ggspatial::north_arrow_nautical(
+#       fill = c("grey40", "white"),
+#       line_col = "grey20",
+#       #text_family = "Calibri"
+#     )
+#   )+
+#   guides(fill=guide_legend(title="Health Region"))+
+#   mytheme+
+#   scale_fill_manual(values=thm3)
+# 
+# m1
