@@ -201,20 +201,20 @@ clean_data<-clean_data %>%
   mutate(LHIN = coalesce(LHIN.x,LHIN.y)) %>%
   select(-c(LHIN.x,LHIN.y,Full_title.x,Geographic.area.y,Geographic_area_title.y))%>%
   mutate(Health_Region=
-           case_when(LHIN=="Central"~ "Central",
-                     LHIN=="Central West"~"Central",
-                     LHIN=="Mississauga Halton"~"Central",
-                     LHIN=="North Simcoe Muskoka"~"Central",
-                     LHIN=="Central East"~"East",
-                     LHIN=="South East"~"East",
-                     LHIN=="Champlain"~"East",
-                     LHIN=="North East"~"North East",
-                     LHIN=="North West"~"North West",
-                     LHIN=="Toronto Central"~"Toronto",
-                     LHIN=="South West"~"West",
-                     LHIN=="Hamilton Niagara Haldimand Brant (Hnhb)"~"West",
-                     LHIN=="Waterloo Wellington"~"West",
-                     LHIN=="Erie St. Clair"~"West"
+           case_when(Health_Region=="Central"~ "3.Central",
+                     Health_Region=="Central West"~"3.Central",
+                     Health_Region=="Mississauga Halton"~"3.Central",
+                     Health_Region=="North Simcoe Muskoka"~"3.Central",
+                     Health_Region=="Central East"~"4.East",
+                     Health_Region=="South East"~"4.East",
+                     Health_Region=="Champlain"~"4.East",
+                     Health_Region=="North East"~"5.North East",
+                     Health_Region=="North West"~"6.North West",
+                     Health_Region=="Toronto Central"~"1.Toronto",
+                     Health_Region=="South West"~"2.West",
+                     Health_Region=="Hamilton Niagara Haldimand Brant"~"2.West",
+                     Health_Region=="Waterloo Wellington"~"2.West",
+                     Health_Region=="Erie St. Clair"~"2.West"
            ))%>%
   rename(Geographic_area=Geographic.area.x,Geographic_area_title=Geographic_area_title.x)
 

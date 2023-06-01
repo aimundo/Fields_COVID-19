@@ -16,6 +16,11 @@ affiliations:
     name: Corresponding author, \url{bouchra.nasri@umontreal.ca}
 format: 
   pdf:
+    geometry:
+      - top=20mm
+      - left=20mm
+      - right=20mm
+      - bottom=20mm
     keep-tex: true
     template-partials: 
       - latex/title.tex

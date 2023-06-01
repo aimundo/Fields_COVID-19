@@ -9,12 +9,13 @@ By design, the survey allowed respondents to exit at any time and deployed the q
 
 ```{r,map}
 #| label: fig-map
-#| fig-cap: "Geographic representation of the data collected by the _Survey of COVID-19 related Behaviours and Attitudes_, collected by the Fields Institute in Ontario. The municipalities from where survey participants provided answers appear as points. The Health six Regions are color-coded. Internal boundaries within certain Health Regions indicate areas that belonged to the Local Integrated Health Networks (LHINs), the geographic areas for healthcare in Ontario before the adoption of the Health Regions."
+#| fig-cap: "Geographic representation of the data collected by the _Survey of COVID-19 related Behaviours and Attitudes_, collected by the Fields Institute in Ontario. Municipalities from where survey participants provided answers appear as points, color indicates number of observation obtained from each city. The Health six Regions are color-coded and labelled sequentially. Internal boundaries within certain Health Regions indicate areas previously covered by the Local Integrated Health Networks (LHINs)."
 #| message: false
 #| echo: false
 #| out-height: 100%
+#| out-width: 100%
 
-knitr::include_graphics(here("data","map_data","map_cairo.pdf"))
+knitr::include_graphics(here("data","map_data","map_June_01.pdf"))
 
 ```
 

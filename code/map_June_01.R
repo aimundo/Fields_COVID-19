@@ -186,14 +186,6 @@ centroids.df$names<-c("West","Toronto","East","Central", "North East","North Wes
 centroids.df$names <- as.factor(paste(centroids.df$label, ".", centroids.df$names))
 # 
 
-#fort_lhin$z<-rep(100,times=nrow(fort_lhin))
-## to label Health Regions
-# dff <- fort_lhin %>%
-#   group_by(Health_Region) %>%
-#   summarize(long = mean(long, na.rm = T), lat = mean(lat, na.rm = T), group = group)
-#
-
-#add height to the map
 breaks <- c(1,10,100,2000)
 
 m1<-ggplot(data=fort_lhin,aes(x=long, 
@@ -205,20 +197,6 @@ m1<-ggplot(data=fort_lhin,aes(x=long,
                size=0.2,
                alpha=0.8,
                show.legend = FALSE)+
-  # geom_point(data=test,
-  #            aes(x=long,
-  #                y=lat,
-  #                color=Percent
-  #                ),
-  #            #alpha=0.8,
-  #            inherit.aes = FALSE,
-  #            show.legend = TRUE,
-  #            #color="black",
-  #            #fill="#fde725ff",
-  #            shape=21,
-  #            size=2.0,
-  #            stroke=0.5,
-  #            )+
   geom_point(data=test,
              aes(x=long,
                  y=lat,
@@ -226,10 +204,7 @@ m1<-ggplot(data=fort_lhin,aes(x=long,
              ),
              alpha=1,
              inherit.aes = FALSE,
-             show.legend = TRUE,
-             #color="black",
-             #shape=1,
-             #fill="cyan"
+             show.legend = TRUE
              )+
   geom_path(data=fort_lhin,aes(x=long,
                                y=lat,
@@ -251,8 +226,7 @@ m1<-ggplot(data=fort_lhin,aes(x=long,
                    inherit.aes = FALSE,
                    aes(label = label,
                        x = V1,
-                       y = V2,
-                       #fill=names
+                       y = V2
                    ),
                    nudge_y = 10,
                    size=3,
@@ -268,9 +242,7 @@ m1<-ggplot(data=fort_lhin,aes(x=long,
              alpha=1,
              inherit.aes = FALSE,
              show.legend = FALSE,
-             color="#f2ea0a",
-             #shape=1,
-             #fill="cyan"
+             color="#f2ea0a"
   )+
   annotation_scale(
                    location = "tr",
@@ -290,153 +262,5 @@ scale_fill_manual(values=thm3)+
 
 m1
 
-
-plot_gg(m1,multicore=FALSE,width=5,height=5,scale=50,
-        windowsize = c(1400,866),
-        zoom =0.5 , phi = 30
-        #sunangle = 225
-        )
-
-#################
-
-t<-st_as_sf(fort_lhin,coords=c("long","lat")) %>% 
-  group_by(id,piece)%>%
-  summarize(do_union=FALSE) %>%
-  st_cast("POLYGON") %>% 
-  ungroup()
-
-t<-t %>%
-  mutate(Health_Region=
-           case_when(id=="Central"~ "3.Central",
-                     id=="Central West"~"3.Central",
-                     id=="Mississauga Halton"~"3.Central",
-                     id=="North Simcoe Muskoka"~"3.Central",
-                     id=="Central East"~"4.East",
-                     id=="South East"~"4.East",
-                     id=="Champlain"~"4.East",
-                     id=="North East"~"5.North East",
-                     id=="North West"~"6.North West",
-                     id=="Toronto Central"~"1.Toronto",
-                     id=="South West"~"2.West",
-                     id=="Hamilton Niagara Haldimand Brant"~"2.West",
-                     id=="Waterloo Wellington"~"2.West",
-                     id=="Erie St. Clair"~"2.West"
-           )
-  )
-
-t<-t %>%
-  mutate(Health_Region=
-           case_when(id=="Central"~ "3",
-                     id=="Central West"~"3",
-                     id=="Mississauga Halton"~"3",
-                     id=="North Simcoe Muskoka"~"3",
-                     id=="Central East"~"4",
-                     id=="South East"~"4",
-                     id=="Champlain"~"4",
-                     id=="North East"~"5",
-                     id=="North West"~"6",
-                     id=="Toronto Central"~"1",
-                     id=="South West"~"2",
-                     id=="Hamilton Niagara Haldimand Brant"~"2",
-                     id=="Waterloo Wellington"~"2",
-                     id=="Erie St. Clair"~"2"
-           )
-  )
-
-
-t$Health_Region<-as.numeric(t$Health_Region)
-
-t1<-t %>%
-  ggplot()+
-  geom_sf(aes(geometry=geometry),fill="white")+
-  geom_point(data=test,
-             aes(x=long,
-                 y=lat,
-                 color=Percent
-             ),
-             alpha=I(1/10),
-             inherit.aes = FALSE,
-             show.legend = TRUE,
-             #color="black",
-             #shape=1,
-             #fill="cyan"
-  )+
-  scale_colour_gradient(low = "red",
-                        high = "white")
-
-
-t1<-t %>%
-  ggplot()+
-  geom_sf(alpha=0.1,color="black",aes(fill=Health_Region),show.legend = FALSE)+
-  geom_point(data=test,
-             aes(x=long,
-                 y=lat,
-                 color=log(Percent)
-             ),
-             #alpha=0.8,
-             inherit.aes = FALSE,
-             show.legend = TRUE,
-             #color="black",
-             #shape=1,
-             #fill="cyan"
-  )+
-  # geom_path(data=fort_lhin,aes(x=long, 
-  #                              y=lat,
-  #                              group=group),
-  #           color="black",
-  #           size=0.2,
-  #           show.legend = FALSE,
-  #           inherit.aes = FALSE)+
-  scale_colour_gradient()+
-  theme_classic()
-
-t1
-
-plot_gg(t1,multicore=TRUE,width=5,height=5,scale=50,
-        windowsize = c(1400,866),
-        zoom =0.5 , phi = 30
-        #sunangle = 225
-)
 ## the figure was saved using the Export -> save as pdf option from RStudio with 
-## size 8 x 9 in
-
-# m1<-ggplot(data=test,
-#            #inherit.aes = FALSE,
-#            show.legend = FALSE)+
-#   geom_point(
-#            shape=21,
-#            size=2.0,
-#            show.legend = FALSE,
-#            stroke=0.5,
-#            aes(x=long,
-#                y=lat,
-#                alpha=1),
-#            color="blue",
-#            fill="cyan")+
-#   geom_polygon(data=fort_lhin,aes(x=long, 
-#                                   y=lat,
-#                                   group=group,
-#                                   fill=Health_Region),
-#                color="black",
-#                size=0.2,
-#                alpha=1)+
-#   
-#   annotation_scale(
-#     location = "tr",
-#     bar_cols = c("grey60", "white"),
-#     # text_family = "Calibri"
-#   ) +
-#   annotation_north_arrow(
-#     location = "tr", which_north = "true",
-#     pad_x = unit(0.4, "in"), pad_y = unit(0.4, "in"),
-#     style = ggspatial::north_arrow_nautical(
-#       fill = c("grey40", "white"),
-#       line_col = "grey20",
-#       #text_family = "Calibri"
-#     )
-#   )+
-#   guides(fill=guide_legend(title="Health Region"))+
-#   mytheme+
-#   scale_fill_manual(values=thm3)
-# 
-# m1
+## size 8 x 9 in landscape
