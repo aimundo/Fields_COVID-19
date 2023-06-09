@@ -214,7 +214,7 @@ Montréal, Canada}
 \date{}
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, enhanced, sharp corners, borderline west={3pt}{0pt}{shadecolor}, interior hidden, frame hidden, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, boxrule=0pt, interior hidden, frame hidden, borderline west={3pt}{0pt}{shadecolor}, enhanced, breakable]}{\end{tcolorbox}}\fi
 
 \hypertarget{abstract}{%
 \section{Abstract}\label{abstract}}
@@ -380,22 +380,20 @@ COVID vaccine?'', with possible answers ``yes'' and ``no''. The original
 dataset contained 39,029 observations.
 
 By design, the survey allowed respondents to exit at any time and
-deployed the questions randomly, which resulted in \(\approx\) 84\% of
-the observations having multiple missing answers or being incomplete.
-Therefore, we selected 6,343 observations that were labelled as
-``complete'' in the dataset and that had answers for all covariates
-considered in our analysis. Later, we matched the city of each
-observation with its corresponding LHIN and Health Region, and removed
-observations from areas with low representation (254 observations
-corresponding to the North West and North East Health Regions). Finally,
-we removed outliers from the data (19 observations of individuals under
-25 years of age with household size of 1 and income above 110,000 CAD in
-the original dataset, that were demeed to lack accuracy). After all the
-preliminary analyses, the total number of observations used for analysis
-was 6,236 and included the East, Central, Toronto, and West Health
-Regions covering between October 1st,2021 and January 17, 2022. The
-original dataset, clean dataset, and details on the data cleaning
-process are described in detail in the
+deployed the questions randomly. This resulted in \(\approx\) 84\% of
+the observations having multiple missing answers or being incomplete due
+to participants leaving the survey at different stages. Therefore, we
+selected 6,343 observations that were labelled as ``complete'' in the
+dataset and that had answers for all covariates considered in our
+analysis. Later, we matched the city of each observation with its
+corresponding LHIN and Health Region, and removed observations from
+areas with low representation (254 observations corresponding to the
+North West and North East Health Regions). After all the preliminary
+analyses, the total number of observations used for analysis was 6,236
+and included the East, Central, Toronto, and West Health Regions
+covering between October 1st,2021 and January 17, 2022. The original
+dataset, clean dataset, and details on the data cleaning process are
+described in detail in the
 \href{https://github.com/aimundo/Fields_COVID-19/}{GitHub repository}
 for this paper.
 
@@ -774,20 +772,21 @@ policies that are focused on addressing this problematic.
 
 Moreover, the recent nature in the adaption of the Health Region poses a
 challenge for researchers in the acquisition of data and information
-that can be used to analyze the performance of the new system. From one
+that can be used to analyze the performance of the new model. From one
 side, the Health Regions have not been incorporated as part of Census
 data (LHINs were considered before in the Census), and this impact the
-amount and level of detail of available information. Currently, the only
-demographic information available for each Health Region is provided by
-Ontario Health (the agency that administers the Health Regions) but this
-information only provides general estimates that do not allow for
-detailed analyses of performance indicators (such as hospitalizations,
-readmissions, and trends in chronic disease incidence) between the
-regions. Without open information, it is impossible to assess the level
-of success of the Health Region model, which is critical considering
-that such evaluations have not been part of the Annual Reports of the
-Auditor General of Ontario, which in the past analyzed the performance
-of the LHINs and pointed to ongoing needs and failures in the system.
+amount and level of detail of available information. On the other hand,
+evaluations of the Health Region model are at the moment not considered
+in the Annual Reports of the Auditor General of Ontario, which was
+critical in the past to identify limitations in the LHIN model.
+Currently, the only demographic information available for each Health
+Region is provided by Ontario Health (the agency that administers the
+Health Regions) but this information only provides general estimates
+that do not allow for detailed analyses of performance indicators (such
+as hospitalizations, readmissions, and trends in chronic disease
+incidence) between the Regions. Therefore, there is a pressing need for
+open data that can be used by researchers and decision-makers to examine
+the performance of the Health Region model.
 
 The Health Region model will only by successful if it ensures that
 healthcare improves across all segments of the population of Ontario,
