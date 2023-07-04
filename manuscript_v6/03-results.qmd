@@ -2,7 +2,7 @@
 
 ## Sample Characteristics
 
-@tbl-descriptive-stats shows the characteristics of the data from the Fields COVID-19 survey used for analysis. The sample contained 6,236 observations, from which 24.8\% (1,547) corresponded to individuals that reported not having received the first dose of the vaccine. Vaccination rates ranged between 71-79\% across all household income brackets, age groups, Health Regions, and the months considered in the survey. However, the highest vaccination rates in each category were reported by individuals in the highest income bracket (79\%), those between 16 and 34 years of age (77\%), individuals that lived in the East Health Region (77\%), and  during January of 2022 (78\%). Between racial/ethnic groups, the highest vaccination rate was reported by White/Caucasian individuals (84\%), against vaccination rates between 63-66\% reported in the case of Arab/Middle Eastern, Black, Indigenous, Latin American individuals, and those that reported belonging to "Other" racial groups, which included Southeast Asian, Filipino, West Asian, and minorities not identified elsewhere.
+@tbl-descriptive-stats shows the characteristics of the data from the Fields COVID-19 survey used for analysis. The sample contained 6,236 observations, from which 24.8\% (1,547) corresponded to individuals that reported not having initiated a COVID-19 vaccine primary series (in other words, not having received the first dose of the vaccine). The rate for the first dose of the vaccine ranged between 71-79\% across all household income brackets, age groups, Health Regions, and the months considered in the survey. However, the highest rate for the uptake of the first dose of the vaccine were reported by individuals in the highest income bracket (79\%), those between 16 and 34 years of age (77\%), individuals that lived in the East Health Region (77\%), and  during January of 2022 (78\%). Between racial/ethnic groups, White/Caucasian individuals reported the highest uptake of the first dose of the vaccine (84\%), against values that ranged between 63 and 66\% in the case of Arab/Middle Eastern, Black, Indigenous, Latin American individuals, and those that belonged to the "other" racial group category (which included Southeast Asian, Filipino, West Asian, and minorities not identified elsewhere percentages ). 
 
 ```{r,summary-table}
 #| label: tbl-descriptive-stats
@@ -31,7 +31,7 @@ data_summary<-clean_data %>%
   modify_table_styling(
     columns=label,
     rows=label=="Other",
-    footnote="Southeast Asian, Filipino, West Asian, \nand minorities not identified elsewhere according to the Census."
+    footnote="This category included Southeast Asian, Filipino, and West Asian individuals, \nand minorities not identified elsewhere according to the 2016 Census."
   ) %>%
   modify_header(label = "**Variable**") %>%
   as_gt()
