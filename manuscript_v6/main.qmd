@@ -128,6 +128,8 @@ library(patchwork)
 
 This work was supported by the Fonds de recherche du Québec Scholar Program (J1 in Artificial Intelligence and Digital Health, BN), the Natural Sciences and Engineering Research Council of Canada through the Discovery Grant Program (RGPID-560523-2020, BN), the Mathematics for Public Health (MfPH) Emerging Infectious Diseases Modelling Initiative (BN, AM), and the OMNI Emerging Infectious Disease Modelling Initiative (BN).
 
+The authors thank Dr. Sarah Wilson, Medical Epidemiologist with Public Health Ontario, for her valuable comments and feedback.
+
 # Conflicts of Interest
 
 The authors declare no conflict of interest.
