@@ -78,8 +78,20 @@
 \makeatother
 
 \usepackage{booktabs}
-\usepackage{caption}
 \usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{caption}
 %start sections and page numbers with A
 \usepackage{placeins}
 \setcounter{page}{1}
@@ -177,13 +189,14 @@ Montréal, Canada}
 Publique, University of Montreal, Montréal, Canada}
 \affil[3]{Centre de recherche en santé publique, University of Montreal,
 Montréal, Canada}
-\affil[*]{Corresponding author, \url{bouchra.nasri@umontreal.ca}}
+\affil[*]{Corresponding author,
+\href{mailto:bouchra.nasri@umontreal.ca}{bouchra.nasri@umontreal.ca}}
 
 
 \date{}
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, enhanced, frame hidden, borderline west={3pt}{0pt}{shadecolor}, interior hidden, breakable, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, frame hidden, enhanced, borderline west={3pt}{0pt}{shadecolor}, interior hidden, breakable, sharp corners]}{\end{tcolorbox}}\fi
 
 \setstretch{2}
 This document provides details on assessing the socio-economic
