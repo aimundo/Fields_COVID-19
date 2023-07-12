@@ -1,5 +1,5 @@
 ---
-title: '**Differences in COVID-19 vaccination in the province of Ontario across Health Regions and socio-economic strata**'
+title: '**Socio-demographic determinants of COVID-19 vaccine uptake in Ontario: Exploring differences across the Health Region model**'
 author:
   - name: Ariel Mundo Ortiz
     affil-id: 1,2,3
@@ -11,7 +11,7 @@ affiliations:
   - id: 2
     name: Department of Social and Preventive Medicine, École de Santé Publique, University of Montreal, Montréal, Canada
   - id: 3
-    name: Centre de recherche en santé publique, University of Montreal, Montréal, Canada
+    name: Centre de recherche en santé publique, University of Montréal, Montréal, Canada
   - id: \*
     name: Corresponding author, \url{bouchra.nasri@umontreal.ca}
 format: 

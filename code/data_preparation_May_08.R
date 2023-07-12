@@ -269,6 +269,16 @@ clean_data <- clean_data%>%
 
 clean_data$Month <- fct_relevel(clean_data$Month,"October","November","December","January")
 
+clean_data<-clean_data%>%
+  mutate(Month=
+           case_when(Month=="October"~ "October 2021",
+                     Month=="November"~"November 2021",
+                     Month=="December"~"December 2021",
+                     Month=="January"~"January 2022"
+           ))%>%
+  mutate(Month=as.factor(Month))
+
+clean_data$Month <- fct_relevel(clean_data$Month,"October 2021","November 2021","December 2021","January 2022")
 
 # Remove certain Health Regions due to low number of observations: only 254 in North East
 # and North West Regions at this point, in contrast with about a thousand from each 
@@ -305,4 +315,4 @@ clean_data<- within(clean_data, Age_group_ord <- relevel(Age_group_ord, ref = "1
 clean_data<- within(clean_data, Race <- relevel(Race, ref = "White/Caucasian"))
 clean_data<- within(clean_data, Health_Region <- relevel(Health_Region, ref = "Toronto"))
 clean_data<- within(clean_data, income_ord <- relevel(income_ord, ref = "60000 and above"))
-clean_data<- within(clean_data, Month <- relevel(Month, ref = "October"))
+clean_data<- within(clean_data, Month <- relevel(Month, ref = "October 2021"))

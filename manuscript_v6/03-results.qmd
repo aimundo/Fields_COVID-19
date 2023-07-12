@@ -26,7 +26,7 @@ data_summary<-clean_data %>%
               label=list(Health_Region ~ "Health Region",
                  Age_group_ord ~ "Age Group",
                  income_ord="Income (CAD)")
-  ) %>% add_p(test = everything () ~ "chisq.test")%>%
+  ) %>%
   bold_labels() %>%
   modify_table_styling(
     columns=label,
@@ -54,7 +54,7 @@ data_summary
 #| echo: false
 #| fig-align: left
 #| fig-width: 15
-#| fig-height: 14
+#| fig-height: 17
 #| label: fig-models
 #| fig-cap: "Coefficient estimates and confidence intervals for the uncorrected model. Only statistically significant interaction terms are shown. Full interaction terms can be found in Supplementary Figures A-3 and A-4."
 
