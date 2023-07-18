@@ -1,0 +1,140 @@
+---
+title: '**Socio-demographic determinants of COVID-19 vaccine uptake in Ontario: Exploring differences across the Health Region model**'
+author:
+  - name: Ariel Mundo Ortiz
+    affil-id: 1,2,3
+  - name: Bouchra Nasri
+    affil-id: 1,2,3,\*
+affiliations:
+  - id: 1
+    name: Centre de Recherches Mathématiques, University of Montreal, Montréal, Canada
+  - id: 2
+    name: Department of Social and Preventive Medicine, École de Santé Publique, University of Montreal, Montréal, Canada
+  - id: 3
+    name: Centre de recherche en santé publique, University of Montréal, Montréal, Canada
+  - id: \*
+    name: Corresponding author, \url{bouchra.nasri@umontreal.ca}
+format: 
+  docx:
+    reference-doc: custom-reference-doc.docx
+  pdf:
+    geometry:
+      - top=20mm
+      - left=20mm
+      - right=20mm
+      - bottom=20mm
+    keep-tex: true
+    template-partials: 
+      - latex/title.tex
+    include-in-header:
+      - text: |
+         \usepackage[noblocks]{authblk}
+         \renewcommand*{\Authsep}{, }
+         \renewcommand*{\Authand}{, }
+         \renewcommand*{\Authands}{, }
+         \renewcommand\Affilfont{\small}
+      - file: latex/preamble.sty
+# authors:
+#   - name: Ariel Mundo Ortiz
+#     affiliations:
+#       - ref: crm
+#       - ref: espum
+#     email: ariel.mundo.ortiz@umontreal.ca
+#     orcid: 0000-0002-6014-4538
+#   - name: Bouchra Nasri
+#     affiliations:
+#       - ref: crm
+#       - ref: espum
+#     email: bouchra.nasri@umontreal.ca
+#     corresponding: true
+# affiliations:
+#   - id: crm
+#     name: Centre de Recherches Mathématiques, University of Montreal, Montréal, Canada
+#   - id: espum
+#     name: Department of Social and Preventive Medicine, École de Santé Publique, University of Montreal, Montréal, Canada 
+# filters:
+#   - authors-block
+# format: 
+#   pdf:
+    # include-in-header:
+    #   - text: |
+    #       \usepackage{rotfloat}
+    #   - file: latex/preamble.sty
+    # #mainfont: "Palatino Linotype"
+    # keep-tex: true
+    link-citations: true #adds links to the citations
+#linestretch: 1
+bibliography: references/refs.bib
+csl: references/jama.csl
+
+---
+
+
+# Abstract
+
+The COVID-19 pandemic continues to be a worldwide public health concern. Although vaccines against this disease were rapidly developed, vaccination uptake has not been equal across all the segments of the population. In particular, it has been shown that there have been differences in vaccine uptake across different segments of the population. However, there are also differences in vaccination across geographical areas, which might be important to consider in the development of future public health vaccination policies. In this study, we examined the relationship between vaccination status (having received the first dose of a COVID-19 vaccine), and different socio-economic and geographical factors. Our results show that between October of 2021 and January of 2022, individuals from underrepresented communities were three times less likely to be vaccinated than White/Caucasian individuals across the province of Ontario in Canada, and that in some cases, within these groups, individuals in low-income brackets had significantly higher odds of vaccination when compared to their peers in high income brackets.
+Finally, we identified significantly lower odds of vaccination in the Central, East and West Health Regions of Ontario within certain underrepresented groups. This study shows that there is an ongoing need to better understand and address differences in vaccination uptake across diverse segments of the population of Ontario that the pandemic has largely impacted.
+
+
+# Keywords {-}
+
+Covid-19, vaccination, survey, socio-economic factors, visible minorities, race and ethnicity
+
+```{r setup, message = FALSE,include=FALSE}
+#the packages needed to run the code
+
+library(weights)
+library(here)
+library(survey)
+library(magrittr)
+library(tidyverse)
+library(naniar)
+library(lme4)
+library(lubridate)
+library(grid)
+library(kableExtra)
+library(modelsummary)
+library(gtsummary)
+library(patchwork)
+```
+
+
+
+```{r} 
+#| child: 01-background.qmd
+```
+
+
+```{r} 
+#| child: 02-methods.qmd
+```
+
+
+```{r}
+#| child: 03-results.qmd
+```
+
+
+```{r}
+#| child: 04-discussion.qmd
+```
+
+
+```{r}
+#| child: 05-conclusion.qmd
+```
+
+# Acknowledgments
+
+This work was supported by the Fonds de recherche du Québec Scholar Program (J1 in Artificial Intelligence and Digital Health, BN), the Natural Sciences and Engineering Research Council of Canada through the Discovery Grant Program (RGPID-560523-2020, BN), the Mathematics for Public Health (MfPH) Emerging Infectious Diseases Modelling Initiative (BN, AM), and the OMNI Emerging Infectious Disease Modelling Initiative (BN).
+
+The authors thank Dr. Sarah Wilson, Medical Epidemiologist with Public Health Ontario, for her valuable comments and feedback.
+
+# Conflicts of Interest
+
+The authors declare no conflict of interest.
+
+# References
+
+::: {#refs}
+:::

@@ -1,0 +1,411 @@
+---
+title: '**Differences in COVID-19 vaccination in the province of Ontario across Health Regions and socio-economic strata** \\ Appendix'
+author:
+  - name: Ariel Mundo Ortiz
+    affil-id: 1,2,3
+  - name: Bouchra Nasri
+    affil-id: 1,2,3,\*
+affiliations: 
+  - id: 1
+    name: Centre de Recherches Mathématiques, University of Montreal, Montréal, Canada
+  - id: 2
+    name: Department of Social and Preventive Medicine, École de Santé Publique, University of Montreal, Montréal, Canada
+  - id: 3
+    name: Centre de recherche en santé publique, University of Montreal, Montréal, Canada
+  - id: \*
+    name: Corresponding author, \href{mailto:bouchra.nasri@umontreal.ca}{bouchra.nasri@umontreal.ca}
+format: 
+  pdf:
+    keep-tex: true
+    template-partials: 
+      - latex/title.tex
+    include-in-header:
+      - text: |
+         \usepackage[noblocks]{authblk}
+         \renewcommand*{\Authsep}{, }
+         \renewcommand*{\Authand}{, }
+         \renewcommand*{\Authands}{, }
+         \renewcommand\Affilfont{\small}
+      - file: latex/appendix_preamble.sty
+linestretch: 2
+---
+
+
+```{r, setup, echo=FALSE}
+#| warning: false
+library(tidyverse)
+library(magrittr)
+library(here)
+library(patchwork)
+library(gt)
+library(lubridate)
+library(naniar)
+library(gtsummary)
+library(modelsummary)
+library(survey)
+library(emmeans)
+library(scico)
+
+thm1<-scale_fill_scico_d(palette="buda",begin=0.3, end=0.8, direction = -1, aesthetics = "fill")
+
+thm2<-scale_fill_scico_d(palette="oleron",begin=0.0, end=1.0, direction = -1, aesthetics = "fill")
+
+thm3<-scale_fill_scico_d(palette="fes",begin=0.0, end=1.0, direction = -1, aesthetics = "fill")
+
+thm4<-scale_fill_scico_d(palette="tokyo",begin=0.3, end=0.8, direction = -1, aesthetics = c("colour","fill"))
+
+thm5<-scale_fill_scico_d(palette="imola",begin=0.3, end=0.8, direction = -1, aesthetics = c("colour","fill"))
+
+#call scripts for data preparation and regression
+source(here::here("code","data_preparation_May_08.R"))
+source(here::here("code","raking.R"))
+source(here::here("code","regression.R"))
+```
+
+This document provides details on assessing the socio-economic information from the clean survey dataset, and how it compared to the Census Data for ontario. At the end, it also provides information about the corrections implemented into the data. The variables examined were: race/ethnicity, age groups, income, and population by Health Region. The computations are performed in the `clean_dataset.csv` file that was created at the end of the data cleaning process. Population-wide totals were obtained from the 2016, available in the [Statistics Canada Website](https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/prof/details/Page.cfm?Lang=E&Geo1=PR&Code1=35&Geo2=&Code2=&Data=Count&SearchText=Ontario&Sear).
+
+# Race and Ethnicity
+
+First, we explored how the race and ethnicity information from the dataset and how it compared to the data from the Census for Ontario. The following chunk creates a summary table for the Race variable.
+
+```{r,ethnic information}
+#| echo: false
+#| warning: false
+#| tbl-cap: Ethnic information from the clean dataset
+  t6<-clean_data%>%
+    select(Race)%>%
+    group_by(Race)%>%
+    summarise(observations = n()) %>%
+  mutate(percentage = observations / sum(observations))%>%
+    gt()%>%
+      fmt_percent(
+   columns=percentage,
+    decimals=1)
+  
+t6
+```
+
+It is important to mention that the categories for race/ethnicity provided in the survey did not match the categories used in the Census. Therefore, we used a combination of sources to obtain estimates of racial/ethnic distribution that matched the categories from the survey.The data sources were:
+
+- Fact sheet from the Provice of Ontario for Visible Minorities [link](https://www.ontario.ca/document/2016-census-highlights/fact-sheet-9-ethnic-origin-and-visible-minorities): Used to obtain percentages for Arab, Black, East Asian/Pacific Islander (adding Chinese, Korean, and Japanese percentages), Latin American, Mixed (using the percentage for "multiple visible minority"), Other (obtained by adding the Southeast Asian, Filipino, West Asian, and Minority not identified elsewhere percentages), South Asian. _Accessed on January 05, 2022_
+
+- Census Profile for Ontario [link](https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/prof/details/page.cfm?Lang=E&Geo1=PR&Code1=35&Geo2=PR&Code2=01&SearchText=Ontario&SearchType=Begins&SearchPR=01&B1=Aboriginal%20peoples&TABID=1&type=1): Used to obtain percentage of Aboriginal population. _Accessed on January 05, 2022_
+
+- Wikipedia entry for Ontario demographics [link](https://en.wikipedia.org/wiki/Demographics_of_Ontario): To corroborate that the percentage of population reported as "European" in this website matched the percentage obtained for "White Caucasian" that was independently obtained by obtaining the difference in population proportion after subtracting the sum of Visible Minorities and Aboriginal Population percentages. The aggregated information can be found in in @tbl-races, where the totals per race/ethnic category are presented. 
+
+
+| Ethnicity/Race | Percentage | Population totals |
+|----------------|:-----------| :-----------------|
+| Arab           | 1.6%       | 212782    |
+| Black          | 4.7%       | 638346|
+| East Asian/Pacific Islander     | 6.6%       | 886592 |
+| Indigenous     | 2.8%       | 376558 |
+| Latin American | 1.5%       | 197020 |
+| Mixed          | 1.0%       | 130033 |
+| Other          | 5.2%       | 705333 |
+| South Asian    | 8.7%       | 1166361 |
+| White Caucasian| 67.8%      | 9118079 |
+| **Total**      | 99.9%      | 13431105 |
+: Reference Data from the 2016 Census from Race/Ethnicity in Ontario {#tbl-races}
+
+Visible Minorities: 29.3%
+Not a Visible Minority: 70.7% (Aboriginal 2.8%, White Caucasian 67.8%)
+
+It can be seen that there are differences in the distribution of each ethnicity between the Census data and the survey. For example, Arabs/Middle Easterner correspond to 5.9% of the survey responses, but population-wise individuals that identify in this ethnic group correspond to 1.6% of the Ontario population.
+
+# Age Groups
+
+According to the Census, the distribution of the different the age groups for the province of Ontario are as follows:
+
+| Group age   | Percentage               | Population Totals |
+|-------------|:-------------------------|:------------------|
+| 15-24       | 12.7%                    | 1707959           |
+| 25-34       | 12.9%                    | 1734856           |
+| 35-44       | 12.8%                    | 1721407           |
+| 45-54       | 14.9%                    | 2003826           |
+| 55-64       | 13.7%                    | 1842444           |
+| 65 and over | 16.7%                    |2245898            |
+: Age distributions from the 2016 Census for Ontario
+
+To compare the survey data to the Census, the next chunk creates a barplot of the age groups in the survey. Here, it can be noticed that the age-group distribution from the survey data is different from the Census data.
+
+```{r,trends-by-age}
+#| echo: false
+#| warning: false
+#| fig-height: 4
+#| fig-width: 8
+#| fig-cap: Age group distributions from the dataset
+
+p2<-clean_data%>%
+  select(age_group)%>%
+   mutate(age_group_ord = fct_relevel(age_group,
+                                      "16_24",
+                                      "25_34",
+                                      "35_44",
+                                      "45_54",
+                                      "55_64",
+                                  "65_and_over"
+                                          ))
+
+  ggplot(p2%>%count(age_group_ord) %>%    # G count number in each group
+         mutate(pct=n/sum(n),               # Calculate percent within each group
+                ypos = 200),  # Calculate label positions
+       aes(age_group_ord, n, fill=age_group_ord)) +
+  geom_bar(stat="identity") +
+    xlab("Age group")+
+  geom_text(aes(label=paste0(sprintf("%1.1f", pct*100),"%"), y=ypos))+
+  theme_classic()+
+  thm1
+
+
+
+```
+
+
+# Income
+
+Survey respondents answered the question "What is your household annual income?". To compare the distribution of responses to this question from the survey and the Census data, we used the "Household total income groups in 2015 for private households" from the Census data (available in the Census Data for Ontario website [link](https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/prof/details/page.cfm?Lang=E&Geo1=PR&Code1=35&Geo2=PR&Code2=01&SearchText=Ontario&SearchType=Begins&SearchPR=01&B1=Income&TABID=1&type=1)). 
+
+| Household income range (CAD) | Percentage | Population Totals |
+|------------------------------|:-----------|:------------------|
+| \< 15,000                    | 5.7%       | 294643            |
+| 15,000 - 24,999              | 7.5%       | 387688            |
+| 25,000 - 39,999              | 11.6%      | 599624            |
+| 40,000- 59,999               | 15.4%      | 796052            |
+| 60,000 - 89,999              | 19.5%      | 1007988           |
+| \>90,000                     | 40.3%      | 2083176           |
+
+: Income percentages from the 2016 Census for Ontario
+
+One difference that is noticeable is that the brackets for income in the census data are different than the brackets used in the survey. The census does CAD 4,999 brackets (e.g., CAD 5,000- CAD 9,9999) up to CAD 49,999, followed by CAD 9,999 brackets up to CAD 99,999. After that, the brackets increase to CAD 24,999, and therefore, it is not possible to obtain percentages for the 90,000-109,999 and \>110,000 brackets from the survey.
+
+Therefore, in the following code chunk, we created an additional category for income in the dataset that matched the information from the Census, and barplots to visualize the proportion of each income bracket in the dataset.
+
+```{r,income}
+#| echo: false
+#| warning: false
+#| fig-height: 4
+#| fig-width: 8
+#| fig-cap: Income bracket distribution in the dataset
+
+
+clean_data<-clean_data%>%
+    mutate(income_ord_a = case_when(
+                                  income %in% "90000_109999" ~ "over_90000",
+                                  income %in%"over_110000" ~ "over_90000",
+                                  TRUE ~ as.character(income)
+                                ))%>%
+  mutate(income_ord_a=as.factor(income_ord_a))
+
+
+
+
+p3<-clean_data%>%
+  mutate(income_ord_a = fct_relevel(income_ord_a,
+                                  "under_15000",
+                                  "15000_24999",
+                                  "25000_39999",
+                                  "40000_59999",
+                                  "60000_89999",
+                                  "over_90000"
+                                ))
+
+
+ggplot(p3%>% count(income_ord_a)%>%  # count number in each group
+         mutate(pct=n/sum(n),               # Calculate percent within each group
+                ypos = 200),  # Calculate label positions
+       aes(income_ord_a, n, fill=income_ord_a)) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label=paste0(sprintf("%1.1f", pct*100),"%"), y=ypos))+
+  xlab("Income")+
+  theme(legend.title = element_blank())+
+  theme_classic()+
+  thm2
+
+
+```
+
+We identified differences again between the survey data and the Census data. For example, the \<15,000 bracket accounts for about 24% of the responses, a much higher rate than the proportion from the Census (5.7\%). The other brackets were different as well from the Census data.
+
+# Health Regions Population
+
+Finally, we obtained population totals for each of the Health Regions included in the dataset from the Ontario Health Business Plan for 2022-2023 (available [here](https://www.ontariohealth.ca/sites/ontariohealth/files/2022-05/OHBusinessPlan22_23.pdf)). The population totals are presented in @tbl-health-regions.
+
+| Health Region | Population Totals |
+|---------------|:------------------|
+| North East    | 232299            |
+| North West    |557000             |
+| West          |4095589            |
+| East          |3742520            |
+| Central       |5032410            | 
+| Toronto       |1440644            |
+
+: Population Totals for the Health Regions in Ontario {#tbl-health-regions}
+
+Note that as indicated in the paper, we excluded observations from the North East and North West Health Regions, and therefore, the population totals for these areas were not used in the final analysis.
+
+# Corrections
+
+We used the iterative proportional fitting procedure (_raking_) in order to account for the differences in income, age groups, race/ethnicity and the population from the Health Regions. Details of the implementation can be found in the R Script `raking.R` in the `code` directory.
+
+# Complete Model Estimates
+
+The figures below present the complete estimates from the regression models.
+
+```{r,mod-uncorr-appendix}
+#| message: false
+#| warning: false
+#| echo: false
+#| fig-align: left
+#| fig-width: 7
+#| fig-height: 9
+#| label: fig-model-uncorr-appendix
+#| fig-cap: "Full coefficient estimates and confidence intervals for the uncorrected model."
+
+
+#create dataframe from modelplot, remove names of factors, drop the intercept
+
+mplot1<-modelplot(m0,draw=FALSE,
+                  coef_omit = "Intercept", exponentiate = TRUE) %>%
+  mutate(term=str_remove_all(term,"Race|Age_group_ord|Month|Health_Region|income_ord"))
+
+#add column by factor 
+mplot1$factor<-c(rep("Age",2),
+                 rep("Month",3),
+                 rep("Income",2),
+                 rep("Race/Ethnicity",8),
+                 rep("Health Region",3),
+                 rep("Income and\nRace/Ethnicity",16),
+                 rep("Race/Ethnicity\nand\nHealth Region",24)
+                 )
+
+#order factors for plot
+#mplot1$term_ord <- factor(mplot1$term,ordered=TRUE,levels=mplot1$term)
+
+mplot1$factor <- factor(mplot1$factor,ordered=TRUE,levels=c("Age","Month","Income","Race/Ethnicity","Health Region","Income and\nRace/Ethnicity","Race/Ethnicity\nand\nHealth Region"))
+
+#remove non-interaction terms
+
+mplot1<-mplot1%>%
+ subset(str_detect(term,':'))
+
+#remove non-significant interactions from dataframe
+#mplot1<-anti_join(mplot1,test)
+
+mplot1<-mplot1%>%
+mutate(term=str_replace_all(term,':'," and "))
+
+#make plot
+mplot1 %>% 
+ggplot(aes(y=term))+
+  geom_vline(xintercept = 1, linetype="dashed",color="red") +
+  geom_point(aes(x=estimate),size=2)+
+  geom_linerange(aes(xmin=conf.low,xmax=conf.high))+
+  scale_y_discrete(limits=rev)+
+  xlab("")+
+  ylab("")+
+  facet_wrap(~factor,ncol=1,strip.position = "right",scales = "free_y",labeller = label_wrap_gen(multi_line = TRUE))+
+  theme_classic()
+```
+
+\FloatBarrier
+
+```{r,model-corr-appendix}
+#| message: false
+#| warning: false
+#| echo: false
+#| fig-align: left
+#| fig-width: 7
+#| fig-height: 9
+#| label: fig-model-corr-appendix
+#| fig-cap: "Full coefficient estimates and confidence intervals for the corrected model."
+
+#create dataframe from modelplot, remove names of factors, drop the intercept
+
+mplot2<-modelplot(m2,draw=FALSE,coef_omit = "Intercept",exponentiate = TRUE) %>%
+  mutate(term=str_remove_all(term,"Race|Age_group_ord|Month|Health_Region|income_ord"))
+
+#add column by factor 
+mplot2$factor<-c(rep("Age",2),
+                 rep("Month",3),
+                 rep("Income",2),
+                 rep("Race/Ethnicity",8),
+                 rep("Health Region",3),
+                 rep("Income and\nRace/Ethnicity",16),
+                 rep("Race/Ethnicity\nand\nHealth Region",24)
+                 )
+
+#order factors for plot
+#mplot2$term_ord <- factor(mplot2$term,ordered=TRUE,levels=mplot2$term)
+
+mplot2$factor <- factor(mplot2$factor,ordered=TRUE,levels=c("Age","Month","Income","Race/Ethnicity","Health Region","Income and\nRace/Ethnicity","Race/Ethnicity\nand\nHealth Region"))
+
+#remove non-interaction terms
+
+mplot2<-mplot2%>%
+ subset(str_detect(term,':'))
+
+mplot2<-mplot2%>%
+mutate(term=str_replace_all(term,':'," and "))
+
+
+mplot2 %>% 
+ggplot(aes(y=term))+
+  geom_vline(xintercept = 1, linetype="dashed",color="red") +
+  geom_point(aes(x=estimate),size=2)+
+  geom_linerange(aes(xmin=conf.low,xmax=conf.high))+
+  scale_y_discrete(limits=rev)+
+  xlab("")+
+  ylab("")+
+  facet_wrap(~factor,ncol=1,strip.position = "right",scales = "free_y")+
+  theme_classic()
+```
+
+\FloatBarrier
+
+# Interactions from the Regression Model
+
+The plots below show the interactions for Race and Income and Race and Health Region based on the corrected regression model presented in the main paper.
+
+```{r,interaction-race-income}
+#| echo: false
+#| warning: false
+#| fig-height: 4
+#| fig-width: 6
+#| fig-cap: Estimated marginal means for the interaction between Race and Income in the regression model.
+
+race_income<-emmip(m2, Race ~ income_ord, CIs=TRUE,plotit = FALSE, type="response")
+
+ggplot(data=race_income,aes(x=income_ord,group=Race,color=Race,fill=Race))+
+  geom_ribbon(aes(ymin=LCL,ymax=UCL),alpha=0.5,show.legend = FALSE)+
+  geom_line(aes(group=Race,y=yvar),show.legend = FALSE)+
+  facet_wrap(~Race)+
+  ylab("Linear predictor")+
+  xlab("Income")+
+  theme_classic()+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  thm5
+```
+
+
+```{r,interaction-race-hr}
+#| echo: false
+#| warning: false
+#| fig-height: 4
+#| fig-width: 6
+#| fig-cap: Estimated marginal means for the interaction between Race and Health Region in the regression model.
+
+race_hr<-emmip(m2, Race ~ Health_Region, CIs=TRUE,plotit = FALSE, type="response")
+
+ggplot(data=race_hr,aes(x=Health_Region,group=Race,color=Race,fill=Race))+
+  geom_ribbon(aes(ymin=LCL,ymax=UCL),alpha=0.5,show.legend = FALSE)+
+  geom_line(aes(group=Race,y=yvar),show.legend = FALSE)+
+  facet_wrap(~Race)+
+  #ylab("Linear predictor")+
+  xlab("Health Region")+
+  theme_classic()+
+  thm4
+
+```
+
+

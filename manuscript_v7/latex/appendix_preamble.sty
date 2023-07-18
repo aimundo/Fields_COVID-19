@@ -1,0 +1,9 @@
+%start sections and page numbers with A
+\usepackage{placeins}
+\setcounter{page}{1}
+\renewcommand\thesection{A}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+\renewcommand{\thepage}{A-\arabic{page}}
+\renewcommand{\thetable}{A-\arabic{table}}
+\renewcommand\thefigure{\thesection-\arabic{figure}}
+
