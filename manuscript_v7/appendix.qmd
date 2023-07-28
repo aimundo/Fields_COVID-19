@@ -16,6 +16,11 @@ affiliations:
     name: Corresponding author, \href{mailto:bouchra.nasri@umontreal.ca}{bouchra.nasri@umontreal.ca}
 format: 
   pdf:
+    geometry:
+      - top=20mm
+      - left=20mm
+      - right=20mm
+      - bottom=20mm
     keep-tex: true
     template-partials: 
       - latex/title.tex
@@ -27,7 +32,7 @@ format:
          \renewcommand*{\Authands}{, }
          \renewcommand\Affilfont{\small}
       - file: latex/appendix_preamble.sty
-linestretch: 2
+#linestretch: 2
 ---
 
 
